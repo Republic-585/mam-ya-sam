@@ -198,6 +198,33 @@ textarea:focus-visible{
   font-size:clamp(1.4rem,3.5vw,2.4rem);
   text-transform:uppercase;
 }
+.hero__badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 20px;
+  border:2px solid var(--ink);
+  border-radius:999px;
+  background:var(--paper);
+  color:var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  font-size:clamp(.82rem,2vw,1rem);
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  transform:rotate(-1.5deg);
+}
+.hero__badge::before{
+  content:'∑';
+  display:grid;
+  place-items:center;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:var(--yellow);
+  font-size:1.1rem;
+  line-height:1;
+}
 
 @media(max-width: 640px){
   .hero__bg{
@@ -822,6 +849,7 @@ textarea:focus-visible{
       <div class="hero__content">
         <h1>Концепт-курс <br> <span>финансовая грамотность</span></h1>
         <div class="hero__sub">для школьников</div>
+        <div class="hero__badge">на основе математики</div>
       </div>
 
     </div>
