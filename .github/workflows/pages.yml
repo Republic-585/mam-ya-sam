@@ -23,11 +23,11 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Check site entrypoint
-        run: test -f index.html
+        run: test -s index.html
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: index.html
   deploy:
     environment:
       name: github-pages
