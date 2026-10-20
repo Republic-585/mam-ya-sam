@@ -250,6 +250,14 @@ textarea:focus-visible{
   letter-spacing:.01em;
   margin-bottom:16px;
 }
+.problems__bulb{
+  display:inline-block;
+  font-size:1.3em;
+  line-height:1;
+  vertical-align:middle;
+  margin-right:4px;
+  transform:translateY(-4px) rotate(-12deg);
+}
 .problems__recs-list{
   list-style:none;
   display:flex;
@@ -848,12 +856,11 @@ textarea:focus-visible{
 
       <!-- Рекомендации -->
       <div class="problems__recs">
-        <h3 class="problems__recs-title">💡 С чего начать уже сегодня</h3>
+        <h3 class="problems__recs-title"><span class="problems__bulb" aria-hidden="true">💡</span> С чего начать уже сегодня</h3>
         <ul class="problems__recs-list">
           <li>Считай расходы за неделю — 5 минут в день, и картина станет ясной.</li>
           <li>Заведи 3 конверта: накопления, текущие траты, подарки.</li>
           <li>Сравнивай цены в 3 магазинах перед покупкой — сэкономишь до 30%.</li>
-          <li>Учись говорить «нет» на «скинуться» — это не жадность, а границы.</li>
           <li>Составляй список покупок и не ходи в магазин голодным.</li>
         </ul>
       </div>
