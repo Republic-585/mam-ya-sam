@@ -21,6 +21,7 @@ jobs:
         github.event.comment.author_association == 'OWNER'
       )
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: write
       issues: write
@@ -33,6 +34,7 @@ jobs:
           persist-credentials: false
 
       - name: Run OpenCode
+        timeout-minutes: 4
         uses: anomalyco/opencode/github@latest
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
