@@ -1474,10 +1474,12 @@ textarea:focus-visible{
         window.location.href = result.telegramUrl;
         return;
       }
-      status.dataset.state = result.telegramUrl ? 'success' : 'error';
-      status.textContent = result.telegramUrl
+      status.dataset.state = telegramUrl ? 'success' : 'error';
+      status.textContent = telegramUrl
         ? 'Заявка принята! Сейчас откроется Telegram-бот для следующего шага.'
-        : 'Заявка сохранена, но ссылка на Telegram пока не сформирована. Попробуйте позже или свяжитесь с нами.';
+        : result.telegramUrl
+          ? 'Заявка сохранена, но ссылка на Telegram некорректна. Свяжитесь с нами для продолжения.'
+          : 'Заявка сохранена, но ссылка на Telegram пока не сформирована. Попробуйте позже или свяжитесь с нами.';
       if (telegramUrl) window.location.href = telegramUrl;
       const keepPlan = chosenPlan;
       form.reset();
