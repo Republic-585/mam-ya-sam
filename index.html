@@ -769,6 +769,14 @@ textarea:focus-visible{
 .form__consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--muted);font-weight:500}
 .form__consent input{width:20px;height:20px;flex-shrink:0;accent-color:var(--pink)}
 .form .btn{width:100%;margin-top:6px;background:var(--ink);color:var(--paper)}
+.form .btn:disabled{opacity:.7;cursor:wait;transform:none;box-shadow:var(--shadow-sm)}
+.form__status{max-width:620px;margin:18px auto 0;padding:14px 18px;border:var(--border);border-radius:12px;background:var(--paper);font-weight:700;text-align:center}
+.form__status:empty{display:none}
+.form__status[data-state="success"]{background:var(--green)}
+.form__status[data-state="error"]{background:#fff}
+
+/* Anti-spam field: visually hidden from people, still present in the form */
+.form__trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
 
 /* ---------- FOOTER ---------- */
 .footer{background:var(--ink);color:rgba(255,251,240,.75);padding:40px 0;border-top:var(--border)}
@@ -1217,6 +1225,10 @@ textarea:focus-visible{
       <h2>Запишись сейчас</h2>
       <p class="signup__lead">Стань частью фокус-группы</p>
       <form class="form" id="signupForm" novalidate>
+        <div class="form__trap" aria-hidden="true">
+          <label for="website">Не заполняй это поле</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
         <div class="form__row">
           <label for="name">Имя *</label>
           <input id="name" name="name" type="text" placeholder="Твоё имя" required autocomplete="given-name">
@@ -1234,11 +1246,12 @@ textarea:focus-visible{
           <textarea id="comment" name="comment" placeholder="Что хочешь узнать или спросить?"></textarea>
         </div>
         <label class="form__consent">
-          <input type="checkbox" required>
+          <input id="consent" name="consent" type="checkbox" required>
           <span>Нажимая кнопку, ты соглашаешься на обработку персональных данных</span>
         </label>
         <button class="btn" type="submit">Я с вами!</button>
       </form>
+      <p class="form__status" id="signupStatus" role="status" aria-live="polite"></p>
     </div>
   </section>
 
@@ -1273,20 +1286,75 @@ textarea:focus-visible{
 
 // Видео встроено через iframe Muuvee.
 
-// ---------- Signup form ----------
+// ---------- Signup form -> Supabase ----------
 (function () {
   const form = document.getElementById('signupForm');
-  if (!form) return;
-  form.addEventListener('submit', function (e) {
+  const status = document.getElementById('signupStatus');
+  if (!form || !status) return;
+
+  const endpoint = 'https://hvhtbjrecbxlfwmbmaej.supabase.co/functions/v1/signup-request';
+  const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
+  const startedAt = Date.now();
+
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
+
     const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn ? btn.textContent : 'Я с вами!';
     if (btn) {
-      btn.textContent = 'Готово! Я с вами ✓';
       btn.disabled = true;
+      btn.textContent = 'Отправляем…';
+    }
+    status.textContent = '';
+    status.removeAttribute('data-state');
+
+    const payload = {
+      name: form.elements.name.value,
+      phone: form.elements.phone.value,
+      email: form.elements.email.value,
+      comment: form.elements.comment.value,
+      consent: form.elements.consent.checked,
+      website: form.elements.website.value,
+      startedAt
+    };
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': publishableKey,
+          'Authorization': 'Bearer ' + publishableKey
+        },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) {
+        if (response.status === 400) {
+          throw new Error(result.error === 'please_wait'
+            ? 'Подожди пару секунд и отправь форму ещё раз.'
+            : 'Проверь имя, email и согласие на обработку данных.');
+        }
+        throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
+      }
+
+      status.dataset.state = 'success';
+      status.textContent = 'Заявка отправлена! Мы свяжемся с тобой.';
+      form.reset();
+      if (btn) btn.textContent = 'Отправлено ✓';
+    } catch (error) {
+      status.dataset.state = 'error';
+      status.textContent = error instanceof Error
+        ? error.message
+        : 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
     }
   });
 })();
