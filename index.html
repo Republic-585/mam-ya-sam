@@ -1343,7 +1343,7 @@ textarea:focus-visible{
       }
 
       status.dataset.state = 'success';
-      status.textContent = 'Заявка отправлена! Мы свяжемся с тобой.';
+      status.textContent = 'Заявка отправлена! Номер заявки: ' + String(result.requestId || '') + '. Мы свяжемся с тобой.';
       form.reset();
       if (btn) btn.textContent = 'Отправлено ✓';
     } catch (error) {
