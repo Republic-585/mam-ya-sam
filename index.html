@@ -1400,6 +1400,17 @@ textarea:focus-visible{
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
   const startedAt = Date.now();
 
+  function safeTelegramUrl(value) {
+    if (typeof value !== 'string' || !value.trim()) return null;
+    try {
+      const url = new URL(value);
+      if (url.protocol !== 'https:' || !['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
+      return url.href;
+    } catch (_) {
+      return null;
+    }
+  }
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (!form.checkValidity()) {
@@ -1448,7 +1459,12 @@ textarea:focus-visible{
       }
 
       const chosenPlan = form.elements.selectedPlan.value;
-      if (chosenPlan === 'trial_7d' && result.telegramUrl) {
+      const telegramUrl = result.telegramUrl ? safeTelegramUrl(result.telegramUrl) : null;
+      if (result.telegramUrl && !telegramUrl) {
+        status.dataset.state = 'error';
+        status.textContent = 'Заявка сохранена, но ссылка на Telegram некорректна. Свяжитесь с нами для продолжения.';
+      }
+      if (chosenPlan === 'trial_7d' && telegramUrl) {
         status.dataset.state = 'success';
         status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 7 дней.';
         if (btn) btn.textContent = 'Открываем Telegram…';
@@ -1462,12 +1478,12 @@ textarea:focus-visible{
       status.textContent = result.telegramUrl
         ? 'Заявка принята! Сейчас откроется Telegram-бот для следующего шага.'
         : 'Заявка сохранена, но ссылка на Telegram пока не сформирована. Попробуйте позже или свяжитесь с нами.';
-      if (result.telegramUrl) window.location.href = result.telegramUrl;
+      if (telegramUrl) window.location.href = telegramUrl;
       const keepPlan = chosenPlan;
       form.reset();
       const hiddenPlan = document.getElementById('selectedPlan');
       if (hiddenPlan) hiddenPlan.value = keepPlan;
-      if (btn) btn.textContent = result.telegramUrl ? 'Открываем Telegram…' : originalText;
+      if (btn) {\n        btn.textContent = telegramUrl ? 'Открываем Telegram…' : originalText;\n        btn.disabled = false;\n      }
     } catch (error) {
       status.dataset.state = 'error';
       status.textContent = error instanceof Error
