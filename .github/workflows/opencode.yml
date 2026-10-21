@@ -16,11 +16,12 @@ jobs:
   opencode:
     if: |
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.comment.body, '/oc') ||
-      contains(github.event.comment.body, '/opencode')
+      (
+        (contains(github.event.comment.body, '/oc') || contains(github.event.comment.body, '/opencode')) &&
+        github.event.comment.author_association == 'OWNER'
+      )
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: write
       issues: write
       pull-requests: write
@@ -35,6 +36,8 @@ jobs:
         uses: anomalyco/opencode/github@latest
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           model: opencode/deepseek-v4.1-flash-free
+          use_github_token: true
           prompt: ${{ github.event_name == 'workflow_dispatch' && inputs.prompt || '' }}
