@@ -677,8 +677,26 @@ textarea:focus-visible{
 .price{
   background:#fff;border:var(--border);border-radius:var(--radius);box-shadow:var(--shadow);
   padding:34px 28px;display:flex;flex-direction:column;gap:20px;position:relative;
-  transition: transform 0.2s ease;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
 }
+.price.is-selected{
+  border:4px solid var(--ink);
+  padding:33px 27px;
+  box-shadow:10px 10px 0 var(--green);
+  transform:translate(-3px,-3px);
+}
+.price.is-selected::after{
+  content:'✓ ВЫБРАНО';
+  position:absolute;top:-15px;right:16px;
+  background:var(--green);color:var(--ink);border:3px solid var(--ink);
+  border-radius:999px;padding:7px 13px;font-family:'Unbounded',sans-serif;
+  font-size:.68rem;font-weight:800;letter-spacing:.04em;
+}
+.price .plan-select{transition:background .18s ease,color .18s ease,transform .18s ease}
+.price.is-selected .plan-select{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--green)}
+.price.is-selected .plan-select::after{content:' ✓';font-weight:900}
+.price .plan-select:focus-visible{outline:4px solid var(--pink);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.price,.price .plan-select{transition:none}}
 .price:hover {
   transform: translateY(-5px);
 }
@@ -714,6 +732,16 @@ textarea:focus-visible{
 .price li{display:flex;gap:10px;font-weight:600;font-size:.95rem; line-height: 1.3;}
 .price li::before{content:'✓';color:var(--ink);font-weight:900}
 .price .btn{margin-top:auto;width:100%;}
+.selected-plan-summary{
+  max-width:620px;margin:0 auto 24px;padding:18px 22px;
+  display:flex;flex-direction:column;gap:5px;
+  background:var(--green);border:3px solid var(--ink);border-radius:16px;
+  box-shadow:6px 6px 0 var(--ink);text-align:center;
+}
+.selected-plan-summary__label{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.selected-plan-summary strong{font-family:'Unbounded',sans-serif;font-size:1rem}
+.selected-plan-summary span:last-child{font-weight:600;font-size:.92rem}
+@media(max-width:640px){.selected-plan-summary{padding:16px}.price.is-selected{transform:none}}
 
 @media(max-width: 960px){
   .pricing__grid{
@@ -1151,7 +1179,7 @@ textarea:focus-visible{
       <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 7 дней бесплатно.</p>
       <div class="pricing__grid">
 
-        <div class="price price--trial">
+        <div class="price price--trial is-selected" data-plan-card="trial_7d" aria-current="true">
           <span class="price__tag">Начни без риска</span>
           <div class="price__title">Пробный доступ</div>
           <div class="price__amount">0 ₽<small>первые 7 дней</small></div>
@@ -1161,10 +1189,23 @@ textarea:focus-visible{
             <li>Без обязательства покупать подписку</li>
             <li>Без автоматического списания денег</li>
           </ul>
-          <a class="btn btn--purple plan-select" data-plan="trial_7d" href="#signup">Попробовать бесплатно</a>
+          <a class="btn btn--purple plan-select" data-plan="trial_7d" href="#signup" aria-pressed="true">Попробовать бесплатно</a>
         </div>
 
-        <div class="price price--popular">
+        <div class="price price--monthly" data-plan-card="monthly">
+          <span class="price__tag">Гибкий формат</span>
+          <div class="price__title">1 месяц</div>
+          <div class="price__amount">490 ₽<small>за месяц</small></div>
+          <ul>
+            <li>Библиотека видеоуроков и заданий</li>
+            <li>Еженедельные групповые трансляции</li>
+            <li>Регулярные групповые встречи</li>
+            <li>Челленджи и поддержка сообщества</li>
+          </ul>
+          <a class="btn plan-select" data-plan="monthly" href="#signup" aria-pressed="false">Выбрать тариф</a>
+        </div>
+
+        <div class="price price--popular" data-plan-card="quarterly">
           <span class="price__tag price__tag--hit">🔥 Рекомендуем</span>
           <div class="price__title">3 месяца</div>
           <div class="price__amount">1 290 ₽<small>430 ₽ в месяц</small></div>
@@ -1174,10 +1215,10 @@ textarea:focus-visible{
             <li>Регулярные групповые встречи</li>
             <li>Челленджи и поддержка сообщества</li>
           </ul>
-          <a class="btn plan-select" data-plan="quarterly" href="#signup">Выбрать тариф</a>
+          <a class="btn plan-select" data-plan="quarterly" href="#signup" aria-pressed="false">Выбрать тариф</a>
         </div>
 
-        <div class="price price--vip">
+        <div class="price price--vip" data-plan-card="annual">
           <span class="price__tag">Выгоднее на год</span>
           <div class="price__title">12 месяцев</div>
           <div class="price__amount">4 490 ₽<small>около 374 ₽ в месяц</small></div>
@@ -1187,7 +1228,7 @@ textarea:focus-visible{
             <li>Регулярные групповые встречи</li>
             <li>Доступ к материалам на весь срок</li>
           </ul>
-          <a class="btn btn--yellow plan-select" data-plan="annual" href="#signup">Выбрать тариф</a>
+          <a class="btn btn--yellow plan-select" data-plan="annual" href="#signup" aria-pressed="false">Выбрать тариф</a>
         </div>
 
       </div>
@@ -1232,6 +1273,11 @@ textarea:focus-visible{
     <div class="wrap">
       <h2>Начни с бесплатных 7 дней</h2>
       <p class="signup__lead">Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.</p>
+      <div class="selected-plan-summary" id="selectedPlanSummary" role="status" aria-live="polite">
+        <span class="selected-plan-summary__label">Твой выбор</span>
+        <strong id="selectedPlanName">Пробный доступ — 7 дней бесплатно</strong>
+        <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
+      </div>
       <form class="form" id="signupForm" novalidate>
         <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_7d">
         <div class="form__trap" aria-hidden="true">
@@ -1295,23 +1341,53 @@ textarea:focus-visible{
 
 // Видео встроено через iframe Muuvee.
 
-// ---------- Выбор тарифа и заявка на пробный доступ ---------- 
+// ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
   const heading = document.querySelector('.signup h2');
   const lead = document.querySelector('.signup__lead');
   const submit = document.querySelector('#signupForm button[type="submit"]');
+  const selectedName = document.getElementById('selectedPlanName');
+  const selectedPrice = document.getElementById('selectedPlanPrice');
+  const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
+  const details = {
+    trial_7d: {name:'Пробный доступ — 7 дней бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 7 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
+    monthly: {name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
+    quarterly: {name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
+    annual: {name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
+  };
+  function choose(plan, scroll) {
+    const item = details[plan] || details.trial_7d;
+    if (selected) selected.value = plan;
+    cards.forEach(function (card) {
+      const active = card.dataset.planCard === plan;
+      card.classList.toggle('is-selected', active);
+      if (active) card.setAttribute('aria-current', 'true');
+      else card.removeAttribute('aria-current');
+      card.querySelectorAll('.plan-select').forEach(function (button) {
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        button.textContent = active
+          ? (plan === 'trial_7d' ? '✓ Выбран · попробовать бесплатно' : '✓ Тариф выбран')
+          : (button.dataset.plan === 'trial_7d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
+      });
+    });
+    if (heading) heading.textContent = item.heading;
+    if (lead) lead.textContent = item.lead;
+    if (submit) submit.textContent = item.button;
+    if (selectedName) selectedName.textContent = item.name;
+    if (selectedPrice) selectedPrice.textContent = item.price;
+    if (scroll) {
+      const target = document.getElementById('signup');
+      if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
   document.querySelectorAll('.plan-select').forEach(function (link) {
-    link.addEventListener('click', function () {
-      const plan = this.dataset.plan || 'trial_7d';
-      if (selected) selected.value = plan;
-      if (heading) heading.textContent = plan === 'trial_7d' ? 'Начни с бесплатных 7 дней' : 'Заявка на выбранный тариф';
-      if (lead) lead.textContent = plan === 'trial_7d'
-        ? 'Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ.'
-        : 'Мы свяжемся с родителем, ответим на вопросы и сообщим, когда станет доступна оплата.';
-      if (submit) submit.textContent = plan === 'trial_7d' ? 'Запросить бесплатный доступ' : 'Запросить информацию о тарифе';
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      choose(this.dataset.plan || 'trial_7d', true);
     });
   });
+  choose(selected && details[selected.value] ? selected.value : 'trial_7d', false);
 })();
 
 // ---------- Signup form -> Supabase ----------
@@ -1372,8 +1448,13 @@ textarea:focus-visible{
       }
 
       status.dataset.state = 'success';
-      status.textContent = 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Мы свяжемся с родителем для подтверждения доступа.';
+      status.textContent = form.elements.selectedPlan.value === 'trial_7d'
+        ? 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Пробный доступ ещё не активирован: мы свяжемся с родителем для подтверждения.'
+        : 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Мы свяжемся с родителем по выбранному тарифу.';
+      const chosenPlan = form.elements.selectedPlan.value;
       form.reset();
+      const hiddenPlan = document.getElementById('selectedPlan');
+      if (hiddenPlan) hiddenPlan.value = chosenPlan;
       if (btn) btn.textContent = 'Отправлено ✓';
     } catch (error) {
       status.dataset.state = 'error';
