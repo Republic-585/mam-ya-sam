@@ -665,6 +665,9 @@ textarea:focus-visible{
 /* ---------- PRICING ---------- */
 .pricing h2{font-size:clamp(1.8rem,5vw,3rem);text-transform:uppercase;text-align:center;margin-bottom:54px}
 .pricing h2 mark{background:var(--yellow);padding:0 .18em;border-radius:10px;box-decoration-break: clone; -webkit-box-decoration-break: clone;}
+.pricing__note{max-width:760px;margin:-30px auto 36px;text-align:center;font-weight:600;color:var(--muted)}
+.price--trial{background:var(--green)}
+@media(max-width:640px){.pricing__note{margin:-26px auto 30px;font-size:.95rem}}
 .pricing__grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -1145,41 +1148,46 @@ textarea:focus-visible{
   <section class="pricing" id="pricing">
     <div class="wrap">
       <h2>Выбери свой <mark>формат</mark></h2>
+      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 7 дней бесплатно.</p>
       <div class="pricing__grid">
 
-        <div class="price">
-          <span class="price__tag">Старт</span>
-          <div class="price__title">Пробный</div>
-          <div class="price__amount">190 ₽<small>в месяц</small></div>
+        <div class="price price--trial">
+          <span class="price__tag">Начни без риска</span>
+          <div class="price__title">Пробный доступ</div>
+          <div class="price__amount">0 ₽<small>первые 7 дней</small></div>
           <ul>
-            <li>Доступ к видео и практикумам</li>
-            <li>Общий чат с единомышленниками</li>
+            <li>Стартовые видеоуроки и задания</li>
+            <li>Знакомство с форматом и сообществом</li>
+            <li>Без обязательства покупать подписку</li>
+            <li>Без автоматического списания денег</li>
           </ul>
-          <a class="btn btn--purple" href="#signup">Попробовать</a>
+          <a class="btn btn--purple plan-select" data-plan="trial_7d" href="#signup">Попробовать бесплатно</a>
         </div>
 
         <div class="price price--popular">
-          <span class="price__tag price__tag--hit">🔥 Выбор большинства</span>
-          <div class="price__title">Полный курс</div>
-          <div class="price__amount">1490 ₽<small>разовая покупка</small></div>
+          <span class="price__tag price__tag--hit">🔥 Рекомендуем</span>
+          <div class="price__title">3 месяца</div>
+          <div class="price__amount">1 290 ₽<small>430 ₽ в месяц</small></div>
           <ul>
-            <li>Все видео и задания</li>
-            <li>Челленджи и обратная связь</li>
-            <li>Доступ на 1 год</li>
+            <li>Библиотека видеоуроков и заданий</li>
+            <li>Еженедельные групповые трансляции</li>
+            <li>Регулярные групповые встречи</li>
+            <li>Челленджи и поддержка сообщества</li>
           </ul>
-          <a class="btn" href="#signup">Записаться</a>
+          <a class="btn plan-select" data-plan="quarterly" href="#signup">Выбрать тариф</a>
         </div>
 
         <div class="price price--vip">
-          <span class="price__tag">VIP</span>
-          <div class="price__title">BOSS</div>
-          <div class="price__amount">4990 ₽<small>навсегда</small></div>
+          <span class="price__tag">Выгоднее на год</span>
+          <div class="price__title">12 месяцев</div>
+          <div class="price__amount">4 490 ₽<small>около 374 ₽ в месяц</small></div>
           <ul>
-            <li>Всё из полного курса</li>
-            <li>Пожизненный доступ</li>
-            <li>+2 секретных бонуса</li>
+            <li>Все видеоуроки и практические задания</li>
+            <li>Еженедельные групповые трансляции</li>
+            <li>Регулярные групповые встречи</li>
+            <li>Доступ к материалам на весь срок</li>
           </ul>
-          <a class="btn btn--yellow" href="#signup">Стать BOSS'ом</a>
+          <a class="btn btn--yellow plan-select" data-plan="annual" href="#signup">Выбрать тариф</a>
         </div>
 
       </div>
@@ -1193,7 +1201,7 @@ textarea:focus-visible{
       <div class="faq__list">
         <details open>
           <summary>Как я получу доступ?</summary>
-          <div class="faq__a">Сразу после оплаты — ссылка придёт на почту и в Telegram.</div>
+          <div class="faq__a">После отправки заявки мы свяжемся с родителем и пришлём инструкции. Автоматическая выдача доступа и онлайн-оплата пока не подключены.</div>
         </details>
         <details>
           <summary>Где будет проходить?</summary>
@@ -1201,7 +1209,7 @@ textarea:focus-visible{
         </details>
         <details>
           <summary>В каком формате?</summary>
-          <div class="faq__a">Короткие видео раз в 2 недели + практические задания + челленджи.</div>
+          <div class="faq__a">Записанные видеоуроки, практические задания и челленджи, еженедельные групповые трансляции и регулярные встречи.</div>
         </details>
         <details>
           <summary>Подойдёт ли новичку?</summary>
@@ -1209,11 +1217,11 @@ textarea:focus-visible{
         </details>
         <details>
           <summary>Как долго будет доступен материал?</summary>
-          <div class="faq__a">При подписке — пока активна подписка. В тарифе BOSS — навсегда.</div>
+          <div class="faq__a">На срок выбранного тарифа: 1, 3 или 12 месяцев. Пробный доступ рассчитан на 7 дней после его активации.</div>
         </details>
         <details>
           <summary>Есть чаты и поддержка?</summary>
-          <div class="faq__a">Да — общий чат, челленджи и обратная связь от автора курса.</div>
+          <div class="faq__a">Да — чат сообщества, челленджи, еженедельные трансляции и регулярные групповые встречи по расписанию.</div>
         </details>
       </div>
     </div>
@@ -1222,16 +1230,17 @@ textarea:focus-visible{
   <!-- SIGNUP -->
   <section class="signup" id="signup">
     <div class="wrap">
-      <h2>Запишись сейчас</h2>
-      <p class="signup__lead">Стань частью фокус-группы</p>
+      <h2>Начни с бесплатных 7 дней</h2>
+      <p class="signup__lead">Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.</p>
       <form class="form" id="signupForm" novalidate>
+        <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_7d">
         <div class="form__trap" aria-hidden="true">
           <label for="website">Не заполняй это поле</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
         <div class="form__row">
-          <label for="name">Имя *</label>
-          <input id="name" name="name" type="text" placeholder="Твоё имя" required autocomplete="given-name">
+          <label for="name">Имя родителя *</label>
+          <input id="name" name="name" type="text" placeholder="Имя родителя" required autocomplete="given-name">
         </div>
         <div class="form__row">
           <label for="phone">Телефон</label>
@@ -1249,7 +1258,7 @@ textarea:focus-visible{
           <input id="consent" name="consent" type="checkbox" required>
           <span>Нажимая кнопку, ты соглашаешься на обработку персональных данных</span>
         </label>
-        <button class="btn" type="submit">Я с вами!</button>
+        <button class="btn" type="submit">Запросить бесплатный доступ</button>
       </form>
       <p class="form__status" id="signupStatus" role="status" aria-live="polite"></p>
     </div>
@@ -1286,6 +1295,25 @@ textarea:focus-visible{
 
 // Видео встроено через iframe Muuvee.
 
+// ---------- Выбор тарифа и заявка на пробный доступ ---------- 
+(function () {
+  const selected = document.getElementById('selectedPlan');
+  const heading = document.querySelector('.signup h2');
+  const lead = document.querySelector('.signup__lead');
+  const submit = document.querySelector('#signupForm button[type="submit"]');
+  document.querySelectorAll('.plan-select').forEach(function (link) {
+    link.addEventListener('click', function () {
+      const plan = this.dataset.plan || 'trial_7d';
+      if (selected) selected.value = plan;
+      if (heading) heading.textContent = plan === 'trial_7d' ? 'Начни с бесплатных 7 дней' : 'Заявка на выбранный тариф';
+      if (lead) lead.textContent = plan === 'trial_7d'
+        ? 'Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ.'
+        : 'Мы свяжемся с родителем, ответим на вопросы и сообщим, когда станет доступна оплата.';
+      if (submit) submit.textContent = plan === 'trial_7d' ? 'Запросить бесплатный доступ' : 'Запросить информацию о тарифе';
+    });
+  });
+})();
+
 // ---------- Signup form -> Supabase ----------
 (function () {
   const form = document.getElementById('signupForm');
@@ -1314,6 +1342,7 @@ textarea:focus-visible{
 
     const payload = {
       name: form.elements.name.value,
+      selectedPlan: form.elements.selectedPlan.value,
       phone: form.elements.phone.value,
       email: form.elements.email.value,
       comment: form.elements.comment.value,
@@ -1343,7 +1372,7 @@ textarea:focus-visible{
       }
 
       status.dataset.state = 'success';
-      status.textContent = 'Заявка отправлена! Номер заявки: ' + String(result.requestId || '') + '. Мы свяжемся с тобой.';
+      status.textContent = 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Мы свяжемся с родителем для подтверждения доступа.';
       form.reset();
       if (btn) btn.textContent = 'Отправлено ✓';
     } catch (error) {
