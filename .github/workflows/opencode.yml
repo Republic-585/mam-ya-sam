@@ -36,5 +36,5 @@ jobs:
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
-          model: opencode/jev-1.13-free
+          model: opencode/deepseek-v4.1-flash-free
           prompt: ${{ github.event_name == 'workflow_dispatch' && inputs.prompt || '' }}
