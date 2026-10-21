@@ -1447,15 +1447,27 @@ textarea:focus-visible{
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
 
-      status.dataset.state = 'success';
-      status.textContent = form.elements.selectedPlan.value === 'trial_7d'
-        ? 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Пробный доступ ещё не активирован: мы свяжемся с родителем для подтверждения.'
-        : 'Заявка принята! Номер: ' + String(result.requestId || '') + '. Мы свяжемся с родителем по выбранному тарифу.';
       const chosenPlan = form.elements.selectedPlan.value;
+      if (chosenPlan === 'trial_7d' && result.telegramUrl) {
+        status.dataset.state = 'success';
+        status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 7 дней.';
+        if (btn) btn.textContent = 'Открываем Telegram…';
+        form.reset();
+        const hiddenPlan = document.getElementById('selectedPlan');
+        if (hiddenPlan) hiddenPlan.value = chosenPlan;
+        window.location.href = result.telegramUrl;
+        return;
+      }
+      status.dataset.state = result.telegramUrl ? 'success' : 'error';
+      status.textContent = result.telegramUrl
+        ? 'Заявка принята! Сейчас откроется Telegram-бот для следующего шага.'
+        : 'Заявка сохранена, но ссылка на Telegram пока не сформирована. Попробуйте позже или свяжитесь с нами.';
+      if (result.telegramUrl) window.location.href = result.telegramUrl;
+      const keepPlan = chosenPlan;
       form.reset();
       const hiddenPlan = document.getElementById('selectedPlan');
-      if (hiddenPlan) hiddenPlan.value = chosenPlan;
-      if (btn) btn.textContent = 'Отправлено ✓';
+      if (hiddenPlan) hiddenPlan.value = keepPlan;
+      if (btn) btn.textContent = result.telegramUrl ? 'Открываем Telegram…' : originalText;
     } catch (error) {
       status.dataset.state = 'error';
       status.textContent = error instanceof Error
