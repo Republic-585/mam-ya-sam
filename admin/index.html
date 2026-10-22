@@ -47,6 +47,15 @@ button.secondary{background:#2b2b2b;color:var(--text);border:1px solid #454545}b
 </div>
 </section>
 <section class="card">
+<h2>Расширенные сценарии и логика</h2>
+<p class="section-note">Здесь можно хранить конфигурацию расширенного поведения: команды, сценарии, условия, действия, ограничения и автоматизации. Формат — JSON. Перед сохранением проверьте запятые и кавычки.</p>
+<label for="advancedConfig">Конфигурация поведения</label>
+<textarea id="advancedConfig" spellcheck="false" style="min-height:260px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+<div class="row"><button id="validateConfig" class="secondary">Проверить JSON</button><button id="resetConfig" class="secondary">Шаблон конфигурации</button></div>
+<div id="configStatus" class="status" role="status"></div>
+<p class="hint">Это расширенная конфигурация для хранения и последующего подключения к обработчику бота. Само по себе добавление правила в JSON не активирует его, пока обработчик не поддерживает соответствующее действие.</p>
+</section>
+<section class="card">
 <h2>Сохранение</h2><p class="section-note">Тарифы и автоматическое управление доступом пока работают по текущим правилам проекта — здесь они не меняются случайно.</p>
 <div class="row"><button id="save">Сохранить настройки</button><button id="reload" class="secondary">Загрузить заново</button></div>
 <div id="editorStatus" class="status" role="status"></div>
@@ -59,6 +68,9 @@ const API="https://hvhtbjrecbxlfwmbmaej.supabase.co/functions/v1/bot-admin";
 let sessionToken="";
 const $=id=>document.getElementById(id);
 const menuKeys=["profile","plans","lessons","progress","achievements","goal","community","parent","help"];
+const defaultAdvanced={version:1,bot:{name:"Мам, я сам!",timezone:"Europe/Moscow",language:"ru",maintenance_mode:false},commands:[{command:"start",enabled:true,description:"Приветствие и главное меню"},{command:"help",enabled:true,description:"Помощь и контакты поддержки"}],menu:{allow_reorder:true,custom_buttons:[]},flows:[],access_rules:{default_access:"existing_rules",check_expiry:true,notify_before_expiry_days:[3,1],expired_user_action:"notify_and_restrict"},automation:{autoposting:{enabled:true,source:"pixabay",require_image:true},access_expiry_check:{enabled:true},welcome_new_members:{enabled:true}},safety:{rate_limit_per_minute:20,admin_only_commands:true,log_admin_changes:true}};
+function setDefaultAdvanced(){ $("advancedConfig").value=JSON.stringify(defaultAdvanced,null,2); }
+function readAdvanced(){try{const v=JSON.parse($("advancedConfig").value);if(!v||typeof v!=="object"||Array.isArray(v))throw new Error("В корне должен быть JSON-объект");return v}catch(e){throw new Error("Ошибка JSON: "+e.message)}}
 function status(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind}
 async function call(action,extra={},auth=true){
  const headers={"Content-Type":"application/json"};if(auth&&sessionToken)headers.Authorization="Bearer "+sessionToken;
@@ -68,8 +80,10 @@ async function call(action,extra={},auth=true){
 }
 $("request").onclick=async()=>{$("request").disabled=true;try{const d=await call("request_code",{},false);status("loginStatus",d.message,"ok")}catch(e){status("loginStatus",e.message,"err")}finally{$("request").disabled=false}};
 $("verify").onclick=async()=>{try{const d=await call("verify_code",{code:$("code").value},false);sessionToken=d.token;$("login").classList.add("hidden");$("editor").classList.remove("hidden");await load()}catch(e){status("loginStatus",e.message,"err")}};
-async function load(){try{const d=await call("get_settings"),s=d.settings||{};$("welcome").value=s.welcome_text||"";$("help").value=s.help_text||"";$("supportIntro").value=s.support_intro||"";const m=s.menu_config||{};menuKeys.forEach(k=>$("menu_"+k).checked=typeof m[k]==="boolean"?m[k]:["profile","plans","help"].includes(k));status("editorStatus","Настройки загружены.","ok")}catch(e){status("editorStatus",e.message,"err")}}
-$("save").onclick=async()=>{$("save").disabled=true;try{const menu_config={};menuKeys.forEach(k=>menu_config[k]=$("menu_"+k).checked);const d=await call("save_settings",{settings:{welcome_text:$("welcome").value,help_text:$("help").value,support_intro:$("supportIntro").value,menu_config}});status("editorStatus",d.message,"ok")}catch(e){status("editorStatus",e.message,"err")}finally{$("save").disabled=false}};
+async function load(){try{const d=await call("get_settings"),s=d.settings||{};$("welcome").value=s.welcome_text||"";$("help").value=s.help_text||"";$("supportIntro").value=s.support_intro||"";const m=s.menu_config||{};menuKeys.forEach(k=>$("menu_"+k).checked=typeof m[k]==="boolean"?m[k]:["profile","plans","help"].includes(k));$("advancedConfig").value=JSON.stringify(s.advanced_config||defaultAdvanced,null,2);status("editorStatus","Настройки загружены.","ok")}catch(e){status("editorStatus",e.message,"err")}}
+$("save").onclick=async()=>{$("save").disabled=true;try{const menu_config={};menuKeys.forEach(k=>menu_config[k]=$("menu_"+k).checked);const d=await call("save_settings",{settings:{welcome_text:$("welcome").value,help_text:$("help").value,support_intro:$("supportIntro").value,menu_config,advanced_config:readAdvanced()}});status("editorStatus",d.message,"ok")}catch(e){status("editorStatus",e.message,"err")}finally{$("save").disabled=false}};
 $("reload").onclick=load;
+$("validateConfig").onclick=()=>{try{const v=readAdvanced();status("configStatus","JSON корректен. Верхний уровень: "+Object.keys(v).join(", "),"ok")}catch(e){status("configStatus",e.message,"err")}};
+$("resetConfig").onclick=()=>{setDefaultAdvanced();status("configStatus","Загружен шаблон. Нажмите «Сохранить настройки», чтобы отправить его.","")};
 $("logout").onclick=async()=>{try{await call("logout")}catch{}sessionToken="";$("editor").classList.add("hidden");$("login").classList.remove("hidden");$("code").value=""};
 </script></body></html>
