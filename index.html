@@ -327,109 +327,191 @@ textarea:focus-visible{
 .adult__item p{font-weight:600}
 @media(max-width:640px){.adult__list{grid-template-columns:1fr}}
 
-/* ---------- ICONS GRID (ПРЕЖНЯЯ ФОРМА + ПАДЕНИЕ) ---------- */
-.icons{background:var(--yellow);border-top:var(--border);border-bottom:var(--border); overflow: hidden;}
-.icons h2{font-size:clamp(1.8rem,5vw,3rem);text-transform:uppercase;text-align:center;margin-bottom:50px}
-.icons h2 span{background:var(--ink);color:var(--yellow);padding:0 .2em;border-radius:10px;box-decoration-break: clone; -webkit-box-decoration-break: clone;}
-
-.icons__grid{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:20px;
-  max-width:800px;
+/* ---------- ORBIT CAROUSEL: СДЕЛАЙ ЭТО РЕАЛЬНОСТЬЮ ---------- */
+.icons{
+  background:var(--yellow);
+  border-top:var(--border);
+  border-bottom:var(--border);
+  overflow:hidden;
+}
+.icons h2{
+  font-size:clamp(1.8rem,5vw,3rem);
+  text-transform:uppercase;
+  text-align:center;
+  margin-bottom:16px;
+}
+.icons h2 span{
+  background:var(--ink);
+  color:var(--yellow);
+  padding:0 .2em;
+  border-radius:10px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.icons__lead{
+  max-width:560px;
+  margin:0 auto 18px;
+  text-align:center;
+  font-weight:700;
+  color:var(--ink);
+}
+.orbit{
+  --orbit-size: min(78vw, 500px);
+  --orbit-radius: 190px;
+  position:relative;
+  width:var(--orbit-size);
+  height:var(--orbit-size);
   margin:0 auto;
+  isolation:isolate;
 }
-
-/* Прежняя форма плашек, но с анимацией падения */
-.icon-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 24px 16px;
-  aspect-ratio: 1;
-  border: var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-  transition: transform 0.15s ease;
-  /* Анимация падения */
-  opacity: 0;
-  transform: translateY(-100px);
-  animation: dropIn 0.95s cubic-bezier(.16,1,.3,1) forwards;
-  animation-delay: calc(var(--i) * 0.12s);
-  cursor: pointer;
-  z-index: 1;
+.orbit::before,
+.orbit::after{
+  content:"";
+  position:absolute;
+  inset:9%;
+  border:2px dashed rgba(20,20,20,.24);
+  border-radius:50%;
+  pointer-events:none;
 }
-
-.icon-card:hover {
-  transform: translateY(-4px);
-  z-index: 10;
+.orbit::after{
+  inset:22%;
+  border-style:solid;
+  border-color:rgba(20,20,20,.08);
 }
-
-@keyframes dropIn {
-  0% { transform: translateY(-64px); opacity: 0; }
-  78% { transform: translateY(2px); opacity: 1; }
-  100% { transform: translateY(0); opacity: 1; }
+.orbit__track{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  animation:orbitSpin 32s linear infinite;
+  will-change:transform;
 }
-
-/* Контент внутри плашки */
-.icon-card__emoji { 
-  font-size: clamp(2.5rem, 6vw, 3.5rem); 
-  line-height: 1; 
+.orbit:hover .orbit__track,
+.orbit:focus-within .orbit__track{animation-play-state:paused}
+.orbit__item{
+  --angle:0deg;
+  --counter-angle:0deg;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:112px;
+  height:112px;
+  margin:-56px 0 0 -56px;
+  display:grid;
+  place-items:center;
+  transform:rotate(var(--angle)) translateY(calc(var(--orbit-radius) * -1));
+  transform-origin:center;
 }
-.icon-card__label { 
-  font-family: 'Unbounded', sans-serif; 
-  font-weight: 900; 
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  text-transform: uppercase;
-  line-height: 1.1;
+.orbit__card{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:10px;
+  border:var(--border);
+  border-radius:50%;
+  box-shadow:5px 5px 0 var(--ink);
+  text-align:center;
+  animation:orbitCounterSpin 32s linear infinite;
+  transition:box-shadow .25s ease,filter .25s ease;
 }
-
-/* Цвета плашек */
-.icon-card--green { background: var(--green); }
-.icon-card--purple { background: var(--purple); }
-.icon-card--orange { background: var(--orange); }
-.icon-card--pink { background: var(--pink); }
-.icon-card--blue { background: var(--blue); }
-.icon-card--yellow { background: var(--yellow); }
-.icon-card--cyan { background: var(--cyan); }
-.icon-card--red { background: var(--red); }
-
-/* Центральная плашка */
-.icon-card--center {
-  background: var(--ink);
-  color: var(--paper);
-  border: var(--border);
-  box-shadow: 8px 8px 0 var(--pink);
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  text-transform: uppercase;
+.orbit__item:hover .orbit__card{box-shadow:7px 7px 0 var(--ink);filter:saturate(1.12)}
+.orbit__emoji{font-size:clamp(1.7rem,4vw,2.25rem);line-height:1}
+.orbit__label{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(.62rem,1.8vw,.78rem);
+  line-height:1.1;
+  font-weight:900;
+  text-transform:uppercase;
+  overflow-wrap:anywhere;
 }
-.icon-card--center:hover {
-  box-shadow: 10px 10px 0 var(--pink);
+.orbit__card--green{background:var(--green)}
+.orbit__card--purple{background:var(--purple)}
+.orbit__card--orange{background:var(--orange)}
+.orbit__card--pink{background:var(--pink)}
+.orbit__card--blue{background:var(--blue)}
+.orbit__card--yellow{background:var(--paper)}
+.orbit__card--cyan{background:var(--cyan)}
+.orbit__card--red{background:var(--red)}
+.orbit__center{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:50%;
+  width:clamp(128px,28vw,164px);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  border:4px solid var(--ink);
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--paper);
+  box-shadow:8px 8px 0 var(--pink);
+  cursor:pointer;
+  font-family:'Unbounded',sans-serif;
+  font-weight:900;
+  font-size:clamp(1rem,3vw,1.35rem);
+  text-transform:uppercase;
+  line-height:1.1;
+  transition:background .25s ease,color .25s ease,box-shadow .25s ease,transform .25s ease;
+  -webkit-tap-highlight-color:transparent;
 }
-
-@media(max-width: 600px){
-  .icons__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+.orbit__center::before{
+  content:"✦";
+  color:var(--yellow);
+  font-size:1.25rem;
+  transition:transform .35s ease,color .25s ease;
+}
+.orbit__center:hover{box-shadow:10px 10px 0 var(--pink);transform:translate(-50%,-50%) scale(1.035)}
+.orbit__center:active{transform:translate(-50%,-48%) scale(.96);box-shadow:3px 3px 0 var(--pink)}
+.orbit__center:focus-visible{outline:4px solid var(--paper);outline-offset:7px}
+.orbit__center.is-activated{
+  background:var(--green);
+  color:var(--ink);
+  box-shadow:0 0 0 12px rgba(255,217,61,.55),8px 8px 0 var(--ink);
+  animation:canDoPulse .7s cubic-bezier(.16,1,.3,1);
+}
+.orbit__center.is-activated::before{color:var(--ink);transform:rotate(90deg) scale(1.25)}
+.orbit__hint{
+  margin:14px auto 0;
+  text-align:center;
+  font-size:.86rem;
+  font-weight:800;
+  opacity:.75;
+}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@keyframes orbitCounterSpin{to{transform:rotate(-360deg)}}
+@keyframes canDoPulse{
+  0%{filter:brightness(1);transform:translate(-50%,-50%) scale(1)}
+  38%{filter:brightness(1.12);transform:translate(-50%,-50%) scale(1.09)}
+  100%{filter:brightness(1);transform:translate(-50%,-50%) scale(1)}
+}
+@media(max-width:600px){
+  .orbit{
+    --orbit-size:min(88vw,360px);
+    --orbit-radius:calc(var(--orbit-size) * .365);
   }
-  .icon-card {
-    aspect-ratio: 1.2;
-    padding: 16px 8px;
+  .orbit__item{
+    width:clamp(76px,22vw,94px);
+    height:clamp(76px,22vw,94px);
+    margin:calc(clamp(76px,22vw,94px) / -2) 0 0 calc(clamp(76px,22vw,94px) / -2);
   }
-  .icon-card__label { font-size: clamp(0.85rem, 3vw, 1.1rem); }
-  .icon-card--center {
-    grid-column: span 2;
-    aspect-ratio: auto;
-    padding: 24px;
-  }
+  .orbit__card{gap:4px;padding:6px;border-width:2px;box-shadow:3px 3px 0 var(--ink)}
+  .orbit__emoji{font-size:1.55rem}
+  .orbit__label{font-size:clamp(.52rem,2.3vw,.68rem)}
+  .orbit__center{width:clamp(112px,33vw,136px);box-shadow:5px 5px 0 var(--pink)}
+  .icons__lead{font-size:.96rem;margin-bottom:12px}
 }
-
+@media(prefers-reduced-motion:reduce){
+  .orbit__track,.orbit__card{animation:none!important}
+  .orbit__center.is-activated{animation:none}
+}
 /* ---------- FIRST STEPS ---------- */
 .steps h2{font-size:clamp(1.6rem,4.5vw,2.8rem);text-transform:uppercase;margin-bottom:8px}
 .steps__lead{font-size:1.1rem;color:var(--muted);max-width:600px;margin-bottom:32px}
@@ -1031,67 +1113,42 @@ html{scroll-behavior:smooth}
     </div>
   </section>
 
-  <!-- ICONS GRID (ПРЕЖНЯЯ ФОРМА + ПАДЕНИЕ) -->
-  <section class="icons">
+  <!-- ORBIT CAROUSEL: СДЕЛАЙ ЭТО РЕАЛЬНОСТЬЮ -->
+  <section class="icons" aria-labelledby="orbitHeading">
     <div class="wrap">
-      <h2>Сделай это <span>реальностью</span></h2>
-      
-      <div class="icons__grid">
-        
-        <!-- 1. Деньги -->
-        <div class="icon-card icon-card--green" style="--i: 0;">
-          <div class="icon-card__emoji">💰</div>
-          <div class="icon-card__label">Деньги</div>
-        </div>
+      <h2 id="orbitHeading">Сделай это <span>реальностью</span></h2>
+      <p class="icons__lead">У каждой большой цели есть первый шаг. Начни с веры в себя.</p>
 
-        <!-- 2. Планы -->
-        <div class="icon-card icon-card--purple" style="--i: 1;">
-          <div class="icon-card__emoji">🎯</div>
-          <div class="icon-card__label">Планы</div>
+      <div class="orbit" id="goalOrbit" aria-label="Карусель целей, вращающаяся вокруг кнопки Я могу">
+        <div class="orbit__track" id="goalOrbitTrack">
+          <div class="orbit__item" style="--angle:0deg">
+            <div class="orbit__card orbit__card--green"><span class="orbit__emoji" aria-hidden="true">💰</span><span class="orbit__label">Деньги</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:45deg">
+            <div class="orbit__card orbit__card--purple"><span class="orbit__emoji" aria-hidden="true">🎯</span><span class="orbit__label">Цели</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:90deg">
+            <div class="orbit__card orbit__card--orange"><span class="orbit__emoji" aria-hidden="true">🔑</span><span class="orbit__label">Свой дом</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:135deg">
+            <div class="orbit__card orbit__card--pink"><span class="orbit__emoji" aria-hidden="true">🛍️</span><span class="orbit__label">Покупки</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:180deg">
+            <div class="orbit__card orbit__card--blue"><span class="orbit__emoji" aria-hidden="true">🌅</span><span class="orbit__label">Свобода</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:225deg">
+            <div class="orbit__card orbit__card--yellow"><span class="orbit__emoji" aria-hidden="true">🌍</span><span class="orbit__label">Мир</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:270deg">
+            <div class="orbit__card orbit__card--cyan"><span class="orbit__emoji" aria-hidden="true">🤝</span><span class="orbit__label">Друзья</span></div>
+          </div>
+          <div class="orbit__item" style="--angle:315deg">
+            <div class="orbit__card orbit__card--red"><span class="orbit__emoji" aria-hidden="true">🐶</span><span class="orbit__label">Питомец</span></div>
+          </div>
         </div>
-
-        <!-- 3. Свой дом -->
-        <div class="icon-card icon-card--orange" style="--i: 2;">
-          <div class="icon-card__emoji">🔑</div>
-          <div class="icon-card__label">Дом</div>
-        </div>
-
-        <!-- 4. Покупки -->
-        <div class="icon-card icon-card--pink" style="--i: 3;">
-          <div class="icon-card__emoji">🛒</div>
-          <div class="icon-card__label">Покупки</div>
-        </div>
-
-        <!-- 5. Я САМ (Центр) -->
-        <div class="icon-card icon-card--center" id="easterEggCenter" style="--i: 4;">
-          Я&nbsp;САМ
-        </div>
-
-        <!-- 6. Свобода -->
-        <div class="icon-card icon-card--blue" style="--i: 5;">
-          <div class="icon-card__emoji">🌅</div>
-          <div class="icon-card__label">Свобода</div>
-        </div>
-
-        <!-- 7. Путешествия -->
-        <div class="icon-card icon-card--yellow" style="--i: 6;">
-          <div class="icon-card__emoji">🌍</div>
-          <div class="icon-card__label">Путешествия</div>
-        </div>
-
-        <!-- 8. Друзья -->
-        <div class="icon-card icon-card--cyan" style="--i: 7;">
-          <div class="icon-card__emoji">🤝</div>
-          <div class="icon-card__label">Друзья</div>
-        </div>
-
-        <!-- 9. Питомец -->
-        <div class="icon-card icon-card--red" style="--i: 8;">
-          <div class="icon-card__emoji">🐶</div>
-          <div class="icon-card__label">Питомец</div>
-        </div>
-
+        <button class="orbit__center" id="easterEggCenter" type="button" aria-label="Нажми, чтобы сказать: Я могу!">Я могу!</button>
       </div>
+      <p class="orbit__hint" id="orbitHint" aria-live="polite">Нажми в центре. Почувствуй, что всё начинается с тебя ✨</p>
     </div>
   </section>
 
@@ -1605,25 +1662,17 @@ html{scroll-behavior:smooth}
     });
   }
 
-  // 2. Карточка "Я САМ" (Центральная в сетке)
+  // 2. Центральная кнопка «Я могу!» — вспышка и разлёт частиц
   const iconCenter = document.getElementById('easterEggCenter');
+  const orbitHint = document.getElementById('orbitHint');
   if (iconCenter) {
     iconCenter.addEventListener('click', function() {
-      const originalText = this.innerHTML;
-      
-      // Меняем текст и цвет
-      this.innerHTML = 'Я МОГУ!';
-      this.style.background = 'var(--green)';
-      this.style.color = 'var(--ink)';
-      
-      spawnParticles(this, ['💸', '🚀', '💪', '🔥'], 12);
-
-      // Возвращаем обратно через 1.5 секунды
-      setTimeout(() => {
-        this.innerHTML = originalText;
-        this.style.background = '';
-        this.style.color = '';
-      }, 1500);
+      this.classList.remove('is-activated');
+      void this.offsetWidth;
+      this.classList.add('is-activated');
+      if (orbitHint) orbitHint.textContent = 'Вот это настрой! Маленький шаг сегодня — большая цель завтра 💪';
+      spawnParticles(this, ['✨', '🚀', '💪', '⭐', '🎯', '🔥'], 24);
+      window.setTimeout(() => this.classList.remove('is-activated'), 950);
     });
   }
 
