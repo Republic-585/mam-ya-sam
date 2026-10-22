@@ -1454,7 +1454,10 @@ textarea:focus-visible{
       form.reset();
       const hiddenPlan = document.getElementById('selectedPlan');
       if (hiddenPlan) hiddenPlan.value = keepPlan;
-      if (btn) {\n        btn.textContent = telegramUrl ? 'Открываем Telegram…' : originalText;\n        btn.disabled = false;\n      }
+      if (btn) {
+        btn.textContent = telegramUrl ? 'Открываем Telegram…' : originalText;
+        btn.disabled = false;
+      }
     } catch (error) {
       status.dataset.state = 'error';
       status.textContent = error instanceof Error
