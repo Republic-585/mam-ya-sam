@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Концепт-курс — Как стать взрослым</title>
-<meta name="description" content="Концепт-курс на основе математики 5-8 класса. Навык самостоятельности через реальные расчёты, практику и челленджи." />
+<meta name="description" content="Мам, я сам! Практический курс финансовой грамотности и самостоятельности для подростков: реальные задачи, цели и уверенность в решениях." />
 <meta name="theme-color" content="#142343" />
 <meta property="og:title" content="Концепт-курс — Как стать взрослым" />
-<meta property="og:description" content="Концепт-курс на основе математики 5-8 класса. Навык самостоятельности через реальные расчёты, практику и челленджи." />
+<meta property="og:description" content="Практический курс финансовой грамотности и самостоятельности для подростков: реальные задачи, цели и уверенность в решениях." />
 <meta property="og:type" content="website" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FFD93D' stroke='%23141414' stroke-width='8'/></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1163,6 +1163,162 @@ section{padding:clamp(64px,8vw,108px) 0}
   .js-motion-ready .motion-reveal{opacity:1;transform:none}
 }
 
+
+/* ---------- MOBILE-FIRST STORY FLOW / CALM APPLE TYPOGRAPHY ---------- */
+:root{
+ --ink:#142343;--paper:#f5f3fb;--yellow:#f3d778;--purple:#d9c5ee;
+ --muted:#65708a;--border:1px solid rgba(180,190,220,.32);
+ --shadow:0 16px 44px rgba(20,35,67,.11);--shadow-sm:0 8px 24px rgba(20,35,67,.08);
+ --radius:24px;--radius-sm:16px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:66px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.48;font-weight:400;letter-spacing:-.012em}
+h1,h2,h3,.display{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.045em;line-height:1.04;font-weight:750;text-transform:none;overflow-wrap:normal;word-break:normal}
+section{padding:clamp(34px,5.4vh,58px) 0;min-height:calc(100svh - 62px);display:flex;align-items:center;scroll-margin-top:62px}
+section>.wrap{width:100%}
+.topbar{height:62px;border:0;border-bottom:1px solid rgba(180,190,220,.28)}
+.topbar__in{height:62px;padding:0 20px}
+.logo{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.94rem;font-weight:800;letter-spacing:-.035em}
+.topbar__progress{height:2px}
+.topbar__progress-bar{background:linear-gradient(90deg,#d9c5ee,#f3d778)}
+.topbar__progress-text{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.7rem}
+.btn{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.96rem;font-weight:700;letter-spacing:-.02em;padding:15px 23px;box-shadow:0 7px 0 rgba(20,35,67,.12)}
+.hero{min-height:calc(100svh - 62px);padding:clamp(32px,5vh,54px) 0;justify-content:center}
+.hero__in{gap:18px}
+.hero__content{gap:clamp(14px,2.8vh,25px);max-width:720px}
+.hero h1{font-size:clamp(2.55rem,10vw,5.1rem);font-weight:800;line-height:.98;text-transform:none}
+.hero h1 span{border:0;border-radius:13px;padding:.05em .14em .1em;margin-top:.12em;box-shadow:none;transform:rotate(-1deg)}
+.hero__sub{font-family:inherit;font-size:clamp(1.1rem,4.5vw,1.55rem);font-weight:600;line-height:1.25;text-transform:none;color:#65708a}
+.hero__badge{font-size:.8rem;font-weight:650;letter-spacing:0;box-shadow:none;padding:10px 16px;max-width:100%;text-align:center}
+.problems{background:#142343;color:#f7f5ff}
+.problems h2{font-size:clamp(1.75rem,6.4vw,3rem);line-height:1.06;margin-bottom:clamp(18px,3vh,28px)}
+.problems__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.problems__grid .card:nth-child(n){grid-column:auto;padding:clamp(13px,3.5vw,21px);border-radius:17px;min-height:108px}
+.problem__num{width:31px;height:31px;font-size:.78rem;margin-bottom:12px}
+.problem__txt{font-size:clamp(.88rem,3.5vw,1rem);line-height:1.3}
+.problems__recs{margin-top:14px;padding:16px 18px;border-radius:17px}
+.problems__recs-title{font-size:1rem;margin-bottom:9px;line-height:1.2}
+.problems__recs-list{font-size:.79rem;line-height:1.35;display:grid;grid-template-columns:1fr 1fr;gap:7px 15px;padding-left:16px}
+.problems__recs-list li{padding:0}
+.adult h2,.steps h2,.skill h2,.result h2,.video h2,.about h2,.format h2,.pricing h2,.faq h2,.signup h2{font-size:clamp(1.8rem,6.4vw,3.15rem);line-height:1.04;margin-bottom:clamp(14px,2.4vh,22px)}
+.adult__lead,.steps__lead,.skill__lead,.about__lead{font-size:clamp(1rem,3.8vw,1.15rem);line-height:1.45}
+.adult h3{font-family:inherit!important;font-size:.9rem!important;letter-spacing:.01em;text-transform:none!important;margin:22px 0 12px!important}
+.adult__list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adult__item{gap:10px;padding:15px;border-radius:16px;font-size:.88rem;line-height:1.3}
+.adult__check{width:26px;height:26px;flex:0 0 26px}
+.icons h2{font-size:clamp(2.05rem,8vw,4rem);line-height:1.02;margin-bottom:12px}
+.icons__lead{font-size:.94rem;max-width:450px;margin:0 auto}
+.orbit{margin:clamp(8px,2vh,18px) auto 0;max-height:min(49vh,390px)}
+.orbit__hint{font-size:.78rem;margin-top:4px}
+.steps__lead{margin-bottom:20px}
+.steps__list{gap:9px;margin:20px 0}
+.steps__pill{font-size:.8rem;padding:10px 15px}
+.steps__big{font-size:clamp(1.5rem,5vw,2.3rem);line-height:1.1;margin:18px 0}
+.skill__lead{margin-bottom:22px}
+.skill h3:not(.skill__item h3){font-family:inherit!important;font-size:.9rem!important;text-transform:none!important;margin:0 0 12px!important}
+.skill__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.skill__item{padding:17px;border-radius:17px}
+.skill__item h3{font-size:.95rem;line-height:1.2;margin-bottom:8px}
+.skill__item p{font-size:.82rem;line-height:1.38}
+.skill__item--mark{grid-column:1/-1}
+.result__in{gap:22px}
+.result__in>div:first-child{max-width:610px}
+.result__in p{font-size:1rem;line-height:1.45;max-width:490px}
+.result__badge{min-width:125px;min-height:125px;padding:18px}
+.result__badge strong{font-size:1.5rem}
+.video .eyebrow{font-size:.72rem;margin-bottom:14px}
+.video h2{margin-bottom:20px}
+.video__player{border-radius:18px;overflow:hidden}
+.video__caption{margin-top:12px}
+.video__caption h3{font-family:inherit;font-size:1rem;letter-spacing:-.02em}
+.video__caption span{font-size:.78rem}
+.about__inner{max-width:760px}
+.about__mission{padding:18px;border-radius:17px}
+.about__mission p{font-size:.95rem;line-height:1.5}
+.format h2{margin-bottom:clamp(18px,3vh,28px)}
+.format__grid{display:grid;grid-template-columns:1fr;gap:10px}
+.format__card{display:grid;grid-template-columns:42px 1fr;column-gap:14px;align-items:center;padding:15px 17px;border-radius:17px}
+.format__num{grid-row:span 2;width:42px;height:42px;display:grid;place-items:center;font-size:1.1rem}
+.format__card h3{font-family:inherit;font-size:1rem;letter-spacing:-.02em;margin:0 0 3px}
+.format__card p{font-size:.85rem;line-height:1.35}
+.pricing{display:block;min-height:calc(100svh - 62px);overflow:hidden}
+.pricing>.wrap{display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 140px)}
+.pricing h2{margin-bottom:10px}
+.pricing__note{font-size:.86rem;line-height:1.4;margin-bottom:18px}
+.pricing__grid{display:flex;gap:13px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:5px 3px 18px;margin:0 -3px}
+.pricing__grid::-webkit-scrollbar{height:3px}
+.pricing__grid::-webkit-scrollbar-thumb{background:#c9b8e8;border-radius:99px}
+.price,.price.is-selected{flex:0 0 min(82vw,340px);scroll-snap-align:center;padding:23px 20px;border-radius:21px;transform:none;display:flex;flex-direction:column}
+.price__tag{align-self:flex-start;font-size:.7rem;padding:6px 11px;margin-bottom:12px}
+.price__title{font-size:1.12rem;margin-bottom:5px}
+.price__amount{font-size:2.15rem;line-height:1.05;margin-bottom:14px}
+.price__amount small{font-size:.75rem;display:block;margin-top:5px}
+.price ul{font-size:.86rem;line-height:1.38;gap:8px;margin-bottom:18px}
+.price li{padding-left:20px}
+.price .btn{margin-top:auto;font-size:.88rem;padding:13px 14px}
+.selected-plan-summary{margin:0 0 14px;padding:13px 16px;display:grid;gap:3px}
+.selected-plan-summary__label{font-size:.72rem}
+.selected-plan-summary strong{font-size:.95rem}
+.selected-plan-summary span:last-child{font-size:.8rem}
+.faq h2{margin-bottom:20px}
+.faq__list{display:grid;gap:8px}
+.faq details{border-radius:14px}
+.faq summary{padding:14px 45px 14px 16px;font-size:.92rem;line-height:1.25}
+.faq .faq__a{font-size:.84rem;line-height:1.45;padding:0 16px 15px}
+.signup h2{margin-bottom:12px}
+.signup__lead{font-size:.92rem;line-height:1.4;margin-bottom:16px}
+.form{padding:20px;border-radius:20px;display:grid;gap:12px}
+.form__row{gap:5px}
+.form label{font-size:.76rem}
+.form input,.form textarea{padding:12px 13px;min-height:44px;font:inherit;font-size:.9rem}
+.form .btn{width:100%;padding:14px}
+.footer{padding:24px 0}
+.js-motion-ready .motion-reveal{transform:translate3d(0,8px,0)!important;transition:opacity .55s cubic-bezier(.22,.61,.36,1),transform .55s cubic-bezier(.22,.61,.36,1)!important;transition-delay:0ms!important}
+.js-motion-ready .motion-reveal.is-visible{transform:translate3d(0,0,0)!important}
+.card,.skill__item,.about__stat,.format__grid>*,.pricing__grid>*,.btn,.icon-card,.faq details,.faq summary{transition-duration:.3s!important;transition-timing-function:cubic-bezier(.22,.61,.36,1)!important}
+@media(min-width:761px){
+ section{padding:54px 0}
+ .hero{padding:60px 0}
+ .problems__grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .problems__grid .card:nth-child(n){min-height:135px}
+ .adult__list{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .format__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .format__card{display:block;padding:22px}
+ .format__num{margin-bottom:14px}
+ .pricing__grid{overflow:visible;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .price,.price.is-selected{flex:initial}
+}
+@media(max-width:390px){
+ .wrap{padding-left:17px;padding-right:17px}
+ .problems__grid .card:nth-child(n){padding:12px;min-height:100px}
+ .problems__recs{padding:13px}
+ .problems__recs-list{font-size:.73rem;gap:6px 10px}
+ .adult__item{padding:12px;font-size:.82rem}
+ .skill__item{padding:14px}
+ .price,.price.is-selected{flex-basis:86vw}
+}
+@media(max-height:720px) and (max-width:760px){
+ section{padding:25px 0;min-height:calc(100svh - 58px)}
+ .hero{min-height:calc(100svh - 58px)}
+ .topbar,.topbar__in{height:58px}
+ .hero__content{gap:13px}
+ .hero h1{font-size:clamp(2.15rem,9vw,3.3rem)}
+ .problems h2{font-size:1.6rem;margin-bottom:13px}
+ .problems__grid .card:nth-child(n){min-height:86px;padding:10px}
+ .problem__num{width:25px;height:25px;margin-bottom:7px}
+ .problems__recs{margin-top:9px;padding:11px}
+ .problems__recs-list{font-size:.7rem}
+ .orbit{max-height:42vh}
+ .adult h2,.steps h2,.skill h2,.result h2,.video h2,.about h2,.format h2,.pricing h2,.faq h2,.signup h2{font-size:1.75rem;margin-bottom:12px}
+ .adult__item{padding:10px}
+ .skill__item{padding:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .js-motion-ready .motion-reveal{opacity:1;transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -1198,9 +1354,9 @@ section{padding:clamp(64px,8vw,108px) 0}
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <h1>Концепт-курс <br> <span>финансовая грамотность</span></h1>
-        <div class="hero__sub">для школьников</div>
-        <div class="hero__badge">на основе математики</div>
+        <h1>Твои деньги.<br><span>Твои решения.</span></h1>
+        <div class="hero__sub">Научись управлять своей жизнью</div>
+        <div class="hero__badge">Практический курс для подростков · без скучной теории</div>
       </div>
 
     </div>
@@ -1209,34 +1365,34 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- PROBLEMS -->
   <section class="problems" id="problems">
     <div class="wrap">
-      <h2>Твои желания и цели постоянно растут, <mark>но достигнуть их не получается?</mark></h2>
+      <h2>Хочешь больше свободы? <mark>Начни с простых решений.</mark></h2>
       <div class="problems__grid">
         <div class="card problem">
           <div class="problem__num">1</div>
-          <p class="problem__txt">Карманных денег ни на что не хватает?</p>
+          <p class="problem__txt">Деньги заканчиваются раньше, чем желания?</p>
         </div>
         <div class="card problem">
           <div class="problem__num">2</div>
-          <p class="problem__txt">Не получается накопить на свою цель?</p>
+          <p class="problem__txt">Хочешь накопить на то, что важно тебе?</p>
         </div>
         <div class="card problem">
           <div class="problem__num">3</div>
-          <p class="problem__txt">Почему дать в долг другу = потерять его?</p>
+          <p class="problem__txt">Не знаешь, как говорить о деньгах с друзьями?</p>
         </div>
         <div class="card problem">
           <div class="problem__num">4</div>
-          <p class="problem__txt">Не понимаешь, сколько реально стоит «взрослая жизнь»?</p>
+          <p class="problem__txt">Хочешь принимать решения увереннее?</p>
         </div>
       </div>
 
       <!-- Рекомендации -->
       <div class="problems__recs">
-        <h3 class="problems__recs-title"><span class="problems__bulb" aria-hidden="true">💡</span> С чего начать уже сегодня</h3>
+        <h3 class="problems__recs-title"><span class="problems__bulb" aria-hidden="true">✦</span> Маленький шаг на сегодня</h3>
         <ul class="problems__recs-list">
-          <li>Считай расходы за неделю — 5 минут в день, и картина станет ясной.</li>
-          <li>Заведи 3 конверта: накопления, текущие траты, подарки.</li>
-          <li>Сравнивай цены в 3 магазинах перед покупкой — сэкономишь до 30%.</li>
-          <li>Составляй список покупок и не ходи в магазин голодным.</li>
+          <li>Запиши, на что уходят деньги за неделю.</li>
+          <li>Раздели деньги на траты и накопления.</li>
+          <li>Перед покупкой сравни хотя бы два варианта.</li>
+          <li>Спроси себя: «Мне это нужно или просто захотелось?»</li>
         </ul>
       </div>
     </div>
@@ -1245,16 +1401,16 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- ADULT -->
   <section class="adult">
     <div class="wrap">
-      <h2>Взрослый — это <em>не цифра в паспорте</em></h2>
+      <h2>Самостоятельность — это <em>уметь выбирать</em></h2>
       <p class="adult__lead">
-        Это финансовая грамотность и умение думать и действовать <b>самостоятельно</b>.
+        Это не делать всё одному. Это понимать варианты и постепенно решать самому.
       </p>
-      <h3 style="font-family:'Unbounded';font-size:1.1rem;text-transform:uppercase;margin-bottom:20px;">Взрослый — это тот, кто…</h3>
+      <h3 style="font-family:'Unbounded';font-size:1.1rem;text-transform:uppercase;margin-bottom:20px;">Чему можно научиться</h3>
       <div class="adult__list">
-        <div class="adult__item"><div class="adult__check">✓</div><p>…сам распределяет финансы</p></div>
-        <div class="adult__item"><div class="adult__check">✓</div><p>…сам выбирает, с кем делать или не делать проект (и не только школьный!)</p></div>
-        <div class="adult__item"><div class="adult__check">✓</div><p>…сам решает, заводить ли собаку и как за ней ухаживать</p></div>
-        <div class="adult__item"><div class="adult__check">✓</div><p>…сам выбирает жильё и оформляет, как хочется</p></div>
+        <div class="adult__item"><div class="adult__check">✓</div><p>Планировать карманные деньги</p></div>
+        <div class="adult__item"><div class="adult__check">✓</div><p>Отличать желание от важной цели</p></div>
+        <div class="adult__item"><div class="adult__check">✓</div><p>Договариваться и держать слово</p></div>
+        <div class="adult__item"><div class="adult__check">✓</div><p>Принимать решения и отвечать за них</p></div>
       </div>
     </div>
   </section>
@@ -1263,7 +1419,7 @@ section{padding:clamp(64px,8vw,108px) 0}
   <section class="icons" aria-labelledby="orbitHeading">
     <div class="wrap">
       <h2 id="orbitHeading">Сделай это <span>реальностью</span></h2>
-      <p class="icons__lead">У каждой большой цели есть первый шаг. Начни с веры в себя.</p>
+      <p class="icons__lead">Деньги — не цель сами по себе. Это инструмент для того, что важно именно тебе.</p>
       <div class="orbit" id="goalOrbit" aria-label="Планеты-цели плавно появляются из-за солнца">
         <div class="orbit__track" id="goalOrbitTrack">
           <div class="orbit__item" style="--angle:0deg"><div class="orbit__card"><span class="orbit__emoji" aria-hidden="true">💰</span><span class="orbit__label">Деньги</span></div></div>
@@ -1284,8 +1440,8 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- FIRST STEPS -->
   <section class="steps">
     <div class="wrap">
-      <h2>Представь, что ты сделал первые шаги</h2>
-      <p class="steps__lead">Научился финансовой грамотности, управлению бытом. Чувствуешь? Многое становится по плечу!</p>
+      <h2>Что изменится, когда ты начнёшь?</h2>
+      <p class="steps__lead">Ты не станешь взрослым за один день. Но сможешь увереннее решать реальные задачи.</p>
       <div class="steps__list">
         <div class="steps__pill">справиться</div>
         <div class="steps__pill">получить</div>
@@ -1293,7 +1449,7 @@ section{padding:clamp(64px,8vw,108px) 0}
         <div class="steps__pill">стать независимым</div>
         <div class="steps__pill">решить</div>
       </div>
-      <p class="steps__big">Легко! Когда ты сделал <mark>сам</mark>.</p>
+      <p class="steps__big">Не идеально. Зато <mark>самостоятельно</mark>.</p>
       <a class="btn btn--yellow" href="#signup">Сделать 1-й шаг</a>
     </div>
   </section>
@@ -1301,33 +1457,32 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- SKILL -->
   <section class="skill" id="skill">
     <div class="wrap">
-      <h2>Навык #1 <span>самостоятельность</span> — не разовая прихоть</h2>
+      <h2>Не лекции. <span>Практика в жизни.</span></h2>
       <p class="skill__lead">
-        Не вставить шпильку маме за то, что бургер не купила. <br>
-        <s>Разовая прихоть.</s> <b>Самостоятельность навсегда должна стать фоном жизни.</b> Это навык.
+        Разбираешь ситуации, с которыми сталкиваешься каждый день: покупки, накопления, цели и выбор. <b>Понимаешь — пробуешь — делаешь.</b>
       </p>
 
-      <h3 style="font-family:'Unbounded';font-size:1.1rem;text-transform:uppercase;margin-bottom:22px;">Как ты обретёшь этот навык</h3>
+      <h3 style="font-family:'Unbounded';font-size:1.1rem;text-transform:uppercase;margin-bottom:22px;">Как устроен курс</h3>
       <div class="skill__grid">
         <div class="skill__item">
           <h3>🧮 <span class="easter-egg-math" id="easterEggMath">На основе математики</span></h3>
           <p>Первые шаги к самостоятельности — через реальные расчёты, а не абстракции.</p>
         </div>
         <div class="skill__item">
-          <h3>🚫 Не через инсайты</h3>
-          <p>И не через школьную теорию. Никаких «однажды поймёшь».</p>
+          <h3>🧭 Понятные объяснения</h3>
+          <p>Без сложных терминов и нравоучений.</p>
         </div>
         <div class="skill__item">
-          <h3>🎯 Через практику</h3>
-          <p>В фокус-группе: делаешь реальные шаги, а не просто смотришь.</p>
+          <h3>🎯 Реальные задачи</h3>
+          <p>Применяй знания к своим целям и решениям.</p>
         </div>
         <div class="skill__item">
-          <h3>🎬 Видео раз в 2 недели</h3>
-          <p>± есть время осмыслить и сделать.</p>
+          <h3>🎬 В удобном темпе</h3>
+          <p>Смотри уроки и пробуй между встречами.</p>
         </div>
         <div class="skill__item skill__item--mark">
-          <h3>💬 Чатик с единомышленниками</h3>
-          <p>И челленджи :) Ты не один — рядом такие же, кто хочет «сам».</p>
+          <h3>💬 Своя группа</h3>
+          <p>Обсуждай идеи, проходи челленджи, учись на опыте других.</p>
         </div>
       </div>
     </div>
@@ -1337,8 +1492,8 @@ section{padding:clamp(64px,8vw,108px) 0}
   <section class="result">
     <div class="wrap result__in">
       <div>
-        <h2>Результат: фоновое состояние <mark>«Я МОГУ!»</mark></h2>
-        <p>И больше свободы от родителей, которые видят, что тебе можно доверять более важные дела.</p>
+        <h2>Главный результат — <mark>«Я справлюсь»</mark></h2>
+        <p>Больше уверенности у тебя — больше поводов доверять тебе у родителей. Навык растёт с каждым шагом.</p>
       </div>
       <div class="result__badge" id="easterEggBadge">
         <strong>Я МОГУ!</strong>
@@ -1350,8 +1505,8 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- VIDEO -->
   <section class="video">
     <div class="wrap">
-      <span class="eyebrow">вся программа</span>
-      <h2>А вот один из <span>практикумов!</span> Увидь, как это работает</h2>
+      <span class="eyebrow">Посмотри, как всё устроено</span>
+      <h2>Не просто разговоры — <span>попробуй на практике</span></h2>
 
       <div class="video__player" id="videoPlayer">
         <iframe
@@ -1378,10 +1533,10 @@ section{padding:clamp(64px,8vw,108px) 0}
       
       <!-- Публичный блок проекта без личных данных автора -->
       <div class="about__content">
-        <h2>О проекте</h2>
-        <p class="about__lead">Практический курс финансовой грамотности и самостоятельности для подростков.</p>
+        <h2>Без давления. С пользой для жизни.</h2>
+        <p class="about__lead">«Мам, я сам!» помогает подросткам осваивать финансовую грамотность через понятные объяснения, практику и поддержку.</p>
         <div class="about__mission">
-          <p><b>Миссия:</b> Помогать подросткам становиться самостоятельнее через практические знания, осознанный выбор и ответственность.</p>
+          <p><b>Подход:</b> Не стыдить за ошибки и не читать нотации. Разбирать реальные ситуации, тренироваться и постепенно брать больше ответственности.</p>
         </div>
       </div>
     </div>
@@ -1390,22 +1545,22 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- FORMAT -->
   <section class="format" id="format">
     <div class="wrap">
-      <h2>Где будет проходить <mark>фокус-группа?</mark></h2>
+      <h2>Учись в своём ритме — <mark>не в одиночку</mark></h2>
       <div class="format__grid">
         <div class="format__card">
           <div class="format__num">1</div>
-          <h3>Онлайн-формат</h3>
-          <p>Telegram / Max. Заходишь из любой точки — был бы интернет.</p>
+          <h3>Онлайн</h3>
+          <p>Материалы и общение доступны онлайн.</p>
         </div>
         <div class="format__card">
           <div class="format__num">2</div>
-          <h3>Гибкий график</h3>
-          <p>Видео раз в 2 недели ± — смотри в любое время, когда удобно.</p>
+          <h3>Свой темп</h3>
+          <p>Смотри видео и выполняй задания в удобное время.</p>
         </div>
         <div class="format__card">
           <div class="format__num">3</div>
-          <h3>Чат поддержки</h3>
-          <p>Единомышленники и челленджи 24/7. Я с вами.</p>
+          <h3>Сообщество</h3>
+          <p>Обсуждай задачи и двигайся вместе с другими участниками.</p>
         </div>
       </div>
     </div>
@@ -1414,8 +1569,8 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="wrap">
-      <h2>Выбери свой <mark>формат</mark></h2>
-      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 3 дней бесплатно.</p>
+      <h2>Начни с малого. <mark>Выбери свой формат.</mark></h2>
+      <p class="pricing__note">Попробуй формат без оплаты, познакомься с материалами и реши, подходит ли он тебе.</p>
       <div class="pricing__grid">
 
         <div class="price price--trial is-selected" data-plan-card="trial_7d" aria-current="true">
@@ -1510,8 +1665,8 @@ section{padding:clamp(64px,8vw,108px) 0}
   <!-- SIGNUP -->
   <section class="signup" id="signup">
     <div class="wrap">
-      <h2>Начни с бесплатных 3 дней</h2>
-      <p class="signup__lead">Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.</p>
+      <h2>Первый шаг — <mark>познакомиться</mark></h2>
+      <p class="signup__lead">Оставь заявку вместе с родителем. Мы объясним, как попасть в Telegram-группу и попробовать курс. Оплата на сайте пока не подключена.</p>
       <div class="selected-plan-summary" id="selectedPlanSummary" role="status" aria-live="polite">
         <span class="selected-plan-summary__label">Твой выбор</span>
         <strong id="selectedPlanName">Пробный доступ — 3 дня бесплатно</strong>
