@@ -358,8 +358,8 @@ textarea:focus-visible{
   /* Анимация падения */
   opacity: 0;
   transform: translateY(-100px);
-  animation: dropIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  animation-delay: calc(var(--i) * 0.1s);
+  animation: dropIn 0.95s cubic-bezier(.16,1,.3,1) forwards;
+  animation-delay: calc(var(--i) * 0.12s);
   cursor: pointer;
   z-index: 1;
 }
@@ -370,8 +370,8 @@ textarea:focus-visible{
 }
 
 @keyframes dropIn {
-  0% { transform: translateY(-100px); opacity: 0; }
-  70% { transform: translateY(5px); }
+  0% { transform: translateY(-64px); opacity: 0; }
+  78% { transform: translateY(2px); opacity: 1; }
   100% { transform: translateY(0); opacity: 1; }
 }
 
@@ -921,18 +921,18 @@ html{scroll-behavior:smooth}
 
 /* Тонкая настройка: спокойные переходы без резких смещений и каскада */
 .js-motion-ready .motion-reveal{
-  transform:translate3d(0,10px,0)!important;
-  transition:opacity .68s cubic-bezier(.16,1,.3,1),transform .68s cubic-bezier(.16,1,.3,1)!important;
+  transform:translate3d(0,12px,0)!important;
+  transition:opacity 1.05s cubic-bezier(.16,1,.3,1),transform 1.05s cubic-bezier(.16,1,.3,1)!important;
   transition-delay:0ms!important;
   will-change:opacity,transform;
 }
 .js-motion-ready .motion-reveal.is-visible{opacity:1;transform:translate3d(0,0,0)!important}
 .card,.skill__item,.about__stat,.format__grid>*,.pricing__grid>*,.btn,.icon-card,.faq details,.faq summary{
-  transition-duration:.32s!important;
+  transition-duration:.42s!important;
   transition-timing-function:cubic-bezier(.16,1,.3,1)!important;
 }
 .card:hover,.skill__item:hover,.format__grid>*:hover,.pricing__grid>*:hover{transform:translateY(-2px)}
-.faq details[open] .faq__a{animation:faqReveal .38s cubic-bezier(.16,1,.3,1) both}
+.faq details[open] .faq__a{animation:faqReveal .58s cubic-bezier(.16,1,.3,1) both}
 @keyframes faqReveal{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 
 </style>
