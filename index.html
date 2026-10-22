@@ -1145,13 +1145,13 @@ textarea:focus-visible{
   <section class="pricing" id="pricing">
     <div class="wrap">
       <h2>Выбери свой <mark>формат</mark></h2>
-      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 7 дней бесплатно.</p>
+      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 3 дней бесплатно.</p>
       <div class="pricing__grid">
 
         <div class="price price--trial is-selected" data-plan-card="trial_7d" aria-current="true">
           <span class="price__tag">Начни без риска</span>
           <div class="price__title">Пробный доступ</div>
-          <div class="price__amount">0 ₽<small>первые 7 дней</small></div>
+          <div class="price__amount">0 ₽<small>первые 3 дня</small></div>
           <ul>
             <li>Стартовые видеоуроки и задания</li>
             <li>Знакомство с форматом и сообществом</li>
@@ -1227,7 +1227,7 @@ textarea:focus-visible{
         </details>
         <details>
           <summary>Как долго будет доступен материал?</summary>
-          <div class="faq__a">На срок выбранного тарифа: 1, 3 или 12 месяцев. Пробный доступ рассчитан на 7 дней после его активации.</div>
+          <div class="faq__a">На срок выбранного тарифа: 1, 3 или 12 месяцев. Пробный доступ рассчитан на 3 дня после его активации.</div>
         </details>
         <details>
           <summary>Есть чаты и поддержка?</summary>
@@ -1240,11 +1240,11 @@ textarea:focus-visible{
   <!-- SIGNUP -->
   <section class="signup" id="signup">
     <div class="wrap">
-      <h2>Начни с бесплатных 7 дней</h2>
+      <h2>Начни с бесплатных 3 дней</h2>
       <p class="signup__lead">Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.</p>
       <div class="selected-plan-summary" id="selectedPlanSummary" role="status" aria-live="polite">
         <span class="selected-plan-summary__label">Твой выбор</span>
-        <strong id="selectedPlanName">Пробный доступ — 7 дней бесплатно</strong>
+        <strong id="selectedPlanName">Пробный доступ — 3 дня бесплатно</strong>
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
       <form class="form" id="signupForm" novalidate>
@@ -1320,7 +1320,7 @@ textarea:focus-visible{
   const selectedPrice = document.getElementById('selectedPlanPrice');
   const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
   const details = {
-    trial_7d: {name:'Пробный доступ — 7 дней бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 7 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
+    trial_7d: {name:'Пробный доступ — 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 3 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
     monthly: {name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
     quarterly: {name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
     annual: {name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
@@ -1435,7 +1435,7 @@ textarea:focus-visible{
       }
       if (chosenPlan === 'trial_7d' && telegramUrl) {
         status.dataset.state = 'success';
-        status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 7 дней.';
+        status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 3 дня.';
         if (btn) btn.textContent = 'Открываем Telegram…';
         form.reset();
         const hiddenPlan = document.getElementById('selectedPlan');
