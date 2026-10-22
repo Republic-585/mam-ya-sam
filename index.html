@@ -154,7 +154,7 @@ textarea:focus-visible{
 }
 
 /* ---------- HERO ---------- */
-.hero{padding:70px 0 90px;overflow:hidden}
+.hero{min-height:calc(100svh - 64px);min-height:calc(100dvh - 64px);display:flex;align-items:center;padding:clamp(80px,12vh,140px) 0;overflow:hidden}
 .hero__bg{
   position:absolute;inset:0;z-index:0;
   background:
@@ -167,6 +167,7 @@ textarea:focus-visible{
 }
 .hero__in{
   position:relative;z-index:1;
+  width:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
