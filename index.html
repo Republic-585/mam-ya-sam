@@ -875,7 +875,7 @@ textarea:focus-visible{
   0%,100%{transform:translateY(0) rotate(-1deg)}
   50%{transform:translateY(-8px) rotate(1deg)}
 }
-.hero__badge{animation:softFloat 4.5s ease-in-out infinite}
+.hero__badge{animation:none}
 .scroll-top{
   position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));
   z-index:999;width:48px;height:48px;border:3px solid var(--ink);border-radius:15px;
@@ -890,6 +890,32 @@ textarea:focus-visible{
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .js-motion-ready .motion-reveal{opacity:1;transform:none}
+}
+
+
+/* Единый ритм движения: короче и мягче */
+html{scroll-behavior:smooth}
+.js-motion-ready .motion-reveal{
+  transform:translate3d(0,16px,0);
+  transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .42s cubic-bezier(.22,.61,.36,1);
+  transition-delay:var(--motion-delay,0ms);
+}
+.js-motion-ready .motion-reveal.is-visible{transform:translate3d(0,0,0)}
+.card,.skill__item,.about__stat,.format__grid>*,.pricing__grid>*,.btn,.icon-card,.faq details,.faq summary{
+  transition-duration:.2s;
+  transition-timing-function:cubic-bezier(.22,.61,.36,1);
+}
+.card:hover,.skill__item:hover,.format__grid>*:hover,.pricing__grid>*:hover{transform:translateY(-3px)}
+.hero__badge{animation:none!important}
+.scroll-top{display:none!important}
+.faq details{overflow:hidden}
+.faq summary{cursor:pointer;transition:color .2s cubic-bezier(.22,.61,.36,1)}
+.faq details[open] .faq__a{animation:faqReveal .24s cubic-bezier(.22,.61,.36,1) both;transform-origin:top center}
+@keyframes faqReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ .js-motion-ready .motion-reveal{opacity:1;transform:none;transition:none}
+ .faq details[open] .faq__a{animation:none}
 }
 
 </style>
@@ -1628,21 +1654,6 @@ textarea:focus-visible{
       observer.observe(el);
     });
   }
-
-  // Кнопка быстрого возврата наверх
-  const topButton=document.createElement('button');
-  topButton.className='scroll-top';
-  topButton.type='button';
-  topButton.setAttribute('aria-label','Вернуться наверх');
-  topButton.title='Наверх';
-  topButton.textContent='↑';
-  document.body.appendChild(topButton);
-  const updateTopButton=()=>{
-    topButton.classList.toggle('is-visible',window.scrollY>480);
-  };
-  window.addEventListener('scroll',updateTopButton,{passive:true});
-  updateTopButton();
-  topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
 
   // Мягкий наклон карточек на устройствах с мышью
   if(!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
