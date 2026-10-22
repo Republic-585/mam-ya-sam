@@ -238,13 +238,6 @@ textarea:focus-visible{
   }
 }
 
-/* ---------- JOURNEY LINE ---------- */
-main{position:relative;isolation:isolate}
-.journey-line{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible;opacity:.58}
-.journey-line path{fill:none;stroke:var(--pink);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:5 9}
-main>section>.wrap{position:relative;z-index:2}
-@media(max-width:640px){.journey-line{opacity:.42}.journey-line path{stroke-width:2.5;stroke-dasharray:4 10}}
-
 /* ---------- PROBLEMS ---------- */
 .problems{background:var(--blue);border-top:var(--border);border-bottom:var(--border)}
 .problems h2{font-size:clamp(1.6rem,4.5vw,2.8rem);text-transform:uppercase;max-width:820px;margin-bottom:38px}
@@ -960,11 +953,6 @@ html{scroll-behavior:smooth}
 </header>
 
 <main>
-  <!-- Декоративная линия маршрута: ведёт взгляд по странице -->
-  <svg class="journey-line" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path d="M 500 72 C 500 105, 790 105, 790 155 S 250 205, 250 270 S 735 315, 735 385 S 330 425, 330 490 S 800 535, 800 600 S 245 650, 245 710 S 690 760, 690 825 S 420 880, 500 1000" />
-  </svg>
-
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
