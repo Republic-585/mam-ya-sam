@@ -398,7 +398,7 @@ textarea:focus-visible{
   margin:-56px 0 0 -56px;
   display:grid;
   place-items:center;
-  transform:rotate(var(--angle)) translateY(calc(var(--orbit-radius) * -1));
+  transform:rotate(var(--angle)) translateY(calc(0px - var(--orbit-radius)));
   transform-origin:center;
 }
 .orbit__card{
@@ -495,12 +495,12 @@ textarea:focus-visible{
 @media(max-width:600px){
   .orbit{
     --orbit-size:min(88vw,360px);
-    --orbit-radius:calc(var(--orbit-size) * .365);
+    --orbit-radius:clamp(105px,32vw,132px);
   }
   .orbit__item{
-    width:clamp(76px,22vw,94px);
-    height:clamp(76px,22vw,94px);
-    margin:calc(clamp(76px,22vw,94px) / -2) 0 0 calc(clamp(76px,22vw,94px) / -2);
+    width:86px;
+    height:86px;
+    margin:-43px 0 0 -43px;
   }
   .orbit__card{gap:4px;padding:6px;border-width:2px;box-shadow:3px 3px 0 var(--ink)}
   .orbit__emoji{font-size:1.55rem}
