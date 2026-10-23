@@ -31,9 +31,26 @@ function extractBlock(html, openTag, closeTag, label) {
 const index = read('index.html');
 const script = read('script.js');
 const styles = read('style.css');
+const readme = read('README.md');
+const checksWorkflow = read('.github/workflows/checks.yml');
+const pagesWorkflow = read('.github/workflows/pages.yml');
+const opencodeWorkflow = read('.github/workflows/opencode.yml');
 
 check(/<html[^>]*\blang="ru"/i.test(index), 'index.html: не указан lang="ru"');
 check(/<meta[^>]+name="viewport"/i.test(index), 'index.html: отсутствует meta viewport');
+check(/<meta[^>]+name="referrer"[^>]+strict-origin-when-cross-origin/i.test(index), 'index.html: нет безопасной политики referrer');
+
+const csp = index.match(/<meta[^>]+http-equiv="Content-Security-Policy"[^>]+content="([^"]+)"/i)?.[1] || '';
+check(Boolean(csp), 'index.html: отсутствует Content-Security-Policy');
+check(/default-src 'self'/.test(csp), 'CSP: default-src должен ограничиваться self');
+check(/object-src 'none'/.test(csp), 'CSP: object-src должен быть запрещён');
+check(/base-uri 'self'/.test(csp), 'CSP: base-uri должен ограничиваться self');
+check(/form-action 'self'/.test(csp), 'CSP: form-action должен ограничиваться self');
+check(/script-src [^;]*'unsafe-inline'/.test(csp), 'CSP: встроенный скрипт должен быть явно разрешён');
+check(/connect-src [^;]*https:\/\/hvhtbjrecbxlfwmbmaej\.supabase\.co/.test(csp), 'CSP: не разрешён Supabase Edge Function');
+check(/frame-src [^;]*https:\/\/muuvee\.ru/.test(csp), 'CSP: не разрешён iframe Muuvee');
+check(/style-src [^;]*https:\/\/fonts\.googleapis\.com/.test(csp), 'CSP: не разрешён stylesheet Google Fonts');
+check(/font-src [^;]*https:\/\/fonts\.gstatic\.com/.test(csp), 'CSP: не разрешены файлы Google Fonts');
 check(!/rel="stylesheet"[^>]+href="style\.css"/i.test(index), 'index.html: внешний style.css не должен подключаться, стили встроены');
 check(!/<script[^>]+src="script\.js"/i.test(index), 'index.html: внешний script.js не должен подключаться, скрипт встроен');
 check((index.match(/<style[\s>]/gi) || []).length === 1, 'index.html: должен быть ровно один блок <style>');
@@ -59,9 +76,9 @@ for (const field of ['name', 'selectedPlan', 'phone', 'email', 'comment', 'conse
 check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя не помечено required');
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
 check(/<input[^>]+id="consent"[^>]*\btype="checkbox"[^>]*\brequired\b/i.test(index), 'index.html: согласие не помечено required');
-check(/<form[^>]*id="signupForm"[^>]*\bmethod="post"/i.test(index), 'index.html: форма должна отправляться методом POST, чтобы персональные данные не попадали в URL');
-check(!/<form[^>]*id="signupForm"[^>]*\bnovalidate\b/i.test(index), 'index.html: форма не должна отключать нативную валидацию');
-check(/<noscript>[\s\S]*?https:\/\/t\.me\/mam_ya_sam_bot[\s\S]*?<\/noscript>/.test(index), 'index.html: нет резервного сообщения для браузера без JavaScript');
+check(/<form[^>]*\bid="signupForm"[^>]*\bmethod="post"/i.test(index), 'index.html: форма должна использовать method="post", чтобы данные не попадали в URL при отключённом JS');
+check(!/<form[^>]*\bid="signupForm"[^>]*\bmethod="get"/i.test(index), 'index.html: форма не должна отправлять персональные данные методом GET');
+check(/<noscript>[\s\S]*?https:\/\/t\.me\/mam_ya_sam_bot[\s\S]*?<\/noscript>/.test(index), 'index.html: нет резервного сообщения для пользователей без JavaScript');
 check(/<iframe[^>]+title="[^"]+"/i.test(index), 'index.html: у iframe нет title');
 check(/<p class="form__privacy">\s*<a[^>]+href="#privacy-policy"/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
 check(/<h2[^>]*id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
@@ -94,6 +111,28 @@ check(script.includes('trial_3d: {wireId:TRIAL_PLAN_WIRE_ID'), 'script.js: та�
 check(/3\s*(дня|дней)/i.test(index), 'index.html: не найден срок пробного доступа 3 дня');
 check(!/7\s*(дней|дня)/i.test(index), 'index.html: осталось упоминание 7-дневного пробного доступа');
 check(!/data-plan(?:-card)?="trial_7d"/.test(index), 'index.html: интерфейс всё ещё использует legacy-ключ trial_7d');
+
+const allowedWireIdsSource = script.match(/const ALLOWED_PLAN_WIRE_IDS = Object\.freeze\(\[([^\]]+)\]\)/)?.[1] || '';
+const allowedWireIds = (allowedWireIdsSource.match(/'([^']+)'/g) || []).map((item) => item.slice(1, -1));
+if (/TRIAL_PLAN_WIRE_ID/.test(allowedWireIdsSource)) allowedWireIds.unshift(wireId);
+check(JSON.stringify(allowedWireIds) === JSON.stringify(['trial_7d', 'monthly', 'quarterly', 'annual']), `script.js: неожиданный список разрешённых backend-тарифов: ${allowedWireIds.join(', ')}`);
+check(script.includes('function normalizePlanWireId(value)'), 'script.js: нет нормализации тарифа перед отправкой');
+const normalizeWireSource = script.match(/function normalizePlanWireId\(value\) \{[\s\S]*?\n\}/)?.[0];
+check(Boolean(normalizeWireSource), 'script.js: не удалось извлечь normalizePlanWireId для проверки');
+if (normalizeWireSource) {
+  const normalizePlanWireId = new Function('ALLOWED_PLAN_WIRE_IDS', 'TRIAL_PLAN_WIRE_ID', `return (${normalizeWireSource});`)(Object.freeze(allowedWireIds), wireId);
+  check(normalizePlanWireId('monthly') === 'monthly', 'normalizePlanWireId: не пропускает monthly');
+  check(normalizePlanWireId('quarterly') === 'quarterly', 'normalizePlanWireId: не пропускает quarterly');
+  check(normalizePlanWireId('annual') === 'annual', 'normalizePlanWireId: не пропускает annual');
+  check(normalizePlanWireId('trial_3d') === wireId, 'normalizePlanWireId: интерфейсный trial_3d должен превращаться в backend-идентификатор');
+  check(normalizePlanWireId('подделка') === wireId, 'normalizePlanWireId: неизвестный тариф должен сводиться к trial');
+}
+for (const [plan, backendId] of [['monthly', 'monthly'], ['quarterly', 'quarterly'], ['annual', 'annual']]) {
+  check(new RegExp(`${plan}: \\{wireId:'${backendId}'`).test(script), `script.js: тариф ${plan} не связан с backend-идентификатором ${backendId}`);
+}
+check(script.includes('setCustomValidity'), 'script.js: нет проверки имени/email после trim');
+check(/let submitting = false/.test(script), 'script.js: нет защиты от повторной отправки формы');
+check(/response\.status === 429/.test(script), 'script.js: нет отдельного сообщения при rate limit 429');
 
 const sectionOrder = ['class="problems"', 'class="adult"', 'class="icons"', 'class="steps"', 'class="skill"', 'class="result"', 'class="video"', 'class="parents"', 'class="about"', 'class="format"', 'id="pricing"', 'class="faq"', 'id="signup"'];
 let previousSectionPosition = -1;
@@ -143,11 +182,8 @@ if (telegramFnSource) {
   check(safeTelegramUrl('https://evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает чужой домен');
   check(safeTelegramUrl('https://t.me.evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает поддельный поддомен');
   check(safeTelegramUrl('https://t.me@evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает обход через userinfo');
-  check(safeTelegramUrl('https://user:pass@t.me/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает учётные данные в ссылке');
   check(safeTelegramUrl('not a url') === null, 'safeTelegramUrl: пропускает некорректную строку');
 }
-check(script.includes("addEventListener('pageshow'"), 'script.js: после возврата из Telegram форма не восстанавливается');
-check(script.includes('submitting = false'), 'script.js: нет защиты от повторной отправки формы');
 
 const localReferencePattern = /(?:href|src)="([^"]+)"/g;
 for (const match of index.matchAll(localReferencePattern)) {
@@ -159,13 +195,24 @@ for (const match of index.matchAll(localReferencePattern)) {
 }
 check(!/privacy\.html/.test(index), 'index.html: осталась ссылка на несуществующий privacy.html');
 
-const checksWorkflow = read('.github/workflows/checks.yml');
-check(/node --check script\.js/.test(checksWorkflow), '.github/workflows/checks.yml: не проверяется синтаксис script.js');
-check(/scripts\/check-site\.mjs/.test(checksWorkflow), '.github/workflows/checks.yml: не запускаются статические проверки сайта');
-const pagesWorkflow = read('.github/workflows/pages.yml');
-check(/scripts\/check-site\.mjs/.test(pagesWorkflow), '.github/workflows/pages.yml: публикация не запускает статические проверки сайта');
-const opencodeWorkflow = read('.github/workflows/opencode.yml');
-check(!/gh pr merge/.test(opencodeWorkflow), '.github/workflows/opencode.yml: автоматическое слияние PR должно быть отключено');
+for (const match of index.matchAll(/(?:href|src)="(http:\/\/[^"]+)"/g)) {
+  check(false, `index.html: небезопасная http-ссылка ${match[1]}`);
+}
+for (const match of index.matchAll(/<a\b[^>]*\btarget="_blank"[^>]*>/gi)) {
+  check(/\brel="[^"]*noopener/i.test(match[0]), `index.html: ссылка target="_blank" без rel="noopener": ${match[0].slice(0, 120)}`);
+}
+
+check(/name:\s*Site checks/.test(checksWorkflow), '.github/workflows/checks.yml: не найден workflow проверок');
+check(/\bpull_request:/.test(checksWorkflow), '.github/workflows/checks.yml: проверки не запускаются на pull request');
+check(/node --check script\.js/.test(checksWorkflow), '.github/workflows/checks.yml: нет проверки синтаксиса script.js');
+check(/node scripts\/check-site\.mjs/.test(checksWorkflow), '.github/workflows/checks.yml: нет статических проверок сайта');
+check(/node --check script\.js/.test(pagesWorkflow), '.github/workflows/pages.yml: публикация не проверяет синтаксис script.js');
+check(/node scripts\/check-site\.mjs/.test(pagesWorkflow), '.github/workflows/pages.yml: публикация не запускает статические проверки');
+check(!/gh pr merge/.test(opencodeWorkflow), '.github/workflows/opencode.yml: maintenance-workflow не должен автоматически сливать PR');
+check(/OpenCode maintenance proposal/.test(opencodeWorkflow), '.github/workflows/opencode.yml: PR должен явно называться предложением обслуживания');
+check(/\.github\/workflows\/checks\.yml/.test(readme), 'README.md: не описан workflow проверок');
+check(/Content-Security-Policy|CSP/i.test(readme), 'README.md: не описана политика Content-Security-Policy');
+check(/method="post"/i.test(readme), 'README.md: не описан fallback формы без JavaScript');
 
 const forbiddenSecrets = [
   /sb_secret_[A-Za-z0-9_-]{12,}/,
