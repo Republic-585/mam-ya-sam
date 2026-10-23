@@ -48,7 +48,7 @@ const ids = [...index.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
 const duplicateIds = ids.filter((id, position) => ids.indexOf(id) !== position);
 check(duplicateIds.length === 0, `index.html: повторяющиеся id: ${[...new Set(duplicateIds)].join(', ')}`);
 
-for (const requiredId of ['signupForm', 'signupStatus', 'selectedPlan', 'consent', 'name', 'email', 'phone', 'comment', 'website', 'privacy-policy']) {
+for (const requiredId of ['signupForm', 'signupStatus', 'selectedPlan', 'consent', 'name', 'email', 'phone', 'comment', 'website', 'privacy-policy', 'parents']) {
   check(ids.includes(requiredId), `index.html: отсутствует элемент с id="${requiredId}"`);
 }
 
@@ -60,9 +60,21 @@ check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя 
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
 check(/<input[^>]+id="consent"[^>]*\btype="checkbox"[^>]*\brequired\b/i.test(index), 'index.html: согласие не помечено required');
 check(/<iframe[^>]+title="[^"]+"/i.test(index), 'index.html: у iframe нет title');
-check(/<p class="form__privacy"><a href="#privacy-policy">/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
-check(/<h2 id="privacyHeading">Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
+check(/<p class="form__privacy">\s*<a[^>]+href="#privacy-policy"/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
+check(/<h2[^>]*id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
 check(index.includes('https://t.me/mam_ya_sam_bot'), 'index.html: в политике нет контакта для отзыва согласия');
+
+check(/class="hero__actions"[\s\S]*?href="#signup"/.test(index), 'index.html: на первом экране нет CTA к форме');
+check(/class="hero__lead"/.test(index), 'index.html: на первом экране нет пояснения для родителей');
+check(/class="hero__trust"[\s\S]*?5–8 класс[\s\S]*?Telegram или Max/.test(index), 'index.html: на первом экране нет ключевых фактов о курсе');
+check(/id="parents"[\s\S]*?<h2 id="parentsHeading">/.test(index), 'index.html: нет блока пользы для родителей');
+check(/<summary>С какого класса подойдёт курс\?<\/summary>/.test(index), 'index.html: в FAQ нет ответа про 5–8 класс');
+check(/<summary>Нужно ли сразу платить\?<\/summary>/.test(index), 'index.html: в FAQ нет ответа про оплату');
+check(/class="video__cta"[\s\S]*?href="#signup"/.test(index), 'index.html: после видео нет CTA к форме');
+
+for (const price of ['490 ₽', '1 290 ₽', '4 490 ₽']) {
+  check(index.includes(price), `index.html: пропала цена тарифа ${price}`);
+}
 
 const cardPlans = [...index.matchAll(/data-plan-card="([^"]+)"/g)].map((match) => match[1]);
 const buttonPlans = [...index.matchAll(/data-plan="([^"]+)"/g)].map((match) => match[1]);

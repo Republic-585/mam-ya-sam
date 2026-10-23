@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Концепт-курс — Как стать взрослым</title>
-<meta name="description" content="Концепт-курс на основе математики 5-8 класса. Навык самостоятельности через реальные расчёты, практику и челленджи." />
+<title>Мам, я сам! — финансовая грамотность для школьников 5–8 классов</title>
+<meta name="description" content="Онлайн-курс финансовой грамотности и самостоятельности для подростков 5–8 классов: реальные расчёты, практика, видео и челленджи. Заявка для родителей, 3 дня бесплатно." />
 <meta name="theme-color" content="#FFFBF0" />
-<meta property="og:title" content="Концепт-курс — Как стать взрослым" />
-<meta property="og:description" content="Концепт-курс на основе математики 5-8 класса. Навык самостоятельности через реальные расчёты, практику и челленджи." />
+<meta property="og:title" content="Мам, я сам! — финансовая грамотность для школьников 5–8 классов" />
+<meta property="og:description" content="Онлайн-курс финансовой грамотности и самостоятельности для подростков 5–8 классов: реальные расчёты, практика, видео и челленджи. Заявка для родителей, 3 дня бесплатно." />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:site_name" content="Мам, я сам!" />
 <meta property="og:type" content="website" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FFD93D' stroke='%23141414' stroke-width='8'/></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -120,6 +122,13 @@ textarea:focus-visible{
 .logo__dot:hover { transform: rotate(15deg) scale(1.1); }
 .topbar__nav{display:flex;gap:22px;font-weight:700;font-size:.9rem;flex-wrap: wrap;}
 .topbar__nav a:hover{opacity:.6}
+.topbar__cta{
+  display:none;align-items:center;justify-content:center;
+  font-family:'Unbounded',sans-serif;font-weight:700;font-size:.78rem;
+  padding:9px 14px;border:2px solid var(--ink);border-radius:999px;
+  background:var(--yellow);box-shadow:2px 2px 0 var(--ink);white-space:nowrap;
+}
+.topbar__cta:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
 
 /* Индикатор прогресса */
 .topbar__progress {
@@ -151,6 +160,11 @@ textarea:focus-visible{
 
 @media(max-width:760px){
   .topbar__nav{display:none}
+  .topbar__cta{display:inline-flex}
+}
+@media(max-width:480px){
+  .topbar__progress-text{display:none}
+  .topbar__right{gap:10px}
 }
 
 /* Defensive removal of the previously added decorative guide line */
@@ -202,6 +216,37 @@ textarea:focus-visible{
   font-size:clamp(1.4rem,3.5vw,2.4rem);
   text-transform:uppercase;
 }
+.hero__lead{
+  font-size:clamp(1rem,2.4vw,1.16rem);
+  font-weight:600;
+  line-height:1.55;
+  max-width:720px;
+  color:#333;
+}
+.hero__actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+.hero__actions .btn{padding:16px 28px;font-size:.95rem}
+.hero__trust{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  max-width:100%;
+}
+.hero__trust span{
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.02em;
+  padding:8px 14px;
+  border:2px solid var(--ink);
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  box-shadow:3px 3px 0 var(--ink);
+}
 .hero__badge{
   display:inline-flex;
   align-items:center;
@@ -231,6 +276,7 @@ textarea:focus-visible{
 }
 
 @media(max-width: 640px){
+  .hero{padding:46px 0 64px}
   .hero__bg{
     opacity:.45;
     background:
@@ -239,12 +285,75 @@ textarea:focus-visible{
       radial-gradient(circle at 82% 20%, var(--blue) 0 38px, transparent 39px),
       radial-gradient(circle at 18% 90%, var(--purple) 0 42px, transparent 43px);
   }
+  .hero__actions{width:100%;flex-direction:column;align-items:stretch}
+  .hero__actions .btn{width:100%;max-width:360px;margin:0 auto}
+  .hero__trust span{font-size:.72rem;padding:7px 11px}
+}
+
+/* ---------- PARENTS ---------- */
+.parents{background:var(--paper);border-top:var(--border)}
+.parents__head{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:26px;
+  align-items:stretch;
+  margin-bottom:30px;
+}
+.parents h2{
+  font-size:clamp(1.6rem,4.2vw,2.7rem);
+  text-transform:uppercase;
+  margin:16px 0 14px;
+  max-width:720px;
+}
+.parents__lead{font-size:1.08rem;font-weight:600;color:var(--muted);max-width:680px}
+.parents__note{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:8px;
+  padding:24px;
+  border:var(--border);
+  border-radius:var(--radius-sm);
+  background:var(--ink);
+  color:var(--paper);
+  box-shadow:var(--shadow-sm);
+}
+.parents__note strong{
+  font-family:'Unbounded',sans-serif;
+  font-size:.86rem;
+  color:var(--yellow);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.parents__note p{font-size:.92rem;font-weight:500;color:rgba(255,251,240,.86)}
+.parents__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.parents__card{
+  padding:24px;
+  border:var(--border);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-sm);
+  background:#fff;
+}
+.parents__card:nth-child(1){background:var(--yellow)}
+.parents__card:nth-child(2){background:var(--green)}
+.parents__card:nth-child(3){background:var(--pink)}
+.parents__card h3{
+  font-family:'Unbounded',sans-serif;
+  font-size:.98rem;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+.parents__card p{font-size:.95rem;font-weight:600;color:rgba(20,20,20,.82)}
+@media(max-width:900px){
+  .parents__head{grid-template-columns:1fr}
+  .parents__grid{grid-template-columns:1fr}
 }
 
 /* ---------- PROBLEMS ---------- */
 .problems{background:var(--blue);border-top:var(--border);border-bottom:var(--border)}
-.problems h2{font-size:clamp(1.6rem,4.5vw,2.8rem);text-transform:uppercase;max-width:820px;margin-bottom:38px}
+.problems h2{font-size:clamp(1.6rem,4.5vw,2.8rem);text-transform:uppercase;max-width:820px;margin-bottom:18px}
 .problems h2 mark{background:var(--yellow);padding:0 .15em;border-radius:8px}
+.problems__lead{font-size:1.05rem;font-weight:700;max-width:720px;margin-bottom:32px}
 .problems__grid{display:grid;gap:18px;grid-template-columns:repeat(2,minmax(0,1fr))}
 .problems__grid .card:nth-child(1){grid-column:span 2;background:var(--yellow)}
 .problems__grid .card:nth-child(2){background:var(--pink)}
@@ -540,6 +649,24 @@ textarea:focus-visible{
 }
 .video__caption h3{font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:700;color:var(--paper)}
 .video__caption span{font-size:.85rem;color:rgba(255,251,240,.6)}
+.video__cta{
+  margin-top:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  padding:22px 24px;
+  border:3px solid var(--paper);
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.06);
+}
+.video__cta p{font-weight:700;font-size:1rem;color:var(--paper);max-width:520px}
+.video__cta small{display:block;margin-top:4px;font-size:.82rem;font-weight:600;color:rgba(255,251,240,.65)}
+@media(max-width:640px){
+  .video__cta{flex-direction:column;align-items:stretch;text-align:center}
+  .video__cta .btn{width:100%}
+}
 
 /* ---------- ABOUT ---------- */
 .about__inner{display:grid;grid-template-columns: 400px minmax(0, 1fr);gap:50px;align-items:start}
@@ -980,12 +1107,13 @@ html{scroll-behavior:smooth}
     
     <div class="topbar__right">
       <nav class="topbar__nav" aria-label="Основная навигация">
-        <a href="#problems">Проблемы</a>
+        <a href="#parents">Родителям</a>
         <a href="#skill">Навык</a>
         <a href="#format">Формат</a>
         <a href="#pricing">Цены</a>
         <a href="#signup">Записаться</a>
       </nav>
+      <a class="topbar__cta" href="#signup">Записаться</a>
       <span class="topbar__progress-text" id="progressText">0%</span>
     </div>
 
@@ -1003,11 +1131,54 @@ html{scroll-behavior:smooth}
     <div class="wrap hero__in">
       
       <div class="hero__content">
+        <span class="eyebrow">онлайн-курс для подростков 5–8 классов</span>
         <h1>Концепт-курс <br> <span>финансовая грамотность</span></h1>
         <div class="hero__sub">для школьников</div>
+        <p class="hero__lead">Помогаем подростку считать деньги, планировать покупки и принимать решения самому — на реальных задачах из математики 5–8 класса.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#signup">Записаться на 3 дня бесплатно</a>
+          <a class="btn btn--yellow" href="#skill">Посмотреть программу</a>
+        </div>
+        <div class="hero__trust" aria-label="Коротко о курсе">
+          <span>5–8 класс</span>
+          <span>Telegram или Max</span>
+          <span>Видео раз в 2 недели</span>
+          <span>Старт без оплаты</span>
+        </div>
         <div class="hero__badge">на основе математики</div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- PARENTS -->
+  <section class="parents" id="parents" aria-labelledby="parentsHeading">
+    <div class="wrap">
+      <div class="parents__head">
+        <div>
+          <span class="eyebrow">родителям</span>
+          <h2 id="parentsHeading">Что подросток унесёт из курса</h2>
+          <p class="parents__lead">Не обещаем «стать взрослым за месяц». Даём практику, которая помогает принимать бытовые и денежные решения увереннее.</p>
+        </div>
+        <div class="parents__note">
+          <strong>Заявку оставляет родитель</strong>
+          <p>Мы свяжемся, ответим на вопросы и расскажем, как устроен пробный доступ. Онлайн-оплата на сайте пока не подключена.</p>
+        </div>
+      </div>
+      <div class="parents__grid">
+        <article class="parents__card">
+          <h3>Считает на реальных примерах</h3>
+          <p>Цена покупки, накопления, долг другу — разбираем через математику, а не абстрактные правила.</p>
+        </article>
+        <article class="parents__card">
+          <h3>Планирует, а не только хочет</h3>
+          <p>Учится делить деньги на цели и текущие траты, сравнивать варианты и видеть последствия решений.</p>
+        </article>
+        <article class="parents__card">
+          <h3>Пробует решать сам</h3>
+          <p>Видео, задания и челленджи в чате помогают делать шаги и обсуждать их с ровесниками.</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -1015,6 +1186,7 @@ html{scroll-behavior:smooth}
   <section class="problems" id="problems">
     <div class="wrap">
       <h2>Твои желания и цели постоянно растут, <mark>но достигнуть их не получается?</mark></h2>
+      <p class="problems__lead">Родителям: это не про «не хочет» — это про навык, которому нужна практика.</p>
       <div class="problems__grid">
         <div class="card problem">
           <div class="problem__num">1</div>
@@ -1128,7 +1300,7 @@ html{scroll-behavior:smooth}
         </div>
         <div class="skill__item">
           <h3>🎬 Видео раз в 2 недели</h3>
-          <p>± есть время осмыслить и сделать.</p>
+          <p>Есть время осмыслить материал и сделать практику без спешки.</p>
         </div>
         <div class="skill__item skill__item--mark">
           <h3>💬 Чатик с единомышленниками</h3>
@@ -1173,6 +1345,13 @@ html{scroll-behavior:smooth}
       <div class="video__caption">
         <h3>1. ФГ «Обыкновенные дроби»</h3>
         <span>Muuvee · практикум</span>
+      </div>
+
+      <div class="video__cta">
+        <p>Посмотрел практикум и хочешь так же?
+          <small>Оставь заявку — расскажем про бесплатные 3 дня. Оплата на сайте пока не подключена.</small>
+        </p>
+        <a class="btn btn--yellow" href="#signup">Попробовать 3 дня</a>
       </div>
     </div>
   </section>
@@ -1220,7 +1399,7 @@ html{scroll-behavior:smooth}
   <section class="pricing" id="pricing">
     <div class="wrap">
       <h2>Выбери свой <mark>формат</mark></h2>
-      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 3 дней бесплатно.</p>
+      <p class="pricing__note">Все тарифы включают видеоуроки, задания, еженедельные трансляции и регулярные групповые встречи. Начни с 3 дней бесплатно. Цены указаны для выбора формата; онлайн-оплата на сайте пока не подключена, деньги не списываются.</p>
       <div class="pricing__grid">
 
         <div class="price price--trial is-selected" data-plan-card="trial_3d" aria-current="true">
@@ -1287,6 +1466,22 @@ html{scroll-behavior:smooth}
         <details open>
           <summary>Как я получу доступ?</summary>
           <div class="faq__a">После отправки заявки мы свяжемся с родителем и пришлём инструкции. Автоматическая выдача доступа и онлайн-оплата пока не подключены.</div>
+        </details>
+        <details>
+          <summary>С какого класса подойдёт курс?</summary>
+          <div class="faq__a">Концепт-курс рассчитан на школьников 5–8 классов. Задания опираются на математику этого уровня и бытовые ситуации, а не на дополнительные темы.</div>
+        </details>
+        <details>
+          <summary>Кто оставляет заявку — родитель или подросток?</summary>
+          <div class="faq__a">Заявку оставляет родитель. В форме указываются контакты взрослого: для первичной связи не нужны лишние персональные данные ребёнка.</div>
+        </details>
+        <details>
+          <summary>Нужно ли сразу платить?</summary>
+          <div class="faq__a">Нет. Сначала вы оставляете заявку и обсуждаете с нами формат. Пробные 3 дня бесплатны, онлайн-оплата на сайте пока не подключена, деньги не списываются.</div>
+        </details>
+        <details>
+          <summary>Что будет после отправки формы?</summary>
+          <div class="faq__a">Мы свяжемся с родителем, ответим на вопросы и объясним, как активировать пробный доступ в Telegram. Если подходит другой тариф, расскажем, как его оформить.</div>
         </details>
         <details>
           <summary>Где будет проходить?</summary>
@@ -1687,7 +1882,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     });
   }
 
-  // Центральное солнце декоративное: без нажатия и обработчика.\n\n  // 3. Калькулятор (Математика)
+  // Центральное солнце декоративное: без нажатия и обработчика.
+
+  // 3. Калькулятор (Математика)
   const mathText = document.getElementById('easterEggMath');
   if (mathText) {
     mathText.addEventListener('click', function() {
@@ -1713,7 +1910,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 (function(){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealTargets = document.querySelectorAll(
-    '.problems h2,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.about__photo,.about__content,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
+    '.hero__content,.parents__head,.parents__grid>*,.problems h2,.problems__lead,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.video__cta,.about__photo,.about__content,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
   );
   if(!reduceMotion && 'IntersectionObserver' in window){
     document.body.classList.add('js-motion-ready');
