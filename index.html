@@ -827,7 +827,11 @@ select:focus-visible{
 .footer{background:var(--ink);color:rgba(255,251,240,.75);padding:40px 0;border-top:var(--border)}
 .footer__in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .footer .logo{color:var(--paper)}
+.footer__legal{display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:100%}
 .footer small{font-size:.82rem}
+.footer__links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 18px;font-size:.82rem;font-weight:700}
+.footer__links a{white-space:normal}
+@media(max-width:760px){.footer__legal{align-items:flex-start}.footer__links{justify-content:flex-start;gap:10px 16px}}
 
 /* ---------- ПАСХАЛКИ (СТИЛИ) ---------- */
 .particle {
@@ -1439,7 +1443,15 @@ html{scroll-behavior:smooth}
 <footer class="footer">
   <div class="wrap footer__in">
     <a href="#" class="logo" aria-label="Мам, я сам! — наверх"><span class="logo__dot"></span>МАМ, Я САМ!</a>
-    <small>© 2026 · Концепт-курс на основе математики для школьников · <a href="#privacy-policy" aria-haspopup="dialog" aria-controls="privacy-policy">Политика данных</a> · <a href="https://t.me/start_xxx_stop" target="_blank" rel="noopener noreferrer">Разработка сайта</a></small>
+    <div class="footer__legal">
+      <small>© 2026 · Концепт-курс на основе математики для школьников</small>
+      <nav class="footer__links" aria-label="Правовая информация и контакты">
+        <a href="offer.html">Публичная оферта</a>
+        <a href="contacts.html">Контакты и реквизиты</a>
+        <a href="#privacy-policy" aria-haspopup="dialog" aria-controls="privacy-policy">Политика обработки данных</a>
+        <a href="https://t.me/start_xxx_stop" target="_blank" rel="noopener noreferrer">Разработка сайта</a>
+      </nav>
+    </div>
   </div>
 </footer>
 
