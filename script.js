@@ -92,6 +92,13 @@ function getScrollProgress(scrollTop, scrollHeight, viewportHeight) {
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
 const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
+// Форма отправляет только известные backend-идентификаторы. Любое другое
+// значение hidden-поля (например, изменённое через DevTools) сводится к trial.
+const ALLOWED_PLAN_WIRE_IDS = Object.freeze([TRIAL_PLAN_WIRE_ID, 'monthly', 'quarterly', 'annual']);
+function normalizePlanWireId(value) {
+  return ALLOWED_PLAN_WIRE_IDS.includes(value) ? value : TRIAL_PLAN_WIRE_ID;
+}
+
 // ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
@@ -156,45 +163,47 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
   const requestTimeoutMs = 15000;
   const startedAt = Date.now();
-  let submitting = false;
-
-  function restoreAfterBackNavigation() {
-    submitting = false;
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = form.elements.selectedPlan.value === TRIAL_PLAN_WIRE_ID
-        ? 'Запросить бесплатный доступ'
-        : 'Запросить этот тариф';
-    }
-    status.textContent = '';
-    status.removeAttribute('data-state');
-  }
-
-  window.addEventListener('pageshow', function (event) {
-    if (event.persisted) restoreAfterBackNavigation();
-  });
 
   function safeTelegramUrl(value) {
     if (typeof value !== 'string' || !value.trim()) return null;
     try {
-      const url = new URL(value.trim());
-      if (url.protocol !== 'https:' || url.username || url.password) return null;
-      if (!['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
+      const url = new URL(value);
+      if (url.protocol !== 'https:' || !['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
       return url.href;
     } catch (_) {
       return null;
     }
   }
 
+  let submitting = false;
+  const nameField = form.elements.name;
+  const emailField = form.elements.email;
+
+  [nameField, emailField].forEach(function (field) {
+    field.addEventListener('input', function () {
+      field.setCustomValidity('');
+    });
+  });
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    if (submitting) return;
+
+    const name = nameField.value.trim();
+    const email = emailField.value.trim();
+    nameField.value = name;
+    emailField.value = email;
+
+    nameField.setCustomValidity(name ? '' : 'Укажите имя родителя.');
+    emailField.setCustomValidity(email ? '' : 'Укажите email для связи.');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    if (submitting) return;
+
     submitting = true;
+    const planWireId = normalizePlanWireId(form.elements.selectedPlan.value);
+    form.elements.selectedPlan.value = planWireId;
 
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
@@ -206,13 +215,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     status.removeAttribute('data-state');
 
     const payload = {
-      name: form.elements.name.value,
-      selectedPlan: form.elements.selectedPlan.value,
-      phone: form.elements.phone.value,
-      email: form.elements.email.value,
-      comment: form.elements.comment.value,
+      name: name,
+      selectedPlan: planWireId,
+      phone: form.elements.phone.value.trim(),
+      email: email,
+      comment: form.elements.comment.value.trim(),
       consent: form.elements.consent.checked,
-      website: form.elements.website.value,
+      website: form.elements.website.value.trim(),
       startedAt
     };
 
@@ -239,6 +248,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
           throw new Error(result.error === 'please_wait'
             ? 'Подожди пару секунд и отправь форму ещё раз.'
             : 'Проверь имя, email и согласие на обработку данных.');
+        }
+        if (response.status === 429) {
+          throw new Error('Слишком много попыток. Подожди немного и попробуй ещё раз.');
         }
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
@@ -286,8 +298,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
         btn.textContent = originalText;
       }
     } finally {
-      clearTimeout(timeoutId);
       submitting = false;
+      clearTimeout(timeoutId);
     }
   });
 })();

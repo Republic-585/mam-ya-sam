@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://hvhtbjrecbxlfwmbmaej.supabase.co; frame-src https://muuvee.ru https://*.muuvee.ru; form-action 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Мам, я сам! — финансовая грамотность для школьников 5–8 классов</title>
 <meta name="description" content="Онлайн-курс финансовой грамотности и самостоятельности для подростков 5–8 классов: реальные расчёты, практика, видео и челленджи. Заявка для родителей, 3 дня бесплатно." />
 <meta name="theme-color" content="#FFFBF0" />
@@ -921,6 +923,8 @@ textarea:focus-visible{
 .form__status:empty{display:none}
 .form__status[data-state="success"]{background:var(--green)}
 .form__status[data-state="error"]{background:#fff}
+.form__noscript{max-width:620px;margin:18px auto 0;padding:14px 18px;border:var(--border);border-radius:12px;background:#fff;font-weight:700;text-align:center}
+.form__noscript a{text-decoration:underline;text-underline-offset:3px}
 
 /* Anti-spam field: visually hidden from people, still present in the form */
 .form__trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
@@ -1618,7 +1622,7 @@ p,li{overflow-wrap:break-word}
       </form>
       <p class="form__status" id="signupStatus" role="status" aria-live="polite"></p>
       <noscript>
-        <p class="form__privacy">Для отправки заявки нужен JavaScript. Если он отключён, напишите в бот проекта: <a href="https://t.me/mam_ya_sam_bot" rel="noopener noreferrer">@mam_ya_sam_bot</a>.</p>
+        <p class="form__noscript">Для отправки заявки нужен JavaScript. Если он отключён, напишите нам в Telegram: <a href="https://t.me/mam_ya_sam_bot" rel="noopener noreferrer">@mam_ya_sam_bot</a>.</p>
       </noscript>
     </div>
   </section>
@@ -1641,7 +1645,7 @@ p,li{overflow-wrap:break-word}
         <li>выбранный тариф и факт согласия на обработку данных;</li>
         <li>служебную информацию о запросе, необходимую для защиты формы от спама и повторных отправок.</li>
       </ul>
-      <p>Сайт не запрашивает и не принимает данные банковских карт. Онлайн-оплата на сайте пока не подключена.</p>
+      <p>Сайт не запрашивает и не принимает данные банковских карт. Онлайн-оплата на сайте пока не подключена. Мы не используем рекламные трекеры и аналитические cookie.</p>
 
       <h3>Зачем нужны данные</h3>
       <ul>
@@ -1769,6 +1773,13 @@ function getScrollProgress(scrollTop, scrollHeight, viewportHeight) {
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
 const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
+// Форма отправляет только известные backend-идентификаторы. Любое другое
+// значение hidden-поля (например, изменённое через DevTools) сводится к trial.
+const ALLOWED_PLAN_WIRE_IDS = Object.freeze([TRIAL_PLAN_WIRE_ID, 'monthly', 'quarterly', 'annual']);
+function normalizePlanWireId(value) {
+  return ALLOWED_PLAN_WIRE_IDS.includes(value) ? value : TRIAL_PLAN_WIRE_ID;
+}
+
 // ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
@@ -1833,45 +1844,47 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
   const requestTimeoutMs = 15000;
   const startedAt = Date.now();
-  let submitting = false;
-
-  function restoreAfterBackNavigation() {
-    submitting = false;
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = form.elements.selectedPlan.value === TRIAL_PLAN_WIRE_ID
-        ? 'Запросить бесплатный доступ'
-        : 'Запросить этот тариф';
-    }
-    status.textContent = '';
-    status.removeAttribute('data-state');
-  }
-
-  window.addEventListener('pageshow', function (event) {
-    if (event.persisted) restoreAfterBackNavigation();
-  });
 
   function safeTelegramUrl(value) {
     if (typeof value !== 'string' || !value.trim()) return null;
     try {
-      const url = new URL(value.trim());
-      if (url.protocol !== 'https:' || url.username || url.password) return null;
-      if (!['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
+      const url = new URL(value);
+      if (url.protocol !== 'https:' || !['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
       return url.href;
     } catch (_) {
       return null;
     }
   }
 
+  let submitting = false;
+  const nameField = form.elements.name;
+  const emailField = form.elements.email;
+
+  [nameField, emailField].forEach(function (field) {
+    field.addEventListener('input', function () {
+      field.setCustomValidity('');
+    });
+  });
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    if (submitting) return;
+
+    const name = nameField.value.trim();
+    const email = emailField.value.trim();
+    nameField.value = name;
+    emailField.value = email;
+
+    nameField.setCustomValidity(name ? '' : 'Укажите имя родителя.');
+    emailField.setCustomValidity(email ? '' : 'Укажите email для связи.');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    if (submitting) return;
+
     submitting = true;
+    const planWireId = normalizePlanWireId(form.elements.selectedPlan.value);
+    form.elements.selectedPlan.value = planWireId;
 
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
@@ -1883,13 +1896,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     status.removeAttribute('data-state');
 
     const payload = {
-      name: form.elements.name.value,
-      selectedPlan: form.elements.selectedPlan.value,
-      phone: form.elements.phone.value,
-      email: form.elements.email.value,
-      comment: form.elements.comment.value,
+      name: name,
+      selectedPlan: planWireId,
+      phone: form.elements.phone.value.trim(),
+      email: email,
+      comment: form.elements.comment.value.trim(),
       consent: form.elements.consent.checked,
-      website: form.elements.website.value,
+      website: form.elements.website.value.trim(),
       startedAt
     };
 
@@ -1916,6 +1929,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
           throw new Error(result.error === 'please_wait'
             ? 'Подожди пару секунд и отправь форму ещё раз.'
             : 'Проверь имя, email и согласие на обработку данных.');
+        }
+        if (response.status === 429) {
+          throw new Error('Слишком много попыток. Подожди немного и попробуй ещё раз.');
         }
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
@@ -1963,8 +1979,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
         btn.textContent = originalText;
       }
     } finally {
-      clearTimeout(timeoutId);
       submitting = false;
+      clearTimeout(timeoutId);
     }
   });
 })();
