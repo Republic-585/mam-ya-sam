@@ -829,9 +829,10 @@ select:focus-visible{
 .footer .logo{color:var(--paper)}
 .footer__legal{display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:100%}
 .footer small{font-size:.82rem}
+.footer__details{max-width:760px;text-align:right;overflow-wrap:anywhere}
 .footer__links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 18px;font-size:.82rem;font-weight:700}
 .footer__links a{white-space:normal}
-@media(max-width:760px){.footer__legal{align-items:flex-start}.footer__links{justify-content:flex-start;gap:10px 16px}}
+@media(max-width:760px){.footer__legal{align-items:flex-start}.footer__details{text-align:left}.footer__links{justify-content:flex-start;gap:10px 16px}}
 
 /* ---------- ПАСХАЛКИ (СТИЛИ) ---------- */
 .particle {
@@ -1445,7 +1446,10 @@ html{scroll-behavior:smooth}
     <a href="#" class="logo" aria-label="Мам, я сам! — наверх"><span class="logo__dot"></span>МАМ, Я САМ!</a>
     <div class="footer__legal">
       <small>© 2026 · Концепт-курс на основе математики для школьников</small>
+      <small class="footer__details">Исполнитель: [ФИО полностью] · Статус самозанятого: [подтвердить] · ИНН: [указать] · ОГРНИП: [если применимо] · Город: [указать]</small>
       <nav class="footer__links" aria-label="Правовая информация и контакты">
+        <a href="mailto:EMAIL_PLACEHOLDER">Email: [указать]</a>
+        <a href="tel:PHONE_PLACEHOLDER">Телефон: [указать]</a>
         <a href="offer.html">Публичная оферта</a>
         <a href="contacts.html">Контакты и реквизиты</a>
         <a href="#privacy-policy" aria-haspopup="dialog" aria-controls="privacy-policy">Политика обработки данных</a>
@@ -1482,6 +1486,10 @@ html{scroll-behavior:smooth}
   dialog.addEventListener('close', function() {
     if (lastTrigger) lastTrigger.focus();
   });
+
+  if (window.location.hash === '#privacy-policy' && !dialog.open) {
+    dialog.showModal();
+  }
 })();
 
 // ---------- Scroll Progress Bar ----------
