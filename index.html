@@ -83,20 +83,36 @@ section[id]{scroll-margin-top:80px}
 .btn--yellow{background:var(--yellow)}
 .btn--purple{background:var(--purple)}
 .btn--ink{background:var(--ink);color:var(--paper)}
-/* Signup action: use the site's green accent without a shadow */
+/* Signup action: compact, refined, with a clear press response */
 #signupForm button[type="submit"]{
   background:var(--green);
   color:var(--ink);
-  box-shadow:none;
+  box-shadow:0 3px 0 var(--ink);
   border-color:var(--ink);
+  min-height:48px;
+  padding:13px 24px;
+  font-size:.88rem;
+  letter-spacing:-.02em;
+  align-self:center;
+  width:auto;
+  max-width:100%;
+  transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease;
 }
 #signupForm button[type="submit"]:hover{
-  transform:translate(-2px,-2px);
-  box-shadow:none;
+  transform:translateY(-2px);
+  box-shadow:0 5px 0 var(--ink);
 }
 #signupForm button[type="submit"]:active{
-  transform:translate(3px,3px);
-  box-shadow:none;
+  transform:translateY(2px) scale(.985);
+  box-shadow:0 0 0 var(--ink);
+  background:#91dfa0;
+}
+#signupForm button[type="submit"]:focus-visible{
+  outline:3px solid var(--ink);
+  outline-offset:5px;
+}
+@media (prefers-reduced-motion: reduce){
+  #signupForm button[type="submit"]{transition:none}
 }
 #signupForm button[type="submit"]:focus-visible{
   outline:3px solid var(--ink);
@@ -798,22 +814,22 @@ select:focus-visible{
 .signup h2{font-size:clamp(1.7rem,4.5vw,3rem);text-transform:uppercase;text-align:center;margin-bottom:10px}
 .signup__lead{text-align:center;font-weight:600;font-size:1.05rem;margin-bottom:36px;color:var(--ink)}
 .form{
-  max-width:620px;margin:0 auto;background:#fff;border:var(--border);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:34px;display:flex;flex-direction:column;gap:16px;
+  max-width:580px;margin:0 auto;background:#fff;border:var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px;display:flex;flex-direction:column;gap:12px;
 }
-.form__row{display:flex;flex-direction:column;gap:8px}
-.form label{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.form__row{display:flex;flex-direction:column;gap:6px}
+.form label{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
 .form input,.form textarea,.form select{
-  font-family:'Manrope',sans-serif;font-size:1rem;font-weight:500;color:var(--ink);
-  padding:14px 16px;border:var(--border);border-radius:12px;background:var(--paper);outline:none;
+  font-family:'Manrope',sans-serif;font-size:.96rem;font-weight:500;color:var(--ink);
+  padding:11px 14px;border:var(--border);border-radius:10px;background:var(--paper);outline:none;
   transition:box-shadow .12s;width:100%;
 }
 .form input:focus,.form textarea:focus,.form select:focus{box-shadow:var(--shadow-sm)}
-.form select{min-height:54px;cursor:pointer}
-.form textarea{resize:vertical;min-height:100px}
-.form__consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--muted);font-weight:500}
+.form select{min-height:46px;cursor:pointer}
+.form textarea{resize:vertical;min-height:76px}
+.form__consent{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--muted);font-weight:500}
 .form__consent input{width:20px;height:20px;flex-shrink:0;accent-color:var(--pink)}
-.form .btn{width:100%;margin-top:6px;background:var(--ink);color:var(--paper)}
+.form .btn{margin-top:2px;background:var(--green);color:var(--ink)}
 .form .btn:disabled{opacity:.7;cursor:wait;transform:none;box-shadow:var(--shadow-sm)}
 .form__status{max-width:620px;margin:18px auto 0;padding:14px 18px;border:var(--border);border-radius:12px;background:var(--paper);font-weight:700;text-align:center}
 .form__status:empty{display:none}
