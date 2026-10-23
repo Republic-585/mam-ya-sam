@@ -1,3 +1,5 @@
+# Verification trigger: confirm GitHub Actions can start the read-only audit.
+
 name: opencode-readonly-audit
 
 on:
