@@ -53,6 +53,7 @@ jobs:
         timeout-minutes: 9
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           MAINTENANCE_FOCUS: ${{ inputs.prompt || 'Review launch readiness and address the highest-priority safe, code-only issues found in the repository. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
         run: |
           cat > /tmp/opencode-maintenance-prompt.txt <<'EOF'
@@ -111,6 +112,7 @@ jobs:
             !.git
             !.github
             !proposed
+            !.opencode
           include-hidden-files: true
           if-no-files-found: warn
 
@@ -145,7 +147,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          rsync -a --delete --exclude='.git' --exclude='.github' proposed/ ./
+          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.opencode' proposed/ ./
           rm -rf proposed
           git switch -c "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
           git add -A
