@@ -90,7 +90,8 @@ section[id]{scroll-margin-top:80px}
 .icon-card:focus-visible,
 summary:focus-visible,
 input:focus-visible,
-textarea:focus-visible{
+textarea:focus-visible,
+select:focus-visible{
   outline:3px solid var(--ink);
   outline-offset:3px;
 }
@@ -783,12 +784,13 @@ textarea:focus-visible{
 }
 .form__row{display:flex;flex-direction:column;gap:8px}
 .form label{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
-.form input,.form textarea{
+.form input,.form textarea,.form select{
   font-family:'Manrope',sans-serif;font-size:1rem;font-weight:500;color:var(--ink);
   padding:14px 16px;border:var(--border);border-radius:12px;background:var(--paper);outline:none;
-  transition:box-shadow .12s;width: 100%;
+  transition:box-shadow .12s;width:100%;
 }
-.form input:focus,.form textarea:focus{box-shadow:var(--shadow-sm)}
+.form input:focus,.form textarea:focus,.form select:focus{box-shadow:var(--shadow-sm)}
+.form select{min-height:54px;cursor:pointer}
 .form textarea{resize:vertical;min-height:100px}
 .form__consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--muted);font-weight:500}
 .form__consent input{width:20px;height:20px;flex-shrink:0;accent-color:var(--pink)}
@@ -1330,7 +1332,7 @@ html{scroll-behavior:smooth}
         </div>
         <div class="form__row">
           <label for="name">Имя родителя *</label>
-          <input id="name" name="name" type="text" placeholder="Имя родителя" required maxlength="100" autocomplete="given-name">
+          <input id="name" name="name" type="text" placeholder="Как к вам обращаться?" required maxlength="100" autocomplete="given-name">
         </div>
         <div class="form__row">
           <label for="phone">Телефон</label>
@@ -1338,15 +1340,31 @@ html{scroll-behavior:smooth}
         </div>
         <div class="form__row">
           <label for="email">Email *</label>
-          <input id="email" name="email" type="email" placeholder="tvoi@email.ru" required maxlength="254" autocomplete="email" spellcheck="false">
+          <input id="email" name="email" type="email" placeholder="name@example.com" required maxlength="254" autocomplete="email" spellcheck="false">
+        </div>
+        <div class="form__row">
+          <label for="childName">Имя ребёнка *</label>
+          <input id="childName" name="childName" type="text" placeholder="Как зовут будущего ученика?" required maxlength="100" autocomplete="off">
+        </div>
+        <div class="form__row">
+          <label for="childClass">В каком классе учится ребёнок? *</label>
+          <select id="childClass" name="childClass" required>
+            <option value="" selected disabled>Выберите класс</option>
+            <option value="5 класс">5 класс</option>
+            <option value="6 класс">6 класс</option>
+            <option value="7 класс">7 класс</option>
+            <option value="8 класс">8 класс</option>
+            <option value="Другой класс">Другой класс</option>
+            <option value="Пока не уверен(а)">Пока не уверен(а)</option>
+          </select>
         </div>
         <div class="form__row">
           <label for="comment">Комментарий</label>
-          <textarea id="comment" name="comment" placeholder="Что хочешь узнать или спросить?" maxlength="1000"></textarea>
+          <textarea id="comment" name="comment" placeholder="Что хотите узнать или о чём нам важно знать?" maxlength="1000"></textarea>
         </div>
         <label class="form__consent">
           <input id="consent" name="consent" type="checkbox" required>
-          <span>Я согласен(на) на обработку персональных данных</span>
+          <span>Я являюсь родителем или законным представителем ребёнка и согласен(на) на обработку персональных данных</span>
         </label>
         <p class="form__privacy"><a href="#privacy-policy" aria-haspopup="dialog" aria-controls="privacy-policy">Политика обработки персональных данных</a></p>
         <button class="btn" type="submit">Запросить бесплатный доступ</button>
@@ -1369,7 +1387,7 @@ html{scroll-behavior:smooth}
 
       <h3>Какие данные мы получаем</h3>
       <ul>
-        <li>имя родителя, телефон, email и комментарий, которые вы указываете в форме;</li>
+        <li>имя родителя, имя и класс ребёнка, телефон, email и комментарий, которые вы указываете в форме;</li>
         <li>выбранный тариф и факт согласия на обработку данных;</li>
         <li>служебную информацию о запросе, необходимую для защиты формы от спама и повторных отправок.</li>
       </ul>
@@ -1392,7 +1410,7 @@ html{scroll-behavior:smooth}
       <p>Вы можете запросить уточнение, удаление или прекращение обработки данных, а также отозвать согласие. Для этого напишите в бот проекта: <a href="https://t.me/mam_ya_sam_bot" rel="noopener noreferrer">@mam_ya_sam_bot</a>. Мы обработаем запрос в разумный срок.</p>
 
       <h3>Дети</h3>
-      <p>Курс предназначен для подростков, но заявку оставляет родитель. Пожалуйста, не отправляйте через форму лишние персональные данные ребёнка: для первичной связи достаточно контактов родителя.</p>
+      <p>Курс предназначен для школьников, заявку заполняет родитель или законный представитель. Для первичного знакомства мы просим только имя ребёнка и его класс. Не указывайте в комментарии дату рождения, адрес, сведения о здоровье или другие лишние персональные данные.</p>
     </div>
   </dialog>
 
@@ -1552,11 +1570,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     status.removeAttribute('data-state');
 
     const payload = {
-      name: form.elements.name.value,
+      name: form.elements.name.value.trim(),
+      childName: form.elements.childName.value.trim(),
+      childClass: form.elements.childClass.value,
       selectedPlan: form.elements.selectedPlan.value,
-      phone: form.elements.phone.value,
-      email: form.elements.email.value,
-      comment: form.elements.comment.value,
+      phone: form.elements.phone.value.trim(),
+      email: form.elements.email.value.trim(),
+      comment: form.elements.comment.value.trim(),
       consent: form.elements.consent.checked,
       website: form.elements.website.value,
       startedAt
