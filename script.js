@@ -18,6 +18,10 @@
 
 // Видео встроено через iframe Muuvee.
 
+// Идентификатор пробного тарифа в контракте с Supabase/Telegram.
+// Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
+const TRIAL_PLAN_WIRE_ID = 'trial_7d';
+
 // ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
@@ -28,24 +32,29 @@
   const selectedPrice = document.getElementById('selectedPlanPrice');
   const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
   const details = {
-    trial_7d: {name:'Пробный доступ — 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 3 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
-    monthly: {name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
-    quarterly: {name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
-    annual: {name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
+    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ — 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 3 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
+    monthly: {wireId:'monthly', name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
+    quarterly: {wireId:'quarterly', name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
+    annual: {wireId:'annual', name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
   };
+  function normalizePlan(plan) {
+    if (plan === TRIAL_PLAN_WIRE_ID) return 'trial_3d';
+    return details[plan] ? plan : 'trial_3d';
+  }
   function choose(plan, scroll) {
-    const item = details[plan] || details.trial_7d;
-    if (selected) selected.value = plan;
+    const key = normalizePlan(plan);
+    const item = details[key];
+    if (selected) selected.value = item.wireId;
     cards.forEach(function (card) {
-      const active = card.dataset.planCard === plan;
+      const active = card.dataset.planCard === key;
       card.classList.toggle('is-selected', active);
       if (active) card.setAttribute('aria-current', 'true');
       else card.removeAttribute('aria-current');
       card.querySelectorAll('.plan-select').forEach(function (button) {
         button.setAttribute('aria-pressed', active ? 'true' : 'false');
         button.textContent = active
-          ? (plan === 'trial_7d' ? '✓ Выбран · попробовать бесплатно' : '✓ Тариф выбран')
-          : (button.dataset.plan === 'trial_7d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
+          ? (key === 'trial_3d' ? '✓ Выбран · попробовать бесплатно' : '✓ Тариф выбран')
+          : (button.dataset.plan === 'trial_3d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
       });
     });
     if (heading) heading.textContent = item.heading;
@@ -61,10 +70,10 @@
   document.querySelectorAll('.plan-select').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
-      choose(this.dataset.plan || 'trial_7d', true);
+      choose(this.dataset.plan || 'trial_3d', true);
     });
   });
-  choose(selected && details[selected.value] ? selected.value : 'trial_7d', false);
+  choose(selected ? selected.value : 'trial_3d', false);
 })();
 
 // ---------- Signup form -> Supabase ----------
@@ -75,6 +84,7 @@
 
   const endpoint = 'https://hvhtbjrecbxlfwmbmaej.supabase.co/functions/v1/signup-request';
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
+  const requestTimeoutMs = 15000;
   const startedAt = Date.now();
 
   function safeTelegramUrl(value) {
@@ -115,15 +125,22 @@
       startedAt
     };
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(function () {
+      controller.abort();
+    }, requestTimeoutMs);
+
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'apikey': publishableKey,
           'Authorization': 'Bearer ' + publishableKey
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) {
@@ -141,14 +158,14 @@
         status.dataset.state = 'error';
         status.textContent = 'Заявка сохранена, но ссылка на Telegram некорректна. Свяжитесь с нами для продолжения.';
       }
-      if (chosenPlan === 'trial_7d' && telegramUrl) {
+      if (chosenPlan === TRIAL_PLAN_WIRE_ID && telegramUrl) {
         status.dataset.state = 'success';
         status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 3 дня.';
         if (btn) btn.textContent = 'Открываем Telegram…';
         form.reset();
         const hiddenPlan = document.getElementById('selectedPlan');
         if (hiddenPlan) hiddenPlan.value = chosenPlan;
-        window.location.href = result.telegramUrl;
+        window.location.href = telegramUrl;
         return;
       }
       status.dataset.state = telegramUrl ? 'success' : 'error';
@@ -168,13 +185,17 @@
       }
     } catch (error) {
       status.dataset.state = 'error';
-      status.textContent = error instanceof Error
-        ? error.message
-        : 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
+      status.textContent = error && error.name === 'AbortError'
+        ? 'Сервер долго не отвечает. Проверьте интернет и попробуйте ещё раз.'
+        : error instanceof Error
+          ? error.message
+          : 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
       if (btn) {
         btn.disabled = false;
         btn.textContent = originalText;
       }
+    } finally {
+      clearTimeout(timeoutId);
     }
   });
 })();
