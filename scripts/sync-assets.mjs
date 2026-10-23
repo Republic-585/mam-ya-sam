@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const root = resolve(dirname(new URL(import.meta.url).pathname), '..');
 const indexPath = resolve(root, 'index.html');
 const stylePath = resolve(root, 'style.css');
 const scriptPath = resolve(root, 'script.js');
