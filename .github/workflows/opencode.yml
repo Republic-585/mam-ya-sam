@@ -146,9 +146,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cp -a proposed/. .
-          rm -rf proposed .git
-          git init
-          git checkout -b "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
+          rm -rf proposed
+          git switch -c "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
           git remote add origin "https://github.com/${REPOSITORY}.git"
           git add -A
           git commit -m "chore: OpenCode maintenance proposal"
