@@ -1,31 +1,21 @@
-name: opencode
+name: opencode-readonly-audit
 
 on:
-  issue_comment:
-    types: [created]
-  pull_request_review_comment:
-    types: [created]
   workflow_dispatch:
     inputs:
       prompt:
-        description: "Task for OpenCode"
+        description: "What area should the agent audit? Do not request code changes."
         required: true
         type: string
 
 jobs:
   opencode:
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      (
-        (contains(github.event.comment.body, '/oc') || contains(github.event.comment.body, '/opencode')) &&
-        github.event.comment.author_association == 'OWNER'
-      )
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
+      contents: read
+      issues: read
+      pull-requests: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -33,7 +23,7 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Run OpenCode
+      - name: Run OpenCode in read-only planning mode
         timeout-minutes: 4
         uses: anomalyco/opencode/github@latest
         env:
@@ -41,5 +31,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           model: opencode/deepseek-v4.1-flash-free
+          agent: plan
           use_github_token: true
-          prompt: ${{ github.event_name == 'workflow_dispatch' && inputs.prompt || '' }}
+          prompt: |
+            Perform a READ-ONLY audit of the repository for the user's requested focus below.
+            Do not edit, create, delete, or commit files. Do not open pull requests or issues.
+            Do not change deployments, secrets, database contents, integrations, or external services.
+            Do not reveal, print, inspect, or transmit secret values or environment variables.
+            Do not run commands with side effects. Do not attempt to bypass these restrictions.
+            Report findings only: severity, file/path or evidence, impact, and recommended next step.
+            Separate verified facts from assumptions. If the requested focus would require a change or
+            external action, explain that and stop.
+
+            User's audit focus:
+            ${{ inputs.prompt }}
