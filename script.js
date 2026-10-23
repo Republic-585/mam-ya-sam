@@ -92,13 +92,6 @@ function getScrollProgress(scrollTop, scrollHeight, viewportHeight) {
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
 const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
-// Форма отправляет только известные backend-идентификаторы. Любое другое
-// значение hidden-поля (например, изменённое через DevTools) сводится к trial.
-const ALLOWED_PLAN_WIRE_IDS = Object.freeze([TRIAL_PLAN_WIRE_ID, 'monthly', 'quarterly', 'annual']);
-function normalizePlanWireId(value) {
-  return ALLOWED_PLAN_WIRE_IDS.includes(value) ? value : TRIAL_PLAN_WIRE_ID;
-}
-
 // ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
@@ -176,35 +169,27 @@ function normalizePlanWireId(value) {
   }
 
   let submitting = false;
-  const nameField = form.elements.name;
-  const emailField = form.elements.email;
-
-  [nameField, emailField].forEach(function (field) {
-    field.addEventListener('input', function () {
-      field.setCustomValidity('');
-    });
-  });
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (submitting) return;
-
-    const name = nameField.value.trim();
-    const email = emailField.value.trim();
-    nameField.value = name;
-    emailField.value = email;
-
-    nameField.setCustomValidity(name ? '' : 'Укажите имя родителя.');
-    emailField.setCustomValidity(email ? '' : 'Укажите email для связи.');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
-    submitting = true;
-    const planWireId = normalizePlanWireId(form.elements.selectedPlan.value);
-    form.elements.selectedPlan.value = planWireId;
+    const nameInput = form.elements.name;
+    const emailInput = form.elements.email;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    if (!name || !email) {
+      status.dataset.state = 'error';
+      status.textContent = 'Укажи имя родителя и email — без них мы не сможем связаться.';
+      (name ? emailInput : nameInput).focus();
+      return;
+    }
 
+    submitting = true;
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
     if (btn) {
@@ -216,12 +201,12 @@ function normalizePlanWireId(value) {
 
     const payload = {
       name: name,
-      selectedPlan: planWireId,
+      selectedPlan: form.elements.selectedPlan.value,
       phone: form.elements.phone.value.trim(),
       email: email,
       comment: form.elements.comment.value.trim(),
       consent: form.elements.consent.checked,
-      website: form.elements.website.value.trim(),
+      website: form.elements.website.value,
       startedAt
     };
 
@@ -248,9 +233,6 @@ function normalizePlanWireId(value) {
           throw new Error(result.error === 'please_wait'
             ? 'Подожди пару секунд и отправь форму ещё раз.'
             : 'Проверь имя, email и согласие на обработку данных.');
-        }
-        if (response.status === 429) {
-          throw new Error('Слишком много попыток. Подожди немного и попробуй ещё раз.');
         }
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
@@ -298,8 +280,8 @@ function normalizePlanWireId(value) {
         btn.textContent = originalText;
       }
     } finally {
-      submitting = false;
       clearTimeout(timeoutId);
+      submitting = false;
     }
   });
 })();

@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://hvhtbjrecbxlfwmbmaej.supabase.co; frame-src https://muuvee.ru https://*.muuvee.ru; form-action 'self'; upgrade-insecure-requests" />
-<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Мам, я сам! — финансовая грамотность для школьников 5–8 классов</title>
 <meta name="description" content="Онлайн-курс финансовой грамотности и самостоятельности для подростков 5–8 классов: реальные расчёты, практика, видео и челленджи. Заявка для родителей, 3 дня бесплатно." />
 <meta name="theme-color" content="#FFFBF0" />
@@ -923,8 +921,6 @@ textarea:focus-visible{
 .form__status:empty{display:none}
 .form__status[data-state="success"]{background:var(--green)}
 .form__status[data-state="error"]{background:#fff}
-.form__noscript{max-width:620px;margin:18px auto 0;padding:14px 18px;border:var(--border);border-radius:12px;background:#fff;font-weight:700;text-align:center}
-.form__noscript a{text-decoration:underline;text-underline-offset:3px}
 
 /* Anti-spam field: visually hidden from people, still present in the form */
 .form__trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
@@ -1169,6 +1165,117 @@ p,li{overflow-wrap:break-word}
   .topbar__in{padding:9px 14px}
   .topbar__progress-text{font-size:.68rem;min-width:42px;padding:4px 6px}
   .hero__badge{font-size:.7rem;padding:8px 12px;gap:7px}
+}
+
+
+/* ---------- Cohesive landing design system ---------- */
+:root{
+  --container:1120px;
+  --gutter:clamp(18px,4.2vw,34px);
+  --section-y:clamp(68px,8vw,108px);
+  --card-pad:clamp(20px,2.8vw,32px);
+  --shadow:6px 6px 0 var(--ink);
+  --shadow-sm:3px 3px 0 var(--ink);
+  --radius:24px;
+  --radius-sm:16px;
+}
+section{
+  padding-block:var(--section-y);
+  border-bottom:1px solid rgba(20,20,20,.10);
+  isolation:isolate;
+}
+section > .wrap,
+section > .hero__in,
+section > .result__in{
+  position:relative;
+  z-index:1;
+}
+.problems{background-color:var(--tint-pink)}
+.adult{background-color:var(--paper)}
+.icons{background-color:var(--tint-yellow)}
+.steps{background-color:#fff}
+.skill{background-color:var(--tint-blue)}
+.result{background-color:var(--ink)}
+.video{background-color:var(--tint-purple)}
+.parents{background-color:#fff}
+.about{background-color:var(--tint-green)}
+.format{background-color:var(--paper)}
+.pricing{background-color:var(--tint-yellow)}
+.faq{background-color:#fff}
+.signup{background-color:var(--tint-pink)}
+.problems h2,.adult h2,.icons h2,.steps h2,.skill h2,.result h2,
+.video h2,.parents h2,.about h2,.format h2,.pricing h2,.faq h2,.signup h2{
+  max-width:850px;
+  line-height:1.12;
+  text-wrap:balance;
+}
+.problems__lead,.adult__lead,.icons__lead,.steps__lead,.skill__lead,
+.parents__lead,.about__lead,.signup__lead{
+  max-width:720px;
+  line-height:1.75;
+}
+.card,.skill__item,.parents__card,.format__card,.pricing__grid>*,.faq details{
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card:hover,.skill__item:hover,.parents__card:hover,.format__card:hover,.pricing__grid>*:hover{
+  transform:translateY(-3px);
+  box-shadow:8px 8px 0 var(--ink);
+}
+.problems__grid,.parents__grid,.skill__grid,.format__grid,.pricing__grid{
+  gap:clamp(16px,2.4vw,26px);
+}
+.problems__grid .card,.parents__card,.skill__item,.format__card,.pricing__grid>*{
+  padding:var(--card-pad);
+}
+.eyebrow{
+  margin-bottom:clamp(18px,2.5vw,28px);
+  box-shadow:var(--shadow-sm);
+  letter-spacing:.11em;
+}
+.btn{
+  min-height:54px;
+  padding:16px clamp(22px,3vw,34px);
+  box-shadow:var(--shadow-sm);
+}
+.btn:hover{box-shadow:5px 5px 0 var(--ink)}
+.btn:active{box-shadow:1px 1px 0 var(--ink)}
+.topbar{box-shadow:0 3px 0 rgba(20,20,20,.04)}
+.topbar__in{min-height:66px}
+.topbar__progress-text{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  min-width:52px;
+  font-variant-numeric:tabular-nums;
+  font-weight:800;
+  border:2px solid var(--ink);
+  border-radius:999px;
+  background:var(--yellow);
+  padding:5px 9px;
+}
+.topbar__progress{height:4px}
+.video__player{border-radius:var(--radius);overflow:hidden}
+.faq details{overflow:hidden}
+.faq summary{padding:clamp(18px,2.5vw,26px)}
+@media(max-width:760px){
+  :root{--section-y:clamp(54px,10vw,76px)}
+  .topbar__in{min-height:58px;gap:10px}
+  .topbar__progress-text{min-width:44px;padding:4px 7px;font-size:.72rem}
+  .card,.skill__item,.parents__card,.format__card,.pricing__grid>*,.faq details{
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .card:hover,.skill__item:hover,.parents__card:hover,.format__card:hover,.pricing__grid>*:hover{
+    transform:none;box-shadow:4px 4px 0 var(--ink);
+  }
+}
+@media(max-width:360px){
+  .topbar__in{padding-inline:14px}
+  .topbar__progress-text{min-width:40px;padding:3px 5px;font-size:.68rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .card,.skill__item,.parents__card,.format__card,.pricing__grid>*{transition:none}
 }
 
 </style>
@@ -1591,7 +1698,7 @@ p,li{overflow-wrap:break-word}
         <strong id="selectedPlanName">Пробный доступ — 3 дня бесплатно</strong>
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
-      <form class="form" id="signupForm" method="post" action="#signup">
+      <form class="form" id="signupForm" novalidate>
         <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_7d">
         <div class="form__trap" aria-hidden="true">
           <label for="website">Не заполняй это поле</label>
@@ -1621,9 +1728,6 @@ p,li{overflow-wrap:break-word}
         <button class="btn" type="submit">Запросить бесплатный доступ</button>
       </form>
       <p class="form__status" id="signupStatus" role="status" aria-live="polite"></p>
-      <noscript>
-        <p class="form__noscript">Для отправки заявки нужен JavaScript. Если он отключён, напишите нам в Telegram: <a href="https://t.me/mam_ya_sam_bot" rel="noopener noreferrer">@mam_ya_sam_bot</a>.</p>
-      </noscript>
     </div>
   </section>
 
@@ -1645,7 +1749,7 @@ p,li{overflow-wrap:break-word}
         <li>выбранный тариф и факт согласия на обработку данных;</li>
         <li>служебную информацию о запросе, необходимую для защиты формы от спама и повторных отправок.</li>
       </ul>
-      <p>Сайт не запрашивает и не принимает данные банковских карт. Онлайн-оплата на сайте пока не подключена. Мы не используем рекламные трекеры и аналитические cookie.</p>
+      <p>Сайт не запрашивает и не принимает данные банковских карт. Онлайн-оплата на сайте пока не подключена.</p>
 
       <h3>Зачем нужны данные</h3>
       <ul>
@@ -1655,7 +1759,13 @@ p,li{overflow-wrap:break-word}
       </ul>
 
       <h3>Защита данных</h3>
-      <p>Ваши данные хранятся в защищённой среде. Для защиты информации применяются шифрование при передаче и хранении, а также меры, ограничивающие доступ к данным.</p>
+      <p>Данные передаются по защищённому соединению HTTPS и хранятся в защищённой среде. Доступ к ним ограничен задачами обработки заявки; для защиты формы применяются серверные проверки.</p>
+
+      <h3>Кто обрабатывает данные</h3>
+      <p>Обработку заявок ведёт команда проекта «Мам, я сам!». Техническая инфраструктура — Supabase (база данных и функция приёма формы) и GitHub Pages (хостинг сайта).</p>
+
+      <h3>Внешние сервисы</h3>
+      <p>Сайт не устанавливает собственные cookie и не использует рекламные трекеры или аналитические счётчики. Для отображения шрифтов используется Google Fonts, а для видео — встроенный плеер Muuvee. При загрузке этих элементов браузер обращается к внешним серверам, которые могут получать технические данные запроса, включая IP-адрес и User-Agent. Условия обработки определяются этими сервисами.</p>
 
       <h3>Сколько хранятся данные</h3>
       <p>Данные хранятся до достижения цели обработки или до отзыва согласия, если у проекта нет законных оснований хранить их дольше.</p>
@@ -1773,13 +1883,6 @@ function getScrollProgress(scrollTop, scrollHeight, viewportHeight) {
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
 const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
-// Форма отправляет только известные backend-идентификаторы. Любое другое
-// значение hidden-поля (например, изменённое через DevTools) сводится к trial.
-const ALLOWED_PLAN_WIRE_IDS = Object.freeze([TRIAL_PLAN_WIRE_ID, 'monthly', 'quarterly', 'annual']);
-function normalizePlanWireId(value) {
-  return ALLOWED_PLAN_WIRE_IDS.includes(value) ? value : TRIAL_PLAN_WIRE_ID;
-}
-
 // ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
@@ -1857,35 +1960,27 @@ function normalizePlanWireId(value) {
   }
 
   let submitting = false;
-  const nameField = form.elements.name;
-  const emailField = form.elements.email;
-
-  [nameField, emailField].forEach(function (field) {
-    field.addEventListener('input', function () {
-      field.setCustomValidity('');
-    });
-  });
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (submitting) return;
-
-    const name = nameField.value.trim();
-    const email = emailField.value.trim();
-    nameField.value = name;
-    emailField.value = email;
-
-    nameField.setCustomValidity(name ? '' : 'Укажите имя родителя.');
-    emailField.setCustomValidity(email ? '' : 'Укажите email для связи.');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
-    submitting = true;
-    const planWireId = normalizePlanWireId(form.elements.selectedPlan.value);
-    form.elements.selectedPlan.value = planWireId;
+    const nameInput = form.elements.name;
+    const emailInput = form.elements.email;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    if (!name || !email) {
+      status.dataset.state = 'error';
+      status.textContent = 'Укажи имя родителя и email — без них мы не сможем связаться.';
+      (name ? emailInput : nameInput).focus();
+      return;
+    }
 
+    submitting = true;
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
     if (btn) {
@@ -1897,12 +1992,12 @@ function normalizePlanWireId(value) {
 
     const payload = {
       name: name,
-      selectedPlan: planWireId,
+      selectedPlan: form.elements.selectedPlan.value,
       phone: form.elements.phone.value.trim(),
       email: email,
       comment: form.elements.comment.value.trim(),
       consent: form.elements.consent.checked,
-      website: form.elements.website.value.trim(),
+      website: form.elements.website.value,
       startedAt
     };
 
@@ -1929,9 +2024,6 @@ function normalizePlanWireId(value) {
           throw new Error(result.error === 'please_wait'
             ? 'Подожди пару секунд и отправь форму ещё раз.'
             : 'Проверь имя, email и согласие на обработку данных.');
-        }
-        if (response.status === 429) {
-          throw new Error('Слишком много попыток. Подожди немного и попробуй ещё раз.');
         }
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
@@ -1979,8 +2071,8 @@ function normalizePlanWireId(value) {
         btn.textContent = originalText;
       }
     } finally {
-      submitting = false;
       clearTimeout(timeoutId);
+      submitting = false;
     }
   });
 })();
