@@ -821,49 +821,6 @@ select:focus-visible{
     #080d20;
   border-top:var(--border)
 }
-/* Periodic comets behind the contact form */
-.signup__comet{
-  position:absolute;
-  z-index:0;
-  top:18%;
-  left:-18%;
-  width:118px;
-  height:2px;
-  border-radius:50%;
-  pointer-events:none;
-  opacity:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(124,196,255,.18) 38%,rgba(255,255,255,.95) 100%);
-  box-shadow:0 0 8px 1px rgba(124,196,255,.55);
-  transform:rotate(-22deg);
-  animation:signupCometFlight 13s linear infinite;
-}
-.signup__comet::after{
-  content:"";
-  position:absolute;
-  right:-2px;
-  top:-3px;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 10px 3px rgba(201,229,255,.9);
-}
-.signup__comet--two{
-  top:62%;
-  width:88px;
-  animation:signupCometFlight 17s linear 6.5s infinite;
-  background:linear-gradient(90deg,transparent 0%,rgba(180,156,255,.15) 38%,rgba(255,255,255,.9) 100%);
-  box-shadow:0 0 8px 1px rgba(180,156,255,.5);
-}
-@keyframes signupCometFlight{
-  0%{left:-18%;top:18%;opacity:0;transform:translate3d(0,0,0) rotate(-22deg)}
-  5%{opacity:.9}
-  18%{left:108%;top:43%;opacity:.85;transform:translate3d(0,0,0) rotate(-22deg)}
-  19%,100%{left:108%;top:43%;opacity:0}
-}
-@media(prefers-reduced-motion:reduce){
-  .signup__comet{animation:none;display:none}
-}
 /* Animated stars behind the contact form */
 .signup{isolation:isolate}
 .signup::before,.signup::after{
@@ -1467,8 +1424,6 @@ html{scroll-behavior:smooth}
 
   <!-- SIGNUP -->
   <section class="signup" id="signup">
-    <span class="signup__comet signup__comet--one" aria-hidden="true"></span>
-    <span class="signup__comet signup__comet--two" aria-hidden="true"></span>
     <div class="wrap">
       <h2>Начни с бесплатных 3 дней</h2>
       <p class="signup__lead">Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.</p>
