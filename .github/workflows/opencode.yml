@@ -27,7 +27,7 @@ permissions:
 jobs:
   opencode:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     outputs:
       has_changes: ${{ steps.changes.outputs.has_changes }}
     permissions:
@@ -48,13 +48,13 @@ jobs:
           curl -fsSL https://opencode.ai/install | bash
           echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
 
-      - name: Audit and prepare focused fixes
-        timeout-minutes: 9
+      - name: Audit, fix safe issues, and report
+        timeout-minutes: 18
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          MAINTENANCE_FOCUS: ${{ inputs.prompt || 'Review launch readiness and address the highest-priority safe, code-only issues found in the repository. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
+          MAINTENANCE_FOCUS: ${{ inputs.prompt || 'Perform a complete audit, then fix the highest-priority safe issues found in the repository in the same run. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
         run: |
           cat > /tmp/opencode-maintenance-prompt.txt <<'EOF'
           You are the autonomous maintenance engineer for the Mam, ya sam! project.
