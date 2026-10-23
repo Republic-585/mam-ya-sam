@@ -148,7 +148,6 @@ jobs:
           cp -a proposed/. .
           rm -rf proposed
           git switch -c "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
-          git remote add origin "https://github.com/${REPOSITORY}.git"
           git add -A
           git commit -m "chore: OpenCode maintenance proposal"
           git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
