@@ -86,12 +86,16 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
   const requestTimeoutMs = 15000;
   const startedAt = Date.now();
+  let submitting = false;
+
+  class SignupError extends Error {}
 
   function safeTelegramUrl(value) {
     if (typeof value !== 'string' || !value.trim()) return null;
     try {
       const url = new URL(value);
-      if (url.protocol !== 'https:' || !['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
+      if (url.protocol !== 'https:' || url.username || url.password || url.port) return null;
+      if (!['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
       return url.href;
     } catch (_) {
       return null;
@@ -100,11 +104,14 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    if (submitting) return;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
+    submitting = true;
+    form.setAttribute('aria-busy', 'true');
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
     if (btn) {
@@ -144,12 +151,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) {
-        if (response.status === 400) {
-          throw new Error(result.error === 'please_wait'
-            ? 'Подожди пару секунд и отправь форму ещё раз.'
-            : 'Проверь имя, email и согласие на обработку данных.');
+        if (response.status === 429 || result.error === 'please_wait') {
+          throw new SignupError('Подожди пару секунд и отправь форму ещё раз.');
         }
-        throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
+        if (response.status === 400 || response.status === 422) {
+          throw new SignupError('Проверь заполненные поля и согласие на обработку данных.');
+        }
+        throw new SignupError('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
 
       const chosenPlan = form.elements.selectedPlan.value;
@@ -187,14 +195,16 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       status.dataset.state = 'error';
       status.textContent = error && error.name === 'AbortError'
         ? 'Сервер долго не отвечает. Проверьте интернет и попробуйте ещё раз.'
-        : error instanceof Error
+        : error instanceof SignupError
           ? error.message
-          : 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
+          : 'Не удалось отправить заявку. Проверьте интернет и попробуйте ещё раз.';
       if (btn) {
         btn.disabled = false;
         btn.textContent = originalText;
       }
     } finally {
+      submitting = false;
+      form.removeAttribute('aria-busy');
       clearTimeout(timeoutId);
     }
   });
@@ -250,7 +260,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     });
   }
 
-  // Центральное солнце декоративное: без нажатия и обработчика.\n\n  // 3. Калькулятор (Математика)
+  // Центральное солнце декоративное: без нажатия и обработчика.
+
+  // 3. Калькулятор (Математика)
   const mathText = document.getElementById('easterEggMath');
   if (mathText) {
     mathText.addEventListener('click', function() {
