@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(dirname(new URL(import.meta.url).pathname), '..');
+const thisFile = fileURLToPath(import.meta.url);
+const root = resolve(dirname(thisFile), '..');
 const failures = [];
 let checks = 0;
 
@@ -59,7 +61,22 @@ for (const field of ['name', 'selectedPlan', 'phone', 'email', 'comment', 'conse
 check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя не помечено required');
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
 check(/<input[^>]+id="consent"[^>]*\btype="checkbox"[^>]*\brequired\b/i.test(index), 'index.html: согласие не помечено required');
+const signupFormTag = index.match(/<form\b[^>]*\bid="signupForm"[^>]*>/i)?.[0] || '';
+check(/\bmethod="post"/i.test(signupFormTag), 'index.html: форма должна использовать method="post", чтобы данные не попадали в URL при отключённом JS');
+check(/\baction="#signup"/i.test(signupFormTag), 'index.html: у формы должен быть безопасный action="#signup"');
+check(/<noscript>[\s\S]*?t\.me\/mam_ya_sam_bot[\s\S]*?<\/noscript>/i.test(index), 'index.html: нет noscript-подсказки с контактом для отправки без JS');
 check(/<iframe[^>]+title="[^"]+"/i.test(index), 'index.html: у iframe нет title');
+check(!/<script[^>]+\bsrc=/i.test(index), 'index.html: не должно быть внешних script src');
+
+for (const match of index.matchAll(/<label[^>]+for="([^"]+)"/gi)) {
+  check(ids.includes(match[1]), `index.html: label ссылается на отсутствующий id="${match[1]}"`);
+}
+
+check(/let isSubmitting = false/.test(script), 'script.js: нет защиты от повторной отправки формы');
+check(/if \(isSubmitting\) return;/.test(script), 'script.js: повторная отправка не блокируется');
+check(/nameField\.value\.trim\(\)/.test(script), 'script.js: имя не обрезается перед отправкой');
+check(/emailField\.value\.trim\(\)/.test(script), 'script.js: email не обрезается перед отправкой');
+check(/error instanceof TypeError/.test(script), 'script.js: сетевая ошибка не имеет понятного русского сообщения');
 check(/<p class="form__privacy">\s*<a[^>]+href="#privacy-policy"/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
 check(/<h2[^>]*id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
 check(index.includes('https://t.me/mam_ya_sam_bot'), 'index.html: в политике нет контакта для отзыва согласия');
@@ -72,8 +89,12 @@ check(/<summary>С какого класса подойдёт курс\?<\/summa
 check(/<summary>Нужно ли сразу платить\?<\/summary>/.test(index), 'index.html: в FAQ нет ответа про оплату');
 check(/class="video__cta"[\s\S]*?href="#signup"/.test(index), 'index.html: после видео нет CTA к форме');
 
-for (const price of ['490 ₽', '1 290 ₽', '4 490 ₽']) {
+for (const price of ['0 ₽', '490 ₽', '1 290 ₽', '4 490 ₽']) {
   check(index.includes(price), `index.html: пропала цена тарифа ${price}`);
+  check(script.includes(price), `script.js: нет цены тарифа ${price}`);
+}
+for (const wire of ['monthly', 'quarterly', 'annual']) {
+  check(script.includes(`wireId:'${wire}'`), `script.js: тариф ${wire} не связан с идентификатором backend`);
 }
 
 const cardPlans = [...index.matchAll(/data-plan-card="([^"]+)"/g)].map((match) => match[1]);
@@ -121,6 +142,22 @@ for (const match of index.matchAll(localReferencePattern)) {
 }
 check(!/privacy\.html/.test(index), 'index.html: осталась ссылка на несуществующий privacy.html');
 
+for (const match of index.matchAll(/href="#([^"]+)"/g)) {
+  check(ids.includes(match[1]), `index.html: ссылка на отсутствующий якорь #${match[1]}`);
+}
+
+for (const attribute of ['aria-controls', 'aria-labelledby']) {
+  for (const match of index.matchAll(new RegExp(`${attribute}="([^"]+)"`, 'g'))) {
+    for (const token of match[1].split(/\s+/).filter(Boolean)) {
+      check(ids.includes(token), `index.html: ${attribute} ссылается на отсутствующий id="${token}"`);
+    }
+  }
+}
+
+for (const match of index.matchAll(/<a\b[^>]*target="_blank"[^>]*>/gi)) {
+  check(/\brel="[^"]*noopener/i.test(match[0]), 'index.html: target="_blank" без rel="noopener"');
+}
+
 const forbiddenSecrets = [
   /sb_secret_[A-Za-z0-9_-]{12,}/,
   /service_role/i,
@@ -138,7 +175,7 @@ function walk(directory) {
     const info = statSync(fullPath);
     if (info.isDirectory()) walk(fullPath);
     else if (/\.(?:html|js|mjs|css|md|json|yml|yaml)$/i.test(entry)) {
-      if (fullPath === new URL(import.meta.url).pathname) continue;
+      if (fullPath === thisFile) continue;
       const contents = readFileSync(fullPath, 'utf8');
       for (const pattern of forbiddenSecrets) {
         check(!pattern.test(contents), `${fullPath.slice(root.length + 1)}: найден похожий на секрет фрагмент (${pattern})`);

@@ -907,6 +907,8 @@ textarea:focus-visible{
 .form__status:empty{display:none}
 .form__status[data-state="success"]{background:var(--green)}
 .form__status[data-state="error"]{background:#fff}
+.form__noscript{max-width:620px;margin:18px auto 0;padding:14px 18px;border:var(--border);border-radius:12px;background:var(--paper);font-weight:600;text-align:center}
+.form__noscript a{text-decoration:underline;text-underline-offset:3px}
 
 /* Anti-spam field: visually hidden from people, still present in the form */
 .form__trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
