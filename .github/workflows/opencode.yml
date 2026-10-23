@@ -65,11 +65,19 @@ jobs:
           environment variables, credentials, access tokens, secret values, or secret files.
           Never transmit project data or secrets to unrelated destinations.
 
-          You may modify project code, documentation, tests, GitHub Actions, Supabase schema,
-          and Edge Function code when the change is justified, scoped, and verifiable.
-          Use Supabase MCP to inspect schema, RLS, Edge Functions, logs, and security/performance
-          advisors. Prefer small, testable changes, explicit migrations, and additive,
-          non-destructive updates. Keep source changes versioned in the repository.
+          Work in two explicit phases in this same run:
+          PHASE 1 — AUDIT: inspect the repository and, when available, Supabase schema, RLS,
+          Edge Functions, logs, and security/performance advisors. Record concrete findings,
+          severity, evidence, and likely impact. Do not stop after listing problems.
+          PHASE 2 — FIX: after the audit, immediately implement the highest-priority safe,
+          verifiable fixes without asking the owner to approve each individual code change.
+          Fix all high-priority and straightforward medium-priority issues that fit the safety
+          rules and time budget. Add or update tests/checks where feasible. If a finding cannot
+          safely be fixed in this run, explain why and give the precise next action.
+          You may modify project code, documentation, tests, GitHub Actions, and prepare
+          Supabase schema/Edge Function changes when justified, scoped, and verifiable.
+          Prefer small, testable, additive, non-destructive updates and explicit migrations.
+          Keep source changes versioned in the repository.
           You may implement safe, reversible fixes without asking again. However, do not deploy
           Edge Functions or apply production migrations automatically in this workflow; prepare
           the change, tests, and exact rollout/rollback instructions in OPENCODE-REPORT.md.
@@ -82,8 +90,13 @@ jobs:
           and working features. Do not remove features merely to make tests pass.
           Add or run relevant checks when feasible. Inspect the final diff for accidental secrets,
           unrelated changes, broken links, and regressions. Report changes, evidence, checks,
-          remaining risks, and next steps in OPENCODE-REPORT.md. Do not commit or push; a separate
-          workflow step proposes a PR.
+          remaining risks, and next steps in OPENCODE-REPORT.md. At the end, ensure it is a
+          complete Russian-language report with: audit summary; each important finding and
+          severity; what was fixed (files and behavior); tests/checks run and results; issues
+          left unresolved and why; security/data risks; and exact deployment plus rollback
+          steps for any change needing manual rollout. Clearly distinguish verified facts from
+          assumptions. Ensure the report is created even when no source fix is safe or needed.
+          Do not commit or push; a separate workflow step proposes a PR for the owner to review.
 
           Maintenance request:
           EOF
