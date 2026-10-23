@@ -1674,7 +1674,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const selectedPrice = document.getElementById('selectedPlanPrice');
   const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
   const details = {
-    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ — 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'Начни с бесплатных 3 дней', lead:'Оставь заявку родителя. Мы проверим заявку и свяжемся с вами, чтобы активировать пробный доступ.', button:'Запросить бесплатный доступ'},
+    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ — 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'', lead:'', button:'Запросить бесплатный доступ'},
     monthly: {wireId:'monthly', name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
     quarterly: {wireId:'quarterly', name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
     annual: {wireId:'annual', name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя — мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
@@ -1699,8 +1699,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
           : (button.dataset.plan === 'trial_3d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
       });
     });
-    if (heading) heading.textContent = item.heading;
-    if (lead) lead.textContent = item.lead;
+    if (heading) { heading.textContent = item.heading; heading.hidden = !item.heading; }
+    if (lead) { lead.textContent = item.lead; lead.hidden = !item.lead; }
     if (submit) submit.textContent = item.button;
     if (selectedName) selectedName.textContent = item.name;
     if (selectedPrice) selectedPrice.textContent = item.price;
