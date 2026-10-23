@@ -85,10 +85,10 @@ section[id]{scroll-margin-top:80px}
 .btn--ink{background:var(--ink);color:var(--paper)}
 /* Signup action: compact, refined, with a clear press response */
 #signupForm button[type="submit"]{
-  background:linear-gradient(135deg,#39785a 0%,#286247 100%);
+  background:#238653;
   color:#ffffff;
-  box-shadow:0 3px 0 rgba(17,54,38,.7);
-  border:0;
+  box-shadow:0 3px 0 var(--ink);
+  border-color:var(--ink);
   min-height:48px;
   padding:13px 24px;
   font-size:.88rem;
@@ -100,13 +100,12 @@ section[id]{scroll-margin-top:80px}
 }
 #signupForm button[type="submit"]:hover{
   transform:translateY(-2px);
-  background:linear-gradient(135deg,#438765 0%,#2d6d4f 100%);
-  box-shadow:0 5px 0 rgba(17,54,38,.7);
+  box-shadow:0 5px 0 var(--ink);
 }
 #signupForm button[type="submit"]:active{
   transform:translateY(2px) scale(.985);
-  box-shadow:0 0 0 rgba(17,54,38,.7);
-  background:linear-gradient(135deg,#285d45 0%,#1d4d37 100%);
+  box-shadow:0 0 0 var(--ink);
+  background:#17663e;
 }
 #signupForm button[type="submit"]:focus-visible{
   outline:3px solid var(--ink);
@@ -848,7 +847,7 @@ select:focus-visible{
 .form label{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
 .form input,.form textarea,.form select{
   font-family:'Manrope',sans-serif;font-size:.96rem;font-weight:500;color:var(--ink);
-  padding:8px 12px;border:1px solid rgba(20,20,20,.22);border-radius:10px;background:var(--paper);outline:none;
+  padding:8px 12px;border:var(--border);border-radius:10px;background:var(--paper);outline:none;
   transition:box-shadow .12s;width:100%;
 }
 .form input:focus,.form textarea:focus,.form select:focus{box-shadow:var(--shadow-sm)}
