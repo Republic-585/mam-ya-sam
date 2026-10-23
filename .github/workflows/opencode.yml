@@ -66,9 +66,14 @@ jobs:
 
           Prefer small, testable changes. Preserve the existing product, Russian-language
           UX, current design, Telegram/Supabase integration contracts, and user data.
-          Never change production database state, authentication, secrets, payment state,
-          access grants, or real student records from this workflow.
-          Do not weaken RLS, authentication, consent, validation, or security controls.
+          Use the project-scoped Supabase MCP when configured to inspect schema, RLS,
+          Edge Functions, logs, and advisors. You may implement safe, reversible fixes
+          and prepare migrations in the repository or a development branch. Verify every
+          database change before proposing it. Never delete or rewrite production records,
+          disable RLS, weaken authentication/consent/validation, change payment state or
+          access grants, rotate secrets, or perform destructive production DDL. Do not
+          deploy Edge Functions or apply production migrations automatically: prepare the
+          reviewed change and explain the exact rollout/rollback steps in OPENCODE-REPORT.md.
           Do not remove features merely to make a test pass.
           Add or run relevant static checks when feasible. Inspect the final diff for
           accidental secrets, unrelated changes, broken links, and regressions.
