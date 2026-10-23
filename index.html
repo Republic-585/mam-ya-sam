@@ -83,20 +83,20 @@ section[id]{scroll-margin-top:80px}
 .btn--yellow{background:var(--yellow)}
 .btn--purple{background:var(--purple)}
 .btn--ink{background:var(--ink);color:var(--paper)}
-/* Signup action: bright fill and offset shadow stay visually distinct */
+/* Signup action: use the site's green accent without a shadow */
 #signupForm button[type="submit"]{
-  background:var(--cyan);
+  background:var(--green);
   color:var(--ink);
-  box-shadow:5px 5px 0 var(--purple);
+  box-shadow:none;
   border-color:var(--ink);
 }
 #signupForm button[type="submit"]:hover{
   transform:translate(-2px,-2px);
-  box-shadow:7px 7px 0 var(--purple);
+  box-shadow:none;
 }
 #signupForm button[type="submit"]:active{
   transform:translate(3px,3px);
-  box-shadow:2px 2px 0 var(--purple);
+  box-shadow:none;
 }
 #signupForm button[type="submit"]:focus-visible{
   outline:3px solid var(--ink);
