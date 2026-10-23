@@ -32,6 +32,8 @@ jobs:
   opencode:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      has_changes: ${{ steps.changes.outputs.has_changes }}
     permissions:
       contents: read
     steps:
@@ -108,11 +110,32 @@ jobs:
             .
             !.git
             !.github
+            !proposed
           include-hidden-files: true
           if-no-files-found: warn
 
-      - name: Create a review branch and pull request
-        if: steps.changes.outputs.has_changes == 'true'
+  propose:
+    needs: opencode
+    if: needs.opencode.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout main without persisted credentials
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Download proposed source artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: opencode-maintenance-${{ github.run_id }}
+          path: proposed
+
+      - name: Create review branch and pull request
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
@@ -122,11 +145,14 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          BRANCH="agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
-          git switch -c "$BRANCH"
+          cp -a proposed/. .
+          rm -rf proposed .git
+          git init
+          git checkout -b "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
+          git remote add origin "https://github.com/${REPOSITORY}.git"
           git add -A
           git commit -m "chore: OpenCode maintenance proposal"
-          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/$BRANCH"
-          gh pr create --repo "$REPOSITORY" --base main --head "$BRANCH" \
+          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
+          gh pr create --repo "$REPOSITORY" --base main --head "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}" \
             --title "OpenCode maintenance proposal (#${RUN_ID})" \
             --body "Automated maintenance proposal from GitHub Actions run ${RUN_ID}. Review the diff and OPENCODE-REPORT.md, verify checks, and merge only after review. This workflow does not deploy changes directly."
