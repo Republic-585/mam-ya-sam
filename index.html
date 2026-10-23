@@ -83,6 +83,25 @@ section[id]{scroll-margin-top:80px}
 .btn--yellow{background:var(--yellow)}
 .btn--purple{background:var(--purple)}
 .btn--ink{background:var(--ink);color:var(--paper)}
+/* Signup action: bright fill and offset shadow stay visually distinct */
+#signupForm button[type="submit"]{
+  background:var(--cyan);
+  color:var(--ink);
+  box-shadow:5px 5px 0 var(--purple);
+  border-color:var(--ink);
+}
+#signupForm button[type="submit"]:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:7px 7px 0 var(--purple);
+}
+#signupForm button[type="submit"]:active{
+  transform:translate(3px,3px);
+  box-shadow:2px 2px 0 var(--purple);
+}
+#signupForm button[type="submit"]:focus-visible{
+  outline:3px solid var(--ink);
+  outline-offset:5px;
+}
 .card{background:#fff;border:var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
 
 /* ---------- ACCESSIBILITY ---------- */
