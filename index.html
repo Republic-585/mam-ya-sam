@@ -1147,6 +1147,28 @@ html{scroll-behavior:smooth}
   .faq details[open] .faq__a{animation:none!important}
 }
 
+
+/* Более плавное раскрытие FAQ */
+.faq details{
+  interpolate-size:allow-keywords;
+}
+.faq details::details-content{
+  display:block;
+  block-size:0;
+  overflow:clip;
+  transition:
+    block-size .72s cubic-bezier(.22,.8,.2,1),
+    content-visibility .72s allow-discrete;
+}
+.faq details[open]::details-content{
+  block-size:auto;
+}
+@media(prefers-reduced-motion:reduce){
+  .faq details::details-content{
+    transition:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
