@@ -229,15 +229,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) {
-        const errorCode = typeof result.error === 'string' ? result.error : '';
-        if (errorCode === 'please_wait') {
-          throw new Error('Подожди пару секунд и отправь форму ещё раз.');
-        }
-        if (response.status === 429) {
-          throw new Error('Слишком много попыток. Подождите немного и попробуйте снова.');
-        }
         if (response.status === 400) {
-          throw new Error('Проверь имя, email и согласие на обработку данных.');
+          throw new Error(result.error === 'please_wait'
+            ? 'Подожди пару секунд и отправь форму ещё раз.'
+            : 'Проверь имя, email и согласие на обработку данных.');
         }
         throw new Error('Не удалось отправить заявку. Попробуй ещё раз чуть позже.');
       }
