@@ -145,7 +145,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          cp -a proposed/. .
+          rsync -a --delete --exclude='.git' --exclude='.github' proposed/ ./
           rm -rf proposed
           git switch -c "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
           git add -A
