@@ -1148,3 +1148,115 @@ p,li{overflow-wrap:break-word}
   .topbar__progress-text{font-size:.68rem;min-width:42px;padding:4px 6px}
   .hero__badge{font-size:.7rem;padding:8px 12px;gap:7px}
 }
+
+
+/* ---------- Cohesive landing design system ---------- */
+:root{
+  --container:1120px;
+  --gutter:clamp(18px,4.2vw,34px);
+  --section-y:clamp(68px,8vw,108px);
+  --card-pad:clamp(20px,2.8vw,32px);
+  --shadow:6px 6px 0 var(--ink);
+  --shadow-sm:3px 3px 0 var(--ink);
+  --radius:24px;
+  --radius-sm:16px;
+}
+section{
+  padding-block:var(--section-y);
+  border-bottom:1px solid rgba(20,20,20,.10);
+  isolation:isolate;
+}
+section > .wrap,
+section > .hero__in,
+section > .result__in{
+  position:relative;
+  z-index:1;
+}
+.problems{background-color:var(--tint-pink)}
+.adult{background-color:var(--paper)}
+.icons{background-color:var(--tint-yellow)}
+.steps{background-color:#fff}
+.skill{background-color:var(--tint-blue)}
+.result{background-color:var(--ink)}
+.video{background-color:var(--tint-purple)}
+.parents{background-color:#fff}
+.about{background-color:var(--tint-green)}
+.format{background-color:var(--paper)}
+.pricing{background-color:var(--tint-yellow)}
+.faq{background-color:#fff}
+.signup{background-color:var(--tint-pink)}
+.problems h2,.adult h2,.icons h2,.steps h2,.skill h2,.result h2,
+.video h2,.parents h2,.about h2,.format h2,.pricing h2,.faq h2,.signup h2{
+  max-width:850px;
+  line-height:1.12;
+  text-wrap:balance;
+}
+.problems__lead,.adult__lead,.icons__lead,.steps__lead,.skill__lead,
+.parents__lead,.about__lead,.signup__lead{
+  max-width:720px;
+  line-height:1.75;
+}
+.card,.skill__item,.parents__card,.format__card,.pricing__grid>*,.faq details{
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card:hover,.skill__item:hover,.parents__card:hover,.format__card:hover,.pricing__grid>*:hover{
+  transform:translateY(-3px);
+  box-shadow:8px 8px 0 var(--ink);
+}
+.problems__grid,.parents__grid,.skill__grid,.format__grid,.pricing__grid{
+  gap:clamp(16px,2.4vw,26px);
+}
+.problems__grid .card,.parents__card,.skill__item,.format__card,.pricing__grid>*{
+  padding:var(--card-pad);
+}
+.eyebrow{
+  margin-bottom:clamp(18px,2.5vw,28px);
+  box-shadow:var(--shadow-sm);
+  letter-spacing:.11em;
+}
+.btn{
+  min-height:54px;
+  padding:16px clamp(22px,3vw,34px);
+  box-shadow:var(--shadow-sm);
+}
+.btn:hover{box-shadow:5px 5px 0 var(--ink)}
+.btn:active{box-shadow:1px 1px 0 var(--ink)}
+.topbar{box-shadow:0 3px 0 rgba(20,20,20,.04)}
+.topbar__in{min-height:66px}
+.topbar__progress-text{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  min-width:52px;
+  font-variant-numeric:tabular-nums;
+  font-weight:800;
+  border:2px solid var(--ink);
+  border-radius:999px;
+  background:var(--yellow);
+  padding:5px 9px;
+}
+.topbar__progress{height:4px}
+.video__player{border-radius:var(--radius);overflow:hidden}
+.faq details{overflow:hidden}
+.faq summary{padding:clamp(18px,2.5vw,26px)}
+@media(max-width:760px){
+  :root{--section-y:clamp(54px,10vw,76px)}
+  .topbar__in{min-height:58px;gap:10px}
+  .topbar__progress-text{min-width:44px;padding:4px 7px;font-size:.72rem}
+  .card,.skill__item,.parents__card,.format__card,.pricing__grid>*,.faq details{
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .card:hover,.skill__item:hover,.parents__card:hover,.format__card:hover,.pricing__grid>*:hover{
+    transform:none;box-shadow:4px 4px 0 var(--ink);
+  }
+}
+@media(max-width:360px){
+  .topbar__in{padding-inline:14px}
+  .topbar__progress-text{min-width:40px;padding:3px 5px;font-size:.68rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .card,.skill__item,.parents__card,.format__card,.pricing__grid>*{transition:none}
+}
+
