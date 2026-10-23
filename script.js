@@ -1,3 +1,31 @@
+// ---------- Privacy policy dialog ----------
+(function() {
+  const dialog = document.getElementById('privacy-policy');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+
+  let lastTrigger = null;
+  document.querySelectorAll('a[href="#privacy-policy"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      lastTrigger = link;
+      if (!dialog.open) dialog.showModal();
+    });
+  });
+
+  const closeButton = dialog.querySelector('[data-close-privacy]');
+  if (closeButton) closeButton.addEventListener('click', function() {
+    dialog.close();
+  });
+
+  dialog.addEventListener('click', function(event) {
+    if (event.target === dialog) dialog.close();
+  });
+
+  dialog.addEventListener('close', function() {
+    if (lastTrigger) lastTrigger.focus();
+  });
+})();
+
 // ---------- Scroll Progress Bar ----------
 (function() {
   const bar = document.getElementById('progressBar');
@@ -250,7 +278,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     });
   }
 
-  // Центральное солнце декоративное: без нажатия и обработчика.\n\n  // 3. Калькулятор (Математика)
+  // Центральное солнце декоративное: без нажатия и обработчика.
+
+  // 3. Калькулятор (Математика)
   const mathText = document.getElementById('easterEggMath');
   if (mathText) {
     mathText.addEventListener('click', function() {
@@ -276,7 +306,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 (function(){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealTargets = document.querySelectorAll(
-    '.problems h2,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.about__photo,.about__content,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
+    '.hero__content,.parents__head,.parents__grid>*,.problems h2,.problems__lead,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.video__cta,.about__photo,.about__content,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
   );
   if(!reduceMotion && 'IntersectionObserver' in window){
     document.body.classList.add('js-motion-ready');
