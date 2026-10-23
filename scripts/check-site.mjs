@@ -34,6 +34,9 @@ const index = read('index.html');
 const script = read('script.js');
 const styles = read('style.css');
 const readme = read('README.md');
+const privacyStart = index.indexOf('id="privacy-policy"');
+const privacyEnd = index.indexOf('</dialog>', privacyStart);
+const privacyPolicy = privacyStart !== -1 && privacyEnd > privacyStart ? index.slice(privacyStart, privacyEnd) : '';
 
 check(/<html[^>]*\blang="ru"/i.test(index), 'index.html: не указан lang="ru"');
 check(/<meta[^>]+name="viewport"/i.test(index), 'index.html: отсутствует meta viewport');
@@ -74,9 +77,12 @@ const iframeSources = [...index.matchAll(/<iframe[^>]*\bsrc="([^"]+)"/g)].map((m
 check(iframeSources.length === 1 && /^https:\/\/muuvee\.ru\//i.test(iframeSources[0] || ''), 'index.html: неожиданный источник iframe');
 check(/<p class="form__privacy">\s*<a[^>]+href="#privacy-policy"/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
 check(/<h2[^>]*id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
-check(index.includes('https://t.me/mam_ya_sam_bot'), 'index.html: в политике нет контакта для отзыва согласия');
-check(index.includes('Google Fonts') && index.includes('Muuvee'), 'index.html: политика не упоминает внешние Google Fonts и Muuvee');
-check(/не устанавливает собственные cookie/i.test(index), 'index.html: политика не описывает отсутствие собственных cookie и трекеров');
+check(privacyPolicy.includes('https://t.me/mam_ya_sam_bot'), 'index.html: в политике нет контакта для отзыва согласия');
+check(privacyPolicy.includes('Google Fonts') && privacyPolicy.includes('Muuvee'), 'index.html: политика не упоминает внешние Google Fonts и Muuvee');
+check(/fonts\.googleapis\.com[\s\S]{0,300}fonts\.gstatic\.com/.test(privacyPolicy), 'index.html: политика не перечисляет домены Google Fonts');
+check(/не устанавливает собственные cookie/i.test(privacyPolicy), 'index.html: политика не описывает отсутствие собственных cookie и трекеров');
+check(/не использует рекламные или аналитические трекеры/i.test(privacyPolicy), 'index.html: политика не описывает отсутствие рекламных и аналитических трекеров');
+check(!/шифровани[ея][^<]{0,80}хранени/i.test(privacyPolicy), 'index.html: политика содержит неподтверждённое обещание шифрования при хранении');
 
 check(/class="hero__actions"[\s\S]*?href="#signup"/.test(index), 'index.html: на первом экране нет CTA к форме');
 check(/class="hero__lead"/.test(index), 'index.html: на первом экране нет пояснения для родителей');
@@ -143,6 +149,8 @@ check(!/window\.location\.href\s*=\s*result\.telegramUrl/.test(script), 'script.
 check(/window\.location\.href\s*=\s*telegramUrl/.test(script), 'script.js: нет редиректа по проверенной Telegram-ссылке');
 check(/AbortController/.test(script), 'script.js: у запроса формы нет таймаута');
 check(/clearTimeout\(timeoutId\)/.test(script), 'script.js: таймаут запроса не очищается');
+check(/response\.status === 429/.test(script), 'script.js: нет понятной обработки ограничения частоты запросов');
+check(/errorCode === 'please_wait'/.test(script), 'script.js: не обрабатывается ответ please_wait от backend');
 check(script.includes("const endpoint = 'https://hvhtbjrecbxlfwmbmaej.supabase.co/functions/v1/signup-request';"), 'script.js: неожиданный endpoint формы');
 check(/const publishableKey = 'sb_publishable_[A-Za-z0-9_-]{10,}';/.test(script), 'script.js: не найден ожидаемый публичный publishable key');
 check(!/service_role|sb_secret_/.test(script), 'script.js: в клиентском коде найден секретный ключ Supabase');
