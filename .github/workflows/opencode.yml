@@ -214,8 +214,12 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.opencode' proposed/ ./
-          rm -rf proposed
+          # Move the source artifact outside the checkout before using --delete.
+          # Otherwise rsync can see its own nested source disappear while syncing into ./.
+          proposed_dir="$RUNNER_TEMP/opencode-proposed-${RUN_ID}-${RUN_ATTEMPT}"
+          mv proposed "$proposed_dir"
+          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.opencode' "$proposed_dir/" ./
+          rm -rf "$proposed_dir"
           git switch -c "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
           git add -A
           git commit -m "chore: OpenCode maintenance proposal"
