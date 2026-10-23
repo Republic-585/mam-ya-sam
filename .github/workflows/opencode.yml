@@ -1,17 +1,30 @@
-# Verification trigger: confirm GitHub Actions can start the read-only audit.
+# Read-only OpenCode audit. Runs daily, on relevant main-branch changes, or manually.
 
 name: opencode-readonly-audit
 
 on:
+  schedule:
+    - cron: "17 6 * * *"
   push:
+    branches:
+      - main
     paths:
-      - ".github/workflows/opencode.yml"
+      - "index.html"
+      - "script.js"
+      - "style.css"
+      - "content/**"
+      - ".github/workflows/**"
   workflow_dispatch:
     inputs:
       prompt:
         description: "What area should the agent audit? Do not request code changes."
         required: false
         type: string
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
 
 jobs:
   opencode:
@@ -49,4 +62,4 @@ jobs:
             external action, explain that and stop.
 
             User's audit focus:
-            ${{ inputs.prompt || 'Audit readiness of Mam, ya sam! for launch on 2026-10-25. Inspect repository files, site forms/client code, GitHub Actions, and code references to Supabase/Telegram. Identify blockers and security concerns without accessing external services or secret values. Return prioritized findings with evidence and recommended next steps.' }}
+            ${{ inputs.prompt || 'Audit the current launch readiness of Mam, ya sam! based on the repository as it exists now. Inspect repository files, site forms/client code, GitHub Actions, and code references to Supabase/Telegram. Identify blockers and security concerns without accessing external services or secret values. Return prioritized findings with evidence and recommended next steps.' }}
