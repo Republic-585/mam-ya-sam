@@ -81,6 +81,25 @@ jobs:
           Maintenance request:
           EOF
           printf '\n%s\n' "$MAINTENANCE_FOCUS" >> /tmp/opencode-maintenance-prompt.txt
+          if [[ -n "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
+            mkdir -p "$HOME/.config/opencode"
+            cat > "$HOME/.config/opencode/opencode.json" <<'JSON'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "mcp": {
+              "supabase": {
+                "type": "remote",
+                "url": "https://mcp.supabase.com/mcp?project_ref=hvhtbjrecbxlfwmbmaej&features=database,docs,debugging,development,functions,branching,storage",
+                "oauth": false,
+                "headers": {
+                  "Authorization": "Bearer {env:SUPABASE_ACCESS_TOKEN}"
+                },
+                "timeout": 15000
+              }
+            }
+          }
+          JSON
+          fi
           opencode run --model opencode/deepseek-v4.1-flash-free --agent build "$(cat /tmp/opencode-maintenance-prompt.txt)"
 
       - name: Check whether changes were produced
