@@ -27,7 +27,7 @@ permissions:
 jobs:
   opencode:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 32
     outputs:
       has_changes: ${{ steps.changes.outputs.has_changes }}
     permissions:
@@ -49,13 +49,13 @@ jobs:
           echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
 
       - name: Audit, fix safe issues, and report
-        timeout-minutes: 18
+        timeout-minutes: 27
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           MAINTENANCE_FOCUS: >-
-            ${{ inputs.prompt || (github.event_name == 'push' && contains(github.event.head_commit.message, '[run-ux-funnel]') && 'Выполни UX/UI и маркетинговую переработку лендинга «Мам, я сам!» как senior UX-дизайнер, маркетолог и специалист по конверсии. Это конкретная задача, а не общий аудит. Не вызывай чтение Issue через GitHub MCP: нужное задание уже передано здесь. Изучи index.html, script.js, style.css и текущее состояние сайта. Сохрани узнаваемый яркий игровой стиль, авторский блок, видео, работающие формы и юридические ссылки. Улучши первый экран, ясность предложения для родителей, объяснение пользы курса школьнику, структуру блоков, доверие, ответы на сомнения, CTA и мобильную иерархию. Не выдумывай цену, отзывы, результаты, гарантии или функции курса. Реализуй конкретные безопасные изменения в коде, а не только рекомендации и отчёт. Проверь HTML/JS, адаптивные состояния, форму, видео, ссылки и политику; запусти доступные проверки, исправь найденные регрессии. При скриншотах сохраняй файлы только внутри каталога checkout, не используй /tmp и внешние директории. Обнови OPENCODE-REPORT.md на русском: список реальных изменений, тесты и результаты, ограничения и что опубликовано. В финале изменения должны пройти проверки, попасть в PR и автоматически слиться в main только после успешных обязательных проверок, чтобы GitHub Pages опубликовал сайт. Не меняй Supabase, базу, платежи, доступы и production-инфраструктуру. Не трогай посторонние функции.') || 'Perform a complete audit, then fix the highest-priority safe issues found in the repository in the same run. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
+            ${{ inputs.prompt || (github.event_name == 'push' && contains(github.event.head_commit.message, '[run-ux-funnel]') && 'Выполни UX/UI и маркетинговую переработку лендинга «Мам, я сам!» как senior UX-дизайнер, маркетолог и специалист по конверсии. Это конкретная задача, а не общий аудит. Не вызывай чтение Issue через GitHub MCP: нужное задание уже передано здесь. Изучи index.html, script.js, style.css и текущее состояние сайта. Сохрани узнаваемый яркий игровой стиль, авторский блок, видео, работающие формы и юридические ссылки. Улучши первый экран, ясность предложения для родителей, объяснение пользы курса школьнику, структуру блоков, доверие, ответы на сомнения, CTA и мобильную иерархию. Не выдумывай цену, отзывы, результаты, гарантии или функции курса. Реализуй конкретные безопасные изменения в коде, а не только рекомендации и отчёт. Проверь HTML/JS, адаптивные состояния, форму, видео, ссылки и политику; запусти доступные проверки, исправь найденные регрессии. Не трать время на длительный визуальный анализ: максимум один обычный скриншот desktop и один mobile; не создавай полноэкранные скриншоты на тысячи пикселей, не настраивай CDP вручную и не читай один и тот же скриншот многократно. Скриншоты необязательны: если визуальная проверка тормозит, переходи к коду и проверкам. Сохраняй скриншоты только внутри каталога checkout. Приоритет: быстро реализовать 3–6 конкретных улучшений, синхронизировать index.html со style.css/script.js, выполнить node scripts/check-site.mjs и git diff --check, затем обновить OPENCODE-REPORT.md и завершить работу. Не трать больше 3 минут на настройку браузера. Обнови OPENCODE-REPORT.md на русском: список реальных изменений, тесты и результаты, ограничения и что опубликовано. В финале изменения должны пройти проверки, попасть в PR и автоматически слиться в main только после успешных обязательных проверок, чтобы GitHub Pages опубликовал сайт. Не меняй Supabase, базу, платежи, доступы и production-инфраструктуру. Не трогай посторонние функции.') || 'Perform a complete audit, then fix the highest-priority safe issues found in the repository in the same run. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
         run: |
           cat > /tmp/opencode-maintenance-prompt.txt <<'EOF'
           You are the autonomous maintenance engineer for the Mam, ya sam! project.
