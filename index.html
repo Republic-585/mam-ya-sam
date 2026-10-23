@@ -83,12 +83,12 @@ section[id]{scroll-margin-top:80px}
 .btn--yellow{background:var(--yellow)}
 .btn--purple{background:var(--purple)}
 .btn--ink{background:var(--ink);color:var(--paper)}
-/* Signup action: compact, refined, with a clear press response */
+/* Signup action: yellow, borderless, with hover and press feedback */
 #signupForm button[type="submit"]{
-  background:#238653;
-  color:#ffffff;
-  box-shadow:0 3px 0 var(--ink);
-  border-color:var(--ink);
+  background:var(--yellow);
+  color:var(--ink);
+  border:0;
+  box-shadow:0 8px 24px rgba(255,217,61,.3);
   min-height:48px;
   padding:13px 24px;
   font-size:.88rem;
@@ -99,24 +99,21 @@ section[id]{scroll-margin-top:80px}
   transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease;
 }
 #signupForm button[type="submit"]:hover{
-  transform:translateY(-2px);
-  box-shadow:0 5px 0 var(--ink);
+  transform:translateY(-3px) scale(1.015);
+  box-shadow:0 12px 30px rgba(255,217,61,.48);
+  background:#ffe36a;
 }
 #signupForm button[type="submit"]:active{
-  transform:translateY(2px) scale(.985);
-  box-shadow:0 0 0 var(--ink);
-  background:#17663e;
+  transform:translateY(1px) scale(.98);
+  box-shadow:0 3px 12px rgba(255,217,61,.3);
+  background:#f2c91e;
 }
 #signupForm button[type="submit"]:focus-visible{
-  outline:3px solid var(--ink);
-  outline-offset:5px;
+  outline:2px solid var(--ink);
+  outline-offset:4px;
 }
 @media (prefers-reduced-motion: reduce){
   #signupForm button[type="submit"]{transition:none}
-}
-#signupForm button[type="submit"]:focus-visible{
-  outline:3px solid var(--ink);
-  outline-offset:5px;
 }
 .card{background:#fff;border:var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
 
@@ -371,25 +368,8 @@ select:focus-visible{
 .icons{
   position:relative;
   background:
-    radial-gradient(circle at 6% 14%,#fff 0 1px,transparent 1.8px),
-    radial-gradient(circle at 14% 76%,#c9e5ff 0 1px,transparent 2px),
-    radial-gradient(circle at 23% 33%,#fff 0 1.2px,transparent 2px),
-    radial-gradient(circle at 31% 88%,#fff 0 1px,transparent 1.8px),
-    radial-gradient(circle at 39% 17%,#b7d6ff 0 1px,transparent 2px),
-    radial-gradient(circle at 47% 69%,#fff 0 1.2px,transparent 2px),
-    radial-gradient(circle at 56% 9%,#fff 0 1px,transparent 1.8px),
-    radial-gradient(circle at 63% 84%,#c9e5ff 0 1px,transparent 2px),
-    radial-gradient(circle at 72% 21%,#fff 0 1.2px,transparent 2px),
-    radial-gradient(circle at 79% 57%,#fff 0 1px,transparent 1.8px),
-    radial-gradient(circle at 88% 12%,#c9e5ff 0 1.2px,transparent 2px),
-    radial-gradient(circle at 94% 76%,#fff 0 1px,transparent 1.8px),
-    radial-gradient(circle at 8% 48%,rgba(255,217,61,.8) 0 1px,transparent 2px),
-    radial-gradient(circle at 19% 9%,rgba(255,255,255,.9) 0 1px,transparent 2px),
-    radial-gradient(circle at 35% 54%,rgba(124,196,255,.8) 0 1px,transparent 2px),
-    radial-gradient(circle at 44% 38%,rgba(255,255,255,.9) 0 1px,transparent 2px),
-    radial-gradient(circle at 67% 42%,rgba(255,217,61,.7) 0 1px,transparent 2px),
-    radial-gradient(circle at 83% 91%,rgba(255,255,255,.9) 0 1px,transparent 2px),
-    radial-gradient(ellipse at 50% 48%,rgba(40,66,112,.58) 0%,transparent 56%),
+    radial-gradient(ellipse at 50% 48%,rgba(72,112,190,.38) 0%,rgba(31,54,105,.2) 36%,transparent 70%),
+    radial-gradient(ellipse at 50% 55%,rgba(255,217,61,.12) 0%,transparent 58%),
     #080d20;
   color:#fffaf0;
   border-top:3px solid var(--ink);
@@ -840,14 +820,14 @@ select:focus-visible{
 .signup__lead{text-align:center;font-weight:600;font-size:1.05rem;margin-bottom:36px;color:var(--ink)}
 .form{
   max-width:580px;margin:0 auto;background:#fff;border:0;border-radius:var(--radius);
-  box-shadow:none;
+  box-shadow:0 0 32px 8px rgba(124,196,255,.22),0 0 78px 20px rgba(124,196,255,.16),0 0 110px 28px rgba(180,156,255,.12);
   padding:26px;display:flex;flex-direction:column;gap:12px;
 }
 .form__row{display:flex;flex-direction:column;gap:6px}
 .form label{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
 .form input,.form textarea,.form select{
   font-family:'Manrope',sans-serif;font-size:.96rem;font-weight:500;color:var(--ink);
-  padding:8px 12px;border:var(--border);border-radius:10px;background:var(--paper);outline:none;
+  padding:8px 12px;border:1px solid rgba(20,20,20,.48);border-radius:10px;background:var(--paper);outline:none;
   transition:box-shadow .12s;width:100%;
 }
 .form input:focus,.form textarea:focus,.form select:focus{box-shadow:var(--shadow-sm)}
@@ -1407,7 +1387,7 @@ html{scroll-behavior:smooth}
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="100">
         </div>
         <div class="form__row">
-          <label for="name">Имя родителя *</label>
+          <label for="name">Имя родителя</label>
           <input id="name" name="name" type="text" placeholder="Как к вам обращаться?" required maxlength="100" autocomplete="given-name">
         </div>
         <div class="form__row">
@@ -1415,15 +1395,15 @@ html{scroll-behavior:smooth}
           <input id="phone" name="phone" type="tel" placeholder="+7 (999) 123-45-67" maxlength="32" inputmode="tel" autocomplete="tel">
         </div>
         <div class="form__row">
-          <label for="email">Email *</label>
+          <label for="email">Email</label>
           <input id="email" name="email" type="email" placeholder="name@example.com" required maxlength="254" autocomplete="email" spellcheck="false">
         </div>
         <div class="form__row">
-          <label for="childName">Имя ребёнка *</label>
+          <label for="childName">Имя ребёнка</label>
           <input id="childName" name="childName" type="text" placeholder="Как зовут будущего ученика?" required maxlength="100" autocomplete="off">
         </div>
         <div class="form__row">
-          <label for="childClass">В каком классе учится ребёнок? *</label>
+          <label for="childClass">В каком классе учится ребёнок?</label>
           <select id="childClass" name="childClass" required>
             <option value="" selected disabled>Выберите класс</option>
             <option value="5 класс">5 класс</option>
