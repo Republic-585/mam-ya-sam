@@ -59,6 +59,9 @@ for (const field of ['name', 'selectedPlan', 'phone', 'email', 'comment', 'conse
 check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя не помечено required');
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
 check(/<input[^>]+id="consent"[^>]*\btype="checkbox"[^>]*\brequired\b/i.test(index), 'index.html: согласие не помечено required');
+check(/<form[^>]*id="signupForm"[^>]*\bmethod="post"/i.test(index), 'index.html: форма должна отправляться методом POST, чтобы персональные данные не попадали в URL');
+check(!/<form[^>]*id="signupForm"[^>]*\bnovalidate\b/i.test(index), 'index.html: форма не должна отключать нативную валидацию');
+check(/<noscript>[\s\S]*?https:\/\/t\.me\/mam_ya_sam_bot[\s\S]*?<\/noscript>/.test(index), 'index.html: нет резервного сообщения для браузера без JavaScript');
 check(/<iframe[^>]+title="[^"]+"/i.test(index), 'index.html: у iframe нет title');
 check(/<p class="form__privacy">\s*<a[^>]+href="#privacy-policy"/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
 check(/<h2[^>]*id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
@@ -140,8 +143,11 @@ if (telegramFnSource) {
   check(safeTelegramUrl('https://evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает чужой домен');
   check(safeTelegramUrl('https://t.me.evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает поддельный поддомен');
   check(safeTelegramUrl('https://t.me@evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает обход через userinfo');
+  check(safeTelegramUrl('https://user:pass@t.me/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает учётные данные в ссылке');
   check(safeTelegramUrl('not a url') === null, 'safeTelegramUrl: пропускает некорректную строку');
 }
+check(script.includes("addEventListener('pageshow'"), 'script.js: после возврата из Telegram форма не восстанавливается');
+check(script.includes('submitting = false'), 'script.js: нет защиты от повторной отправки формы');
 
 const localReferencePattern = /(?:href|src)="([^"]+)"/g;
 for (const match of index.matchAll(localReferencePattern)) {
@@ -152,6 +158,14 @@ for (const match of index.matchAll(localReferencePattern)) {
   check(existsSync(join(root, relative)), `index.html: битая локальная ссылка ${value}`);
 }
 check(!/privacy\.html/.test(index), 'index.html: осталась ссылка на несуществующий privacy.html');
+
+const checksWorkflow = read('.github/workflows/checks.yml');
+check(/node --check script\.js/.test(checksWorkflow), '.github/workflows/checks.yml: не проверяется синтаксис script.js');
+check(/scripts\/check-site\.mjs/.test(checksWorkflow), '.github/workflows/checks.yml: не запускаются статические проверки сайта');
+const pagesWorkflow = read('.github/workflows/pages.yml');
+check(/scripts\/check-site\.mjs/.test(pagesWorkflow), '.github/workflows/pages.yml: публикация не запускает статические проверки сайта');
+const opencodeWorkflow = read('.github/workflows/opencode.yml');
+check(!/gh pr merge/.test(opencodeWorkflow), '.github/workflows/opencode.yml: автоматическое слияние PR должно быть отключено');
 
 const forbiddenSecrets = [
   /sb_secret_[A-Za-z0-9_-]{12,}/,
