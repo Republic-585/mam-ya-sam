@@ -156,12 +156,31 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const publishableKey = 'sb_publishable_nxhUTX_pEb8f0tJP8R-nQg_zG5PH-7x';
   const requestTimeoutMs = 15000;
   const startedAt = Date.now();
+  let submitting = false;
+
+  function restoreAfterBackNavigation() {
+    submitting = false;
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = form.elements.selectedPlan.value === TRIAL_PLAN_WIRE_ID
+        ? 'Запросить бесплатный доступ'
+        : 'Запросить этот тариф';
+    }
+    status.textContent = '';
+    status.removeAttribute('data-state');
+  }
+
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) restoreAfterBackNavigation();
+  });
 
   function safeTelegramUrl(value) {
     if (typeof value !== 'string' || !value.trim()) return null;
     try {
-      const url = new URL(value);
-      if (url.protocol !== 'https:' || !['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
+      const url = new URL(value.trim());
+      if (url.protocol !== 'https:' || url.username || url.password) return null;
+      if (!['t.me', 'telegram.me'].includes(url.hostname.toLowerCase())) return null;
       return url.href;
     } catch (_) {
       return null;
@@ -174,6 +193,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       form.reportValidity();
       return;
     }
+    if (submitting) return;
+    submitting = true;
 
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn ? btn.textContent : 'Я с вами!';
@@ -266,6 +287,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       }
     } finally {
       clearTimeout(timeoutId);
+      submitting = false;
     }
   });
 })();
