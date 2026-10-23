@@ -1,11 +1,14 @@
 name: opencode-readonly-audit
 
 on:
+  push:
+    paths:
+      - ".github/workflows/opencode.yml"
   workflow_dispatch:
     inputs:
       prompt:
         description: "What area should the agent audit? Do not request code changes."
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -44,4 +47,4 @@ jobs:
             external action, explain that and stop.
 
             User's audit focus:
-            ${{ inputs.prompt }}
+            ${{ inputs.prompt || 'Audit readiness of Mam, ya sam! for launch on 2026-10-25. Inspect repository files, site forms/client code, GitHub Actions, and code references to Supabase/Telegram. Identify blockers and security concerns without accessing external services or secret values. Return prioritized findings with evidence and recommended next steps.' }}
