@@ -24,10 +24,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: opencode-maintenance-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   opencode:
     runs-on: ubuntu-latest
