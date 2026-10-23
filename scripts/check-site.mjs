@@ -4,11 +4,17 @@ import { join, dirname, resolve } from 'node:path';
 
 const root = resolve(dirname(new URL(import.meta.url).pathname), '..');
 const failures = [];
+const warnings = [];
 let checks = 0;
 
 function check(condition, message) {
   checks += 1;
   if (!condition) failures.push(message);
+}
+
+function warn(condition, message) {
+  checks += 1;
+  if (!condition) warnings.push(message);
 }
 
 function read(relativePath) {
@@ -57,12 +63,25 @@ for (const field of ['name', 'selectedPlan', 'phone', 'email', 'comment', 'conse
 }
 
 check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя не помечено required');
+check(/<input[^>]+id="name"[^>]*\bmaxlength="\d+"/i.test(index), 'index.html: у имени нет ограничения длины');
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
+check(/<input[^>]+id="email"[^>]*\bmaxlength="\d+"/i.test(index), 'index.html: у email нет ограничения длины');
+check(/<input[^>]+id="phone"[^>]*\bmaxlength="\d+"/i.test(index), 'index.html: у телефона нет ограничения длины');
+check(/<input[^>]+id="phone"[^>]*\binputmode="tel"/i.test(index), 'index.html: у телефона нет inputmode="tel"');
+check(/<textarea[^>]+id="comment"[^>]*\bmaxlength="\d+"/i.test(index), 'index.html: у комментария нет ограничения длины');
 check(/<input[^>]+id="consent"[^>]*\btype="checkbox"[^>]*\brequired\b/i.test(index), 'index.html: согласие не помечено required');
 check(/<iframe[^>]+title="[^"]+"/i.test(index), 'index.html: у iframe нет title');
-check(/<p class="form__privacy"><a href="#privacy-policy">/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
-check(/<h2 id="privacyHeading">Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует раздел политики данных');
+check(/<iframe[^>]+loading="lazy"/i.test(index), 'index.html: внешний iframe не загружается лениво');
+check(/<p class="form__privacy"><a href="#privacy-policy"[^>]*aria-haspopup="dialog"[^>]*>/.test(index), 'index.html: рядом с согласием нет ссылки на политику данных');
+check(/<dialog[^>]+class="privacy-dialog"[^>]+id="privacy-policy"/.test(index), 'index.html: политика данных не оформлена как диалог');
+check(/<h2[^>]+id="privacyHeading"[^>]*>Политика обработки персональных данных<\/h2>/.test(index), 'index.html: отсутствует заголовок политики данных');
+check(/<button[^>]+data-close-privacy[^>]*>/.test(index), 'index.html: в политике данных нет кнопки закрытия');
 check(index.includes('https://t.me/mam_ya_sam_bot'), 'index.html: в политике нет контакта для отзыва согласия');
+
+check(script.includes("getElementById('privacy-policy')"), 'script.js: нет обработчика диалога политики данных');
+check(script.includes('dialog.showModal()'), 'script.js: диалог политики данных не открывается через showModal');
+check(script.includes('lastTrigger.focus()'), 'script.js: после закрытия политики не возвращается фокус');
+check(script.includes("link.addEventListener('click'"), 'script.js: ссылки на политику не перехватываются скриптом');
 
 const cardPlans = [...index.matchAll(/data-plan-card="([^"]+)"/g)].map((match) => match[1]);
 const buttonPlans = [...index.matchAll(/data-plan="([^"]+)"/g)].map((match) => match[1]);
@@ -76,15 +95,29 @@ check(Boolean(wireId), 'script.js: не найден TRIAL_PLAN_WIRE_ID');
 check(wireId === hiddenPlan, `script.js: TRIAL_PLAN_WIRE_ID (${wireId}) не совпадает со значением формы (${hiddenPlan})`);
 check(cardPlans.includes('trial_3d'), 'index.html: пробный тариф должен называться trial_3d');
 check(script.includes('trial_3d: {wireId:TRIAL_PLAN_WIRE_ID'), 'script.js: тариф trial_3d не связан с legacy-идентификатором backend');
-check(/3\s*(дня|дней)/i.test(index), 'index.html: не найден срок пробного доступа 3 дня');
-check(!/7\s*(дней|дня)/i.test(index), 'index.html: осталось упоминание 7-дневного пробного доступа');
+for (const plan of ['monthly', 'quarterly', 'annual']) {
+  check(script.includes(`${plan}: {wireId:'${plan}'`), `script.js: тариф ${plan} не связан со своим wire-идентификатором`);
+}
+check(/(?<!\d)3\s+(?:дня|дней)/i.test(index), 'index.html: не найден срок пробного доступа 3 дня');
+check(!/(?<!\d)7\s+(?:дней|дня)/i.test(index), 'index.html: осталось упоминание 7-дневного пробного доступа');
 check(!/data-plan(?:-card)?="trial_7d"/.test(index), 'index.html: интерфейс всё ещё использует legacy-ключ trial_7d');
 
 check(script.includes('function safeTelegramUrl'), 'script.js: отсутствует проверка Telegram-ссылки');
 check(!/window\.location\.href\s*=\s*result\.telegramUrl/.test(script), 'script.js: редирект использует непроверенный result.telegramUrl');
 check(/window\.location\.href\s*=\s*telegramUrl/.test(script), 'script.js: нет редиректа по проверенной Telegram-ссылке');
+check(/const endpoint = 'https:\/\//.test(script), 'script.js: endpoint формы должен использовать HTTPS');
 check(/AbortController/.test(script), 'script.js: у запроса формы нет таймаута');
 check(/clearTimeout\(timeoutId\)/.test(script), 'script.js: таймаут запроса не очищается');
+check(/consent:\s*form\.elements\.consent\.checked/.test(script), 'script.js: в заявку не передаётся согласие');
+check(/website:\s*form\.elements\.website\.value/.test(script), 'script.js: в заявку не передаётся honeypot-поле');
+check(/startedAt/.test(script), 'script.js: в заявку не передаётся время открытия страницы');
+check(/'Content-Type':\s*'application\/json'/.test(script), 'script.js: запрос формы не помечен как JSON');
+check(!/\beval\s*\(/.test(script), 'script.js: недопустимое использование eval');
+check(!/\.innerHTML\s*=/.test(script), 'script.js: недопустимое использование innerHTML');
+check(!/document\.write\s*\(/.test(script), 'script.js: недопустимое использование document.write');
+for (const match of index.matchAll(/<[^>]+target="_blank"[^>]*>/gi)) {
+  check(/\brel="[^"]*noopener/i.test(match[0]), 'index.html: target="_blank" без rel="noopener"');
+}
 
 const telegramFnSource = script.match(/function safeTelegramUrl\(value\) \{[\s\S]*?\n  \}/)?.[0];
 check(Boolean(telegramFnSource), 'script.js: не удалось извлечь safeTelegramUrl для проверки');
@@ -102,12 +135,25 @@ if (telegramFnSource) {
 const localReferencePattern = /(?:href|src)="([^"]+)"/g;
 for (const match of index.matchAll(localReferencePattern)) {
   const value = match[1];
+  if (/^http:\/\//i.test(value)) check(false, `index.html: небезопасная внешняя ссылка ${value}`);
   if (/^(?:https?:|mailto:|tel:|data:|#)/i.test(value)) continue;
   const relative = value.split('#')[0].split('?')[0];
   if (!relative) continue;
   check(existsSync(join(root, relative)), `index.html: битая локальная ссылка ${value}`);
 }
 check(!/privacy\.html/.test(index), 'index.html: осталась ссылка на несуществующий privacy.html');
+
+const checksWorkflowPath = '.github/workflows/checks.yml';
+const pagesWorkflowPath = '.github/workflows/pages.yml';
+warn(existsSync(join(root, checksWorkflowPath)), `Отсутствует ${checksWorkflowPath}; примените workflow отдельным PR`);
+const pagesWorkflow = existsSync(join(root, pagesWorkflowPath)) ? readFileSync(join(root, pagesWorkflowPath), 'utf8') : '';
+warn(/node --check script\.js/.test(pagesWorkflow), 'pages.yml: публикация не проверяет синтаксис script.js');
+warn(/node scripts\/check-site\.mjs/.test(pagesWorkflow), 'pages.yml: публикация не запускает статические проверки');
+const opencodeWorkflowPath = '.github/workflows/opencode.yml';
+const opencodeWorkflow = existsSync(join(root, opencodeWorkflowPath)) ? readFileSync(join(root, opencodeWorkflowPath), 'utf8') : '';
+warn(/timeout\b[^\n]*\bopencode run\b/.test(opencodeWorkflow), 'opencode.yml: запуск opencode не ограничен shell-таймаутом');
+const readme = read('README.md');
+check(readme.includes(checksWorkflowPath), 'README.md: не упоминает workflow проверок');
 
 const forbiddenSecrets = [
   /sb_secret_[A-Za-z0-9_-]{12,}/,
@@ -140,6 +186,11 @@ if (failures.length > 0) {
   console.error(`Проверки не пройдены: ${failures.length} из ${checks}`);
   for (const failure of failures) console.error(` - ${failure}`);
   process.exit(1);
+}
+
+if (warnings.length > 0) {
+  console.warn(`Предупреждения: ${warnings.length}`);
+  for (const warning of warnings) console.warn(` - ${warning}`);
 }
 
 console.log(`OK: ${checks} проверок пройдено.`);
