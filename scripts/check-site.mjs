@@ -34,6 +34,7 @@ const styles = read('style.css');
 
 check(/<html[^>]*\blang="ru"/i.test(index), 'index.html: не указан lang="ru"');
 check(/<meta[^>]+name="viewport"/i.test(index), 'index.html: отсутствует meta viewport');
+check(/<meta[^>]+name="referrer"[^>]+content="strict-origin-when-cross-origin"/i.test(index), 'index.html: отсутствует безопасная политика referrer');
 check(!/rel="stylesheet"[^>]+href="style\.css"/i.test(index), 'index.html: внешний style.css не должен подключаться, стили встроены');
 check(!/<script[^>]+src="script\.js"/i.test(index), 'index.html: внешний script.js не должен подключаться, скрипт встроен');
 check((index.match(/<style[\s>]/gi) || []).length === 1, 'index.html: должен быть ровно один блок <style>');
@@ -55,6 +56,11 @@ for (const requiredId of ['signupForm', 'signupStatus', 'selectedPlan', 'consent
 for (const field of ['name', 'selectedPlan', 'phone', 'email', 'comment', 'consent', 'website']) {
   check(new RegExp(`<[^>]+name="${field}"`, 'i').test(index), `index.html: в форме отсутствует поле name="${field}"`);
 }
+
+const signupFormTag = index.match(/<form[^>]*\bid="signupForm"[^>]*>/i)?.[0] || '';
+check(Boolean(signupFormTag), 'index.html: не найден тег формы signupForm');
+check(/\bmethod="post"/i.test(signupFormTag), 'index.html: форма должна отправляться методом post, чтобы данные не попадали в URL при отключённом JS');
+check(!/\bnovalidate\b/i.test(signupFormTag), 'index.html: нельзя отключать нативную валидацию формы');
 
 check(/<input[^>]+id="name"[^>]*\brequired\b/i.test(index), 'index.html: имя не помечено required');
 check(/<input[^>]+id="email"[^>]*\btype="email"[^>]*\brequired\b/i.test(index), 'index.html: email не помечен type="email" required');
@@ -85,6 +91,10 @@ check(!/window\.location\.href\s*=\s*result\.telegramUrl/.test(script), 'script.
 check(/window\.location\.href\s*=\s*telegramUrl/.test(script), 'script.js: нет редиректа по проверенной Telegram-ссылке');
 check(/AbortController/.test(script), 'script.js: у запроса формы нет таймаута');
 check(/clearTimeout\(timeoutId\)/.test(script), 'script.js: таймаут запроса не очищается');
+check(/class SignupError extends Error/.test(script), 'script.js: нет отдельного типа пользовательских ошибок формы');
+check(/error instanceof SignupError/.test(script), 'script.js: технические ошибки могут показываться пользователю вместо русского текста');
+check(/let submitting = false/.test(script), 'script.js: нет защиты от повторной отправки формы');
+check(/form\.setAttribute\('aria-busy', 'true'\)/.test(script), 'script.js: форма не сообщает о состоянии отправки через aria-busy');
 
 const telegramFnSource = script.match(/function safeTelegramUrl\(value\) \{[\s\S]*?\n  \}/)?.[0];
 check(Boolean(telegramFnSource), 'script.js: не удалось извлечь safeTelegramUrl для проверки');
@@ -96,6 +106,8 @@ if (telegramFnSource) {
   check(safeTelegramUrl('https://evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает чужой домен');
   check(safeTelegramUrl('https://t.me.evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает поддельный поддомен');
   check(safeTelegramUrl('https://t.me@evil.example/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает обход через userinfo');
+  check(safeTelegramUrl('https://user:pass@t.me/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает логин или пароль в URL');
+  check(safeTelegramUrl('https://t.me:8443/mam_ya_sam_bot') === null, 'safeTelegramUrl: пропускает нестандартный порт');
   check(safeTelegramUrl('not a url') === null, 'safeTelegramUrl: пропускает некорректную строку');
 }
 
