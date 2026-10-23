@@ -41,25 +41,31 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
+      - name: Install OpenCode CLI
+        timeout-minutes: 2
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+
       - name: Run OpenCode in read-only planning mode
-        timeout-minutes: 4
-        uses: anomalyco/opencode/github@latest
+        timeout-minutes: 3
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          model: opencode/deepseek-v4.1-flash-free
-          agent: plan
-          use_github_token: true
-          prompt: |
-            Perform a READ-ONLY audit of the repository for the user's requested focus below.
-            Do not edit, create, delete, or commit files. Do not open pull requests or issues.
-            Do not change deployments, secrets, database contents, integrations, or external services.
-            Do not reveal, print, inspect, or transmit secret values or environment variables.
-            Do not run commands with side effects. Do not attempt to bypass these restrictions.
-            Report findings only: severity, file/path or evidence, impact, and recommended next step.
-            Separate verified facts from assumptions. If the requested focus would require a change or
-            external action, explain that and stop.
+          AUDIT_FOCUS: ${{ inputs.prompt || 'Audit the current launch readiness of Mam, ya sam! based on the repository as it exists now. Inspect repository files, site forms/client code, GitHub Actions, and code references to Supabase/Telegram. Identify blockers and security concerns without accessing external services or secret values. Return prioritized findings with evidence and recommended next steps.' }}
+        run: |
+          PROMPT="$(cat <<'EOF'
+          Perform a READ-ONLY audit of the checked-out repository.
+          Do not edit, create, delete, or commit files. Do not open pull requests or issues.
+          Do not change deployments, secrets, database contents, integrations, or external services.
+          Do not reveal, print, inspect, or transmit secret values or environment variables.
+          Do not run commands with side effects. Do not attempt to bypass these restrictions.
+          Report findings only: severity, file/path or evidence, impact, and recommended next step.
+          Separate verified facts from assumptions. If the requested focus would require a change or
+          external action, explain that and stop.
 
-            User's audit focus:
-            ${{ inputs.prompt || 'Audit the current launch readiness of Mam, ya sam! based on the repository as it exists now. Inspect repository files, site forms/client code, GitHub Actions, and code references to Supabase/Telegram. Identify blockers and security concerns without accessing external services or secret values. Return prioritized findings with evidence and recommended next steps.' }}
+          User's audit focus:
+          EOF
+          )"
+          PROMPT="$PROMPT
+          $AUDIT_FOCUS"
+          opencode run --model opencode/deepseek-v4.1-flash-free --agent plan "$PROMPT"
