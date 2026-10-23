@@ -54,7 +54,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          MAINTENANCE_FOCUS: ${{ inputs.prompt || 'Perform a complete audit, then fix the highest-priority safe issues found in the repository in the same run. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
+          MAINTENANCE_FOCUS: ${{ inputs.prompt || (github.event_name == 'push' && contains(github.event.head_commit.message, '[run-ux-funnel]') && 'Выполни UX/UI и маркетинговую переработку лендинга «Мам, я сам!» как senior UX-дизайнер, маркетолог и специалист по конверсии. Это конкретная задача, а не общий аудит. Не вызывай чтение Issue через GitHub MCP: нужное задание уже передано здесь. Изучи index.html, script.js, style.css и текущее состояние сайта. Сохрани узнаваемый яркий игровой стиль, авторский блок, видео, работающие формы и юридические ссылки. Улучши первый экран, ясность предложения для родителей, объяснение пользы курса школьнику, структуру блоков, доверие, ответы на сомнения, CTA и мобильную иерархию. Не выдумывай цену, отзывы, результаты, гарантии или функции курса. Реализуй конкретные безопасные изменения в коде, а не только рекомендации и отчёт. Проверь HTML/JS, адаптивные состояния, форму, видео, ссылки и политику; запусти доступные проверки, исправь найденные регрессии. При скриншотах сохраняй файлы только внутри каталога checkout, не используй /tmp и внешние директории. Обнови OPENCODE-REPORT.md на русском: список реальных изменений, тесты и результаты, ограничения и что опубликовано. В финале изменения должны пройти проверки, попасть в PR и автоматически слиться в main только после успешных обязательных проверок, чтобы GitHub Pages опубликовал сайт. Не меняй Supabase, базу, платежи, доступы и production-инфраструктуру. Не трогай посторонние функции.') || 'Perform a complete audit, then fix the highest-priority safe issues found in the repository in the same run. Prioritize security, form reliability, trial-plan consistency, automated checks, and documentation. Avoid broad redesign.' }}
         run: |
           cat > /tmp/opencode-maintenance-prompt.txt <<'EOF'
           You are the autonomous maintenance engineer for the Mam, ya sam! project.
@@ -224,6 +224,7 @@ jobs:
           git add -A
           git commit -m "chore: OpenCode maintenance proposal"
           git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}"
-          gh pr create --repo "$REPOSITORY" --base main --head "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}" \
-            --title "OpenCode maintenance proposal (#${RUN_ID})" \
-            --body "Automated maintenance proposal from GitHub Actions run ${RUN_ID}. Review the diff and OPENCODE-REPORT.md, verify checks, and merge only after review. This workflow does not deploy changes directly."
+          PR_URL="$(gh pr create --repo "$REPOSITORY" --base main --head "agent/maintenance-${RUN_ID}-${RUN_ATTEMPT}" \
+            --title "UX and conversion improvements (#${RUN_ID})" \
+            --body "Automated UX/UI and conversion improvements from run ${RUN_ID}. The workflow ran available checks and generated OPENCODE-REPORT.md. Auto-merge is enabled so the site is published after required checks pass.")"
+          gh pr merge "$PR_URL" --auto --squash --delete-branch
