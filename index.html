@@ -1515,7 +1515,7 @@ html{scroll-behavior:smooth}
   display:flex;
   width:100%!important;
   min-width:0;
-  max-width:628px!important;
+  max-width:540px!important;
   margin-left:auto!important;
   margin-right:auto!important;
   gap:18px;
@@ -1527,7 +1527,7 @@ html{scroll-behavior:smooth}
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
   padding:18px 4px 28px;
-  max-width:628px;
+  max-width:540px;
   margin-left:auto!important;
   margin-right:auto!important;
 }
@@ -1535,7 +1535,7 @@ html{scroll-behavior:smooth}
 .about-v2__missions-track>.about-v2__game{
   flex:0 0 100%!important;
   min-width:0;
-  max-width:620px!important;
+  max-width:540px!important;
   width:100%!important;
   margin:0;
   scroll-snap-align:center;
@@ -1570,12 +1570,17 @@ html{scroll-behavior:smooth}
 .about-v2__game-intro{margin-bottom:12px}
 .about-v2__game h3{margin-top:14px;margin-bottom:8px}
 .about-v2__choices{gap:8px}
-.about-v2__choice{
+ .about-v2__choice{
   border:1px solid var(--ink)!important;
   box-shadow:none!important;
-  padding:10px 12px;
-  gap:10px;
+  padding:9px 10px;
+  gap:8px;
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.35;
 }
+.about-v2__choice>*{min-width:0;white-space:normal;overflow-wrap:anywhere;}
 .about-v2__choice:hover,.about-v2__choice:active{
   box-shadow:none!important;
   transform:none;
