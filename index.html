@@ -1605,13 +1605,13 @@ html{scroll-behavior:smooth}
 }
 
 
-/* ---------- Компактная карусель опыта автора ---------- */
-.about-achievements{width:100%;max-width:620px;margin:18px auto 22px}
+/* ---------- Карусель опыта автора: геометрия как у тарифов ---------- */
+.about-achievements{width:calc(100% - 44px);max-width:760px;margin:18px auto 22px}
 .about-achievements__heading{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.05;letter-spacing:-.02em;text-align:center;margin:0 0 8px;text-transform:uppercase}
-.about-achievements__carousel{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:10px 4px 14px}
+.about-achievements__carousel{display:flex!important;gap:18px!important;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:18px 4px 28px;max-width:100%;margin:0}
 .about-achievements__carousel::-webkit-scrollbar{display:none}
- .about-achievements__card{flex:0 0 92%;min-width:0;min-height:142px;box-sizing:border-box;border:0;border-radius:var(--radius);box-shadow:none;padding:16px 18px;scroll-snap-align:center;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;background:#080d20;color:#fffaf0}
- .about-achievements__card--yellow,.about-achievements__card--purple,.about-achievements__card--blue,.about-achievements__card--pink{background:#080d20;color:#fffaf0}
+.about-achievements__card{flex:0 0 100%;min-width:0;min-height:142px;box-sizing:border-box;border:0;border-radius:var(--radius);box-shadow:none;padding:16px 18px;scroll-snap-align:center;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;background:#080d20;color:#fffaf0}
+.about-achievements__card--yellow,.about-achievements__card--purple,.about-achievements__card--blue,.about-achievements__card--pink{background:#080d20;color:#fffaf0}
 .about-achievements__tag{font-family:'Unbounded',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.06em;border:0;border-radius:999px;padding:0;line-height:1.3;color:var(--yellow);text-align:left}
 .about-achievements__card h4{font-family:'Unbounded',sans-serif;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;overflow-wrap:anywhere;text-align:left;width:100%}
 .about-achievements__card p{font-size:.88rem;font-weight:600;line-height:1.4;max-width:52ch;text-align:left;width:100%}
@@ -1624,7 +1624,7 @@ html{scroll-behavior:smooth}
 .about-achievements__controls .pricing__carousel-dot[aria-current="true"]{background:var(--yellow)!important;transform:scale(1.25)}
 .about-achievements__carousel{scrollbar-width:none!important}
 .about-achievements__carousel::-webkit-scrollbar{display:none!important}
-@media(max-width:640px){.about-achievements{width:calc(100% - 44px);margin:14px auto 18px}.about-achievements__carousel{gap:12px;padding:8px 2px 12px}.about-achievements__card{flex-basis:92%;min-height:132px;padding:14px 15px;box-shadow:none}.about-achievements__card p{font-size:.82rem}}
+@media(max-width:640px){.about-achievements{width:calc(100% - 44px);max-width:760px;margin:14px auto 18px}.about-achievements__carousel{gap:18px!important;padding:18px 4px 28px}.about-achievements__card{flex-basis:100%;min-height:132px;padding:14px 15px;box-shadow:none}.about-achievements__card p{font-size:.82rem}}
 
 </style>
 </head>
