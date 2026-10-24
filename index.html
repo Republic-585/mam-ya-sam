@@ -2112,14 +2112,14 @@ html{scroll-behavior:smooth}
   white-space: nowrap;
 }
 
-/* Каскадные стрелки и линия к разделу «О проекте» */
+/* Аккуратные каскадные стрелки и удлинённая линия */
 .hero__cta {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   align-self: center;
-  gap: 0;
+  gap: 1px;
   margin-top: 12px;
   padding: 4px 18px 0;
   border: 0;
@@ -2130,45 +2130,72 @@ html{scroll-behavior:smooth}
   transition: transform .25s ease;
 }
 .hero__cta span {
+  position: relative;
   display: block;
   flex: none;
-  width: 25px;
-  height: 17px;
-  margin-top: -5px;
-  border-right: 3.5px solid var(--yellow);
-  border-bottom: 3.5px solid var(--yellow);
-  border-radius: 0 0 4px 0;
-  transform: rotate(45deg);
-  opacity: .9;
+  width: 42px;
+  height: 16px;
+  margin: 0;
+  border: 0;
+  transform: none;
+  opacity: .95;
   transition: opacity .25s ease, transform .25s ease;
 }
+.hero__cta span::before,
+.hero__cta span::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 55%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--yellow);
+}
+.hero__cta span::before {
+  left: 0;
+  transform: rotate(35deg);
+  transform-origin: right center;
+}
+.hero__cta span::after {
+  right: 0;
+  transform: rotate(-35deg);
+  transform-origin: left center;
+}
 .hero__cta span:first-child {
-  width: 31px;
-  height: 21px;
-  margin-top: 0;
-  border-width: 4px;
+  width: 46px;
+  height: 19px;
   opacity: 1;
 }
+.hero__cta span:first-child::before,
+.hero__cta span:first-child::after {
+  height: 4.5px;
+}
 .hero__cta span:nth-child(2) {
-  width: 24px;
-  height: 16px;
-  border-width: 3.5px;
+  width: 34px;
+  height: 15px;
   opacity: .8;
 }
+.hero__cta span:nth-child(2)::before,
+.hero__cta span:nth-child(2)::after {
+  height: 3.5px;
+}
 .hero__cta span:nth-child(3) {
-  width: 17px;
+  width: 23px;
   height: 12px;
-  border-width: 3px;
   opacity: .65;
+}
+.hero__cta span:nth-child(3)::before,
+.hero__cta span:nth-child(3)::after {
+  height: 3px;
 }
 .hero__cta i {
   display: block;
-  width: 2px;
-  height: 24px;
-  margin-top: 9px;
+  width: 3px;
+  height: 48px;
+  margin-top: 10px;
   border-radius: 999px;
   background: var(--yellow);
-  opacity: .8;
+  opacity: .85;
 }
 .hero__cta:hover {
   background: transparent;
