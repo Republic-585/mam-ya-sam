@@ -1513,9 +1513,9 @@ html{scroll-behavior:smooth}
 }
 .about-v2__missions-track{
   display:flex;
-  width:100%!important;
+  width:calc(100% - 44px)!important;
   min-width:0;
-  max-width:560px!important;
+  max-width:620px!important;
   margin-left:auto!important;
   margin-right:auto!important;
   gap:18px;
@@ -1527,16 +1527,16 @@ html{scroll-behavior:smooth}
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
   padding:18px 4px 28px;
-  max-width:560px;
+  max-width:620px;
   margin-left:auto!important;
   margin-right:auto!important;
 }
 .about-v2__missions-track::-webkit-scrollbar{display:none}
 .about-v2__missions-track>.about-v2__game{
-  flex:0 0 90%!important;
+  flex:0 0 100%!important;
   min-width:0;
-  max-width:500px!important;
-  width:90%!important;
+  max-width:none!important;
+  width:100%!important;
   margin:0;
   scroll-snap-align:center;
   background:#fff;
