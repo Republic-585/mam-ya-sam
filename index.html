@@ -1086,6 +1086,18 @@ html{scroll-behavior:smooth}
 /* Светлый текст первой части заголовка тарифов */
 .pricing .pricing__heading-light{color:#fffaf0}
 
+
+
+/* Тарифные карточки без внешней обводки и тени */
+.pricing .price,
+.pricing .price.is-selected,
+.pricing .price--popular,
+.pricing .price:hover,
+.pricing .price--popular:hover{
+  border:0!important;
+  box-shadow:none!important;
+}
+
 /* Фон секции тарифов повторяет фон формы записи */
 .pricing{
   background:
