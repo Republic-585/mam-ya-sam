@@ -2072,8 +2072,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
           : (button.dataset.plan === 'trial_3d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
       });
     });
-    if (heading) { heading.textContent = item.heading; heading.hidden = !item.heading; }
-    if (lead) { lead.textContent = item.lead; lead.hidden = !item.lead; }
+    if (heading) { heading.textContent = 'Начни с бесплатных 3 дней'; heading.hidden = false; }
+    if (lead) { lead.textContent = 'Оставь заявку — мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.'; lead.hidden = false; }
     if (submit) submit.textContent = item.button;
     if (selectedName) selectedName.textContent = item.name;
     if (selectedPrice) selectedPrice.textContent = item.price;
