@@ -1616,12 +1616,14 @@ html{scroll-behavior:smooth}
 .about-achievements__card h4{font-family:'Unbounded',sans-serif;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;overflow-wrap:anywhere;text-align:left;width:100%}
 .about-achievements__card p{font-size:.88rem;font-weight:600;line-height:1.4;max-width:52ch;text-align:left;width:100%}
 .about-achievements__controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:4px}
-.about-achievements__controls>button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:none;transition:background .18s ease,transform .18s ease}
-.about-achievements__controls>button:hover{background:#182747;transform:scale(1.05)}
-.about-achievements__controls>button:active{transform:scale(.96)}
-.about-achievements__dots{display:flex;justify-content:center;gap:8px}
-.about-achievements__dots button{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,250,240,.35);padding:0;cursor:pointer}
-.about-achievements__dots button[aria-current="true"]{background:var(--yellow);transform:scale(1.25)}
+.about-achievements__controls .pricing__carousel-btn{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:none;transition:background .18s ease,transform .18s ease}
+.about-achievements__controls .pricing__carousel-btn:hover{background:#182747;transform:scale(1.05)}
+.about-achievements__controls .pricing__carousel-btn:active{transform:scale(.96)}
+.about-achievements__controls .about-achievements__dots{display:flex;justify-content:center;align-items:center;gap:8px}
+.about-achievements__controls .pricing__carousel-dot{display:block!important;flex:0 0 8px;width:8px!important;height:8px!important;min-width:8px;min-height:8px;padding:0!important;margin:0;border:0!important;border-radius:50%;background:rgba(255,250,240,.35)!important;box-shadow:none!important;cursor:pointer;transform:none}
+.about-achievements__controls .pricing__carousel-dot[aria-current="true"]{background:var(--yellow)!important;transform:scale(1.25)}
+.about-achievements__carousel{scrollbar-width:none!important}
+.about-achievements__carousel::-webkit-scrollbar{display:none!important}
 @media(max-width:640px){.about-achievements{width:calc(100% - 44px);margin:14px auto 18px}.about-achievements__carousel{gap:12px;padding:8px 2px 12px}.about-achievements__card{flex-basis:92%;min-height:132px;padding:14px 15px;box-shadow:none}.about-achievements__card p{font-size:.82rem}}
 
 </style>
