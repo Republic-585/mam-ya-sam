@@ -1927,6 +1927,23 @@ html{scroll-behavior:smooth}
   .about-v2 details.about-v2__skill--money>summary{padding:16px 16px!important;min-height:64px!important;font-size:.9rem}
   .about-v2 details.about-v2__skill--money>.about-v2__skill-content{padding:0 12px 12px!important}
 }
+
+/* Точечная настройка светлого блока первого экрана */
+.hero__bg{background:none!important;opacity:0!important}
+.hero__content{
+  width:100%;
+  min-height:clamp(360px,48vw,520px);
+  padding:clamp(36px,7vw,76px) clamp(20px,5vw,56px);
+  background:#fffdf5;
+  border-radius:28px;
+  justify-content:center;
+}
+@media(max-width:640px){
+  .hero__content{
+    min-height:390px;
+    padding:38px 18px;
+  }
+}
 </style>
 </head>
 <body>
