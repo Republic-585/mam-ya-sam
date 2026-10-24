@@ -1437,7 +1437,7 @@ html{scroll-behavior:smooth}
 .about-v2__choice.is-wrong{background:#ffe0df}
 .about-v2__choice:disabled{cursor:default;transform:none}
 .about-v2__feedback{margin-top:16px;padding:14px 16px;background:#fff;border:2px dashed var(--ink);border-radius:12px;font-weight:700;line-height:1.5}
-.about-v2__feedback .telegram-spoiler{color:transparent;background:#262626;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone;cursor:pointer;transition:color .25s ease,background-color .25s ease;user-select:none;padding:0 2px}.about-v2__feedback .telegram-spoiler.is-revealed{color:inherit;background:transparent;cursor:text;user-select:text}
+
 .about-v2__feedback[data-state="success"]{background:#d8f6d7;border-style:solid}
 .about-v2__feedback[data-state="try"]{background:#fff0ce;border-style:solid}
 .about-v2__restart{margin-top:12px;padding:11px 16px;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);font:inherit;font-weight:900;cursor:pointer}
@@ -2610,22 +2610,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
-  function setTelegramSpoiler(feedback,text){
-    feedback.textContent='';
-    const spoiler=document.createElement('span');
-    spoiler.className='telegram-spoiler';
-    spoiler.textContent=text;
-    feedback.appendChild(spoiler);
-  }
-  document.querySelectorAll('.about-v2__feedback').forEach(feedback=>{
-    const initial=feedback.textContent.trim();
-    setTelegramSpoiler(feedback,initial);
-    feedback.addEventListener('click',event=>{
-      const spoiler=event.target.closest('.telegram-spoiler');
-      if(spoiler)spoiler.classList.add('is-revealed');
-    });
-  });
-
 /* Карусель миссий и отдельная логика заданий № 2 и № 3 */
 (function(){
   const track=document.getElementById('missionsTrack');
@@ -2657,7 +2641,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }));
     reset.addEventListener('click',()=>{
       choices.forEach(item=>{item.disabled=false;item.classList.remove('is-correct','is-wrong');});
-      setTelegramSpoiler(feedback,hint);feedback.removeAttribute('data-state');reset.hidden=true;
+      feedback.textContent=hint;feedback.removeAttribute('data-state');reset.hidden=true;
       const status=card.querySelector('.about-v2__game-status');if(status)status.textContent=prefix==='two'?'ТВОЯ ОЧЕРЕДЬ':'ВЫБИРАЙ СТРАТЕГИЮ';
     });
   }
@@ -2704,7 +2688,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   restart.addEventListener('click',function(){
     choices.forEach(function(item){item.disabled=false;item.classList.remove('is-correct','is-wrong');});
     feedback.textContent='Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.';
-    setTelegramSpoiler(feedback,'Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.');
+    feedback.textContent='Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.';
     feedback.removeAttribute('data-state');
     restart.hidden=true;
     const status=game.querySelector('.about-v2__game-status');
