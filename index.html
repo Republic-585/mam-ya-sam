@@ -2112,46 +2112,43 @@ html{scroll-behavior:smooth}
   white-space: nowrap;
 }
 
-/* Полупрозрачная кнопка знакомства с курсом */
+/* Полупрозрачные стрелки перехода к разделу «О проекте» */
 .hero__cta {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   align-self: center;
-  margin-top: 2px;
-  padding: 15px 25px;
-  border: 1.5px solid rgba(20,20,20,.42);
-  border-radius: 999px;
-  background: rgba(255,255,255,.38);
-  color: var(--ink);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(20,20,20,.08), inset 0 1px 0 rgba(255,255,255,.7);
-  font-family: 'Unbounded', sans-serif;
-  font-size: clamp(.68rem, 1.8vw, .9rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -.015em;
-  white-space: nowrap;
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  gap: 0;
+  margin-top: 8px;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(20,20,20,.48);
+  box-shadow: none;
+  text-decoration: none;
+  transition: transform .25s ease, color .25s ease;
 }
 .hero__cta span {
-  display: inline-block;
-  font-size: 1.25em;
-  transition: transform .2s ease;
+  display: block;
+  height: 13px;
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: .55;
+  transition: opacity .25s ease, transform .25s ease;
 }
+.hero__cta span + span { opacity: .55; }
 .hero__cta:hover {
-  background: rgba(255,255,255,.68);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(20,20,20,.12), inset 0 1px 0 rgba(255,255,255,.8);
+  color: rgba(20,20,20,.8);
+  background: transparent;
+  transform: translateY(3px);
+  box-shadow: none;
 }
-.hero__cta:hover span { transform: translate(2px,2px); }
-.hero__cta:active { transform: translateY(1px); }
-.hero__cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
-@media (max-width: 380px) {
-  .hero__cta { padding: 13px 17px; font-size: .62rem; gap: 8px; }
-}
+.hero__cta:hover span + span { opacity: .85; }
+.hero__cta:active { transform: translateY(5px); }
+.hero__cta:focus-visible { outline: 2px solid rgba(20,20,20,.5); outline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -2190,7 +2187,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
-        <a class="hero__cta" href="#about">Знакомство с курсом <span aria-hidden="true">↘</span></a>
+        <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»"><span aria-hidden="true">⌄</span><span aria-hidden="true">⌄</span></a>
       </div>
 
     </div>
