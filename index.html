@@ -1088,14 +1088,14 @@ html{scroll-behavior:smooth}
 
 
 
-/* Тарифные карточки без внешней обводки и тени */
+/* Тарифные карточки без обводки со свечением как у формы записи */
 .pricing .price,
 .pricing .price.is-selected,
 .pricing .price--popular,
 .pricing .price:hover,
 .pricing .price--popular:hover{
   border:0!important;
-  box-shadow:none!important;
+  box-shadow:0 0 32px 8px rgba(124,196,255,.22),0 0 78px 20px rgba(124,196,255,.16),0 0 110px 28px rgba(180,156,255,.12)!important;
 }
 
 /* Фон секции тарифов повторяет фон формы записи */
