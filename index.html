@@ -721,7 +721,7 @@ select:focus-visible{
   background:var(--paper); margin-bottom: 10px;
 }
 .price__tag--hit {
-  background: transparent;
+  background: var(--yellow);
   color: var(--ink);
 }
 .price__title{font-family:'Unbounded',sans-serif;font-size:1.5rem;text-transform:uppercase;overflow-wrap: break-word; margin-bottom: 8px;}
@@ -1722,7 +1722,7 @@ html{scroll-behavior:smooth}
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
       <form class="form" id="signupForm" novalidate>
-        <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_7d">
+        <input type="hidden" id="selectedPlan" name="selectedPlan" value="quarterly">
         <div class="form__trap" aria-hidden="true">
           <label for="website">Не заполняй это поле</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="100">
@@ -2054,7 +2054,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   };
   function normalizePlan(plan) {
     if (plan === TRIAL_PLAN_WIRE_ID) return 'trial_3d';
-    return details[plan] ? plan : 'trial_3d';
+    return details[plan] ? plan : 'quarterly';
   }
   function choose(plan, scroll) {
     const key = normalizePlan(plan);
