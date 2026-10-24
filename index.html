@@ -2393,7 +2393,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
   const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
   let index = 0;
-  let scrollTimer = null;
+  let scrollFrame = 0;
 
   function cardWidth() {
     const card = cards[0];
@@ -2416,13 +2416,14 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   dots.forEach(dot => dot.addEventListener('click', () => scrollToIndex(Number(dot.dataset.carouselDot))));
 
   track.addEventListener('scroll', () => {
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
+    if (scrollFrame) cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(() => {
       const width = cardWidth();
       index = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / width)));
       updateDots();
-    }, 80);
-  });
+      scrollFrame = 0;
+    });
+  }, {passive:true});
 
   const selectedIndex = Math.max(0, cards.findIndex(card => card.classList.contains('is-selected')));
   index = selectedIndex;
