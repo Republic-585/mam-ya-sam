@@ -1626,6 +1626,31 @@ html{scroll-behavior:smooth}
 .about-achievements__carousel::-webkit-scrollbar{display:none!important}
 @media(max-width:640px){.about-achievements{width:100%;max-width:none;margin:14px auto 18px}.about-achievements__carousel{gap:18px!important;padding:18px 4px 28px}.about-achievements__card{flex-basis:100%;min-height:132px;padding:14px 15px;box-shadow:none!important;background:radial-gradient(ellipse at 50% 48%,rgba(40,66,112,.58) 0%,transparent 56%),#080d20!important}.about-achievements__card p{font-size:.82rem}}
 
+
+
+/* Controls for the light-background "Опыт и программы" carousel */
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn{
+  background:#141414!important;
+  color:#FFFBF0!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn:hover{
+  background:#303030!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn::before,
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn::after{
+  content:none!important;
+  display:none!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-dot{
+  background:rgba(20,20,20,.28)!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-dot[aria-current="true"]{
+  background:#141414!important;
+  transform:scale(1.3)!important;
+}
+
 </style>
 </head>
 <body>
@@ -2775,29 +2800,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 })();
 
 
-
-/* Controls for the light-background "Опыт и программы" carousel */
-.about-achievements .pricing__carousel-controls .pricing__carousel-btn{
-  background:#141414!important;
-  color:#FFFBF0!important;
-  border:0!important;
-  box-shadow:none!important;
-}
-.about-achievements .pricing__carousel-controls .pricing__carousel-btn:hover{
-  background:#303030!important;
-}
-.about-achievements .pricing__carousel-controls .pricing__carousel-btn::before,
-.about-achievements .pricing__carousel-controls .pricing__carousel-btn::after{
-  content:none!important;
-  display:none!important;
-}
-.about-achievements .pricing__carousel-controls .pricing__carousel-dot{
-  background:rgba(20,20,20,.28)!important;
-}
-.about-achievements .pricing__carousel-controls .pricing__carousel-dot[aria-current="true"]{
-  background:#141414!important;
-  transform:scale(1.3)!important;
-}
 
 /* Карусель достижений автора */
 (function(){
