@@ -1540,7 +1540,7 @@ html{scroll-behavior:smooth}
   border:0;
   box-shadow:8px 8px 0 var(--ink);
 }
-.about-v2__missions-track>.about-v2__game:before{background:var(--blue);opacity:.2}
+.about-v2__missions-track>.about-v2__game:before{content:none!important;background:transparent!important;opacity:0!important}
 .about-v2__missions-controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:4px}
 .about-v2__missions-btn{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.6rem;line-height:1;cursor:pointer;transition:background .18s ease,transform .18s ease}
 .about-v2__missions-btn:hover{background:#182747;transform:scale(1.05)}
@@ -1786,7 +1786,7 @@ html{scroll-behavior:smooth}
       <div class="about-v2__missions-shell">
         <div class="about-v2__missions-track" id="missionsTrack">
       <div class="about-v2__game" id="aboutGame">
-        <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 01</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
+        <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 1</span><span class="about-v2__game-status">ТВОЙ ХОД</span></div>
         <h3>Секретный бюджет: спаси свою цель!</h3>
         <p class="about-v2__game-intro">У тебя есть <strong>1 000 ₽</strong> на день. Нужно оплатить важные расходы и оставить <strong>250 ₽</strong> на свою цель. Сможешь найти план?</p>
         <div class="about-v2__budget" aria-label="Твой бюджет">
@@ -1804,7 +1804,7 @@ html{scroll-behavior:smooth}
       </div>
 
         <div class="about-v2__game about-v2__mission-extra" id="missionTwo">
-          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 02</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
+          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 2</span><span class="about-v2__game-status">ТВОЙ ХОД</span></div>
           <h3>Поймай скидку: где выгоднее?</h3>
           <p class="about-v2__game-intro">Ты хочешь купить наушники за 1 200 ₽. Магазин предлагает скидку 25%. Сколько они будут стоить после скидки?</p>
           <div class="about-v2__budget" aria-label="Цена и скидка"><div><span>СТАРАЯ ЦЕНА</span><strong>1 200 ₽</strong></div><div><span>СКИДКА</span><strong>25%</strong></div></div>
@@ -1819,7 +1819,7 @@ html{scroll-behavior:smooth}
           <div class="about-v2__game-foot"><span>🧮</span> Проценты помогают сравнивать предложения, а не только видеть ярлык «скидка».</div>
         </div>
         <div class="about-v2__game about-v2__mission-extra" id="missionThree">
-          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 03</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
+          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 3</span><span class="about-v2__game-status">ТВОЙ ХОД</span></div>
           <h3>Цель близко: составь план</h3>
           <p class="about-v2__game-intro">Ты копишь на настольную игру за 1 800 ₽. Уже есть 1 050 ₽, а каждую неделю можешь откладывать 250 ₽.</p>
           <div class="about-v2__budget" aria-label="План накоплений"><div><span>УЖЕ ЕСТЬ</span><strong>1 050 ₽</strong></div><div><span>В НЕДЕЛЮ</span><strong>250 ₽</strong></div></div>
@@ -2602,7 +2602,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     reset.addEventListener('click',()=>{
       choices.forEach(item=>{item.disabled=false;item.classList.remove('is-correct','is-wrong');});
       feedback.textContent=hint;feedback.removeAttribute('data-state');reset.hidden=true;
-      const status=card.querySelector('.about-v2__game-status');if(status)status.innerHTML='<span aria-hidden="true">●</span> ТВОЙ ХОД';
+      const status=card.querySelector('.about-v2__game-status');if(status)status.textContent='ТВОЙ ХОД';
     });
   }
   setupMission('two','a','missionTwoFeedback','Подсказка: найди четверть от 1 200 ₽, затем вычти её из старой цены.',{
@@ -2651,7 +2651,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     feedback.removeAttribute('data-state');
     restart.hidden=true;
     const status=game.querySelector('.about-v2__game-status');
-    if(status) status.innerHTML='<span aria-hidden="true">●</span> ТВОЙ ХОД';
+    if(status) status.textContent='ТВОЙ ХОД';
   });
 })();
 
