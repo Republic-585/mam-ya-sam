@@ -2111,6 +2111,47 @@ html{scroll-behavior:smooth}
   letter-spacing: -.035em;
   white-space: nowrap;
 }
+
+/* Полупрозрачная кнопка знакомства с курсом */
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  align-self: center;
+  margin-top: 2px;
+  padding: 15px 25px;
+  border: 1.5px solid rgba(20,20,20,.42);
+  border-radius: 999px;
+  background: rgba(255,255,255,.38);
+  color: var(--ink);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(20,20,20,.08), inset 0 1px 0 rgba(255,255,255,.7);
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(.68rem, 1.8vw, .9rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -.015em;
+  white-space: nowrap;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.hero__cta span {
+  display: inline-block;
+  font-size: 1.25em;
+  transition: transform .2s ease;
+}
+.hero__cta:hover {
+  background: rgba(255,255,255,.68);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(20,20,20,.12), inset 0 1px 0 rgba(255,255,255,.8);
+}
+.hero__cta:hover span { transform: translate(2px,2px); }
+.hero__cta:active { transform: translateY(1px); }
+.hero__cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+@media (max-width: 380px) {
+  .hero__cta { padding: 13px 17px; font-size: .62rem; gap: 8px; }
+}
 </style>
 </head>
 <body>
@@ -2149,6 +2190,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
+        <a class="hero__cta" href="#program-all">Знакомство с курсом <span aria-hidden="true">↘</span></a>
       </div>
 
     </div>
