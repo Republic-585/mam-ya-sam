@@ -1437,7 +1437,7 @@ html{scroll-behavior:smooth}
 .about-v2__choice.is-wrong{background:#ffe0df}
 .about-v2__choice:disabled{cursor:default;transform:none}
 .about-v2__feedback{margin-top:16px;padding:14px 16px;background:#fff;border:2px dashed var(--ink);border-radius:12px;font-weight:700;line-height:1.5}
-.about-v2__feedback.is-blurred{color:transparent!important;text-shadow:0 0 8px rgba(20,20,20,.9);cursor:pointer;user-select:none}
+.about-v2__feedback .telegram-spoiler{color:transparent;background:#262626;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone;cursor:pointer;transition:color .25s ease,background-color .25s ease;user-select:none;padding:0 2px}.about-v2__feedback .telegram-spoiler.is-revealed{color:inherit;background:transparent;cursor:text;user-select:text}
 .about-v2__feedback[data-state="success"]{background:#d8f6d7;border-style:solid}
 .about-v2__feedback[data-state="try"]{background:#fff0ce;border-style:solid}
 .about-v2__restart{margin-top:12px;padding:11px 16px;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);font:inherit;font-weight:900;cursor:pointer}
@@ -2610,6 +2610,22 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
+  function setTelegramSpoiler(feedback,text){
+    feedback.textContent='';
+    const spoiler=document.createElement('span');
+    spoiler.className='telegram-spoiler';
+    spoiler.textContent=text;
+    feedback.appendChild(spoiler);
+  }
+  document.querySelectorAll('.about-v2__feedback').forEach(feedback=>{
+    const initial=feedback.textContent.trim();
+    setTelegramSpoiler(feedback,initial);
+    feedback.addEventListener('click',event=>{
+      const spoiler=event.target.closest('.telegram-spoiler');
+      if(spoiler)spoiler.classList.add('is-revealed');
+    });
+  });
+
 /* Карусель миссий и отдельная логика заданий № 2 и № 3 */
 (function(){
   const track=document.getElementById('missionsTrack');
@@ -2628,16 +2644,12 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     const choices=Array.from(card.querySelectorAll('[data-mission-'+prefix+']'));
     const feedback=document.getElementById(feedbackId);
     const reset=card.querySelector('[data-mission-reset]');
-    feedback.classList.add('is-blurred');
-    feedback.setAttribute('aria-label','Нажми, чтобы открыть подсказку');
-    feedback.addEventListener('click',()=>{feedback.classList.remove('is-blurred');feedback.removeAttribute('aria-label');});
     choices.forEach(button=>button.addEventListener('click',()=>{
       const ok=button.dataset['mission'+(prefix==='two'?'Two':'Three')]===correct;
       choices.forEach(item=>{item.disabled=true;});
       button.classList.add(ok?'is-correct':'is-wrong');
       if(!ok){const right=choices.find(item=>item.dataset['mission'+(prefix==='two'?'Two':'Three')]===correct);if(right)right.classList.add('is-correct');}
       feedback.textContent=answers[button.dataset['mission'+(prefix==='two'?'Two':'Three')]];
-      feedback.classList.remove('is-blurred');feedback.removeAttribute('aria-label');
       feedback.dataset.state=ok?'success':'try';
       reset.hidden=false;
       const status=card.querySelector('.about-v2__game-status');
@@ -2645,7 +2657,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }));
     reset.addEventListener('click',()=>{
       choices.forEach(item=>{item.disabled=false;item.classList.remove('is-correct','is-wrong');});
-      feedback.textContent=hint;feedback.classList.add('is-blurred');feedback.setAttribute('aria-label','Нажми, чтобы открыть подсказку');feedback.removeAttribute('data-state');reset.hidden=true;
+      setTelegramSpoiler(feedback,hint);feedback.removeAttribute('data-state');reset.hidden=true;
       const status=card.querySelector('.about-v2__game-status');if(status)status.textContent=prefix==='two'?'ТВОЯ ОЧЕРЕДЬ':'ВЫБИРАЙ СТРАТЕГИЮ';
     });
   }
@@ -2668,9 +2680,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const choices = Array.from(game.querySelectorAll('[data-game-choice]'));
   const feedback = document.getElementById('aboutGameFeedback');
   const restart = document.getElementById('aboutGameRestart');
-  feedback.classList.add('is-blurred');
-  feedback.setAttribute('aria-label','Нажми, чтобы открыть подсказку');
-  feedback.addEventListener('click',function(){feedback.classList.remove('is-blurred');feedback.removeAttribute('aria-label');});
   const messages = {
     a: {ok:false, text:'Почти! 1 000 − 870 = 130 ₽. Ты оплатил всё из списка, но до цели в 250 ₽ не хватает 120 ₽. Попробуй расставить приоритеты.'},
     b: {ok:true, text:'Миссия выполнена! 180 + 220 + 350 = 750 ₽. Из 1 000 ₽ остаётся 250 ₽ ровно на твою цель. Ты сохранил важные расходы и отказался только от необязательной покупки. Отличный план!'},
@@ -2686,7 +2695,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
         if(correct) correct.classList.add('is-correct');
       }
       feedback.textContent=result.text;
-      feedback.classList.remove('is-blurred');feedback.removeAttribute('aria-label');
       feedback.dataset.state=result.ok?'success':'try';
       restart.hidden=false;
       const status=game.querySelector('.about-v2__game-status');
@@ -2696,7 +2704,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   restart.addEventListener('click',function(){
     choices.forEach(function(item){item.disabled=false;item.classList.remove('is-correct','is-wrong');});
     feedback.textContent='Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.';
-    feedback.classList.add('is-blurred');feedback.setAttribute('aria-label','Нажми, чтобы открыть подсказку');
+    setTelegramSpoiler(feedback,'Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.');
     feedback.removeAttribute('data-state');
     restart.hidden=true;
     const status=game.querySelector('.about-v2__game-status');
