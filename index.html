@@ -1990,6 +1990,32 @@ html{scroll-behavior:smooth}
     padding:44px 18px;
   }
 }
+
+/* Точечная правка заголовка первого экрана */
+.hero h1{
+  font-size:clamp(1.3rem,6.2vw,4.5rem);
+  line-height:1.08;
+  white-space:nowrap;
+}
+.hero h1 span{
+  display:block;
+  margin-top:clamp(12px,2.5vw,22px);
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  transform:none;
+  font-size:clamp(1.15rem,4.5vw,3.2rem);
+  line-height:1.15;
+  white-space:normal;
+}
+.hero__badge{
+  align-self:center;
+  justify-content:center;
+  transform:none;
+}
+
 </style>
 </head>
 <body>
@@ -2024,7 +2050,7 @@ html{scroll-behavior:smooth}
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <h1>Концепт-курс <br> <span>финансовая грамотность</span></h1>
+        <h1>Концепт-курс <span>финансовая грамотность</span></h1>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
       </div>
