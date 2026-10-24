@@ -1379,12 +1379,54 @@ html{scroll-behavior:smooth}
 .about-v2__intro .about__lead{max-width:760px;font-size:clamp(1.1rem,2.4vw,1.35rem)}
 .about-v2__intro .about__text{max-width:800px}
 .about-v2 .about__mission{margin-top:22px}
-.about-v2__skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.about-v2__skill{position:relative;display:flex;align-items:flex-start;gap:16px;padding:22px;background:var(--paper);border:var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);min-width:0}
-.about-v2__skill-icon{display:flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px;background:var(--yellow);border:2px solid var(--ink);border-radius:12px;font-size:1.5rem}
-.about-v2__skill h3{font-family:'Unbounded',sans-serif;font-size:1rem;margin:2px 24px 8px 0}
-.about-v2__skill p{font-size:.95rem;line-height:1.5;margin:0;color:#333}
-.about-v2__skill-no{position:absolute;right:16px;top:14px;font-family:'Unbounded',sans-serif;font-size:.65rem;color:var(--muted)}
+.about-v2__skills{
+  position:relative;
+  display:block;
+  min-height:188px;
+  perspective:1200px;
+  isolation:isolate;
+}
+.about-v2__skill{
+  position:absolute;
+  top:0;left:0;right:0;
+  display:flex;align-items:flex-start;gap:16px;
+  min-width:0;min-height:132px;
+  padding:22px 54px 22px 22px;
+  background:var(--paper);
+  border:var(--border);
+  border-radius:20px;
+  box-shadow:0 12px 24px rgba(20,20,20,.12),5px 5px 0 var(--ink);
+  cursor:pointer;
+  transform-origin:50% 100%;
+  transition:transform .72s cubic-bezier(.2,.85,.25,1),box-shadow .55s ease,filter .55s ease,opacity .55s ease;
+  will-change:transform;
+  -webkit-tap-highlight-color:transparent;
+  outline:none;
+}
+.about-v2__skill:nth-child(1){z-index:4;transform:translateY(0) rotate(-1.2deg)}
+.about-v2__skill:nth-child(2){z-index:3;transform:translateY(13px) rotate(1.4deg) scale(.985);filter:saturate(.92)}
+.about-v2__skill:nth-child(3){z-index:2;transform:translateY(25px) rotate(-2deg) scale(.97);filter:saturate(.85)}
+.about-v2__skill:nth-child(4){z-index:1;transform:translateY(36px) rotate(2.4deg) scale(.955);filter:saturate(.8)}
+.about-v2__skill:not(.is-pulled) p{opacity:0;max-height:0;overflow:hidden;margin:0;transform:translateY(6px)}
+.about-v2__skill p{font-size:.95rem;line-height:1.55;margin:0;color:#333;max-height:140px;opacity:1;transform:translateY(0);transition:opacity .4s ease,transform .55s cubic-bezier(.2,.85,.25,1),max-height .55s ease,margin .4s ease}
+.about-v2__skill.is-pulled{
+  position:relative;z-index:10;
+  transform:translate(0,-8px) rotate(0) scale(1);
+  min-height:164px;
+  box-shadow:0 22px 42px rgba(20,20,20,.18),7px 7px 0 var(--ink);
+  filter:none;
+}
+.about-v2__skill:not(.is-pulled){height:132px}
+.about-v2__skill:focus-visible{outline:3px solid var(--yellow);outline-offset:5px}
+.about-v2__skill-icon{display:flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px;background:var(--yellow);border:2px solid var(--ink);border-radius:14px;font-size:1.5rem;transition:transform .6s cubic-bezier(.2,.85,.25,1)}
+.about-v2__skill.is-pulled .about-v2__skill-icon{transform:rotate(-8deg) scale(1.06)}
+.about-v2__skill h3{font-family:'Unbounded',sans-serif;font-size:1rem;line-height:1.35;margin:2px 0 10px}
+.about-v2__skill-no{position:absolute;right:18px;top:16px;font-family:'Unbounded',sans-serif;font-size:.7rem;color:var(--muted)}
+.about-v2__skill:after{content:"+";position:absolute;right:18px;bottom:17px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--yellow);color:var(--ink);font-size:1.1rem;font-weight:800;transition:transform .45s ease,background .45s ease}
+.about-v2__skill.is-pulled:after{content:"−";transform:rotate(180deg);background:var(--ink);color:var(--paper)}
+@media(hover:hover){
+  .about-v2__skill:not(.is-pulled):hover{transform:translateY(-3px) rotate(0) scale(.99);filter:none}
+}
 .about-v2__game{position:relative;overflow:hidden;background:var(--paper);border:var(--border);border-radius:var(--radius);box-shadow:8px 8px 0 var(--ink);padding:clamp(20px,4vw,38px);max-width:900px;width:100%;margin:8px auto 12px}
 .about-v2__game:before{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:var(--yellow);opacity:.22;right:-62px;top:-72px;pointer-events:none}
 .about-v2__game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative}
@@ -1427,8 +1469,14 @@ html{scroll-behavior:smooth}
 .about-v2__final span{display:inline-block;background:var(--yellow);padding:0 .2em;border-radius:6px}
 @media(max-width:640px){
  .about-v2{gap:26px}
- .about-v2__skills{grid-template-columns:1fr;gap:12px}
- .about-v2__skill{padding:17px;gap:12px}
+ .about-v2__skills{min-height:204px}
+ .about-v2__skill{padding:18px 48px 18px 17px;gap:12px;min-height:142px}
+ .about-v2__skill:not(.is-pulled){height:142px}
+ .about-v2__skill.is-pulled{min-height:176px}
+ .about-v2__skill-icon{flex-basis:42px;width:42px;height:42px;font-size:1.35rem}
+ .about-v2__skill h3{font-size:.9rem}
+ .about-v2__skill-no{right:13px;top:13px}
+ .about-v2__skill:after{right:13px;bottom:13px}
  .about-v2__author{grid-template-columns:1fr;gap:0}
  .about-v2__author-photo{width:100%;height:100%;min-height:100%;aspect-ratio:auto;object-fit:cover;object-position:center;border-radius:var(--radius) var(--radius) 0 0}
   .about-v2__author-copy{padding:clamp(28px,5vw,40px) clamp(20px,4vw,36px) clamp(20px,4vw,36px)}
@@ -1881,11 +1929,11 @@ html{scroll-behavior:smooth}
         <div class="about__mission"><p><b>Наша миссия:</b> помогать подросткам становиться самостоятельнее через практические знания, осознанный выбор и ответственность.</p></div>
       </div>
 
-      <div class="about-v2__skills" aria-label="Чему учится подросток">
-        <article class="about-v2__skill"><span class="about-v2__skill-icon" aria-hidden="true">💸</span><div><h3>Деньги и выбор</h3><p>Планировать бюджет, рассчитывать накопления и осознанно подходить к покупкам.</p></div><span class="about-v2__skill-no">01</span></article>
-        <article class="about-v2__skill"><span class="about-v2__skill-icon" aria-hidden="true">🧮</span><div><h3>Математика в жизни</h3><p>Использовать проценты, дроби и пропорции для настоящих задач.</p></div><span class="about-v2__skill-no">02</span></article>
-        <article class="about-v2__skill"><span class="about-v2__skill-icon" aria-hidden="true">🎯</span><div><h3>Цели и план</h3><p>Превращать желания в цели, оценивать ресурсы и проверять результат.</p></div><span class="about-v2__skill-no">03</span></article>
-        <article class="about-v2__skill"><span class="about-v2__skill-icon" aria-hidden="true">🧩</span><div><h3>Практика решений</h3><p>Сравнивать стратегии, объяснять свой выбор и учиться на последствиях.</p></div><span class="about-v2__skill-no">04</span></article>
+      <div class="about-v2__skills" id="aboutSkillsDeck" aria-label="Чему учится подросток">
+        <article class="about-v2__skill is-pulled" tabindex="0" role="button" aria-expanded="true"><span class="about-v2__skill-icon" aria-hidden="true">💸</span><div><h3>Деньги и выбор</h3><p>Планировать бюджет, рассчитывать накопления и осознанно подходить к покупкам.</p></div><span class="about-v2__skill-no">01</span></article>
+        <article class="about-v2__skill" tabindex="0" role="button" aria-expanded="false"><span class="about-v2__skill-icon" aria-hidden="true">🧮</span><div><h3>Математика в жизни</h3><p>Использовать проценты, дроби и пропорции для настоящих задач.</p></div><span class="about-v2__skill-no">02</span></article>
+        <article class="about-v2__skill" tabindex="0" role="button" aria-expanded="false"><span class="about-v2__skill-icon" aria-hidden="true">🎯</span><div><h3>Цели и план</h3><p>Превращать желания в цели, оценивать ресурсы и проверять результат.</p></div><span class="about-v2__skill-no">03</span></article>
+        <article class="about-v2__skill" tabindex="0" role="button" aria-expanded="false"><span class="about-v2__skill-icon" aria-hidden="true">🧩</span><div><h3>Практика решений</h3><p>Сравнивать стратегии, объяснять свой выбор и учиться на последствиях.</p></div><span class="about-v2__skill-no">04</span></article>
       </div>
 
       <div class="about-v2__missions-shell">
@@ -2830,5 +2878,34 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
+
+<script>
+// Интерактивная стопка карточек в блоке «О проекте»
+(function(){
+  const deck=document.getElementById('aboutSkillsDeck');
+  if(!deck)return;
+  const cards=Array.from(deck.querySelectorAll('.about-v2__skill'));
+  function pull(card){
+    const wasPulled=card.classList.contains('is-pulled');
+    cards.forEach(function(item){
+      item.classList.remove('is-pulled');
+      item.setAttribute('aria-expanded','false');
+    });
+    if(!wasPulled){
+      card.classList.add('is-pulled');
+      card.setAttribute('aria-expanded','true');
+    }else{
+      cards[0].classList.add('is-pulled');
+      cards[0].setAttribute('aria-expanded','true');
+    }
+  }
+  cards.forEach(function(card){
+    card.addEventListener('click',function(){pull(card);});
+    card.addEventListener('keydown',function(event){
+      if(event.key==='Enter'||event.key===' '){event.preventDefault();pull(card);}
+    });
+  });
+})();
+</script>
 </body>
 </html>
