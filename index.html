@@ -1468,14 +1468,14 @@ html{scroll-behavior:smooth}
 /* ---------- Карусель интерактивных миссий ---------- */
 .about-v2__missions-shell{
   display:block;
-  width:100%;
-  max-width:620px;
+  width:100vw;
+  max-width:none;
   min-width:0;
   box-sizing:border-box;
   position:relative;
-  left:auto;
-  transform:none;
-  margin:8px auto 12px;
+  left:50%;
+  transform:translateX(-50%);
+  margin:8px 0 12px;
 
   background:
     radial-gradient(circle at 6% 14%,#fff 0 1px,transparent 1.8px),
@@ -1507,15 +1507,15 @@ html{scroll-behavior:smooth}
   isolation:isolate;
 
   border-radius:0;
-  padding:0;
-  margin:8px auto 12px;
+  padding:clamp(16px,3vw,30px);
+  margin:8px 0 12px;
   overflow:hidden;
 }
 .about-v2__missions-track{
   display:flex;
   width:100%!important;
   min-width:0;
-  max-width:100%!important;
+  max-width:628px!important;
   margin-left:auto!important;
   margin-right:auto!important;
   gap:18px;
@@ -1527,12 +1527,15 @@ html{scroll-behavior:smooth}
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
   padding:8px 4px 20px;
+  max-width:628px;
+  margin-left:auto!important;
+  margin-right:auto!important;
 }
 .about-v2__missions-track::-webkit-scrollbar{display:none}
 .about-v2__missions-track>.about-v2__game{
-  flex:0 0 100%!important;
+  flex:0 0 calc(100% - 8px)!important;
   min-width:0;
-  max-width:100%!important;
+  max-width:620px!important;
   width:100%!important;
   margin:0;
   scroll-snap-align:center;
