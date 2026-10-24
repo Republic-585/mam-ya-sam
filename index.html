@@ -1354,14 +1354,19 @@ html{scroll-behavior:smooth}
 
 
 /* ABOUT v2: styles scoped to the project section only */
-/* Миссия: оформление как у блоков FAQ */
+/* Миссия: только жирный текст, без фона и обводки; заголовок в масштабе «О проекте». */
 .about-v2 .about__mission{
-  background:radial-gradient(ellipse at 50% 48%,rgba(40,66,112,.58) 0%,transparent 56%),#080d20!important;
+  background:transparent!important;
   color:#fffaf0!important;
   border:0!important;
   box-shadow:none!important;
+  padding:0!important;
+  margin-top:22px!important;
+  font-size:clamp(1.8rem,5vw,3rem)!important;
+  line-height:1.08!important;
 }
-.about-v2 .about__mission b{color:#fffaf0!important}
+.about-v2 .about__mission p{font-weight:800!important;margin:0!important}
+.about-v2 .about__mission b{color:var(--yellow)!important;font-weight:800!important}
 
 /* Match About closing statement to the pricing heading size */
 /* Единый размер заголовков основных блоков */
