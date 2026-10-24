@@ -1466,6 +1466,12 @@ html{scroll-behavior:smooth}
 
 /* ---------- Карусель интерактивных миссий ---------- */
 .about-v2__missions-shell{
+  display:block;
+  width:100%;
+  max-width:760px;
+  min-width:0;
+  box-sizing:border-box;
+  margin:8px auto 12px;
 
   background:
     radial-gradient(circle at 6% 14%,#fff 0 1px,transparent 1.8px),
@@ -1504,7 +1510,8 @@ html{scroll-behavior:smooth}
 .about-v2__missions-track{
   display:flex;
   width:100%!important;
-  max-width:760px!important;
+  min-width:0;
+  max-width:100%!important;
   margin-left:auto!important;
   margin-right:auto!important;
   gap:18px;
