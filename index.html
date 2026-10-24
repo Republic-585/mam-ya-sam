@@ -703,7 +703,7 @@ select:focus-visible{
 }
 .price .plan-select{transition:background .18s ease,color .18s ease,transform .18s ease}
 .price.is-selected .plan-select{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--green)}
-.price.is-selected .plan-select::after{content:' ✓';font-weight:900}
+.price.is-selected .plan-select::after{content:none!important;display:none!important}
 .price .plan-select:focus-visible{outline:4px solid var(--pink);outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.price,.price .plan-select{transition:none}}
 .price:hover {
@@ -1181,6 +1181,23 @@ html{scroll-behavior:smooth}
 .pricing .price .plan-select:focus-visible{
   outline:2px solid #fffaf0!important;
   outline-offset:4px;
+}
+
+/* Выбранный тариф: жёлтая кнопка с мягким свечением */
+.pricing .price.is-selected .plan-select{
+  background:var(--yellow)!important;
+  color:var(--ink)!important;
+  box-shadow:0 8px 24px rgba(255,217,61,.3),0 0 30px rgba(255,217,61,.34)!important;
+}
+.pricing .price.is-selected .plan-select:hover{
+  background:#ffe36a!important;
+  color:var(--ink)!important;
+  box-shadow:0 12px 30px rgba(255,217,61,.48),0 0 38px rgba(255,217,61,.42)!important;
+}
+.pricing .price.is-selected .plan-select:active{
+  background:#f2c91e!important;
+  color:var(--ink)!important;
+  box-shadow:0 3px 12px rgba(255,217,61,.3),0 0 18px rgba(255,217,61,.24)!important;
 }
 
 /* Все карточки тарифов в цвете карточки «3 месяца» */
@@ -2104,7 +2121,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       card.querySelectorAll('.plan-select').forEach(function (button) {
         button.setAttribute('aria-pressed', active ? 'true' : 'false');
         button.textContent = active
-          ? (key === 'trial_3d' ? '✓ Выбран · попробовать бесплатно' : '✓ Тариф выбран')
+          ? (key === 'trial_3d' ? 'Выбран · попробовать бесплатно' : 'Тариф выбран')
           : (button.dataset.plan === 'trial_3d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
       });
     });
