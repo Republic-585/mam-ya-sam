@@ -1145,14 +1145,42 @@ html{scroll-behavior:smooth}
 
 
 
-/* Цвет кнопок выбора тарифа как у плашек FAQ */
+/* Кнопки тарифов: размеры как у отправки формы, стиль FAQ с мягким свечением */
 .pricing .price .plan-select,
 .pricing .price .plan-select:hover,
 .pricing .price .plan-select:active,
 .pricing .price.is-selected .plan-select{
-  background:#080d20!important;
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  min-height:48px!important;
+  padding:13px 24px!important;
+  width:auto!important;
+  max-width:100%;
+  align-self:center;
+  font-size:.88rem!important;
+  letter-spacing:-.02em;
+  line-height:1.35;
+  border:0!important;
+  border-radius:999px!important;
+  background:
+    radial-gradient(ellipse at 50% 48%,rgba(40,66,112,.58) 0%,transparent 56%),
+    #080d20!important;
   color:#fffaf0!important;
-  box-shadow:none!important;
+  box-shadow:0 0 22px rgba(124,196,255,.19),0 0 40px rgba(78,120,210,.13)!important;
+  transition:box-shadow .3s ease,transform .18s ease,background .3s ease!important;
+}
+.pricing .price .plan-select:hover{
+  box-shadow:0 0 26px rgba(124,196,255,.3),0 0 46px rgba(78,120,210,.2)!important;
+  transform:translateY(-2px);
+}
+.pricing .price .plan-select:active{
+  transform:translateY(1px) scale(.98);
+  box-shadow:0 0 14px rgba(124,196,255,.18)!important;
+}
+.pricing .price .plan-select:focus-visible{
+  outline:2px solid #fffaf0!important;
+  outline-offset:4px;
 }
 
 /* Все карточки тарифов в цвете карточки «3 месяца» */
