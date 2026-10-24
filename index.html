@@ -2044,6 +2044,47 @@ html{scroll-behavior:smooth}
 .hero__badge {
   font-family: 'Geist', sans-serif;
 }
+
+/* Точечная настройка первого блока по запросу */
+.hero,
+.hero h1,
+.hero h1 span,
+.hero__sub,
+.hero__badge {
+  font-family: 'Geist', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hero h1 {
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(.62rem, 2.8vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -.045em;
+}
+.hero h1 span {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  font-size: inherit;
+  line-height: inherit;
+}
+.hero__sub {
+  font-size: clamp(.72rem, 3.6vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+.hero__badge {
+  font-size: clamp(.58rem, 2vw, 1rem);
+  font-weight: 900;
+  letter-spacing: .015em;
+}
 </style>
 </head>
 <body>
@@ -2078,7 +2119,7 @@ html{scroll-behavior:smooth}
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <h1>Концепт - курс<br><span>Финансовая<br>грамотность</span></h1>
+        <h1>Концепт-курс <span>Финансовая грамотность</span></h1>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
       </div>
