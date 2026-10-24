@@ -973,6 +973,13 @@ select:focus-visible{
   box-shadow:var(--shadow);
   scroll-snap-align:start;
 }
+.program-all__card-content{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:24px;
+  color:var(--ink);
+}
 @media(max-width:640px){
   .program-all{padding:48px 0 42px}
   .program-all h2{margin-bottom:26px;padding:0 18px}
@@ -1974,7 +1981,7 @@ html{scroll-behavior:smooth}
       <h2 id="program-all-heading"><mark>Вся программа</mark></h2>
     </div>
     <div class="program-all__carousel" aria-label="Карточки программы. Прокручивайте по горизонтали">
-      <div class="program-all__card" aria-label="Карточка программы 1"></div>
+      <div class="program-all__card" aria-label="Карточка программы 1"><div class="program-all__card-content"><strong>СТАРТ</strong><span>Введение</span><span>5 признаков взрослого</span></div></div>
       <div class="program-all__card" aria-label="Карточка программы 2"></div>
       <div class="program-all__card" aria-label="Карточка программы 3"></div>
       <div class="program-all__card" aria-label="Карточка программы 4"></div>
