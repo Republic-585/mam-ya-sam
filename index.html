@@ -2324,18 +2324,31 @@ html{scroll-behavior:smooth}
 (function() {
   const bar = document.getElementById('progressBar');
   const text = document.getElementById('progressText');
-  
   if (!bar || !text) return;
 
-  window.addEventListener('scroll', function() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  let scheduled = false;
+  function updateProgress() {
+    const root = document.documentElement;
+    const scrollTop = Math.max(window.scrollY || root.scrollTop || 0, 0);
+    const docHeight = Math.max(root.scrollHeight, document.body ? document.body.scrollHeight : 0) - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
     const roundedProgress = Math.round(progress);
-    
-    bar.style.width = `${roundedProgress}%`;
-    text.textContent = `${roundedProgress}%`;
-  });
+    bar.style.width = roundedProgress + '%';
+    text.textContent = roundedProgress + '%';
+    scheduled = false;
+  }
+  function scheduleUpdate() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(updateProgress);
+  }
+
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+  window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
+  window.addEventListener('load', scheduleUpdate, { once: true });
+  if (document.readyState === 'complete') scheduleUpdate();
+  else document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
 })();
 
 // Видео встроено через iframe Muuvee.
