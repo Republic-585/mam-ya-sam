@@ -922,6 +922,63 @@ select:focus-visible{
 /* Anti-spam field: visually hidden from people, still present in the form */
 .form__trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
 
+
+/* ---------- ВСЯ ПРОГРАММА ---------- */
+.program-all{
+  background:var(--ink);
+  color:var(--paper);
+  padding:clamp(56px,8vw,96px) 0;
+  overflow:hidden;
+}
+.program-all h2{
+  margin:0 0 38px;
+  text-align:center;
+  color:var(--ink);
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(2rem,5.5vw,3.5rem);
+  font-weight:900;
+  line-height:1.12;
+  text-transform:uppercase;
+}
+.program-all h2 mark{
+  color:#141414;
+  background:var(--yellow);
+  padding:.06em .2em;
+  border-radius:10px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.program-all__carousel{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:8px max(24px,calc((100vw - 1180px)/2)) 24px;
+  scroll-snap-type:x mandatory;
+  scroll-padding-inline:24px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:var(--yellow) rgba(255,255,255,.2);
+}
+.program-all__carousel::-webkit-scrollbar{height:10px}
+.program-all__carousel::-webkit-scrollbar-track{background:rgba(255,255,255,.2);border-radius:999px}
+.program-all__carousel::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:999px}
+.program-all__card{
+  flex:0 0 clamp(240px,28vw,320px);
+  min-height:300px;
+  background:#fff;
+  border:var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  scroll-snap-align:start;
+}
+@media(max-width:640px){
+  .program-all{padding:48px 0 42px}
+  .program-all h2{margin-bottom:26px;padding:0 18px}
+  .program-all__carousel{gap:14px;padding:8px 20px 20px;scroll-padding-inline:20px}
+  .program-all__card{flex-basis:78vw;min-height:250px}
+}
+
 /* ---------- FOOTER ---------- */
 .footer{background:var(--ink);color:rgba(255,251,240,.75);padding:40px 0;border-top:var(--border)}
 .footer__in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -2072,6 +2129,33 @@ html{scroll-behavior:smooth}
         </div>
       </div>
       <div class="about-v2__final"><span>НЕ ПРОСТО УЗНАТЬ.</span> Понять. Попробовать. Научиться делать самому.</div>
+    </div>
+  </section>
+
+
+  <!-- ВСЯ ПРОГРАММА -->
+  <section class="program-all" id="program-all" aria-labelledby="program-all-heading">
+    <div class="wrap">
+      <h2 id="program-all-heading"><mark>Вся программа</mark></h2>
+    </div>
+    <div class="program-all__carousel" aria-label="Карточки программы. Прокручивайте по горизонтали">
+      <div class="program-all__card" aria-label="Карточка программы 1"></div>
+      <div class="program-all__card" aria-label="Карточка программы 2"></div>
+      <div class="program-all__card" aria-label="Карточка программы 3"></div>
+      <div class="program-all__card" aria-label="Карточка программы 4"></div>
+      <div class="program-all__card" aria-label="Карточка программы 5"></div>
+      <div class="program-all__card" aria-label="Карточка программы 6"></div>
+      <div class="program-all__card" aria-label="Карточка программы 7"></div>
+      <div class="program-all__card" aria-label="Карточка программы 8"></div>
+      <div class="program-all__card" aria-label="Карточка программы 9"></div>
+      <div class="program-all__card" aria-label="Карточка программы 10"></div>
+      <div class="program-all__card" aria-label="Карточка программы 11"></div>
+      <div class="program-all__card" aria-label="Карточка программы 12"></div>
+      <div class="program-all__card" aria-label="Карточка программы 13"></div>
+      <div class="program-all__card" aria-label="Карточка программы 14"></div>
+      <div class="program-all__card" aria-label="Карточка программы 15"></div>
+      <div class="program-all__card" aria-label="Карточка программы 16"></div>
+      <div class="program-all__card" aria-label="Карточка программы 17"></div>
     </div>
   </section>
 
