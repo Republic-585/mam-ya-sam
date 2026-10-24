@@ -1006,6 +1006,27 @@ select:focus-visible{
   will-change:opacity,transform;
 }
 .js-motion-ready .motion-reveal.is-visible{opacity:1;transform:translate3d(0,0,0) scale(1)}
+
+/* Плавное проявление блока «Наша миссия» из центра */
+.js-motion-ready .about-v2 .about__mission.motion-reveal{
+  opacity:0;
+  clip-path:circle(0% at 50% 50%);
+  filter:blur(10px);
+  transform:scale(.94);
+  transition:opacity 1.35s ease,clip-path 1.55s cubic-bezier(.2,.75,.25,1),filter 1.35s ease,transform 1.35s cubic-bezier(.2,.75,.25,1);
+}
+.js-motion-ready .about-v2 .about__mission.motion-reveal.is-visible{
+  opacity:1;
+  clip-path:circle(150% at 50% 50%);
+  filter:blur(0);
+  transform:scale(1);
+}
+@media(prefers-reduced-motion:reduce){
+  .js-motion-ready .about-v2 .about__mission.motion-reveal,
+  .js-motion-ready .about-v2 .about__mission.motion-reveal.is-visible{
+    opacity:1;clip-path:none;filter:none;transform:none;transition:none;
+  }
+}
 .card,.skill__item,.about__stat,.format__grid>*,.pricing__grid>*{
   transition:transform .22s ease,box-shadow .22s ease;
 }
@@ -2387,7 +2408,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 (function(){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealTargets = document.querySelectorAll(
-    '.problems h2,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.about__photo,.about__content,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
+    '.problems h2,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.about__photo,.about__content,.about-v2 .about__mission,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
   );
   if(!reduceMotion && 'IntersectionObserver' in window){
     document.body.classList.add('js-motion-ready');
