@@ -1441,9 +1441,8 @@ html{scroll-behavior:smooth}
 .about-v2__feedback[data-state="try"]{background:#fff0ce;border-style:solid}
 .about-v2__restart{margin-top:12px;padding:11px 16px;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);font:inherit;font-weight:900;cursor:pointer}
 .about-v2__game-foot{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;margin-top:20px;color:#444}
-.about-v2__author{display:grid;grid-template-columns:150px minmax(0,1fr);gap:26px;align-items:start;padding:clamp(20px,4vw,36px);background:rgba(255,251,240,.72);border:var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
-.about-v2__author-mark{position:relative;display:grid;place-items:center;aspect-ratio:1;background:var(--yellow);border:var(--border);border-radius:18px;box-shadow:var(--shadow);font-family:'Unbounded',sans-serif;font-size:2.6rem;font-weight:900;transform:rotate(-3deg)}
-.about-v2__author-mark span{position:absolute;right:9px;top:5px;font-size:1.35rem}
+.about-v2__author{display:grid;grid-template-columns:150px minmax(0,1fr);gap:26px;align-items:start;padding:clamp(20px,4vw,36px);background:#fff;border:0;box-shadow:none;border-radius:var(--radius)}
+.about-v2__author-photo{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border:0;border-radius:12px;box-shadow:none}
 .about-v2__author-copy h3{font-family:'Unbounded',sans-serif;font-size:clamp(1.5rem,3vw,2rem);margin:0 0 14px}
 .about-v2__author-copy p{font-size:1rem;line-height:1.65;margin:0 0 12px;color:#292929}
 .about-v2__final{font-family:'Unbounded',sans-serif;font-size:clamp(1.1rem,3vw,1.8rem);font-weight:900;line-height:1.45;text-align:center;padding:20px 12px}
@@ -1453,7 +1452,7 @@ html{scroll-behavior:smooth}
  .about-v2__skills{grid-template-columns:1fr;gap:12px}
  .about-v2__skill{padding:17px;gap:12px}
  .about-v2__author{grid-template-columns:1fr;gap:20px}
- .about-v2__author-mark{width:104px;font-size:2rem}
+ .about-v2__author-photo{width:104px;aspect-ratio:3/4;object-position:center top}
  .about-v2__choice{grid-template-columns:34px minmax(0,1fr);gap:10px;padding:11px}
  .about-v2__choice-sum{grid-column:2;justify-self:start;font-size:.75rem}
  .about-v2__budget>div{padding:12px}
@@ -1706,7 +1705,7 @@ html{scroll-behavior:smooth}
       </div>
 
       <div class="about-v2__author">
-        <div class="about-v2__author-mark" aria-hidden="true">ВР<span>✳</span></div>
+        <img class="about-v2__author-photo" src="./IMG_3511.jpeg" alt="Вера Романова, автор проекта" loading="lazy">
         <div class="about-v2__author-copy">
           <span class="about-v2__eyebrow">АВТОР ПРОЕКТА</span>
           <h3>Вера Романова</h3>
