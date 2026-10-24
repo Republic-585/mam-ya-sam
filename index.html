@@ -1615,12 +1615,13 @@ html{scroll-behavior:smooth}
 .about-achievements__tag{font-family:'Unbounded',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.06em;border:0;border-radius:999px;padding:0;line-height:1.3;color:var(--yellow);text-align:left}
 .about-achievements__card h4{font-family:'Unbounded',sans-serif;font-size:clamp(1rem,3vw,1.25rem);line-height:1.2;overflow-wrap:anywhere;text-align:left;width:100%}
 .about-achievements__card p{font-size:.88rem;font-weight:600;line-height:1.4;max-width:52ch;text-align:left;width:100%}
-.about-achievements__controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:0}
-.about-achievements__controls>button{display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.5rem;line-height:1;cursor:pointer}
+.about-achievements__controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:4px}
+.about-achievements__controls>button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:none;transition:background .18s ease,transform .18s ease}
+.about-achievements__controls>button:hover{background:#182747;transform:scale(1.05)}
 .about-achievements__controls>button:active{transform:scale(.96)}
-.about-achievements__dots{display:flex;align-items:center;gap:9px}
- .about-achievements__dots button{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,250,240,.35);padding:0;cursor:pointer}
-.about-achievements__dots button[aria-current="true"]{background:var(--yellow);outline:0;transform:scale(1.25)}
+.about-achievements__dots{display:flex;justify-content:center;gap:8px}
+.about-achievements__dots button{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,250,240,.35);padding:0;cursor:pointer}
+.about-achievements__dots button[aria-current="true"]{background:var(--yellow);transform:scale(1.25)}
 @media(max-width:640px){.about-achievements{width:calc(100% - 44px);margin:14px auto 18px}.about-achievements__carousel{gap:12px;padding:8px 2px 12px}.about-achievements__card{flex-basis:92%;min-height:132px;padding:14px 15px;box-shadow:none}.about-achievements__card p{font-size:.82rem}}
 
 </style>
@@ -2765,7 +2766,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   if(!track)return;
   const cards=Array.from(track.children);
   const dots=Array.from(document.querySelectorAll('[data-achievement-dot]'));
-  function index(){return Math.max(0,Math.min(cards.length-1,Math.round(track.scrollLeft/(cards[0].getBoundingClientRect().width+18))));}
+  function index(){const center=track.scrollLeft+track.clientWidth/2;let best=0,dist=Infinity;cards.forEach((card,i)=>{const d=Math.abs(card.offsetLeft+card.offsetWidth/2-center);if(d<dist){dist=d;best=i;}});return best;}
   function goTo(i){i=Math.max(0,Math.min(cards.length-1,i));track.scrollTo({left:cards[i].offsetLeft-track.offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});dots.forEach((d,n)=>d.setAttribute('aria-current',String(n===i)));}
   document.querySelectorAll('[data-achievement-move]').forEach(b=>b.addEventListener('click',()=>goTo(index()+Number(b.dataset.achievementMove))));
   dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
