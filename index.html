@@ -2470,5 +2470,61 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 </script>
 
+<!-- Ambient background music: Stilte & schimmerlicht - Fractures -->
+<audio id="siteAmbientMusic" loop preload="none" aria-hidden="true">
+  <source src="./Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3" type="audio/mpeg">
+</audio>
+<script>
+(function () {
+  const audio = document.getElementById('siteAmbientMusic');
+  if (!audio) return;
+
+  audio.volume = 0;
+  let started = false;
+  let fadeTimer = null;
+
+  function fadeTo(target, duration) {
+    if (fadeTimer) clearInterval(fadeTimer);
+    const start = audio.volume;
+    const steps = Math.max(1, Math.round(duration / 100));
+    let step = 0;
+    fadeTimer = setInterval(function () {
+      step += 1;
+      audio.volume = Math.max(0, Math.min(1, start + (target - start) * (step / steps)));
+      if (step >= steps) {
+        clearInterval(fadeTimer);
+        fadeTimer = null;
+      }
+    }, 100);
+  }
+
+  function startMusic() {
+    if (started) return;
+    started = true;
+    audio.play().then(function () {
+      fadeTo(0.12, 2400);
+    }).catch(function () {
+      started = false;
+    });
+    window.removeEventListener('pointerdown', startMusic);
+    window.removeEventListener('keydown', startMusic);
+    window.removeEventListener('touchstart', startMusic);
+  }
+
+  // Mobile browsers require a user gesture before audible playback.
+  window.addEventListener('pointerdown', startMusic, { once: true, passive: true });
+  window.addEventListener('keydown', startMusic, { once: true });
+  window.addEventListener('touchstart', startMusic, { once: true, passive: true });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && started && !audio.paused) {
+      audio.pause();
+    } else if (!document.hidden && started && audio.paused) {
+      audio.play().catch(function () {});
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
