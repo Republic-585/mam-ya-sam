@@ -2143,7 +2143,11 @@ html{scroll-behavior:smooth}
 .hero__cta-arrow--one { stroke-width: 3.2; opacity: 1; }
 .hero__cta-arrow--two { stroke-width: 2.8; opacity: .72; }
 @keyframes hero-arrow-pulse {
-  0%, 100% { transform: translateY(0) scale(1); opacity: .82; }
+  0%, 72%, 100% { transform: translateY(0) scale(1); opacity: .82; }
+  78% { opacity: .38; }
+  84% { opacity: 1; }
+  90% { opacity: .55; }
+  96% { opacity: 1; }
   50% { transform: translateY(1px) scale(1.025); opacity: 1; }
 }
 .hero__cta:hover {
