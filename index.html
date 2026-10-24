@@ -459,35 +459,43 @@ select:focus-visible{
 .steps__big mark{background:var(--pink);padding:0 .2em;border-radius:8px}
 
 /* ---------- SKILL ---------- */
-.skill{background:var(--pink);border-top:var(--border);border-bottom:var(--border)}
-.skill h2{font-size:clamp(1.7rem,4.5vw,3rem);text-transform:uppercase;margin-bottom:18px}
-.skill h2 span{
-  background:var(--ink);color:var(--pink);padding:0 .15em;border-radius:10px;
-  box-decoration-break: clone; 
-  -webkit-box-decoration-break: clone;
+.skill{
+  position:relative;overflow:hidden;color:#fff;
+  background:
+    radial-gradient(circle at 8% 18%,rgba(255,255,255,.9) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 22% 78%,rgba(201,229,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 38% 12%,rgba(255,255,255,.85) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 54% 84%,rgba(255,217,61,.8) 0 1px,transparent 2px),
+    radial-gradient(circle at 71% 24%,rgba(255,255,255,.9) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 88% 67%,rgba(201,229,255,.9) 0 1px,transparent 2px),
+    radial-gradient(ellipse at 50% 42%,rgba(40,66,112,.65) 0%,transparent 60%),
+    #080d20;
+  border-top:var(--border);border-bottom:var(--border)
 }
-.skill__lead{font-size:1.1rem;max-width:640px;margin-bottom:40px;font-weight:600}
-.skill__lead s{opacity:.55}
-.skill__grid{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.skill__item{padding:22px;background:#fff;border:var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
-.skill__item:last-child{grid-column:span 2;background:var(--yellow)}
-.skill__item h3{font-family:'Unbounded',sans-serif;font-size:1rem;margin-bottom:8px;text-transform:uppercase}
-.skill__item p{font-weight:500;font-size:.98rem;color:var(--muted)}
-.skill__item--mark{background:var(--ink)!important;color:var(--paper)}
-.skill__item--mark h3{color:var(--yellow)}
-.skill__item--mark p{color:rgba(255,251,240,.85)}
-
-/* Пасхалка: калькулятор */
-.easter-egg-math {
-  cursor: pointer;
-  display: inline-block;
-  transition: transform 0.1s;
+.skill__wrap{position:relative;z-index:1}
+.skill__eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.skill__eyebrow span:first-child{background:var(--yellow);color:var(--ink);padding:7px 11px;border-radius:6px;font-size:.75rem;font-weight:800}
+.skill__eyebrow span:last-child{color:#b8c9e8;font-size:.72rem;font-weight:700;letter-spacing:.08em}
+.skill h2{font-size:clamp(1.7rem,4.5vw,3rem);text-transform:uppercase;margin-bottom:18px;max-width:900px}
+.skill h2 mark{background:var(--yellow);color:var(--ink);padding:0 .16em;border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.skill__lead{font-size:1.1rem;line-height:1.65;max-width:760px;margin-bottom:34px;font-weight:500;color:#d5deef}
+.skill__subheading{font-family:'Unbounded',sans-serif;font-size:clamp(.9rem,2vw,1.1rem);text-transform:uppercase;margin-bottom:18px;color:var(--yellow)}
+.skill__grid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.skill__item{padding:22px;background:rgba(17,26,48,.88);border:1px solid #34415d;border-radius:var(--radius-sm);box-shadow:none;min-width:0}
+.skill__item h3{display:flex;align-items:center;gap:12px;font-family:'Unbounded',sans-serif;font-size:1rem;margin-bottom:10px;text-transform:uppercase;color:#fff}
+.skill__number{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:var(--yellow);color:var(--ink);font-family:'Manrope',sans-serif;font-size:.9rem;font-weight:800}
+.skill__item p{font-weight:500;font-size:.98rem;line-height:1.6;color:#d5deef;margin:0}
+.skill__closing{display:inline-block;margin-top:24px;background:var(--yellow);color:var(--ink);padding:10px 14px;border-radius:7px;font-weight:800;font-size:.82rem;letter-spacing:.02em}
+.easter-egg-math{cursor:pointer;display:inline-block;transition:transform .1s}
+.easter-egg-math:active{transform:scale(.8)}
+@media(max-width:640px){
+  .skill__grid{grid-template-columns:1fr}
+  .skill__item{padding:18px}
+  .skill__closing{line-height:1.5}
 }
-.easter-egg-math:active { transform: scale(0.8); }
-
-@media(max-width:640px){.skill__grid{grid-template-columns:1fr}.skill__item:last-child{grid-column:auto}}
 
 /* ---------- RESULT ---------- */
+
 .result{background:var(--green);border-bottom:var(--border)}
 .result__in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .result h2{font-size:clamp(1.6rem,4vw,2.6rem);text-transform:uppercase;margin-bottom:14px}
@@ -2063,36 +2071,31 @@ html{scroll-behavior:smooth}
 
   <!-- SKILL -->
   <section class="skill" id="skill">
-    <div class="wrap">
-      <h2>Навык #1 <span>самостоятельность</span> — не разовая прихоть</h2>
-      <p class="skill__lead">
-        Не вставить шпильку маме за то, что бургер не купила. <br>
-        <s>Разовая прихоть.</s> <b>Самостоятельность навсегда должна стать фоном жизни.</b> Это навык.
-      </p>
+    <div class="wrap skill__wrap">
+      <div class="skill__eyebrow"><span>НАВЫК № 1</span><span>ОСНОВА САМОСТОЯТЕЛЬНОСТИ</span></div>
+      <h2>Взрослеют не по возрасту. <mark>А по решениям.</mark></h2>
+      <p class="skill__lead">Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.</p>
 
-      <h3 style="font-family:'Unbounded';font-size:1.1rem;text-transform:uppercase;margin-bottom:22px;">Как ты обретёшь этот навык</h3>
+      <h3 class="skill__subheading">Как ты будешь его развивать</h3>
       <div class="skill__grid">
         <div class="skill__item">
-          <h3>🧮 <span class="easter-egg-math" id="easterEggMath">На основе математики</span></h3>
-          <p>Первые шаги к самостоятельности — через реальные расчёты, а не абстракции.</p>
+          <h3><span class="skill__number">01</span> Считай</h3>
+          <p>Математика помогает разбираться с реальными деньгами и жизненными решениями.</p>
         </div>
         <div class="skill__item">
-          <h3>🚫 Не через инсайты</h3>
-          <p>И не через школьную теорию. Никаких «однажды поймёшь».</p>
+          <h3><span class="skill__number">02</span> Пробуй</h3>
+          <p>Практические задания, в которых ты не просто слушаешь, а действуешь.</p>
         </div>
         <div class="skill__item">
-          <h3>🎯 Через практику</h3>
-          <p>В фокус-группе: делаешь реальные шаги, а не просто смотришь.</p>
+          <h3><span class="skill__number">03</span> Закрепляй</h3>
+          <p>Видео раз в две недели, время на применение знаний и новые челленджи.</p>
         </div>
         <div class="skill__item">
-          <h3>🎬 Видео раз в 2 недели</h3>
-          <p>± есть время осмыслить и сделать.</p>
-        </div>
-        <div class="skill__item skill__item--mark">
-          <h3>💬 Чатик с единомышленниками</h3>
-          <p>И челленджи :) Ты не один — рядом такие же, кто хочет «сам».</p>
+          <h3><span class="skill__number">04</span> Расти вместе с другими</h3>
+          <p>Чат единомышленников, обмен опытом и поддержка на пути к самостоятельности.</p>
         </div>
       </div>
+      <p class="skill__closing">НЕ ПРОСТО ПОНЯТЬ. А НАУЧИТЬСЯ ДЕЛАТЬ САМОМУ.</p>
     </div>
   </section>
 
