@@ -2112,14 +2112,12 @@ html{scroll-behavior:smooth}
   white-space: nowrap;
 }
 
-/* Аккуратные каскадные стрелки и удлинённая линия */
+/* Каскад тонких стрелок, плавно переходящий в длинную линию */
 .hero__cta {
   display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
   align-self: center;
-  gap: 1px;
   margin-top: 12px;
   padding: 4px 18px 0;
   border: 0;
@@ -2129,80 +2127,30 @@ html{scroll-behavior:smooth}
   text-decoration: none;
   transition: transform .25s ease;
 }
-.hero__cta span {
-  position: relative;
+.hero__cta svg {
   display: block;
-  flex: none;
-  width: 42px;
-  height: 16px;
-  margin: 0;
-  border: 0;
-  transform: none;
-  opacity: .95;
-  transition: opacity .25s ease, transform .25s ease;
+  width: 36px;
+  height: 112px;
+  overflow: visible;
 }
-.hero__cta span::before,
-.hero__cta span::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  width: 55%;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--yellow);
+.hero__cta-arrow,
+.hero__cta-line {
+  fill: none;
+  stroke: var(--yellow);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.hero__cta span::before {
-  left: 0;
-  transform: rotate(35deg);
-  transform-origin: right center;
-}
-.hero__cta span::after {
-  right: 0;
-  transform: rotate(-35deg);
-  transform-origin: left center;
-}
-.hero__cta span:first-child {
-  width: 46px;
-  height: 19px;
-  opacity: 1;
-}
-.hero__cta span:first-child::before,
-.hero__cta span:first-child::after {
-  height: 4.5px;
-}
-.hero__cta span:nth-child(2) {
-  width: 34px;
-  height: 15px;
-  opacity: .8;
-}
-.hero__cta span:nth-child(2)::before,
-.hero__cta span:nth-child(2)::after {
-  height: 3.5px;
-}
-.hero__cta span:nth-child(3) {
-  width: 23px;
-  height: 12px;
-  opacity: .65;
-}
-.hero__cta span:nth-child(3)::before,
-.hero__cta span:nth-child(3)::after {
-  height: 3px;
-}
-.hero__cta i {
-  display: block;
-  width: 3px;
-  height: 48px;
-  margin-top: 10px;
-  border-radius: 999px;
-  background: var(--yellow);
-  opacity: .85;
-}
+.hero__cta-arrow--one { stroke-width: 3.2; opacity: 1; }
+.hero__cta-arrow--two { stroke-width: 2.8; opacity: .78; }
+.hero__cta-arrow--three { stroke-width: 2.4; opacity: .58; }
+.hero__cta-line { stroke-width: 2.2; opacity: .78; }
 .hero__cta:hover {
   background: transparent;
   transform: translateY(4px);
   box-shadow: none;
 }
-.hero__cta:hover span { opacity: 1; }
+.hero__cta:hover .hero__cta-arrow,
+.hero__cta:hover .hero__cta-line { opacity: 1; }
 .hero__cta:active { transform: translateY(6px); }
 .hero__cta:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 </style>
@@ -2243,7 +2191,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
-        <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><i aria-hidden="true"></i></a>
+        <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»"><svg viewBox="0 0 36 112" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M5 3 L18 13 L31 3"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M9 15 L18 22 L27 15"/><path class="hero__cta-arrow hero__cta-arrow--three" d="M13 24 L18 28 L23 24"/><path class="hero__cta-line" d="M18 31 V106"/></svg></a>
       </div>
 
     </div>
