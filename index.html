@@ -2470,62 +2470,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 </script>
 
-<!-- Ambient background music: Stilte & schimmerlicht - Fractures -->
-<audio id="siteAmbientMusic" loop preload="auto" playsinline aria-hidden="true">
-  <source src="./Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3" type="audio/mpeg">
-</audio>
-<script>
-(function () {
-  const audio = document.getElementById('siteAmbientMusic');
-  if (!audio) return;
 
-  // Keep the music quiet from the very start. iOS Safari may ignore volume changes during playback.
-  audio.volume = 0.12;
-  let started = false;
-  let starting = false;
-
-  function startMusic() {
-    if (started || starting) return;
-    starting = true;
-
-    // Keep the gesture handlers available if playback is rejected, so the user can try again.
-    const playAttempt = audio.play();
-    if (!playAttempt || typeof playAttempt.then !== 'function') {
-      started = true;
-      starting = false;
-      removeStartListeners();
-      return;
-    }
-
-    playAttempt.then(function () {
-      started = true;
-      starting = false;
-      removeStartListeners();
-    }).catch(function () {
-      starting = false;
-    });
-  }
-
-  function removeStartListeners() {
-    window.removeEventListener('pointerdown', startMusic);
-    window.removeEventListener('keydown', startMusic);
-    window.removeEventListener('touchstart', startMusic);
-  }
-
-  // Mobile browsers require a user gesture before audible playback.
-  window.addEventListener('pointerdown', startMusic, { passive: true });
-  window.addEventListener('keydown', startMusic);
-  window.addEventListener('touchstart', startMusic, { passive: true });
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden && started && !audio.paused) {
-      audio.pause();
-    } else if (!document.hidden && started && audio.paused) {
-      audio.play().catch(function () {});
-    }
-  });
-})();
-</script>
 
 </body>
 </html>
