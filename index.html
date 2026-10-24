@@ -1991,102 +1991,55 @@ html{scroll-behavior:smooth}
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
 const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
-// ---------- Бесконечная карусель тарифов ----------
+// ---------- Карусель тарифов без резкого перехода с конца на начало ----------
 (function () {
   const carousel = document.getElementById('pricingCarousel');
   const track = carousel && carousel.querySelector('.pricing__grid');
   if (!carousel || !track) return;
-  const originals = Array.from(track.querySelectorAll(':scope > .price'));
-  if (originals.length < 2) return;
-
-  const firstClone = originals[0].cloneNode(true);
-  const lastClone = originals[originals.length - 1].cloneNode(true);
-  firstClone.dataset.carouselClone = 'first';
-  lastClone.dataset.carouselClone = 'last';
-  track.insertBefore(lastClone, originals[0]);
-  track.appendChild(firstClone);
+  const cards = Array.from(track.querySelectorAll(':scope > .price'));
+  if (!cards.length) return;
 
   const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
   let index = 0;
-  let adjusting = false;
   let scrollTimer = null;
 
   function cardWidth() {
-    const card = track.querySelector('.price');
+    const card = cards[0];
     const styles = getComputedStyle(track);
     return card.getBoundingClientRect().width + parseFloat(styles.columnGap || styles.gap || 0);
-  }
-  function scrollToIndex(next, smooth) {
-    index = (next + originals.length) % originals.length;
-    track.scrollTo({left:cardWidth() * (index + 1), behavior:smooth ? 'smooth' : 'auto'});
-    updateDots();
   }
   function updateDots() {
     dots.forEach((dot, i) => dot.setAttribute('aria-current', i === index ? 'true' : 'false'));
   }
-  function syncCloneSelection() {
-    track.querySelectorAll('.price[data-plan-card]').forEach(card => {
-      const original = originals.find(item => item.dataset.planCard === card.dataset.planCard);
-      card.classList.toggle('is-selected', !!original && original.classList.contains('is-selected'));
-      if (original && original.hasAttribute('aria-current')) card.setAttribute('aria-current', 'true');
-      else card.removeAttribute('aria-current');
-      const sourceButton = original && original.querySelector('.plan-select');
-      const cloneButton = card.querySelector('.plan-select');
-      if (sourceButton && cloneButton) {
-        cloneButton.textContent = sourceButton.textContent;
-        cloneButton.setAttribute('aria-pressed', sourceButton.getAttribute('aria-pressed') || 'false');
-      }
-    });
+  function scrollToIndex(next) {
+    index = Math.max(0, Math.min(cards.length - 1, next));
+    track.scrollTo({left:cardWidth() * index, behavior:'smooth'});
+    updateDots();
   }
 
-  carousel.querySelector('[data-carousel-prev]').addEventListener('click', () => scrollToIndex(index - 1, true));
-  carousel.querySelector('[data-carousel-next]').addEventListener('click', () => scrollToIndex(index + 1, true));
-  dots.forEach(dot => dot.addEventListener('click', () => scrollToIndex(Number(dot.dataset.carouselDot), true)));
-
-  track.addEventListener('click', event => {
-    const button = event.target.closest('.plan-select');
-    if (!button || !button.closest('[data-carousel-clone]')) return;
-    event.preventDefault();
-    const plan = button.dataset.plan;
-    const source = originals.find(card => card.dataset.planCard === plan);
-    const sourceButton = source && source.querySelector('.plan-select');
-    if (sourceButton) sourceButton.click();
-    syncCloneSelection();
-  });
+  const prev = carousel.querySelector('[data-carousel-prev]');
+  const next = carousel.querySelector('[data-carousel-next]');
+  if (prev) prev.addEventListener('click', () => scrollToIndex(index - 1));
+  if (next) next.addEventListener('click', () => scrollToIndex(index + 1));
+  dots.forEach(dot => dot.addEventListener('click', () => scrollToIndex(Number(dot.dataset.carouselDot))));
 
   track.addEventListener('scroll', () => {
-    if (adjusting) return;
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
       const width = cardWidth();
-      const raw = Math.round(track.scrollLeft / width);
-      if (raw <= 0) {
-        adjusting = true;
-        track.scrollLeft = width * originals.length;
-        index = originals.length - 1;
-        requestAnimationFrame(() => { adjusting = false; updateDots(); });
-      } else if (raw >= originals.length + 1) {
-        adjusting = true;
-        track.scrollLeft = width;
-        index = 0;
-        requestAnimationFrame(() => { adjusting = false; updateDots(); });
-      } else {
-        index = raw - 1;
-        updateDots();
-      }
-      syncCloneSelection();
-    }, 90);
+      index = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / width)));
+      updateDots();
+    }, 80);
   });
 
-  const selectedIndex = Math.max(0, originals.findIndex(card => card.classList.contains('is-selected')));
+  const selectedIndex = Math.max(0, cards.findIndex(card => card.classList.contains('is-selected')));
   index = selectedIndex;
   requestAnimationFrame(() => {
-    track.scrollLeft = cardWidth() * (index + 1);
+    track.scrollLeft = cardWidth() * index;
     updateDots();
-    syncCloneSelection();
   });
   window.addEventListener('resize', () => {
-    track.scrollLeft = cardWidth() * (index + 1);
+    track.scrollLeft = cardWidth() * index;
   });
 })(); 
 
