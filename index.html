@@ -1396,6 +1396,15 @@ html{scroll-behavior:smooth}
 .about-v2__skill--money[open] summary{background:transparent;color:#fffaf0}
 .about-v2__skill--money .about-v2__skill-content{color:#fffaf0}
 .about-v2__skill--money .about-v2__skill-content p{color:rgba(255,250,240,.78)}
+.about-v2__skill--money{border-radius:12px;box-shadow:0 0 22px rgba(124,196,255,.19),0 0 40px rgba(78,120,210,.13);transition:box-shadow .85s cubic-bezier(.16,1,.3,1),background .85s cubic-bezier(.16,1,.3,1)}
+.about-v2__skill--money:hover,.about-v2__skill--money[open]{box-shadow:none}
+.about-v2__skill--money summary{padding:8px 14px;font-size:.92rem;min-height:0}
+.about-v2__skill--money summary::after{width:26px;height:26px;min-width:26px;border:0;border-radius:8px;background:var(--yellow);color:#141414;box-shadow:none;transition:transform .58s cubic-bezier(.16,1,.3,1),box-shadow .42s ease,background-color .42s ease}
+.about-v2__skill--money[open] summary::after{transform:rotate(45deg);box-shadow:0 0 20px rgba(255,217,61,.5)}
+.about-v2__skill--money .about-v2__skill-content{padding:0 14px 10px;gap:0}
+.about-v2__skill--money .about-v2__skill-content p{font-size:.88rem;line-height:1.5}
+@media(max-width:640px){.about-v2__skill--money summary{padding:7px 12px;font-size:.86rem}.about-v2__skill--money .about-v2__skill-content{padding:0 12px 9px}}
+
 
 @keyframes aboutSkillReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:640px){.about-v2__skill summary{padding:16px 18px;font-size:.88rem}.about-v2__skill-content{padding:0 18px 18px;gap:12px}}
@@ -1900,7 +1909,7 @@ html{scroll-behavior:smooth}
 
       <div class="about-v2__skills" aria-label="Чему учится подросток">
         <details class="about-v2__skill about-v2__skill--money">
-          <summary><span class="about-v2__skill-icon" aria-hidden="true">💸</span><span>Деньги и выбор</span></summary>
+          <summary><span>Деньги и выбор</span></summary>
           <div class="about-v2__skill-content"><p>Планировать бюджет, рассчитывать накопления и осознанно подходить к покупкам.</p></div>
         </details>
         <details class="about-v2__skill">
