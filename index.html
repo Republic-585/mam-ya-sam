@@ -1463,6 +1463,85 @@ html{scroll-behavior:smooth}
  .about-v2__budget span{font-size:.58rem}
 }
 
+
+/* ---------- Карусель интерактивных миссий ---------- */
+.about-v2__missions-shell{
+
+  background:
+    radial-gradient(circle at 6% 14%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 14% 76%,#c9e5ff 0 1px,transparent 2px),
+    radial-gradient(circle at 23% 33%,#fff 0 1.2px,transparent 2px),
+    radial-gradient(circle at 31% 88%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 39% 17%,#b7d6ff 0 1px,transparent 2px),
+    radial-gradient(circle at 47% 69%,#fff 0 1.2px,transparent 2px),
+    radial-gradient(circle at 56% 9%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 63% 84%,#c9e5ff 0 1px,transparent 2px),
+    radial-gradient(circle at 72% 21%,#fff 0 1.2px,transparent 2px),
+    radial-gradient(circle at 79% 57%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 88% 12%,#c9e5ff 0 1.2px,transparent 2px),
+    radial-gradient(circle at 94% 76%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 8% 48%,rgba(255,217,61,.8) 0 1px,transparent 2px),
+    radial-gradient(circle at 19% 9%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 35% 54%,rgba(124,196,255,.8) 0 1px,transparent 2px),
+    radial-gradient(circle at 44% 38%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 67% 42%,rgba(255,217,61,.7) 0 1px,transparent 2px),
+    radial-gradient(circle at 83% 91%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 11% 62%,rgba(255,255,255,.95) 0 1.4px,transparent 2.4px),
+    radial-gradient(circle at 28% 7%,rgba(201,229,255,.95) 0 1.2px,transparent 2.2px),
+    radial-gradient(circle at 52% 91%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 76% 73%,rgba(255,217,61,.9) 0 1.2px,transparent 2.2px),
+    radial-gradient(circle at 97% 36%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(ellipse at 50% 48%,rgba(40,66,112,.58) 0%,transparent 56%),
+    #080d20;
+  position:relative;
+  isolation:isolate;
+
+  border-radius:var(--radius);
+  padding:clamp(16px,3vw,30px);
+  margin:8px 0 12px;
+  overflow:hidden;
+}
+.about-v2__missions-track{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  padding:8px 4px 20px;
+}
+.about-v2__missions-track::-webkit-scrollbar{display:none}
+.about-v2__missions-track>.about-v2__game{
+  flex:0 0 100%;
+  min-width:0;
+  max-width:none;
+  width:100%;
+  margin:0;
+  scroll-snap-align:center;
+  background:#fff;
+  color:var(--ink);
+  border:var(--border);
+  box-shadow:8px 8px 0 var(--ink);
+}
+.about-v2__missions-track>.about-v2__game:before{background:var(--blue);opacity:.2}
+.about-v2__missions-controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:4px}
+.about-v2__missions-btn{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#080d20;color:#fffaf0;font-size:1.6rem;line-height:1;cursor:pointer;transition:background .18s ease,transform .18s ease}
+.about-v2__missions-btn:hover{background:#182747;transform:scale(1.05)}
+.about-v2__missions-btn:active{transform:scale(.96)}
+.about-v2__missions-dots{display:flex;justify-content:center;gap:8px}
+.about-v2__missions-dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,250,240,.35);padding:0;cursor:pointer}
+.about-v2__missions-dot[aria-current="true"]{background:var(--yellow);transform:scale(1.35)}
+.about-v2__missions-btn:focus-visible,.about-v2__missions-dot:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
+@media(max-width:640px){
+ .about-v2__missions-shell{padding:12px;border-radius:18px}
+ .about-v2__missions-track{gap:12px;padding:6px 3px 18px}
+ .about-v2__missions-track>.about-v2__game{padding:20px 16px;box-shadow:5px 5px 0 var(--ink)}
+}
+@media(prefers-reduced-motion:reduce){.about-v2__missions-track{scroll-behavior:auto}.about-v2__missions-btn{transition:none}}
+
 </style>
 </head>
 <body>
@@ -1690,6 +1769,8 @@ html{scroll-behavior:smooth}
         <article class="about-v2__skill"><span class="about-v2__skill-icon" aria-hidden="true">🧩</span><div><h3>Практика решений</h3><p>Сравнивать стратегии, объяснять свой выбор и учиться на последствиях.</p></div><span class="about-v2__skill-no">04</span></article>
       </div>
 
+      <div class="about-v2__missions-shell">
+        <div class="about-v2__missions-track" id="missionsTrack">
       <div class="about-v2__game" id="aboutGame">
         <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 01</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
         <h3>Секретный бюджет: спаси свою цель!</h3>
@@ -1708,6 +1789,47 @@ html{scroll-behavior:smooth}
         <div class="about-v2__game-foot"><span>🧠</span> Здесь важен не только ответ, но и ход твоих мыслей.</div>
       </div>
 
+        <div class="about-v2__game about-v2__mission-extra" id="missionTwo">
+          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 02</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
+          <h3>Поймай скидку: где выгоднее?</h3>
+          <p class="about-v2__game-intro">Ты хочешь купить наушники за 1 200 ₽. Магазин предлагает скидку 25%. Сколько они будут стоить после скидки?</p>
+          <div class="about-v2__budget" aria-label="Цена и скидка"><div><span>СТАРАЯ ЦЕНА</span><strong>1 200 ₽</strong></div><div><span>СКИДКА</span><strong>25%</strong></div></div>
+          <p class="about-v2__question">Выбери правильную итоговую цену.</p>
+          <div class="about-v2__choices" role="group" aria-label="Ответы на миссию 2">
+            <button class="about-v2__choice" type="button" data-mission-two="a"><span class="about-v2__choice-letter">A</span><span><strong>900 ₽</strong><small>Скидка составит 300 ₽</small></span></button>
+            <button class="about-v2__choice" type="button" data-mission-two="b"><span class="about-v2__choice-letter">B</span><span><strong>1 000 ₽</strong><small>Скидка составит 200 ₽</small></span></button>
+            <button class="about-v2__choice" type="button" data-mission-two="c"><span class="about-v2__choice-letter">C</span><span><strong>300 ₽</strong><small>Это размер скидки, а не цена</small></span></button>
+          </div>
+          <div class="about-v2__feedback" id="missionTwoFeedback" role="status" aria-live="polite">Подсказка: найди четверть от 1 200 ₽, затем вычти её из старой цены.</div>
+          <button class="about-v2__restart" type="button" data-mission-reset="two" hidden>Попробовать ещё раз ↻</button>
+          <div class="about-v2__game-foot"><span>🧮</span> Проценты помогают сравнивать предложения, а не только видеть ярлык «скидка».</div>
+        </div>
+        <div class="about-v2__game about-v2__mission-extra" id="missionThree">
+          <div class="about-v2__game-top"><span class="about-v2__game-kicker">МИССИЯ № 03</span><span class="about-v2__game-status"><span aria-hidden="true">●</span> ТВОЙ ХОД</span></div>
+          <h3>Цель близко: составь план</h3>
+          <p class="about-v2__game-intro">Ты копишь на настольную игру за 1 800 ₽. Уже есть 1 050 ₽, а каждую неделю можешь откладывать 250 ₽.</p>
+          <div class="about-v2__budget" aria-label="План накоплений"><div><span>УЖЕ ЕСТЬ</span><strong>1 050 ₽</strong></div><div><span>В НЕДЕЛЮ</span><strong>250 ₽</strong></div></div>
+          <p class="about-v2__question">Через сколько полных недель хватит денег на покупку?</p>
+          <div class="about-v2__choices" role="group" aria-label="Ответы на миссию 3">
+            <button class="about-v2__choice" type="button" data-mission-three="a"><span class="about-v2__choice-letter">A</span><span><strong>2 недели</strong><small>Всего будет 1 550 ₽</small></span></button>
+            <button class="about-v2__choice" type="button" data-mission-three="b"><span class="about-v2__choice-letter">B</span><span><strong>3 недели</strong><small>Всего будет 1 800 ₽</small></span></button>
+            <button class="about-v2__choice" type="button" data-mission-three="c"><span class="about-v2__choice-letter">C</span><span><strong>4 недели</strong><small>Всего будет 2 050 ₽</small></span></button>
+          </div>
+          <div class="about-v2__feedback" id="missionThreeFeedback" role="status" aria-live="polite">Подсказка: сначала узнай, сколько ещё нужно накопить до 1 800 ₽.</div>
+          <button class="about-v2__restart" type="button" data-mission-reset="three" hidden>Попробовать ещё раз ↻</button>
+          <div class="about-v2__game-foot"><span>🎯</span> Большая цель становится понятнее, когда разбита на небольшие шаги.</div>
+        </div>
+        </div>
+        <div class="about-v2__missions-controls" aria-label="Прокрутка миссий">
+          <button class="about-v2__missions-btn" type="button" data-missions-move="-1" aria-label="Предыдущая миссия">‹</button>
+          <div class="about-v2__missions-dots">
+            <button class="about-v2__missions-dot" type="button" data-missions-index="0" aria-label="Миссия 1" aria-current="true"></button>
+            <button class="about-v2__missions-dot" type="button" data-missions-index="1" aria-label="Миссия 2" aria-current="false"></button>
+            <button class="about-v2__missions-dot" type="button" data-missions-index="2" aria-label="Миссия 3" aria-current="false"></button>
+          </div>
+          <button class="about-v2__missions-btn" type="button" data-missions-move="1" aria-label="Следующая миссия">›</button>
+        </div>
+      </div>
       <div class="about-v2__author">
         <img class="about-v2__author-photo" src="https://raw.githubusercontent.com/Republic-585/mam-ya-sam/main/IMG_3511.jpeg" alt="Вера Романова, автор проекта" loading="eager" decoding="async" onerror="this.onerror=null;this.src='https://github.com/Republic-585/mam-ya-sam/raw/refs/heads/main/IMG_3511.jpeg'">
         <div class="about-v2__author-copy">
@@ -2432,6 +2554,54 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 })();
 
+
+
+/* Карусель миссий и отдельная логика заданий № 2 и № 3 */
+(function(){
+  const track=document.getElementById('missionsTrack');
+  if(!track)return;
+  const cards=Array.from(track.children);
+  const dots=Array.from(document.querySelectorAll('[data-missions-index]'));
+  function currentIndex(){return Math.max(0,Math.min(cards.length-1,Math.round(track.scrollLeft/(cards[0].getBoundingClientRect().width+18))));}
+  function goTo(index){index=Math.max(0,Math.min(cards.length-1,index));track.scrollTo({left:cards[index].offsetLeft-track.offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===index)));}
+  document.querySelectorAll('[data-missions-move]').forEach(btn=>btn.addEventListener('click',()=>goTo(currentIndex()+Number(btn.dataset.missionsMove))));
+  dots.forEach((dot,i)=>dot.addEventListener('click',()=>goTo(i)));
+  let raf;
+  track.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const idx=currentIndex();dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===idx)));});},{passive:true});
+  function setupMission(prefix,correct,feedbackId,hint,answers){
+    const card=document.getElementById(prefix==='two'?'missionTwo':'missionThree');
+    if(!card)return;
+    const choices=Array.from(card.querySelectorAll('[data-mission-'+prefix+']'));
+    const feedback=document.getElementById(feedbackId);
+    const reset=card.querySelector('[data-mission-reset]');
+    choices.forEach(button=>button.addEventListener('click',()=>{
+      const ok=button.dataset['mission'+(prefix==='two'?'Two':'Three')]===correct;
+      choices.forEach(item=>{item.disabled=true;});
+      button.classList.add(ok?'is-correct':'is-wrong');
+      if(!ok){const right=choices.find(item=>item.dataset['mission'+(prefix==='two'?'Two':'Three')]===correct);if(right)right.classList.add('is-correct');}
+      feedback.textContent=answers[button.dataset['mission'+(prefix==='two'?'Two':'Three')]];
+      feedback.dataset.state=ok?'success':'try';
+      reset.hidden=false;
+      const status=card.querySelector('.about-v2__game-status');
+      if(status)status.innerHTML=ok?'<span aria-hidden="true">●</span> МИССИЯ ПРОЙДЕНА':'<span aria-hidden="true">●</span> ЕСТЬ ЕЩЁ ПОПЫТКА';
+    }));
+    reset.addEventListener('click',()=>{
+      choices.forEach(item=>{item.disabled=false;item.classList.remove('is-correct','is-wrong');});
+      feedback.textContent=hint;feedback.removeAttribute('data-state');reset.hidden=true;
+      const status=card.querySelector('.about-v2__game-status');if(status)status.innerHTML='<span aria-hidden="true">●</span> ТВОЙ ХОД';
+    });
+  }
+  setupMission('two','a','missionTwoFeedback','Подсказка: найди четверть от 1 200 ₽, затем вычти её из старой цены.',{
+    a:'Верно! 25% от 1 200 ₽ — это 300 ₽. После скидки наушники стоят 900 ₽. Теперь ты знаешь, как проверить реальную выгоду.',
+    b:'Пока нет. 1 000 ₽ означают скидку всего 200 ₽. Найди 25% от 1 200 ₽: это 300 ₽, поэтому итоговая цена — 900 ₽.',
+    c:'300 ₽ — это размер скидки. Чтобы найти цену после скидки, вычти 300 ₽ из 1 200 ₽. Получится 900 ₽.'
+  });
+  setupMission('three','b','missionThreeFeedback','Подсказка: сначала узнай, сколько ещё нужно накопить до 1 800 ₽.',{
+    a:'Ещё немного! Через 2 недели будет 1 050 + 500 = 1 550 ₽. До цели не хватает 250 ₽.',
+    b:'Точно! Нужно накопить ещё 750 ₽. По 250 ₽ в неделю — это 3 недели. В итоге будет ровно 1 800 ₽.',
+    c:'До цели не нужно ждать 4 недели. Осталось 750 ₽, а по 250 ₽ в неделю ты накопишь их за 3 недели.'
+  });
+})();
 
 // ---------- Интерактивная задача внутри блока «О проекте» ----------
 (function(){
