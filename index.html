@@ -1993,16 +1993,15 @@ html{scroll-behavior:smooth}
 
 /* Точечная правка заголовка первого экрана */
 .hero h1{
-  width:100%;
-  font-size:clamp(.95rem,4.6vw,3rem);
-  line-height:1.05;
+  font-size:clamp(2.35rem,8.8vw,6.8rem);
+  line-height:.98;
   font-weight:900;
-  white-space:nowrap;
+  white-space:normal;
   letter-spacing:-.045em;
 }
 .hero h1 span{
-  display:inline;
-  margin:0;
+  display:block;
+  margin-top:clamp(10px,1.6vw,18px);
   padding:0;
   background:transparent;
   border:0;
@@ -2011,7 +2010,30 @@ html{scroll-behavior:smooth}
   transform:none;
   font-size:inherit;
   line-height:inherit;
-  white-space:nowrap;
+  white-space:normal;
+}
+.hero__sub{
+  font-size:clamp(1.45rem,4.4vw,3rem);
+  line-height:1.1;
+}
+.hero__badge{
+  align-self:center;
+  justify-content:center;
+  border:0;
+  box-shadow:none;
+  transform:none;
+}
+.hero__badge::before{
+  content:'М';
+  place-items:center;
+  text-align:center;
+  line-height:1;
+  transform:rotate(-90deg);
+  border:0;
+  box-shadow:none;
+}
+@media(max-width:640px){
+  .hero h1{font-size:clamp(2.35rem,10.5vw,4.2rem)}
 }
 </style>
 </head>
@@ -2047,7 +2069,7 @@ html{scroll-behavior:smooth}
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <h1>Концепт - курс Финансовая грамотность</h1>
+        <h1>Концепт - курс<br><span>Финансовая<br>грамотность</span></h1>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
       </div>
