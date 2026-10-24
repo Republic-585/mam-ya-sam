@@ -2762,6 +2762,30 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 })();
 
 
+
+/* Controls for the light-background "Опыт и программы" carousel */
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn{
+  background:#141414!important;
+  color:#FFFBF0!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn:hover{
+  background:#303030!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn::before,
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn::after{
+  content:none!important;
+  display:none!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-dot{
+  background:rgba(20,20,20,.28)!important;
+}
+.about-achievements .pricing__carousel-controls .pricing__carousel-dot[aria-current="true"]{
+  background:#141414!important;
+  transform:scale(1.3)!important;
+}
+
 /* Карусель достижений автора */
 (function(){
   const track=document.getElementById('authorAchievements');
