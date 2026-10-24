@@ -1467,10 +1467,13 @@ html{scroll-behavior:smooth}
 /* ---------- Карусель интерактивных миссий ---------- */
 .about-v2__missions-shell{
   display:block;
-  width:100%;
+  width:100vw;
   max-width:none;
   min-width:0;
   box-sizing:border-box;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
   margin:8px 0 12px;
 
   background:
