@@ -694,13 +694,7 @@ select:focus-visible{
   box-shadow:10px 10px 0 var(--green);
   transform:translate(-3px,-3px);
 }
-.price.is-selected::after{
-  content:'✓ ВЫБРАНО';
-  position:absolute;top:-15px;right:16px;
-  background:var(--green);color:var(--ink);border:3px solid var(--ink);
-  border-radius:999px;padding:7px 13px;font-family:'Unbounded',sans-serif;
-  font-size:.68rem;font-weight:800;letter-spacing:.04em;
-}
+.price.is-selected::after{content:none!important;display:none!important}
 .price .plan-select{transition:background .18s ease,color .18s ease,transform .18s ease}
 .price.is-selected .plan-select{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--green)}
 .price.is-selected .plan-select::after{content:none!important;display:none!important}
@@ -723,7 +717,7 @@ select:focus-visible{
 }
 .price__tag{
   align-self:flex-start;font-family:'Unbounded',sans-serif;font-weight:700;font-size:.72rem;
-  letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:var(--border);border-radius:999px;
+  letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--ink);border-radius:999px;
   background:var(--paper); margin-bottom: 10px;
 }
 .price__tag--hit {
