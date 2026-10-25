@@ -2255,10 +2255,6 @@ html{scroll-behavior:smooth}
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
         <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»" onclick="event.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth',block:'start'});"><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
-        <div id="audio-test-controls" style="margin-top:18px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;max-width:100%;">
-          <button id="audio-test-play" type="button" style="font:600 14px/1.2 inherit;font-family:inherit;padding:12px 18px;border:2px solid #141414;border-radius:999px;background:#FFD93D;color:#141414;cursor:pointer;">▶ Play — проверить звук</button>
-          <p id="audio-test-status" role="status" aria-live="polite" style="display:block;margin:0;width:100%;max-width:min(420px,90vw);min-width:0;box-sizing:border-box;white-space:normal;overflow-wrap:anywhere;word-break:break-word;font:12px/1.45 monospace;color:inherit;">Диагностика: готово к проверке. Нажми Play.</p>
-        </div>
       </div>
 
     </div>
@@ -3435,27 +3431,20 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 <audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Фоновое аудио: запуск по нажатию через Web Audio API для совместимости с Safari. */
+/* Фоновое аудио: запуск при первом касании страницы через Web Audio API. */
 (function () {
   const audio = document.getElementById('ambient-audio');
-  const arrow = document.querySelector('.hero__cta');
-  const playButton = document.getElementById('audio-test-play');
-  const status = document.getElementById('audio-test-status');
-  if (!audio || !arrow || !playButton || !status) return;
+  if (!audio) return;
 
   let context = null;
   let source = null;
   let loading = false;
+  let started = false;
   let decodedBuffer = null;
 
-  function report(message) {
-    status.textContent = message;
-  }
-
   async function startAudio() {
-    if (loading) return;
+    if (started || loading) return;
     loading = true;
-    report('Подготавливаю аудио…');
 
     try {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -3471,27 +3460,22 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
         decodedBuffer = await context.decodeAudioData(data);
       }
 
-      if (source) {
-        try { source.stop(); } catch (_) {}
-        source.disconnect();
-      }
-
       source = context.createBufferSource();
       source.buffer = decodedBuffer;
       source.loop = true;
       source.connect(context.destination);
       source.start(0);
-      report('ЗВУК ЗАПУЩЕН. Если его не слышно, проверь громкость и вывод звука на iPhone.');
+      started = true;
     } catch (error) {
-      report('НЕ УДАЛОСЬ ЗАПУСТИТЬ АУДИО: ' + (error && error.message ? error.message : String(error)));
+      console.warn('Не удалось запустить фоновое аудио:', error);
     } finally {
       loading = false;
     }
   }
 
-  playButton.addEventListener('click', startAudio);
-  arrow.addEventListener('click', startAudio);
-  report('Готово к проверке. Нажми Play или стрелку.');
+  document.addEventListener('pointerdown', startAudio, { passive: true });
+  document.addEventListener('touchstart', startAudio, { passive: true });
+  document.addEventListener('click', startAudio, { passive: true });
 })();
 </script>
 
