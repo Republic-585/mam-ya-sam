@@ -2128,6 +2128,21 @@ html{scroll-behavior:smooth}
   animation: hero-arrow-pulse 3s ease-in-out infinite;
   transform-origin: center top;
 }
+.hero__cta-label {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.hero__cta {
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
 .hero__cta svg {
   display: block;
   width: 36px;
@@ -2254,7 +2269,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
-        <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»" onclick="event.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth',block:'start'});"><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
+        <a class="hero__cta" href="#about" aria-label="Нажми на стрелки, чтобы перейти к проекту и включить фоновую музыку" onclick="event.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth',block:'start'});"><span class="hero__cta-label">Нажми</span><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
       </div>
 
     </div>
@@ -3431,13 +3446,15 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 <audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/audio.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Фоновое аудио: запуск при первом касании страницы через Web Audio API. */
+/* Тихая фоновая музыка: запускается только нажатием на стрелки первого экрана. */
 (function () {
   const audio = document.getElementById('ambient-audio');
-  if (!audio) return;
+  const trigger = document.querySelector('.hero__cta');
+  if (!audio || !trigger) return;
 
   let context = null;
   let source = null;
+  let gain = null;
   let loading = false;
   let started = false;
   let decodedBuffer = null;
@@ -3463,7 +3480,14 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       source = context.createBufferSource();
       source.buffer = decodedBuffer;
       source.loop = true;
-      source.connect(context.destination);
+
+      // Низкая громкость и плавное нарастание уровня предотвращают резкий старт.
+      gain = context.createGain();
+      gain.gain.setValueAtTime(0, context.currentTime);
+      gain.gain.linearRampToValueAtTime(0.12, context.currentTime + 2.5);
+
+      source.connect(gain);
+      gain.connect(context.destination);
       source.start(0);
       started = true;
     } catch (error) {
@@ -3473,9 +3497,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }
   }
 
-  // На iPhone используем click: он приходит после касания и сохраняет жест пользователя для Safari.
-  // Не запускаем тот же процесс на pointerdown/touchstart, чтобы раннее событие не заняло loading.
-  document.addEventListener('click', startAudio, { passive: true });
+  trigger.addEventListener('click', startAudio);
 })();
 </script>
 
