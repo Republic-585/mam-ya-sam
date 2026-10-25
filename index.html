@@ -444,23 +444,20 @@ select:focus-visible{
   .orbit__card,.orbit__emoji,.orbit__label{opacity:1;transform:none}
 }
 /* ---------- FIRST STEPS ---------- */
+.steps{background:var(--paper);color:var(--ink)}
 .steps h2{font-size:clamp(1.6rem,4.5vw,2.8rem);text-transform:uppercase;margin-bottom:8px}
 .steps__lead{font-size:1.1rem;color:var(--muted);max-width:600px;margin-bottom:32px}
 .steps__list{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
 .steps__pill{
   font-family:'Unbounded',sans-serif;font-weight:700;font-size:.9rem;
-  padding:12px 20px;border:var(--border);border-radius:999px;background:#fff;box-shadow:var(--shadow-sm);
+  padding:12px 20px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);box-shadow:none;
 }
-.steps__pill:nth-child(1){background:var(--yellow)}
-.steps__pill:nth-child(2){background:var(--pink)}
-.steps__pill:nth-child(3){background:var(--green)}
-.steps__pill:nth-child(4){background:var(--blue)}
-.steps__pill:nth-child(5){background:var(--purple)}
 .steps__big{
   font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(1.1rem,3vw,1.6rem);
   text-transform:uppercase;margin-bottom:26px;
 }
 .steps__big mark{background:var(--pink);padding:0 .2em;border-radius:8px}
+.steps__status{margin:34px auto 0;text-align:center;font-family:'Unbounded',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--muted)}
 
 /* ---------- SKILL ---------- */
 .skill{
@@ -2348,7 +2345,8 @@ html{scroll-behavior:smooth}
         <div class="steps__pill">решить</div>
       </div>
       <p class="steps__big">Легко! Когда ты сделал <mark>сам</mark>.</p>
-      <a class="btn btn--yellow" href="#signup">Сделать 1-й шаг</a>
+      <a class="btn btn--yellow" href="#skill">Сделать первый шаг</a>
+      <div class="steps__status">В РАЗРАБОТКЕ</div>
     </div>
   </section>
 
