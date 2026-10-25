@@ -3430,11 +3430,19 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <script>
-/* Ненавязчивый фоновый звук: загружается только после первого действия пользователя. */
+/* Тихий фоновый звук: запуск после действия пользователя, с повторной попыткой при ошибке. */
 (function () {
   let audioContext = null;
   let started = false;
   let loading = false;
+  let sourceNode = null;
+
+  function removeStartListeners() {
+    document.removeEventListener('pointerdown', startAmbientAudio);
+    document.removeEventListener('touchstart', startAmbientAudio);
+    document.removeEventListener('click', startAmbientAudio);
+    document.removeEventListener('keydown', startAmbientAudio);
+  }
 
   async function startAmbientAudio() {
     if (started || loading) return;
@@ -3442,49 +3450,66 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
     try {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
+      if (!AudioContextClass) throw new Error('Web Audio API недоступен');
 
-      audioContext = audioContext || new AudioContextClass();
+      if (!audioContext) audioContext = new AudioContextClass();
+      // Вызываем resume непосредственно из пользовательского действия (важно для iOS).
       await audioContext.resume();
 
-      const response = await fetch(new URL('Stilte.ogg', document.baseURI).href, { cache: 'force-cache' });
-      if (!response.ok) throw new Error('Фоновое аудио недоступно');
+      const audioUrl = new URL('Stilte.ogg', window.location.href);
+      const response = await fetch(audioUrl.href, { cache: 'force-cache' });
+      if (!response.ok) throw new Error('Не удалось загрузить Stilte.ogg: HTTP ' + response.status);
+
       const encodedAudio = await response.arrayBuffer();
       const decodedAudio = await audioContext.decodeAudioData(encodedAudio);
 
-      // Сводим каналы в моно, чтобы не расходовать ресурсы на стереопоток.
+      // Моно-буфер снижает объём воспроизводимых данных.
       const monoBuffer = audioContext.createBuffer(1, decodedAudio.length, decodedAudio.sampleRate);
       const monoData = monoBuffer.getChannelData(0);
       if (decodedAudio.numberOfChannels === 1) {
         monoData.set(decodedAudio.getChannelData(0));
       } else {
         for (let channel = 0; channel < decodedAudio.numberOfChannels; channel++) {
-          const sourceData = decodedAudio.getChannelData(channel);
-          for (let i = 0; i < sourceData.length; i++) monoData[i] += sourceData[i] / decodedAudio.numberOfChannels;
+          const channelData = decodedAudio.getChannelData(channel);
+          for (let i = 0; i < channelData.length; i++) {
+            monoData[i] += channelData[i] / decodedAudio.numberOfChannels;
+          }
         }
       }
 
-      const source = audioContext.createBufferSource();
-      const gain = audioContext.createGain();
-      source.buffer = monoBuffer;
-      source.loop = true;
-      gain.gain.value = 0.055;
-      source.connect(gain);
-      gain.connect(audioContext.destination);
-      source.start(0);
+      // Safari может приостановить контекст, пока файл загружается и декодируется.
+      await audioContext.resume();
+
+      sourceNode = audioContext.createBufferSource();
+      const gainNode = audioContext.createGain();
+      sourceNode.buffer = monoBuffer;
+      sourceNode.loop = true;
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.10, audioContext.currentTime + 1.5);
+      sourceNode.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      sourceNode.start(audioContext.currentTime + 0.02);
 
       started = true;
+      removeStartListeners();
+
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden && audioContext && audioContext.state !== 'running') {
+          audioContext.resume().catch(function () {});
+        }
+      });
     } catch (error) {
-      // Не мешаем работе сайта, если браузер блокирует звук или файл недоступен.
-      console.warn('Фоновое аудио не запущено.', error);
+      // Ошибка не влияет на сайт; обработчики остаются, чтобы следующая попытка могла сработать.
+      console.warn('Фоновое аудио не запущено. Следующее действие повторит запуск.', error);
     } finally {
       loading = false;
     }
   }
 
-  document.addEventListener('pointerdown', startAmbientAudio, { once: true, passive: true });
-  document.addEventListener('keydown', startAmbientAudio, { once: true });
-  document.addEventListener('touchstart', startAmbientAudio, { once: true, passive: true });
+  document.addEventListener('pointerdown', startAmbientAudio, { passive: true });
+  document.addEventListener('touchstart', startAmbientAudio, { passive: true });
+  document.addEventListener('click', startAmbientAudio);
+  document.addEventListener('keydown', startAmbientAudio);
 })();
 </script>
 
