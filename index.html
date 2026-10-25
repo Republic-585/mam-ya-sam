@@ -3432,7 +3432,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <script>
 /* Фоновый звук: сначала нативный HTMLAudioElement, резервный запуск через Web Audio. */
 (function () {
-  const audioUrl = new URL('Stilte & schimmerlicht - Fractures.mp3', window.location.href).href;
+  const audioUrl = 'https://republic-585.github.io/mam-ya-sam/Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3';
   let audioElement = null;
   let audioContext = null;
   let started = false;
@@ -3451,7 +3451,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     const responsePromise = fetch(audioUrl, { cache: 'force-cache' });
     await resumePromise;
     const response = await responsePromise;
-    if (!response.ok) throw new Error('Не удалось загрузить Stilte.ogg: HTTP ' + response.status);
+    if (!response.ok) throw new Error('Не удалось загрузить MP3: HTTP ' + response.status);
 
     const decodedAudio = await audioContext.decodeAudioData(await response.arrayBuffer());
     const source = audioContext.createBufferSource();
