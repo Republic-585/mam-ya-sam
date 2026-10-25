@@ -3428,5 +3428,65 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 })();
 </script>
 
+
+<script>
+/* Ненавязчивый фоновый звук: загружается только после первого действия пользователя. */
+(function () {
+  let audioContext = null;
+  let started = false;
+  let loading = false;
+
+  async function startAmbientAudio() {
+    if (started || loading) return;
+    loading = true;
+
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      audioContext = audioContext || new AudioContextClass();
+      await audioContext.resume();
+
+      const response = await fetch(new URL('Stilte.ogg', document.baseURI).href, { cache: 'force-cache' });
+      if (!response.ok) throw new Error('Фоновое аудио недоступно');
+      const encodedAudio = await response.arrayBuffer();
+      const decodedAudio = await audioContext.decodeAudioData(encodedAudio);
+
+      // Сводим каналы в моно, чтобы не расходовать ресурсы на стереопоток.
+      const monoBuffer = audioContext.createBuffer(1, decodedAudio.length, decodedAudio.sampleRate);
+      const monoData = monoBuffer.getChannelData(0);
+      if (decodedAudio.numberOfChannels === 1) {
+        monoData.set(decodedAudio.getChannelData(0));
+      } else {
+        for (let channel = 0; channel < decodedAudio.numberOfChannels; channel++) {
+          const sourceData = decodedAudio.getChannelData(channel);
+          for (let i = 0; i < sourceData.length; i++) monoData[i] += sourceData[i] / decodedAudio.numberOfChannels;
+        }
+      }
+
+      const source = audioContext.createBufferSource();
+      const gain = audioContext.createGain();
+      source.buffer = monoBuffer;
+      source.loop = true;
+      gain.gain.value = 0.055;
+      source.connect(gain);
+      gain.connect(audioContext.destination);
+      source.start(0);
+
+      started = true;
+    } catch (error) {
+      // Не мешаем работе сайта, если браузер блокирует звук или файл недоступен.
+      console.warn('Фоновое аудио не запущено.', error);
+    } finally {
+      loading = false;
+    }
+  }
+
+  document.addEventListener('pointerdown', startAmbientAudio, { once: true, passive: true });
+  document.addEventListener('keydown', startAmbientAudio, { once: true });
+  document.addEventListener('touchstart', startAmbientAudio, { once: true, passive: true });
+})();
+</script>
+
 </body>
 </html>
