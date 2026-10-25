@@ -3473,8 +3473,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }
   }
 
-  document.addEventListener('pointerdown', startAudio, { passive: true });
-  document.addEventListener('touchstart', startAudio, { passive: true });
+  // На iPhone используем click: он приходит после касания и сохраняет жест пользователя для Safari.
+  // Не запускаем тот же процесс на pointerdown/touchstart, чтобы раннее событие не заняло loading.
   document.addEventListener('click', startAudio, { passive: true });
 })();
 </script>
