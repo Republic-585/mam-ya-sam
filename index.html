@@ -3429,86 +3429,20 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
+<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Фоновый звук: сначала нативный HTMLAudioElement, резервный запуск через Web Audio. */
+/* Запуск фоновой музыки только по нажатию на стрелку первого экрана. */
 (function () {
-  const audioUrl = 'https://republic-585.github.io/mam-ya-sam/Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3';
-  let audioElement = null;
-  let audioContext = null;
-  let started = false;
-  let loading = false;
-
-  function markStarted() {
-    started = true;
-  }
-
-  async function startWithWebAudio() {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) throw new Error('Web Audio API недоступен');
-    if (!audioContext) audioContext = new AudioContextClass();
-
-    const resumePromise = audioContext.resume();
-    const responsePromise = fetch(audioUrl, { cache: 'force-cache' });
-    await resumePromise;
-    const response = await responsePromise;
-    if (!response.ok) throw new Error('Не удалось загрузить MP3: HTTP ' + response.status);
-
-    const decodedAudio = await audioContext.decodeAudioData(await response.arrayBuffer());
-    const source = audioContext.createBufferSource();
-    const gain = audioContext.createGain();
-    source.buffer = decodedAudio;
-    source.loop = true;
-    gain.gain.setValueAtTime(0.12, audioContext.currentTime);
-    source.connect(gain);
-    gain.connect(audioContext.destination);
-    await audioContext.resume();
-    source.start(0);
-    document.addEventListener('visibilitychange', function () {
-      if (!document.hidden && audioContext && audioContext.state !== 'running') {
-        audioContext.resume().catch(function () {});
-      }
-    });
-  }
-
-  async function startAmbientAudio() {
-    if (started || loading) return;
-    loading = true;
-    try {
-      if (!audioElement) {
-        audioElement = new Audio(audioUrl);
-        audioElement.autoplay = false;
-        audioElement.removeAttribute('autoplay');
-        audioElement.loop = true;
-        audioElement.preload = 'none';
-        audioElement.volume = 0.12;
-        audioElement.setAttribute('playsinline', '');
-      }
-
-      // Нативное воспроизведение запускается первым — оно надёжнее на iPhone Safari.
-      try {
-        await audioElement.play();
-        markStarted();
-        return;
-      } catch (nativeError) {
-        console.warn('Нативный запуск звука не сработал, пробуем резервный способ.', nativeError);
-      }
-
-      await startWithWebAudio();
-      markStarted();
-    } catch (error) {
-      console.warn('Фоновое аудио не запущено. Следующее действие повторит запуск.', error);
-    } finally {
-      loading = false;
-    }
-  }
-
-  // Запускаем фоновую музыку именно нажатием на стрелки первого экрана.
+  const audio = document.getElementById('ambient-audio');
   const heroArrow = document.querySelector('.hero__cta');
-  if (heroArrow) {
-    heroArrow.addEventListener('click', function () {
-      startAmbientAudio();
+  if (!audio || !heroArrow) return;
+
+  heroArrow.addEventListener('click', function () {
+    if (!audio.paused) return;
+    audio.play().catch(function (error) {
+      console.warn('Не удалось запустить фоновое аудио:', error);
     });
-  }
+  });
 })();
 </script>
 
