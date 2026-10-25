@@ -3429,21 +3429,44 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
-<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
+<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3" loop preload="auto" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Запуск фоновой музыки только по нажатию на стрелку первого экрана. */
+/* Запуск фоновой музыки по нажатию на стрелку первого экрана. */
 (function () {
   const audio = document.getElementById('ambient-audio');
-  const heroArrow = document.querySelector('.hero__cta');
-  if (!audio || !heroArrow) return;
+  if (!audio) return;
 
-  heroArrow.addEventListener('click', function () {
-    if (!audio.paused) return;
-    audio.play().catch(function (error) {
-      console.warn('Не удалось запустить фоновое аудио:', error);
-    });
+  audio.volume = 0.22;
+  audio.addEventListener('playing', function () {
+    console.info('[Фоновое аудио] Воспроизведение началось.');
   });
-})();
+  audio.addEventListener('error', function () {
+    console.error('[Фоновое аудио] Ошибка загрузки файла.', audio.error);
+  });
+
+  let playRequested = false;
+
+  // Capture запускает play() до inline-обработчика стрелки и прокрутки страницы.
+  document.addEventListener('click', function (event) {
+    const arrow = event.target && event.target.closest
+      ? event.target.closest('.hero__cta')
+      : null;
+    if (!arrow || playRequested) return;
+
+    // play() вызывается непосредственно в обработчике пользовательского клика.
+    const promise = audio.play();
+    if (promise && typeof promise.then === 'function') {
+      promise.then(function () {
+        playRequested = true;
+        console.info('[Фоновое аудио] play() выполнен успешно.');
+      }).catch(function (error) {
+        console.error('[Фоновое аудио] Не удалось запустить звук:', error && error.name, error && error.message);
+      });
+    } else {
+      playRequested = true;
+    }
+  }, true);
+})(); 
 </script>
 
 </body>
