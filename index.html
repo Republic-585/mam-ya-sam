@@ -2158,6 +2158,56 @@ html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce) {
   .hero__cta { animation: none; }
 }
+
+/* Стрелки возврата к первому экрану */
+.back-to-top {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  padding: 5px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .25s ease, visibility .25s ease, transform .25s ease;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.back-to-top svg {
+  display: block;
+  width: 36px;
+  height: 48px;
+  overflow: visible;
+  transform: rotate(180deg);
+  animation: hero-arrow-pulse 3s ease-in-out infinite;
+}
+.back-to-top .hero__cta-arrow {
+  fill: none;
+  stroke: #FFFBF0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.back-to-top .hero__cta-arrow--one { stroke-width: 3.2; opacity: 1; }
+.back-to-top .hero__cta-arrow--two { stroke-width: 2.8; opacity: .72; }
+.back-to-top:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top svg { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -3347,6 +3397,29 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
+
+
+<a class="back-to-top" href="#top" aria-label="Вернуться к первому экрану">
+  <svg viewBox="0 0 36 48" aria-hidden="true" focusable="false">
+    <path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/>
+    <path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/>
+  </svg>
+</a>
+<script>
+(function() {
+  const button = document.querySelector('.back-to-top');
+  if (!button) return;
+  const update = function() {
+    button.classList.toggle('is-visible', window.scrollY > 300);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+  button.addEventListener('click', function(event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
 
 </body>
 </html>
