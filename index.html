@@ -3429,60 +3429,44 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
+<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="auto" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Фоновая музыка: прямой запуск из жеста пользователя на стрелке первого экрана. */
+/* Фоновая музыка: запуск по нажатию на стрелку первого экрана. */
 (function () {
-  const audioUrl = 'https://republic-585.github.io/mam-ya-sam/Stilte%20%26%20schimmerlicht%20-%20Fractures.mp3';
+  const audio = document.getElementById('ambient-audio');
   const arrow = document.querySelector('.hero__cta');
-  if (!arrow) return;
+  if (!audio || !arrow) return;
 
-  let audio = null;
+  audio.volume = 1;
   let starting = false;
   let playing = false;
 
-  function startAudio(event) {
+  function startAudio() {
     if (playing || starting) return;
     starting = true;
 
-    // Создаём Audio и вызываем play() синхронно в обработчике жеста iOS.
-    if (!audio) {
-      audio = new Audio(audioUrl);
-      audio.loop = true;
-      audio.preload = 'auto';
-      audio.volume = 1;
-      audio.setAttribute('playsinline', '');
-      audio.addEventListener('playing', function () {
+    // Запускаем существующий audio-элемент прямо в пользовательском жесте iPhone.
+    const result = audio.play();
+    if (result && typeof result.then === 'function') {
+      result.then(function () {
         playing = true;
         starting = false;
         console.info('[Фоновое аудио] Воспроизведение началось.');
-      });
-      audio.addEventListener('error', function () {
+      }).catch(function (error) {
         starting = false;
-        console.error('[Фоновое аудио] Ошибка загрузки MP3.', audio.error);
+        console.error('[Фоновое аудио] Не удалось запустить Ambient.mp3:', error && error.name, error && error.message);
       });
-    }
-
-    try {
-      const result = audio.play();
-      if (result && typeof result.then === 'function') {
-        result.then(function () {
-          playing = true;
-          starting = false;
-        }).catch(function (error) {
-          starting = false;
-          console.error('[Фоновое аудио] play() отклонён:', error && error.name, error && error.message);
-        });
-      } else {
-        playing = true;
-        starting = false;
-      }
-    } catch (error) {
+    } else {
+      playing = true;
       starting = false;
-      console.error('[Фоновое аудио] Ошибка запуска:', error);
     }
   }
 
-  // pointerup покрывает Safari на iPhone; click оставлен как резервный путь.
+  audio.addEventListener('error', function () {
+    starting = false;
+    console.error('[Фоновое аудио] Ошибка загрузки Ambient.mp3.', audio.error);
+  });
+
   arrow.addEventListener('pointerup', startAudio);
   arrow.addEventListener('touchend', startAudio, { passive: true });
   arrow.addEventListener('click', startAudio);
