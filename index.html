@@ -3476,8 +3476,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     try {
       if (!audioElement) {
         audioElement = new Audio(audioUrl);
+        audioElement.autoplay = false;
+        audioElement.removeAttribute('autoplay');
         audioElement.loop = true;
-        audioElement.preload = 'auto';
+        audioElement.preload = 'none';
         audioElement.volume = 0.12;
         audioElement.setAttribute('playsinline', '');
       }
