@@ -354,16 +354,18 @@ select:focus-visible{
 }
 
 /* ---------- ADULT ---------- */
+.adult{background:var(--ink);color:var(--paper)}
 .adult h2{font-size:clamp(1.8rem,5vw,3.2rem);text-transform:uppercase;margin-bottom:14px}
 .adult h2 em{font-style:normal;background:var(--pink);padding:0 .15em;border-radius:10px;box-decoration-break: clone; -webkit-box-decoration-break: clone;}
-.adult__lead{font-size:1.15rem;max-width:640px;color:var(--muted);margin-bottom:36px}
+.adult__lead{font-size:1.15rem;max-width:640px;color:rgba(255,251,240,.78);margin-bottom:36px}
 .adult__list{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.adult__item{display:flex;gap:14px;align-items:flex-start;padding:22px;background:#fff;border:var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
+.adult__item{display:flex;gap:14px;align-items:flex-start;padding:22px;background:var(--paper);color:var(--ink);border:0;border-radius:var(--radius-sm);box-shadow:none}
 .adult__check{
   flex-shrink:0;width:34px;height:34px;border:var(--border);border-radius:10px;background:var(--green);
   display:grid;place-items:center;font-weight:900;font-size:1rem;
 }
 .adult__item p{font-weight:600}
+.adult__status{margin-top:28px;text-align:center;font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--paper)}
 @media(max-width:640px){.adult__list{grid-template-columns:1fr}}
 
 /* ---------- SOLAR SYSTEM: СДЕЛАЙ ЭТО РЕАЛЬНОСТЬЮ ---------- */
@@ -2329,6 +2331,7 @@ html{scroll-behavior:smooth}
         <div class="adult__item"><div class="adult__check">✓</div><p>…сам решает, заводить ли собаку и как за ней ухаживать</p></div>
         <div class="adult__item"><div class="adult__check">✓</div><p>…сам выбирает жильё и оформляет, как хочется</p></div>
       </div>
+      <div class="adult__status">В РАЗРАБОТКЕ</div>
     </div>
   </section>
 
