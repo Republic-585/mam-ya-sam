@@ -2162,7 +2162,7 @@ html{scroll-behavior:smooth}
 /* Стрелки возврата к первому экрану */
 .back-to-top {
   position: fixed;
-  left: 22px;
+  right: 22px;
   bottom: 22px;
   z-index: 1000;
   display: inline-flex;
@@ -2193,8 +2193,7 @@ html{scroll-behavior:smooth}
   width: 36px;
   height: 48px;
   overflow: visible;
-  transform: rotate(180deg);
-  animation: hero-arrow-pulse 3s ease-in-out infinite;
+  animation: back-to-top-arrow-pulse 3s ease-in-out infinite;
 }
 .back-to-top .hero__cta-arrow {
   fill: none;
@@ -2205,8 +2204,16 @@ html{scroll-behavior:smooth}
 .back-to-top .hero__cta-arrow--one { stroke-width: 3.2; opacity: 1; }
 .back-to-top .hero__cta-arrow--two { stroke-width: 2.8; opacity: .72; }
 .back-to-top:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+@keyframes back-to-top-arrow-pulse {
+  0%, 72%, 100% { transform: rotate(180deg) translateY(0) scale(1); opacity: .88; }
+  78% { opacity: .72; }
+  84% { opacity: .96; }
+  90% { opacity: .8; }
+  96% { opacity: .98; }
+  50% { transform: rotate(180deg) translateY(1px) scale(1.025); opacity: 1; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .back-to-top svg { animation: none; }
+  .back-to-top svg { animation: none; transform: rotate(180deg); }
 }
 </style>
 </head>
