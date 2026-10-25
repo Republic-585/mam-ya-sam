@@ -2255,6 +2255,10 @@ html{scroll-behavior:smooth}
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
         <a class="hero__cta" href="#about" aria-label="Перейти к разделу «О проекте»" onclick="event.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth',block:'start'});"><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
+        <div id="audio-test-controls" style="margin-top:18px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;max-width:100%;">
+          <button id="audio-test-play" type="button" style="font:600 14px/1.2 inherit;font-family:inherit;padding:12px 18px;border:2px solid #141414;border-radius:999px;background:#FFD93D;color:#141414;cursor:pointer;">▶ Play — проверить звук</button>
+          <p id="audio-test-status" role="status" aria-live="polite" style="margin:0;max-width:min(420px,90vw);font:12px/1.45 monospace;color:inherit;overflow-wrap:anywhere;">Диагностика: готово к проверке. Нажми Play.</p>
+        </div>
       </div>
 
     </div>
@@ -3431,45 +3435,56 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 <audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="auto" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Фоновая музыка: запуск по нажатию на стрелку первого экрана. */
+/* Временная проверка фонового аудио: кнопка Play и видимая диагностика. */
 (function () {
   const audio = document.getElementById('ambient-audio');
   const arrow = document.querySelector('.hero__cta');
-  if (!audio || !arrow) return;
+  const playButton = document.getElementById('audio-test-play');
+  const status = document.getElementById('audio-test-status');
+  if (!audio || !arrow || !playButton || !status) return;
 
   audio.volume = 1;
-  let starting = false;
-  let playing = false;
+
+  function report(message) {
+    const error = audio.error;
+    const details = error ? ' | mediaErrorCode=' + error.code + (error.message ? ' | ' + error.message : '') : '';
+    status.textContent = message + ' | networkState=' + audio.networkState + ' | readyState=' + audio.readyState + details;
+  }
 
   function startAudio() {
-    if (playing || starting) return;
-    starting = true;
+    report('Запрашиваю воспроизведение…');
+    let result;
+    try {
+      result = audio.play();
+    } catch (error) {
+      report('ОШИБКА play(): ' + (error.name || 'Error') + ' — ' + (error.message || 'без описания'));
+      return;
+    }
 
-    // Запускаем существующий audio-элемент прямо в пользовательском жесте iPhone.
-    const result = audio.play();
     if (result && typeof result.then === 'function') {
       result.then(function () {
-        playing = true;
-        starting = false;
-        console.info('[Фоновое аудио] Воспроизведение началось.');
+        report('УСПЕХ: браузер запустил аудио. Если звука нет, проверь громкость/режим беззвучности устройства.');
       }).catch(function (error) {
-        starting = false;
-        console.error('[Фоновое аудио] Не удалось запустить Ambient.mp3:', error && error.name, error && error.message);
+        report('НЕ УДАЛОСЬ ЗАПУСТИТЬ: ' + (error.name || 'Error') + ' — ' + (error.message || 'без описания'));
       });
     } else {
-      playing = true;
-      starting = false;
+      report('Команда play() выполнена; ожидаю событие воспроизведения.');
     }
   }
 
-  audio.addEventListener('error', function () {
-    starting = false;
-    console.error('[Фоновое аудио] Ошибка загрузки Ambient.mp3.', audio.error);
-  });
-
-  arrow.addEventListener('pointerup', startAudio);
-  arrow.addEventListener('touchend', startAudio, { passive: true });
+  playButton.addEventListener('click', startAudio);
   arrow.addEventListener('click', startAudio);
+  audio.addEventListener('playing', function () { report('СОБЫТИЕ playing: браузер считает, что звук воспроизводится.'); });
+  audio.addEventListener('canplay', function () { report('Файл загружен и готов к воспроизведению.'); });
+  audio.addEventListener('waiting', function () { report('Ожидание загрузки аудио…'); });
+  audio.addEventListener('stalled', function () { report('Загрузка остановилась (stalled).'); });
+  audio.addEventListener('ended', function () { report('Воспроизведение завершено.'); });
+  audio.addEventListener('error', function () {
+    const error = audio.error;
+    const codes = {1:'загрузка отменена',2:'сетевая ошибка',3:'ошибка декодирования/формата',4:'источник не поддерживается'};
+    report('ОШИБКА АУДИО: ' + (error ? (codes[error.code] || 'код ' + error.code) : 'неизвестная ошибка'));
+  });
+  report('Готово к проверке. Нажми Play.');
 })();
 </script>
 
