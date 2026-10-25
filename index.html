@@ -3435,7 +3435,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 <audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/Ambient.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Временная проверка фонового аудио: кнопка Play и видимая диагностика. */
+/* Фоновое аудио: запуск по нажатию через Web Audio API для совместимости с Safari. */
 (function () {
   const audio = document.getElementById('ambient-audio');
   const arrow = document.querySelector('.hero__cta');
@@ -3443,48 +3443,55 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const status = document.getElementById('audio-test-status');
   if (!audio || !arrow || !playButton || !status) return;
 
-  audio.volume = 1;
+  let context = null;
+  let source = null;
+  let loading = false;
+  let decodedBuffer = null;
 
   function report(message) {
-    const error = audio.error;
-    const details = error ? ' | mediaErrorCode=' + error.code + (error.message ? ' | ' + error.message : '') : '';
-    status.textContent = message + ' | networkState=' + audio.networkState + ' | readyState=' + audio.readyState + details;
+    status.textContent = message;
   }
 
-  function startAudio() {
-    report('Запрашиваю воспроизведение…');
-    let result;
-    try {
-      result = audio.play();
-    } catch (error) {
-      report('ОШИБКА play(): ' + (error.name || 'Error') + ' — ' + (error.message || 'без описания'));
-      return;
-    }
+  async function startAudio() {
+    if (loading) return;
+    loading = true;
+    report('Подготавливаю аудио…');
 
-    if (result && typeof result.then === 'function') {
-      result.then(function () {
-        report('УСПЕХ: браузер запустил аудио. Если звука нет, проверь громкость/режим беззвучности устройства.');
-      }).catch(function (error) {
-        report('НЕ УДАЛОСЬ ЗАПУСТИТЬ: ' + (error.name || 'Error') + ' — ' + (error.message || 'без описания'));
-      });
-    } else {
-      report('Команда play() выполнена; ожидаю событие воспроизведения.');
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) throw new Error('Web Audio API не поддерживается этим браузером');
+
+      if (!context) context = new AudioContextClass();
+      await context.resume();
+
+      if (!decodedBuffer) {
+        const response = await fetch(audio.src, { cache: 'force-cache' });
+        if (!response.ok) throw new Error('Не удалось загрузить MP3: HTTP ' + response.status);
+        const data = await response.arrayBuffer();
+        decodedBuffer = await context.decodeAudioData(data);
+      }
+
+      if (source) {
+        try { source.stop(); } catch (_) {}
+        source.disconnect();
+      }
+
+      source = context.createBufferSource();
+      source.buffer = decodedBuffer;
+      source.loop = true;
+      source.connect(context.destination);
+      source.start(0);
+      report('ЗВУК ЗАПУЩЕН. Если его не слышно, проверь громкость и вывод звука на iPhone.');
+    } catch (error) {
+      report('НЕ УДАЛОСЬ ЗАПУСТИТЬ АУДИО: ' + (error && error.message ? error.message : String(error)));
+    } finally {
+      loading = false;
     }
   }
 
   playButton.addEventListener('click', startAudio);
   arrow.addEventListener('click', startAudio);
-  audio.addEventListener('playing', function () { report('СОБЫТИЕ playing: браузер считает, что звук воспроизводится.'); });
-  audio.addEventListener('canplay', function () { report('Файл загружен и готов к воспроизведению.'); });
-  audio.addEventListener('waiting', function () { report('Ожидание загрузки аудио…'); });
-  audio.addEventListener('stalled', function () { report('Загрузка остановилась (stalled).'); });
-  audio.addEventListener('ended', function () { report('Воспроизведение завершено.'); });
-  audio.addEventListener('error', function () {
-    const error = audio.error;
-    const codes = {1:'загрузка отменена',2:'сетевая ошибка',3:'ошибка декодирования/формата',4:'источник не поддерживается'};
-    report('ОШИБКА АУДИО: ' + (error ? (codes[error.code] || 'код ' + error.code) : 'неизвестная ошибка'));
-  });
-  report('Готово к проверке. Нажми Play.');
+  report('Готово к проверке. Нажми Play или стрелку.');
 })();
 </script>
 
