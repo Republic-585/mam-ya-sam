@@ -3438,16 +3438,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   let started = false;
   let loading = false;
 
-  function removeStartListeners() {
-    document.removeEventListener('pointerdown', startAmbientAudio);
-    document.removeEventListener('touchstart', startAmbientAudio);
-    document.removeEventListener('click', startAmbientAudio);
-    document.removeEventListener('keydown', startAmbientAudio);
-  }
-
   function markStarted() {
     started = true;
-    removeStartListeners();
   }
 
   async function startWithWebAudio() {
@@ -3508,10 +3500,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }
   }
 
-  document.addEventListener('pointerdown', startAmbientAudio, { passive: true });
-  document.addEventListener('touchstart', startAmbientAudio, { passive: true });
-  document.addEventListener('click', startAmbientAudio);
-  document.addEventListener('keydown', startAmbientAudio);
+  // Запускаем фоновую музыку именно нажатием на стрелки первого экрана.
+  const heroArrow = document.querySelector('.hero__cta');
+  if (heroArrow) {
+    heroArrow.addEventListener('click', function () {
+      startAmbientAudio();
+    });
+  }
 })();
 </script>
 
