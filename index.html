@@ -2373,7 +2373,7 @@ html{scroll-behavior:smooth}
         <button class="skill__tab" id="skill-tab-4" type="button" role="tab" aria-selected="false" aria-controls="skill-panel" data-skill="3" tabindex="-1">НАВЫК № 4</button>
       </div>
       <div id="skill-panel" role="tabpanel" aria-labelledby="skill-tab-1" tabindex="0">
-        <div class="skill__eyebrow"><span id="skillKicker">НАВЫК № 1</span><span id="skillName">ОСНОВА САМОСТОЯТЕЛЬНОСТИ</span></div>
+        <div class="skill__eyebrow"><span id="skillName">ОСНОВА САМОСТОЯТЕЛЬНОСТИ</span></div>
         <h2 id="skillHeading">Взрослеют не по возрасту. <mark>А по решениям.</mark></h2>
         <p class="skill__lead" id="skillLead">Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.</p>
         <h3 class="skill__subheading">Как ты будешь его развивать</h3>
@@ -3549,7 +3549,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const root = document.getElementById('skill');
   if (!root) return;
   const tabs = Array.from(root.querySelectorAll('.skill__tab'));
-  const kicker = root.querySelector('#skillKicker');
   const name = root.querySelector('#skillName');
   const heading = root.querySelector('#skillHeading');
   const lead = root.querySelector('#skillLead');
@@ -3570,7 +3569,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       tab.setAttribute('aria-selected', String(active));
       tab.tabIndex = active ? 0 : -1;
     });
-    kicker.textContent = 'НАВЫК № ' + (index + 1);
     name.textContent = skill.name;
     heading.innerHTML = skill.heading;
     lead.textContent = skill.lead;
