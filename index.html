@@ -3435,22 +3435,41 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   };
   const update = function() {
     button.classList.toggle('is-visible', window.scrollY > 300);
-    const x = Math.max(12, window.innerWidth - 22 - 29);
-    const y = Math.max(12, window.innerHeight - 22 - 29);
-    let node = document.elementFromPoint(x, y);
-    let light = null;
-    while (node && node !== document.documentElement) {
-      const styles = window.getComputedStyle(node);
-      const pseudoBefore = window.getComputedStyle(node, '::before');
-      const pseudoAfter = window.getComputedStyle(node, '::after');
-      for (const candidate of [styles.backgroundColor, pseudoBefore.backgroundColor, pseudoAfter.backgroundColor]) {
-        const value = isLight(candidate);
-        if (value !== null) { light = value; break; }
+    const rect = button.getBoundingClientRect();
+    const points = [
+      [rect.left + rect.width * 0.28, rect.top + rect.height * 0.24],
+      [rect.left + rect.width * 0.5, rect.top + rect.height * 0.24],
+      [rect.left + rect.width * 0.72, rect.top + rect.height * 0.24],
+      [rect.left + rect.width * 0.28, rect.top + rect.height * 0.5],
+      [rect.left + rect.width * 0.5, rect.top + rect.height * 0.5],
+      [rect.left + rect.width * 0.72, rect.top + rect.height * 0.5],
+      [rect.left + rect.width * 0.28, rect.top + rect.height * 0.76],
+      [rect.left + rect.width * 0.5, rect.top + rect.height * 0.76],
+      [rect.left + rect.width * 0.72, rect.top + rect.height * 0.76]
+    ];
+    const originalPointerEvents = button.style.pointerEvents;
+    button.style.pointerEvents = 'none';
+    const results = [];
+    for (const [x, y] of points) {
+      let node = document.elementFromPoint(x, y);
+      let light = null;
+      while (node && node !== document.documentElement) {
+        const styles = window.getComputedStyle(node);
+        const pseudoBefore = window.getComputedStyle(node, '::before');
+        const pseudoAfter = window.getComputedStyle(node, '::after');
+        for (const candidate of [styles.backgroundColor, pseudoBefore.backgroundColor, pseudoAfter.backgroundColor]) {
+          const value = isLight(candidate);
+          if (value !== null) { light = value; break; }
+        }
+        if (light !== null) break;
+        node = node.parentElement;
       }
-      if (light !== null) break;
-      node = node.parentElement;
+      if (light !== null) results.push(light);
     }
-    button.classList.toggle('is-on-light', light === true);
+    button.style.pointerEvents = originalPointerEvents;
+    const lightCount = results.filter(Boolean).length;
+    const darkCount = results.length - lightCount;
+    if (results.length) button.classList.toggle('is-on-light', lightCount > darkCount);
   };
   const scheduleUpdate = function() {
     if (frame) return;
