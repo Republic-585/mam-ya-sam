@@ -481,6 +481,17 @@ select:focus-visible{
 .skill__closing{display:inline-block;margin-top:24px;background:var(--yellow);color:var(--ink);padding:10px 14px;border-radius:7px;font-weight:800;font-size:.82rem;letter-spacing:.02em}
 .easter-egg-math{cursor:pointer;display:inline-block;transition:transform .1s}
 .easter-egg-math:active{transform:scale(.8)}
+
+/* Interactive skill tabs: scoped to the skill section */
+.skill__tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:28px}
+.skill__tab{appearance:none;min-width:0;padding:13px 10px;border:1px solid #d9d2c5;border-radius:12px;background:#fff;color:var(--ink);font-family:'Unbounded',sans-serif;font-size:.72rem;font-weight:800;line-height:1.35;cursor:pointer;transition:background-color .2s ease,transform .2s ease,border-color .2s ease}
+.skill__tab:hover{transform:translateY(-2px);border-color:var(--ink)}
+.skill__tab.is-active{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.skill__tab:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+#skill-panel{animation:skillPanelIn .28s ease both}
+@keyframes skillPanelIn{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){.skill__tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:24px}.skill__tab{padding:12px 8px;font-size:.68rem}}
+@media(prefers-reduced-motion:reduce){#skill-panel,.skill__tab{animation:none;transition:none}}
 @media(max-width:640px){
   .skill__grid{grid-template-columns:1fr}
   .skill__item{padding:18px}
@@ -2353,30 +2364,24 @@ html{scroll-behavior:smooth}
   <!-- SKILL -->
   <section class="skill" id="skill">
     <div class="wrap skill__wrap">
-      <div class="skill__eyebrow"><span>НАВЫК № 1</span><span>ОСНОВА САМОСТОЯТЕЛЬНОСТИ</span></div>
-      <h2>Взрослеют не по возрасту. <mark>А по решениям.</mark></h2>
-      <p class="skill__lead">Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.</p>
-
-      <h3 class="skill__subheading">Как ты будешь его развивать</h3>
-      <div class="skill__grid">
-        <div class="skill__item">
-          <h3><span class="skill__number">01</span> Считай</h3>
-          <p><span class="easter-egg-math" id="easterEggMath">Математика</span> помогает разбираться с реальными деньгами и жизненными решениями.</p>
-        </div>
-        <div class="skill__item">
-          <h3><span class="skill__number">02</span> Пробуй</h3>
-          <p>Практические задания, в которых ты не просто слушаешь, а действуешь.</p>
-        </div>
-        <div class="skill__item">
-          <h3><span class="skill__number">03</span> Закрепляй</h3>
-          <p>Видео раз в две недели, время на применение знаний и новые челленджи.</p>
-        </div>
-        <div class="skill__item">
-          <h3><span class="skill__number">04</span> Расти вместе с другими</h3>
-          <p>Чат единомышленников, обмен опытом и поддержка на пути к самостоятельности.</p>
+      <div class="skill__tabs" role="tablist" aria-label="Навыки самостоятельности">
+        <button class="skill__tab is-active" id="skill-tab-1" type="button" role="tab" aria-selected="true" aria-controls="skill-panel" data-skill="0">НАВЫК № 1</button>
+        <button class="skill__tab" id="skill-tab-2" type="button" role="tab" aria-selected="false" aria-controls="skill-panel" data-skill="1" tabindex="-1">НАВЫК № 2</button>
+        <button class="skill__tab" id="skill-tab-3" type="button" role="tab" aria-selected="false" aria-controls="skill-panel" data-skill="2" tabindex="-1">НАВЫК № 3</button>
+        <button class="skill__tab" id="skill-tab-4" type="button" role="tab" aria-selected="false" aria-controls="skill-panel" data-skill="3" data-skill="3" tabindex="-1">НАВЫК № 4</button>
+      </div>
+      <div id="skill-panel" role="tabpanel" aria-labelledby="skill-tab-1" tabindex="0">
+        <div class="skill__eyebrow"><span id="skillKicker">НАВЫК № 1</span><span id="skillName">ОСНОВА САМОСТОЯТЕЛЬНОСТИ</span></div>
+        <h2 id="skillHeading">Взрослеют не по возрасту. <mark>А по решениям.</mark></h2>
+        <p class="skill__lead" id="skillLead">Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.</p>
+        <h3 class="skill__subheading">Как ты будешь его развивать</h3>
+        <div class="skill__grid" id="skillCards">
+          <article class="skill__item"><h3><span class="skill__number">01</span> Решай сам</h3><p>Учись замечать, что можно сделать самостоятельно, а где стоит попросить совета. Постепенно превращай небольшие решения в уверенную привычку.</p></article>
+          <article class="skill__item"><h3><span class="skill__number">02</span> Планируй шаги</h3><p>Разбивай большую цель на понятные действия, оценивай время и ресурсы. Так даже сложная задача становится выполнимой.</p></article>
+          <article class="skill__item"><h3><span class="skill__number">03</span> Отвечай за выбор</h3><p>Сравнивай варианты, думай о последствиях и проверяй результат. Ошибка становится опытом, если понять, что можно сделать иначе.</p></article>
+          <article class="skill__item"><h3><span class="skill__number">04</span> Действуй на практике</h3><p>Выполняй реальные задания, пробуй новые способы и отмечай свой прогресс. Самостоятельность растёт через действия, а не только через теорию.</p></article>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -3481,6 +3486,58 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   }
 
   trigger.addEventListener('click', startAudio);
+})();
+</script>
+
+
+<script>
+(() => {
+  const root = document.getElementById('skill');
+  if (!root) return;
+  const tabs = Array.from(root.querySelectorAll('.skill__tab'));
+  const kicker = root.querySelector('#skillKicker');
+  const name = root.querySelector('#skillName');
+  const heading = root.querySelector('#skillHeading');
+  const lead = root.querySelector('#skillLead');
+  const panel = root.querySelector('#skill-panel');
+  const cards = root.querySelector('#skillCards');
+  const skills = [
+    {name:'ОСНОВА САМОСТОЯТЕЛЬНОСТИ', heading:'Взрослеют не по возрасту. <mark>А по решениям.</mark>', lead:'Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.', cards:[['Решай сам','Учись замечать, что можно сделать самостоятельно, а где стоит попросить совета. Постепенно превращай небольшие решения в уверенную привычку.'],['Планируй шаги','Разбивай большую цель на понятные действия, оценивай время и ресурсы. Так даже сложная задача становится выполнимой.'],['Отвечай за выбор','Сравнивай варианты, думай о последствиях и проверяй результат. Ошибка становится опытом, если понять, что можно сделать иначе.'],['Действуй на практике','Выполняй реальные задания, пробуй новые способы и отмечай свой прогресс. Самостоятельность растёт через действия, а не только через теорию.']]},
+    {name:'ДЕНЬГИ И УМНЫЙ ВЫБОР', heading:'Ты управляешь деньгами, <mark>а не они тобой.</mark>', lead:'Финансовая грамотность помогает понимать цену вещей, планировать расходы и приближать свои цели без случайных решений.', cards:[['Считай расходы','Разбирайся, куда уходят карманные деньги. Записывай траты и замечай, на чём можно сэкономить без ущерба для себя.'],['Планируй накопления','Выбери цель, рассчитай её стоимость и реши, сколько откладывать. Следи за прогрессом и корректируй план, если обстоятельства меняются.'],['Сравнивай предложения','Считай скидки, сравнивай цену за единицу товара и проверяй, действительно ли акция выгодна. Красивый ценник не всегда означает экономию.'],['Принимай осознанные решения','Отличай желание от необходимости, оценивай последствия покупки и оставляй запас на непредвиденные расходы.']]},
+    {name:'БЫТ И ЗАБОТА О СЕБЕ', heading:'Свои дела по силам. <mark>Шаг за шагом.</mark>', lead:'Бытовая самостоятельность начинается с простых привычек: организовать своё время и пространство, позаботиться о вещах и выполнять обещанное.', cards:[['Организуй пространство','Поддерживай порядок в комнате и собирай нужные вещи заранее. У каждой вещи своё место, а у важных дел — понятный план.'],['Планируй день','Распределяй время между учёбой, отдыхом и обязанностями. Начинай с главного и оставляй небольшой запас на неожиданности.'],['Заботься о вещах','Учись пользоваться бытовыми предметами безопасно, следить за одеждой и поддерживать чистоту. Если что-то непонятно, сначала уточни правила.'],['Помогай в общих делах','Бери на себя посильные домашние задачи, договаривайся о распределении обязанностей и доводи начатое до конца.']]},
+    {name:'ОТВЕТСТВЕННОСТЬ И ОБЩЕНИЕ', heading:'Сильное решение начинается <mark>с понимания.</mark>', lead:'Самостоятельность — это ещё и умение договариваться, обращаться за помощью вовремя и спокойно разбираться с последствиями своих решений.', cards:[['Думай о последствиях','Перед выбором оцени, кого он затронет и что может измениться. Если план не сработал, ищи решение, а не виноватых.'],['Договаривайся','Объясняй свою позицию, слушай других и ищи вариант, который учитывает интересы участников. Договорённости важно выполнять.'],['Защищай личные границы','Учись вежливо говорить «нет», распознавать давление и обращаться к надёжному взрослому, если ситуация кажется небезопасной.'],['Проси помощи вовремя','Умение обратиться за поддержкой — тоже самостоятельность. Формулируй, что произошло, что уже попробовал и какая помощь нужна.']]}
+  ];
+  function showSkill(index, moveFocus) {
+    const skill = skills[index];
+    if (!skill) return;
+    tabs.forEach((tab, i) => {
+      const active = i === index;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    kicker.textContent = 'НАВЫК № ' + (index + 1);
+    name.textContent = skill.name;
+    heading.innerHTML = skill.heading;
+    lead.textContent = skill.lead;
+    panel.setAttribute('aria-labelledby', tabs[index].id);
+    cards.innerHTML = skill.cards.map((card, i) => '<article class="skill__item"><h3><span class="skill__number">' + String(i + 1).padStart(2, '0') + '</span> ' + card[0] + '</h3><p>' + card[1] + '</p></article>').join('');
+    if (moveFocus) tabs[index].focus();
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => showSkill(index, false));
+    tab.addEventListener('keydown', event => {
+      let next = index;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      showSkill(next, true);
+    });
+  });
+  showSkill(0, false);
 })();
 </script>
 
