@@ -916,11 +916,10 @@ select:focus-visible{
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details[open] summary{background:var(--yellow)}
 .faq .faq__a{padding:0 24px 22px;font-weight:500;color:var(--muted);font-size:.96rem}
-/* FAQ: native disclosure behavior, subtle answer entrance, no blue tap highlight */
+/* FAQ: native disclosure behavior, no external focus glow */
 .faq details{-webkit-tap-highlight-color:transparent}
-.faq summary{outline:none;-webkit-tap-highlight-color:transparent;transition:background-color .22s ease}
-.faq summary:focus{outline:none}
-.faq summary:focus-visible{outline:2px solid var(--yellow);outline-offset:-3px;border-radius:inherit}
+.faq summary{outline:none!important;box-shadow:none!important;-webkit-tap-highlight-color:transparent;transition:background-color .22s ease}
+.faq summary:focus,.faq summary:focus-visible,.faq details:focus,.faq details:focus-visible{outline:none!important;box-shadow:none!important}
 .faq details[open] .faq__a{animation:faqAnswerIn .24s ease both}
 @keyframes faqAnswerIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.faq summary,.faq details[open] .faq__a{animation:none;transition:none}}
