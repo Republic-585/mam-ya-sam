@@ -2228,7 +2228,9 @@ html{scroll-behavior:smooth}
   stroke: #FFFBF0;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: stroke .22s ease;
 }
+.back-to-top.is-on-light .hero__cta-arrow { stroke: #172033; }
 .back-to-top .hero__cta-arrow--one { stroke-width: 3.2; opacity: 1; }
 .back-to-top .hero__cta-arrow--two { stroke-width: 2.8; opacity: .72; }
 .back-to-top:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
@@ -3419,10 +3421,43 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 (function() {
   const button = document.querySelector('.back-to-top');
   if (!button) return;
+  let frame = 0;
+  const isLight = (color) => {
+    const match = color.match(/rgba?\(([^)]+)\)/);
+    if (!match) return null;
+    const parts = match[1].split(',').map(v => parseFloat(v.trim()));
+    if (parts.length < 3 || (parts.length > 3 && parts[3] === 0)) return null;
+    const rgb = parts.slice(0, 3).map(v => {
+      v /= 255;
+      return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2] > 0.42;
+  };
   const update = function() {
     button.classList.toggle('is-visible', window.scrollY > 300);
+    const x = Math.min(window.innerWidth - 12, window.innerWidth - 22 + 29);
+    const y = Math.max(12, window.innerHeight - 22 - 29);
+    let node = document.elementFromPoint(x, y);
+    let light = null;
+    while (node && node !== document.documentElement) {
+      const styles = window.getComputedStyle(node);
+      const pseudoBefore = window.getComputedStyle(node, '::before');
+      const pseudoAfter = window.getComputedStyle(node, '::after');
+      for (const candidate of [styles.backgroundColor, pseudoBefore.backgroundColor, pseudoAfter.backgroundColor]) {
+        const value = isLight(candidate);
+        if (value !== null) { light = value; break; }
+      }
+      if (light !== null) break;
+      node = node.parentElement;
+    }
+    button.classList.toggle('is-on-light', light === true);
   };
-  window.addEventListener('scroll', update, { passive: true });
+  const scheduleUpdate = function() {
+    if (frame) return;
+    frame = window.requestAnimationFrame(() => { frame = 0; update(); });
+  };
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
   update();
   button.addEventListener('click', function(event) {
     event.preventDefault();
