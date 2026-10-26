@@ -478,6 +478,8 @@ select:focus-visible{
 .skill__item h3{display:flex;align-items:center;gap:12px;font-family:'Unbounded',sans-serif;font-size:1rem;margin-bottom:8px;text-transform:uppercase;color:#fffaf0}
 .skill__number{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:var(--yellow);color:var(--ink);font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:800}
 .skill__item p{font-weight:500;font-size:.98rem;line-height:1.5;color:rgba(255,250,240,.88);margin:0}
+.skill__item{will-change:transform,opacity;transition:opacity .08s linear,transform .08s linear}
+@media(prefers-reduced-motion:reduce){.skill__item{will-change:auto;transition:none}}
 .skill__closing{display:inline-block;margin-top:24px;background:var(--yellow);color:var(--ink);padding:10px 14px;border-radius:7px;font-weight:800;font-size:.82rem;letter-spacing:.02em}
 .easter-egg-math{cursor:pointer;display:inline-block;transition:transform .1s}
 .easter-egg-math:active{transform:scale(.8)}
@@ -3554,6 +3556,32 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const lead = root.querySelector('#skillLead');
   const panel = root.querySelector('#skill-panel');
   const cards = root.querySelector('#skillCards');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let skillMotionFrame = 0;
+  function updateSkillCardMotion() {
+    skillMotionFrame = 0;
+    if (reducedMotion) return;
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    cards.querySelectorAll('.skill__item').forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      let opacity = 1;
+      if (center < viewportHeight * 0.38) {
+        opacity = Math.max(0, Math.min(1, (center - viewportHeight * 0.12) / (viewportHeight * 0.26)));
+      } else if (center > viewportHeight * 0.75) {
+        opacity = Math.max(0, Math.min(1, (viewportHeight * 0.98 - center) / (viewportHeight * 0.23)));
+      }
+      const direction = center < viewportHeight * 0.38 ? -1 : 1;
+      card.style.opacity = String(opacity);
+      card.style.transform = 'translate3d(0,' + ((1 - opacity) * 26 * direction) + 'px,0)';
+    });
+  }
+  function scheduleSkillCardMotion() {
+    if (skillMotionFrame || reducedMotion) return;
+    skillMotionFrame = window.requestAnimationFrame(updateSkillCardMotion);
+  }
+  window.addEventListener('scroll', scheduleSkillCardMotion, {passive:true});
+  window.addEventListener('resize', scheduleSkillCardMotion, {passive:true});
   const skills = [
     {name:'ОСНОВА САМОСТОЯТЕЛЬНОСТИ', heading:'Взрослеют не по возрасту. <mark>А по решениям.</mark>', lead:'Самостоятельность — не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.', cards:[['Решай сам','Учись замечать, что можно сделать самостоятельно, а где стоит попросить совета. Постепенно превращай небольшие решения в уверенную привычку.'],['Планируй шаги','Разбивай большую цель на понятные действия, оценивай время и ресурсы. Так даже сложная задача становится выполнимой.'],['Отвечай за выбор','Сравнивай варианты, думай о последствиях и проверяй результат. Ошибка становится опытом, если понять, что можно сделать иначе.'],['Действуй на практике','Выполняй реальные задания, пробуй новые способы и отмечай свой прогресс. Самостоятельность растёт через действия, а не только через теорию.']]},
     {name:'ДЕНЬГИ И УМНЫЙ ВЫБОР', heading:'Ты управляешь деньгами, <mark>а не они тобой.</mark>', lead:'Финансовая грамотность помогает понимать цену вещей, планировать расходы и приближать свои цели без случайных решений.', cards:[['Считай расходы','Разбирайся, куда уходят карманные деньги. Записывай траты и замечай, на чём можно сэкономить без ущерба для себя.'],['Планируй накопления','Выбери цель, рассчитай её стоимость и реши, сколько откладывать. Следи за прогрессом и корректируй план, если обстоятельства меняются.'],['Сравнивай предложения','Считай скидки, сравнивай цену за единицу товара и проверяй, действительно ли акция выгодна. Красивый ценник не всегда означает экономию.'],['Принимай осознанные решения','Отличай желание от необходимости, оценивай последствия покупки и оставляй запас на непредвиденные расходы.']]},
@@ -3574,6 +3602,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     lead.textContent = skill.lead;
     panel.setAttribute('aria-labelledby', tabs[index].id);
     cards.innerHTML = skill.cards.map((card, i) => '<article class="skill__item"><h3><span class="skill__number">' + String(i + 1).padStart(2, '0') + '</span> ' + card[0] + '</h3><p>' + card[1] + '</p></article>').join('');
+    updateSkillCardMotion();
     if (moveFocus) tabs[index].focus();
   }
   tabs.forEach((tab, index) => {
