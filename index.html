@@ -3499,69 +3499,53 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
-<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/audio.mp3" loop preload="none" playsinline style="display:none" aria-hidden="true"></audio>
+<audio id="ambient-audio" src="https://republic-585.github.io/mam-ya-sam/audio.mp3" loop preload="auto" playsinline webkit-playsinline style="display:none" aria-hidden="true"></audio>
 <script>
-/* Пытаемся запустить тихую фоновую музыку автоматически.
-   Если браузер блокирует автозапуск, сохраняется запуск по стрелкам первого экрана. */
+/* Фоновая музыка через нативный audio-элемент: он лучше подходит для воспроизведения
+   в фоне, чем Web Audio. Автозапуск пробуется первым, стрелки остаются резервом. */
 (function () {
+  const audio = document.getElementById('ambient-audio');
   const trigger = document.querySelector('.hero__cta');
-  if (!document.getElementById('ambient-audio') || !trigger) return;
+  if (!audio || !trigger) return;
 
-  let context = null;
-  let source = null;
-  let gain = null;
-  let loading = false;
-  let started = false;
-  let decodedBuffer = null;
+  audio.volume = 0.12;
+  let hasStarted = false;
+  let attempted = false;
 
   async function startAudio() {
-    if (started || loading) return;
-    loading = true;
-
+    if (hasStarted || attempted) return;
+    attempted = true;
     try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) throw new Error('Web Audio API не поддерживается этим браузером');
-
-      if (!context) context = new AudioContextClass();
-      await context.resume();
-
-      if (context.state !== 'running') throw new Error('Браузер заблокировал автоматическое воспроизведение');
-
-      if (!decodedBuffer) {
-        const response = await fetch('https://raw.githubusercontent.com/Republic-585/mam-ya-sam/main/audio.mp3', { cache: 'force-cache' });
-        if (!response.ok) throw new Error('Не удалось загрузить MP3: HTTP ' + response.status);
-        const data = await response.arrayBuffer();
-        decodedBuffer = await context.decodeAudioData(data);
-      }
-
-      source = context.createBufferSource();
-      source.buffer = decodedBuffer;
-      source.loop = true;
-
-      gain = context.createGain();
-      gain.gain.setValueAtTime(0, context.currentTime);
-      gain.gain.linearRampToValueAtTime(0.12, context.currentTime + 2.5);
-
-      source.connect(gain);
-      gain.connect(context.destination);
-      source.start(0);
-      started = true;
+      const playback = audio.play();
+      if (playback && typeof playback.then === 'function') await playback;
+      hasStarted = true;
     } catch (error) {
-      console.info('Автозапуск аудио недоступен; можно запустить музыкой нажатием на стрелки.', error);
-    } finally {
-      loading = false;
+      // iOS/Safari may require a direct user gesture before allowing audio playback.
+      attempted = false;
+      console.info('Автозапуск аудио заблокирован браузером; нажмите на стрелки, чтобы включить музыку.', error);
     }
   }
 
-  // Попытка автозапуска при открытии страницы. Политика браузера может её запретить.
   if (document.readyState === 'complete') {
     startAudio();
   } else {
     window.addEventListener('load', startAudio, { once: true });
   }
 
-  // Резервный запуск по явному действию пользователя.
-  trigger.addEventListener('click', startAudio);
+  trigger.addEventListener('click', function () {
+    if (audio.paused) {
+      attempted = false;
+      startAudio();
+    }
+  });
+
+  // Some browsers suspend media while backgrounding a tab. If playback was active,
+  // make a best-effort attempt to resume it when the page becomes visible again.
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && hasStarted && audio.paused) {
+      audio.play().catch(function () {});
+    }
+  });
 })();
 </script>
 
