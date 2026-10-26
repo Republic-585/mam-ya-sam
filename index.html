@@ -1622,7 +1622,11 @@ html{scroll-behavior:smooth}
 .about-v2__skill summary::after{content:'+';font-family:'Manrope',sans-serif;font-size:1.4rem;font-weight:900;width:32px;height:32px;flex-shrink:0;border:var(--border);border-radius:10px;background:var(--yellow);display:grid;place-items:center;line-height:1;transition:transform .25s ease}
 .about-v2__skill[open] summary::after{transform:rotate(45deg)}
 .about-v2__skill[open] summary{background:var(--yellow)}
-.about-v2__skill summary:focus-visible{outline:3px solid var(--yellow);outline-offset:-4px}
+/* Раскрывающиеся блоки: без внешней подсветки при нажатии и фокусе */
+.about-v2__skill{-webkit-tap-highlight-color:transparent;box-shadow:none!important}
+.about-v2__skill summary{-webkit-tap-highlight-color:transparent;outline:none!important;box-shadow:none!important}
+.about-v2__skill summary:focus,.about-v2__skill summary:focus-visible,.about-v2__skill:focus,.about-v2__skill:focus-visible{outline:none!important;box-shadow:none!important}
+.about-v2__skill--money[open] summary::after{box-shadow:none!important}
 .about-v2__skill-content{display:flex;align-items:flex-start;gap:16px;padding:0 24px 22px;animation:aboutSkillReveal .32s ease both}
 .about-v2__skill p{font-weight:500;color:var(--muted);font-size:.96rem;line-height:1.6;margin:0}
 .about-v2__skill-icon{display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:42px;background:var(--yellow);border:2px solid var(--ink);border-radius:12px;font-size:1.35rem}
