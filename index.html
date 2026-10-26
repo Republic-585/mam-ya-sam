@@ -3552,6 +3552,22 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }
   }
 
+  // iOS Safari may suspend Web Audio while the browser is in the background.
+  // Resume only if the visitor has already started the music manually.
+  async function resumeAudio() {
+    if (!started || !context || document.visibilityState === 'hidden') return;
+    if (context.state !== 'running') {
+      try {
+        await context.resume();
+      } catch (error) {
+        console.warn('Не удалось возобновить фоновое аудио:', error);
+      }
+    }
+  }
+
+  document.addEventListener('visibilitychange', resumeAudio);
+  window.addEventListener('pageshow', resumeAudio);
+  window.addEventListener('focus', resumeAudio);
   trigger.addEventListener('click', startAudio);
 })();
 </script>
