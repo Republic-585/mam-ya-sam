@@ -437,8 +437,8 @@ textarea:focus-visible{
 .skill__lead{font-size:1.1rem;max-width:640px;margin-bottom:40px;font-weight:600}
 .skill__lead s{opacity:.55}
 .skill__grid{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.skill__item{padding:22px;background:#fff;border:var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
-.skill__item:last-child{grid-column:span 2;background:var(--yellow)}
+.skill__item{padding:14px 18px;background:var(--blue);border:var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
+.skill__item:last-child{grid-column:span 2;background:var(--blue)}
 .skill__item h3{font-family:'Unbounded',sans-serif;font-size:1rem;margin-bottom:8px;text-transform:uppercase}
 .skill__item p{font-weight:500;font-size:.98rem;color:var(--muted)}
 .skill__item--mark{background:var(--ink)!important;color:var(--paper)}
