@@ -3435,7 +3435,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   };
   const update = function() {
     button.classList.toggle('is-visible', window.scrollY > 300);
-    const x = Math.min(window.innerWidth - 12, window.innerWidth - 22 + 29);
+    const x = Math.max(12, window.innerWidth - 22 - 29);
     const y = Math.max(12, window.innerHeight - 22 - 29);
     let node = document.elementFromPoint(x, y);
     let light = null;
