@@ -1239,8 +1239,31 @@ body.hero-menu-open{overflow:hidden}
   filter:blur(calc((1 - var(--card-reveal, 1))*5px));
   will-change:mask-image,opacity,filter;
 }
+/* Современный вариант: нативная анимация Apple/WebKit, привязанная к входу карточки в карусель */
+@supports (animation-timeline: view(inline)){
+  .program-all__card-content{
+    --reveal-edge:100%;
+    animation:programCardScrollReveal linear both;
+    animation-timeline:view(inline);
+    animation-range:entry 0% entry 70%;
+  }
+  @keyframes programCardScrollReveal{
+    from{
+      -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.08) 18%,rgba(0,0,0,.42) 34%,#000 52%,#000 100%);
+      mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.08) 18%,rgba(0,0,0,.42) 34%,#000 52%,#000 100%);
+      opacity:.35;
+      filter:blur(5px);
+    }
+    to{
+      -webkit-mask-image:linear-gradient(to right,#000 0%,#000 100%);
+      mask-image:linear-gradient(to right,#000 0%,#000 100%);
+      opacity:1;
+      filter:blur(0);
+    }
+  }
+}
 @media(prefers-reduced-motion:reduce){
-  .program-all__card-content{-webkit-mask-image:none;mask-image:none;opacity:1;filter:none;will-change:auto}
+  .program-all__card-content{-webkit-mask-image:none;mask-image:none;opacity:1;filter:none;will-change:auto;animation:none}
 }
 
 .program-all__card-content h3 mark{
