@@ -1220,17 +1220,15 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Текст словно проявляется из пустоты справа налево */
-.program-all__card-content{clip-path:inset(0)}
-.program-all__card.is-entering .program-all__card-content{
-  animation:programCardMaterializeRightToLeft .9s cubic-bezier(.22,.61,.36,1) both;
-}
-@keyframes programCardMaterializeRightToLeft{
-  from{opacity:0;clip-path:inset(0 0 0 100%);filter:blur(3px)}
-  to{opacity:1;clip-path:inset(0 0 0 0);filter:blur(0)}
+/* Проявление текста синхронно с прокруткой самой карточки */
+.program-all__card-content{
+  clip-path:inset(0 0 0 calc((1 - var(--card-reveal, 1))*100%));
+  opacity:var(--card-reveal, 1);
+  filter:blur(calc((1 - var(--card-reveal, 1))*3px));
+  will-change:clip-path,opacity,filter;
 }
 @media(prefers-reduced-motion:reduce){
-  .program-all__card.is-entering .program-all__card-content{animation:none;clip-path:none;filter:none}
+  .program-all__card-content{clip-path:none;opacity:1;filter:none;will-change:auto}
 }
 
 .program-all__card-content h3 mark{
@@ -3774,40 +3772,31 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <script>
-/* Запускаем анимацию текста справа после завершения прокрутки карусели */
+/* Прогресс проявления текста привязан к движению каждой карточки */
 (function(){
   const carousel=document.querySelector('.program-all__carousel');
   if(!carousel)return;
   const cards=Array.from(carousel.querySelectorAll('.program-all__card'));
   if(!cards.length)return;
-  let settleTimer=0;
-  let activeCard=null;
-  function showCurrentCard(){
+  let frame=0;
+  function updateReveal(){
+    frame=0;
     const bounds=carousel.getBoundingClientRect();
     const center=bounds.left+bounds.width/2;
-    let nextCard=null;
-    let closestDistance=Infinity;
     cards.forEach(card=>{
       const rect=card.getBoundingClientRect();
-      const visible=Math.max(0,Math.min(rect.right,bounds.right)-Math.max(rect.left,bounds.left));
-      if(visible<=0)return;
-      const distance=Math.abs((rect.left+rect.right)/2-center);
-      if(distance<closestDistance){closestDistance=distance;nextCard=card;}
+      const distanceToCenter=center-rect.left;
+      const reveal=Math.max(0,Math.min(1,distanceToCenter/Math.max(1,rect.width)));
+      card.style.setProperty('--card-reveal',reveal.toFixed(3));
     });
-    if(!nextCard||nextCard===activeCard)return;
-    cards.forEach(card=>card.classList.remove('is-entering'));
-    activeCard=nextCard;
-    void activeCard.offsetWidth;
-    activeCard.classList.add('is-entering');
   }
-  function scheduleShow(){
-    window.clearTimeout(settleTimer);
-    settleTimer=window.setTimeout(showCurrentCard,140);
+  function scheduleUpdate(){
+    if(frame)return;
+    frame=requestAnimationFrame(updateReveal);
   }
-  carousel.addEventListener('scroll',scheduleShow,{passive:true});
-  carousel.addEventListener('scrollend',showCurrentCard,{passive:true});
-  window.addEventListener('resize',scheduleShow,{passive:true});
-  showCurrentCard();
+  carousel.addEventListener('scroll',scheduleUpdate,{passive:true});
+  window.addEventListener('resize',scheduleUpdate,{passive:true});
+  updateReveal();
 })();
 </script>
 
