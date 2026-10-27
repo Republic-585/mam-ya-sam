@@ -404,7 +404,7 @@ select:focus-visible{
 .icons__lead{max-width:560px;margin:0 auto 18px;text-align:center;font-weight:700;color:rgba(255,250,240,.82)}
 .orbit{--orbit-size:min(78vw,500px);--orbit-radius:190px;position:relative;width:var(--orbit-size);height:var(--orbit-size);margin:0 auto;isolation:isolate}
 .orbit__track{position:absolute;inset:0;z-index:auto;will-change:transform}
-.orbit__item{--angle:0deg;position:absolute;left:50%;top:50%;z-index:2;width:var(--planet-size,94px);height:var(--planet-size,94px);margin:calc(var(--planet-size,94px)/-2) 0 0 calc(var(--planet-size,94px)/-2);display:grid;place-items:center;transform:translateX(calc(var(--orbit-radius)*1.45)) scale(.04);transform-origin:center;opacity:0;animation:planetPath 12s var(--planet-delay,0s) ease-in-out infinite;will-change:transform,opacity}
+.orbit__item{--angle:0deg;position:absolute;left:50%;top:50%;z-index:2;width:var(--planet-size,94px);height:var(--planet-size,94px);margin:calc(var(--planet-size,94px)/-2) 0 0 calc(var(--planet-size,94px)/-2);display:grid;place-items:center;transform:translateX(calc(var(--orbit-radius)*1.45)) scale(.04);transform-origin:center;opacity:0;animation:planetPath 12s var(--planet-delay,0s) ease-in-out infinite}
 .orbit__item:nth-child(1){--planet-size:102px;--planet-delay:0s}
 .orbit__item:nth-child(2){--planet-size:76px;--planet-delay:-1.5s}
 .orbit__item:nth-child(3){--planet-size:116px;--planet-delay:-3s}
@@ -3408,37 +3408,46 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const update = function() {
     button.classList.toggle('is-visible', window.scrollY > 300);
     const rect = button.getBoundingClientRect();
+    // Five representative samples preserve contrast detection while avoiding
+    // repeated style recalculation across nine points on every scroll frame.
     const points = [
-      [rect.left + rect.width * 0.28, rect.top + rect.height * 0.24],
       [rect.left + rect.width * 0.5, rect.top + rect.height * 0.24],
-      [rect.left + rect.width * 0.72, rect.top + rect.height * 0.24],
       [rect.left + rect.width * 0.28, rect.top + rect.height * 0.5],
       [rect.left + rect.width * 0.5, rect.top + rect.height * 0.5],
       [rect.left + rect.width * 0.72, rect.top + rect.height * 0.5],
-      [rect.left + rect.width * 0.28, rect.top + rect.height * 0.76],
-      [rect.left + rect.width * 0.5, rect.top + rect.height * 0.76],
-      [rect.left + rect.width * 0.72, rect.top + rect.height * 0.76]
+      [rect.left + rect.width * 0.5, rect.top + rect.height * 0.76]
     ];
     const originalPointerEvents = button.style.pointerEvents;
     button.style.pointerEvents = 'none';
     const results = [];
-    for (const [x, y] of points) {
-      let node = document.elementFromPoint(x, y);
-      let light = null;
-      while (node && node !== document.documentElement) {
-        const styles = window.getComputedStyle(node);
-        const pseudoBefore = window.getComputedStyle(node, '::before');
-        const pseudoAfter = window.getComputedStyle(node, '::after');
-        for (const candidate of [styles.backgroundColor, pseudoBefore.backgroundColor, pseudoAfter.backgroundColor]) {
-          const value = isLight(candidate);
-          if (value !== null) { light = value; break; }
+    const styleCache = new Map();
+    try {
+      for (const [x, y] of points) {
+        let node = document.elementFromPoint(x, y);
+        let light = null;
+        while (node && node !== document.documentElement) {
+          let candidates = styleCache.get(node);
+          if (!candidates) {
+            const styles = window.getComputedStyle(node);
+            candidates = [
+              styles.backgroundColor,
+              window.getComputedStyle(node, '::before').backgroundColor,
+              window.getComputedStyle(node, '::after').backgroundColor
+            ];
+            styleCache.set(node, candidates);
+          }
+          for (const candidate of candidates) {
+            const value = isLight(candidate);
+            if (value !== null) { light = value; break; }
+          }
+          if (light !== null) break;
+          node = node.parentElement;
         }
-        if (light !== null) break;
-        node = node.parentElement;
+        if (light !== null) results.push(light);
       }
-      if (light !== null) results.push(light);
+    } finally {
+      button.style.pointerEvents = originalPointerEvents;
     }
-    button.style.pointerEvents = originalPointerEvents;
     const lightCount = results.filter(Boolean).length;
     const darkCount = results.length - lightCount;
     if (results.length) button.classList.toggle('is-on-light', lightCount > darkCount);
@@ -3449,7 +3458,12 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   };
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', scheduleUpdate, { passive: true });
-  update();
+  // Let the first screen render before calculating arrow contrast.
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(scheduleUpdate, { timeout: 1200 });
+  } else {
+    window.setTimeout(scheduleUpdate, 250);
+  }
   button.addEventListener('click', function(event) {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
