@@ -229,7 +229,7 @@ select:focus-visible{
 }
 .hero-menu-backdrop.is-open{opacity:1;visibility:visible}
 .hero-menu{
-  position:fixed;top:0;right:0;z-index:1002;width:min(460px,90vw);height:100vh;height:100dvh;
+  position:fixed;top:0;right:0;z-index:1002;width:min(700px,56vw);height:100vh;height:100dvh;
   padding:clamp(28px,6vw,54px) clamp(24px,5vw,42px);overflow-y:auto;
   background:var(--paper);color:var(--ink);border-left:3px solid var(--ink);
   box-shadow:-12px 0 0 rgba(20,20,20,.08);transform:translateX(105%);
@@ -252,6 +252,10 @@ select:focus-visible{
 .hero-menu__links a:hover{padding-left:10px;color:#6a5410}
 .hero-menu__links a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 body.hero-menu-open{overflow:hidden}
+@media(max-width:640px){
+  .hero-menu{width:min(380px,88vw)}
+}
+
 @media(prefers-reduced-motion:reduce){
   .hero-menu,.hero-menu-backdrop,.hero-menu__links a,.hero__menu-trigger span{transition:none}
 }
