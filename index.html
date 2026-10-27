@@ -2349,6 +2349,43 @@ html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce) {
   .back-to-top svg { animation: none; transform: rotate(180deg); }
 }
+
+
+/* Единое максимально плавное скругление для карточек и крупных блоков */
+.card,
+.problems__recs,
+.adult__item,
+.steps__pill,
+.steps__big,
+.skill__item,
+.skill__tab,
+.result__card,
+.important,
+.video__player,
+.format__grid > *,
+.pricing__grid > *,
+.pricing .price,
+.faq details,
+.signup form,
+.program-all__card,
+.about-v2__skill,
+.about-v2__game,
+.about-v2__author,
+.about-achievements__card,
+.privacy-dialog,
+.offer-dialog,
+.form__status {
+  border-radius: var(--radius) !important;
+}
+.about-v2__author-photo {
+  border-radius: var(--radius) 0 0 var(--radius) !important;
+}
+@media (max-width: 640px) {
+  .about-v2__author-photo {
+    border-radius: var(--radius) var(--radius) 0 0 !important;
+  }
+}
+
 </style>
 </head>
 <body>
