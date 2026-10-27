@@ -3765,6 +3765,53 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
+<script>
+/* Ненавязчивые GSAP-анимации только для карусели программы курса. */
+(function () {
+  const section = document.getElementById('program-all');
+  const carousel = section && section.querySelector('.program-all__carousel');
+  if (!section || !carousel || !window.gsap) return;
+
+  const cards = Array.from(carousel.querySelectorAll('.program-all__card'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!cards.length || reduceMotion) return;
+
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.fromTo(cards,
+      { autoAlpha: 0, y: 14 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.45,
+        stagger: 0.07,
+        ease: 'power2.out',
+        clearProps: 'transform,opacity,visibility',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 82%',
+          once: true
+        }
+      }
+    );
+  }
+
+  cards.forEach(function (card) {
+    function press() {
+      gsap.to(card, { scale: 0.985, duration: 0.12, ease: 'power1.out', overwrite: true });
+    }
+    function release() {
+      gsap.to(card, { scale: 1, duration: 0.18, ease: 'power2.out', overwrite: true });
+    }
+    card.addEventListener('pointerdown', press, { passive: true });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (eventName) {
+      card.addEventListener(eventName, release, { passive: true });
+    });
+  });
+})();
+</script>
+
+
 
 
 
