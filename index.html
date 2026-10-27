@@ -225,6 +225,12 @@ select:focus-visible{
 .hero__menu-trigger span:first-child{width:32px;opacity:1}
 .hero__menu-trigger span:last-child{width:21px;opacity:.72}
 .hero__menu-trigger:hover span:last-child{width:32px}
+/* После первого экрана кнопка меню появляется в закреплённой шапке. */
+body.menu-trigger-in-header .hero__menu-trigger{
+  position:fixed;top:6px;right:max(22px,calc((100vw - 1120px)/2 + 22px));z-index:55;
+}
+body.menu-trigger-in-header .hero__menu-trigger span{background:var(--ink);opacity:1}
+
 .hero__menu-trigger:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:6px}
 .hero-menu-backdrop{
   position:fixed;inset:0;z-index:1001;background:rgba(20,20,20,.38);
@@ -3754,6 +3760,15 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
     if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();
   }
+  const secondSection=document.getElementById('skill');
+  const topbar=document.querySelector('.topbar');
+  function syncMenuTrigger(){
+    if(!secondSection||!topbar)return;
+    document.body.classList.toggle('menu-trigger-in-header',secondSection.getBoundingClientRect().top<=topbar.getBoundingClientRect().bottom);
+  }
+  window.addEventListener('scroll',syncMenuTrigger,{passive:true});
+  window.addEventListener('resize',syncMenuTrigger);
+  syncMenuTrigger();
   trigger.addEventListener('click',openMenu);
   closeButton.addEventListener('click',closeMenu);
   backdrop.addEventListener('click',closeMenu);
