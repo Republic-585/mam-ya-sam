@@ -183,6 +183,13 @@ select:focus-visible{
   box-shadow: none;
   white-space: nowrap;
 }
+.topbar__progress-text.is-complete {
+  color: #16a34a;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0 1px 5px rgba(22, 163, 74, 0.22);
+}
 
 @media(max-width:760px){
   .topbar__nav{display:none}
@@ -2894,7 +2901,15 @@ html{scroll-behavior:smooth}
     const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
     const roundedProgress = Math.round(progress);
     bar.style.width = roundedProgress + '%';
-    text.textContent = roundedProgress + '%';
+    if (roundedProgress >= 100) {
+      text.textContent = '✓';
+      text.classList.add('is-complete');
+      text.setAttribute('aria-label', 'Прокрутка завершена');
+    } else {
+      text.textContent = roundedProgress + '%';
+      text.classList.remove('is-complete');
+      text.removeAttribute('aria-label');
+    }
     scheduled = false;
   }
   function scheduleUpdate() {
