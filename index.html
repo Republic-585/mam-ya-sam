@@ -150,7 +150,10 @@ select:focus-visible{
 .topbar__right{
   display:flex;align-items:center;gap:22px;
 }
-.logo{font-family:'Manrope',sans-serif;font-weight:900;font-size:1.05rem;display:flex;align-items:center;gap:10px; cursor: pointer;}
+.logo{font-family:'Manrope',sans-serif;font-weight:900;font-size:1.05rem;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo__text{display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.15;}
+.logo__name{font-weight:900;}
+.logo__tagline{font-size:.62rem;font-weight:700;letter-spacing:.015em;color:var(--muted);line-height:1.2;}
 .logo__dot{width:26px;height:26px;background:var(--yellow);border:2px solid var(--ink);border-radius:8px;display:inline-block;transform:rotate(-8deg);flex-shrink: 0; cursor: pointer; transition: transform 0.2s;}
 .logo__dot:hover { transform: rotate(15deg) scale(1.1); }
 .topbar__nav{display:flex;gap:22px;font-weight:700;font-size:.9rem;flex-wrap: wrap;}
@@ -2299,7 +2302,7 @@ html{scroll-behavior:smooth}
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="topbar__in">
-    <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span>МАМ, Я САМ!</a>
+    <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span><span class="logo__text"><span class="logo__name">МАМ, Я САМ!</span><span class="logo__tagline">математика твоих побед</span></span></a>
     
     <div class="topbar__right">
       <nav class="topbar__nav" aria-label="Основная навигация">
