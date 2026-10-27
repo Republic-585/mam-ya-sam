@@ -1220,16 +1220,17 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Текст открывается плавно справа налево без смещения и финального рывка */
+/* Текст словно проявляется из пустоты справа налево */
+.program-all__card-content{clip-path:inset(0)}
 .program-all__card.is-entering .program-all__card-content{
-  animation:programCardRevealFromRight .7s ease-out both;
+  animation:programCardMaterializeRightToLeft .9s cubic-bezier(.22,.61,.36,1) both;
 }
-@keyframes programCardRevealFromRight{
-  from{opacity:0;clip-path:inset(0 0 0 100%)}
-  to{opacity:1;clip-path:inset(0 0 0 0)}
+@keyframes programCardMaterializeRightToLeft{
+  from{opacity:0;clip-path:inset(0 0 0 100%);filter:blur(3px)}
+  to{opacity:1;clip-path:inset(0 0 0 0);filter:blur(0)}
 }
 @media(prefers-reduced-motion:reduce){
-  .program-all__card.is-entering .program-all__card-content{animation:none;clip-path:none}
+  .program-all__card.is-entering .program-all__card-content{animation:none;clip-path:none;filter:none}
 }
 
 .program-all__card-content h3 mark{
