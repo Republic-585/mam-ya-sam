@@ -3766,47 +3766,52 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <script>
-/* Анимации только для карусели программы курса. */
+/* Анимации только для карусели программы курса. Не зависят от GSAP/CDN. */
 (function () {
   const section = document.getElementById('program-all');
   const carousel = section && section.querySelector('.program-all__carousel');
-  if (!section || !carousel || !window.gsap) return;
+  if (!section || !carousel) return;
 
   const cards = Array.from(carousel.querySelectorAll('.program-all__card'));
   if (!cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  if (window.ScrollTrigger) {
-    gsap.registerPlugin(window.ScrollTrigger);
-    gsap.fromTo(cards,
-      { autoAlpha: 0, y: 24 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.65,
-        stagger: 0.12,
-        ease: 'power2.out',
-        clearProps: 'transform,opacity,visibility',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 90%',
-          once: true
-        }
-      }
-    );
-  }
+  const style = document.createElement('style');
+  style.textContent = [
+    '#program-all .program-all__card.course-card-reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s ease, transform .65s cubic-bezier(.22,.61,.36,1); }',
+    '#program-all .program-all__card.course-card-reveal.course-card-visible { opacity: 1; transform: translateY(0); }',
+    '#program-all .program-all__card.course-card-pressed { transform: scale(.97); transition: transform .14s ease-out; }',
+    '@media (prefers-reduced-motion: reduce) { #program-all .program-all__card.course-card-reveal { opacity: 1; transform: none; transition: none; } }'
+  ].join('');
+  document.head.appendChild(style);
 
-  cards.forEach(function (card) {
-    function press() {
-      gsap.to(card, { scale: 0.97, duration: 0.14, ease: 'power1.out', overwrite: true });
-    }
-    function release() {
-      gsap.to(card, { scale: 1, duration: 0.22, ease: 'power2.out', overwrite: true });
-    }
-    card.addEventListener('pointerdown', press, { passive: true });
+  cards.forEach(function (card, index) {
+    card.classList.add('course-card-reveal');
+    card.style.transitionDelay = (index * 90) + 'ms';
+    card.addEventListener('pointerdown', function () {
+      card.classList.add('course-card-pressed');
+    }, { passive: true });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (eventName) {
-      card.addEventListener(eventName, release, { passive: true });
+      card.addEventListener(eventName, function () {
+        card.classList.remove('course-card-pressed');
+      }, { passive: true });
     });
   });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        cards.forEach(function (card) {
+          card.classList.add('course-card-visible');
+          card.style.transitionDelay = '';
+        });
+        observer.disconnect();
+      });
+    }, { threshold: 0.08 });
+    observer.observe(section);
+  } else {
+    cards.forEach(function (card) { card.classList.add('course-card-visible'); });
+  }
 })();
 </script>
 
