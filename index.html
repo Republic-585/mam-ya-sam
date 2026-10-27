@@ -270,6 +270,18 @@ select:focus-visible{
   text-transform:uppercase;
   transform:rotate(-1.5deg);
 }
+.hero__lead{
+  width:min(100%, 680px);
+  margin:0 auto;
+  font-family:'Manrope',sans-serif;
+  font-size:clamp(1rem,2.2vw,1.22rem);
+  font-weight:600;
+  line-height:1.65;
+  letter-spacing:-.015em;
+  text-transform:none;
+  text-wrap:balance;
+  color:var(--ink);
+}
 .hero__badge::before{
   content:'∑';
   display:grid;
@@ -2318,6 +2330,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
+        <p class="hero__lead">Научите ребёнка управлять деньгами — через математику и реальные жизненные задачи. Без скучных формул и зубрёжки.</p>
         <a class="hero__cta" href="#about" aria-label="Подробнее: перейти к проекту" onclick="event.preventDefault(); const target=document.getElementById('about'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span class="hero__cta-label">Подробнее</span><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
       </div>
 
