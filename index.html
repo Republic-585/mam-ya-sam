@@ -1237,6 +1237,16 @@ body.hero-menu-open{overflow:hidden}
   .program-all__card{flex-basis:78vw;min-height:250px}
 }
 
+/* GSAP ScrollTrigger: горизонтальная карусель при вертикальной прокрутке */
+.program-all__carousel.program-all-gsap-scroll{
+  scroll-snap-type:none;
+  scrollbar-width:none;
+}
+.program-all__carousel.program-all-gsap-scroll::-webkit-scrollbar{display:none}
+@media(prefers-reduced-motion:reduce){
+  .program-all__carousel.program-all-gsap-scroll{scroll-snap-type:x mandatory}
+}
+
 /* ---------- FOOTER ---------- */
 .footer{background:var(--ink);color:rgba(255,251,240,.75);padding:40px 0;border-top:var(--border)}
 .footer__in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -3762,6 +3772,57 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('is-open'))closeMenu();});
 })();
+</script>
+
+
+<script>
+/* Apple-style scroll-linked horizontal movement, limited to the course carousel */
+window.addEventListener('DOMContentLoaded', function(){
+  const section = document.querySelector('.program-all#program-all');
+  const carousel = section && section.querySelector('.program-all__carousel');
+  if (!section || !carousel || !window.gsap || !window.ScrollTrigger) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+  carousel.classList.add('program-all-gsap-scroll');
+
+  let horizontalTween;
+  function setupProgramScroll(){
+    if (horizontalTween) {
+      horizontalTween.scrollTrigger && horizontalTween.scrollTrigger.kill();
+      horizontalTween.kill();
+      horizontalTween = null;
+    }
+    carousel.scrollLeft = 0;
+    const distance = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+    if (distance < 20) return;
+
+    horizontalTween = gsap.to(carousel, {
+      scrollLeft: () => Math.max(0, carousel.scrollWidth - carousel.clientWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top+=64',
+        end: () => '+=' + Math.max(1, carousel.scrollWidth - carousel.clientWidth),
+        pin: true,
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+
+  setupProgramScroll();
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      setupProgramScroll();
+      ScrollTrigger.refresh();
+    }, 180);
+  });
+});
 </script>
 
 
