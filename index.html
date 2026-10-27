@@ -1237,25 +1237,6 @@ body.hero-menu-open{overflow:hidden}
   .program-all__card{flex-basis:78vw;min-height:250px}
 }
 
-/* Apple-style scroll-linked text reveal, scoped only to the course carousel */
-.program-all__card-content{
-  --course-reveal:1;
-}
-.program-all__card-content > *{
-  opacity:calc(.58 + var(--course-reveal,1)*.42);
-  transform:translateY(calc((1 - var(--course-reveal,1))*8px));
-  filter:blur(calc((1 - var(--course-reveal,1))*1px));
-  transition:opacity .08s linear,transform .08s linear,filter .08s linear;
-}
-@media(prefers-reduced-motion:reduce){
-  .program-all__card-content > *{
-    opacity:1;
-    transform:none;
-    filter:none;
-    transition:none;
-  }
-}
-
 /* ---------- FOOTER ---------- */
 .footer{background:var(--ink);color:rgba(255,251,240,.75);padding:40px 0;border-top:var(--border)}
 .footer__in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -3784,38 +3765,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
-<script>
-/* Scroll-linked reveal inspired by the GSAP/ScrollTrigger text reveal.
-   Scoped to text inside the course carousel only. */
-(function(){
-  const carousel=document.querySelector('.program-all__carousel');
-  if(!carousel || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const contents=Array.from(carousel.querySelectorAll('.program-all__card-content'));
-  if(!contents.length)return;
-  let frame=0;
-  function update(){
-    frame=0;
-    const rect=carousel.getBoundingClientRect();
-    const center=rect.left+rect.width/2;
-    const range=Math.max(rect.width*.72,1);
-    contents.forEach(content=>{
-      const card=content.closest('.program-all__card');
-      if(!card)return;
-      const cardRect=card.getBoundingClientRect();
-      const cardCenter=cardRect.left+cardRect.width/2;
-      const progress=Math.max(0,Math.min(1,1-Math.abs(cardCenter-center)/range));
-      content.style.setProperty('--course-reveal',progress.toFixed(3));
-    });
-  }
-  function schedule(){
-    if(frame)return;
-    frame=requestAnimationFrame(update);
-  }
-  carousel.addEventListener('scroll',schedule,{passive:true});
-  window.addEventListener('resize',schedule,{passive:true});
-  update();
-})();
-</script>
 
 </body>
 </html>
