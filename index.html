@@ -1220,26 +1220,16 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Плавное появление текста на активной карточке программы */
-.program-all__card-content > *{
-  opacity:0;
-  transform:translateX(24px);
+/* Мягкое появление всего текста справа без вертикального смещения */
+.program-all__card.is-active .program-all__card-content{
+  animation:programCardContentIn .72s cubic-bezier(.22,.68,0,1) both;
 }
-.program-all__card.is-active .program-all__card-content > *{
-  animation:programCardTextIn .62s cubic-bezier(.22,.68,0,1) both;
-}
-.program-all__card.is-active .program-all__card-content > *:nth-child(1){animation-delay:0s}
-.program-all__card.is-active .program-all__card-content > *:nth-child(2){animation-delay:.06s}
-.program-all__card.is-active .program-all__card-content > *:nth-child(3){animation-delay:.12s}
-.program-all__card.is-active .program-all__card-content > *:nth-child(4){animation-delay:.18s}
-.program-all__card.is-active .program-all__card-content > *:nth-child(5){animation-delay:.24s}
-@keyframes programCardTextIn{
-  from{opacity:0;transform:translateX(24px)}
-  to{opacity:1;transform:translateX(0)}
+@keyframes programCardContentIn{
+  from{opacity:.35;transform:translate3d(20px,0,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
 }
 @media(prefers-reduced-motion:reduce){
-  .program-all__card-content > *{opacity:1;transform:none}
-  .program-all__card.is-active .program-all__card-content > *{animation:none}
+  .program-all__card.is-active .program-all__card-content{animation:none}
 }
 
 .program-all__card-content h3 mark{
