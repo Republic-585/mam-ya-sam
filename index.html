@@ -1220,15 +1220,7 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Текст растворяется целиком и плавно по мере движения карточки */
-.program-all__card-content{
-  opacity:var(--card-reveal, 1);
-  filter:blur(calc((1 - var(--card-reveal, 1))*8px));
-  will-change:opacity,filter;
-}
-@media(prefers-reduced-motion:reduce){
-  .program-all__card-content{opacity:1;filter:none;will-change:auto}
-}
+
 
 .program-all__card-content h3 mark{
   background:var(--yellow);
@@ -3770,36 +3762,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 </script>
 
 
-<script>
-/* Прогресс проявления текста привязан к движению каждой карточки */
-(function(){
-  const carousel=document.querySelector('.program-all__carousel');
-  if(!carousel)return;
-  const cards=Array.from(carousel.querySelectorAll('.program-all__card'));
-  if(!cards.length)return;
-  let frame=0;
-  function updateReveal(){
-    frame=0;
-    const bounds=carousel.getBoundingClientRect();
-    const center=bounds.left+bounds.width/2;
-    cards.forEach(card=>{
-      const rect=card.getBoundingClientRect();
-      /* Проявление начинается, когда карточка входит в видимую область,
-         и завершается до того, как она доходит до центра карусели. */
-      const distanceIntoView=bounds.right-rect.left;
-      const reveal=Math.max(0,Math.min(1,distanceIntoView/Math.max(1,rect.width*0.72)));
-      card.style.setProperty('--card-reveal',reveal.toFixed(3));
-    });
-  }
-  function scheduleUpdate(){
-    if(frame)return;
-    frame=requestAnimationFrame(updateReveal);
-  }
-  carousel.addEventListener('scroll',scheduleUpdate,{passive:true});
-  window.addEventListener('resize',scheduleUpdate,{passive:true});
-  updateReveal();
-})();
-</script>
+
 
 </body>
 </html>
