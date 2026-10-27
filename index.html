@@ -3785,8 +3785,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     const center=bounds.left+bounds.width/2;
     cards.forEach(card=>{
       const rect=card.getBoundingClientRect();
-      const distanceToCenter=center-rect.left;
-      const reveal=Math.max(0,Math.min(1,distanceToCenter/Math.max(1,rect.width)));
+      /* Проявление начинается, когда карточка входит в видимую область,
+         и завершается до того, как она доходит до центра карусели. */
+      const distanceIntoView=bounds.right-rect.left;
+      const reveal=Math.max(0,Math.min(1,distanceIntoView/Math.max(1,rect.width*0.72)));
       card.style.setProperty('--card-reveal',reveal.toFixed(3));
     });
   }
