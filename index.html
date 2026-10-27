@@ -211,6 +211,49 @@ select:focus-visible{
 /* Defensive removal of the previously added decorative guide line */
 .journey-line,.journey-line path{display:none!important}
 
+
+/* ---------- HERO SECTION MENU ---------- */
+.hero__menu-trigger{
+  position:absolute;top:24px;right:max(22px,calc((100vw - 1120px)/2 + 22px));z-index:15;
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;
+  width:48px;height:42px;padding:7px;border:0;background:transparent;cursor:pointer;
+}
+.hero__menu-trigger span{display:block;height:4px;border-radius:4px;background:var(--paper);transition:width .22s ease,transform .22s ease}
+.hero__menu-trigger span:first-child{width:32px}
+.hero__menu-trigger span:last-child{width:21px}
+.hero__menu-trigger:hover span:last-child{width:32px}
+.hero__menu-trigger:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:6px}
+.hero-menu-backdrop{
+  position:fixed;inset:0;z-index:1001;background:rgba(20,20,20,.38);
+  opacity:0;visibility:hidden;transition:opacity .32s ease,visibility .32s ease;
+}
+.hero-menu-backdrop.is-open{opacity:1;visibility:visible}
+.hero-menu{
+  position:fixed;top:0;right:0;z-index:1002;width:min(460px,90vw);height:100vh;height:100dvh;
+  padding:clamp(28px,6vw,54px) clamp(24px,5vw,42px);overflow-y:auto;
+  background:var(--paper);color:var(--ink);border-left:3px solid var(--ink);
+  box-shadow:-12px 0 0 rgba(20,20,20,.08);transform:translateX(105%);
+  visibility:hidden;transition:transform .38s cubic-bezier(.22,.75,.2,1),visibility .38s;
+  display:flex;flex-direction:column;
+}
+.hero-menu.is-open{transform:translateX(0);visibility:visible}
+.hero-menu__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:42px}
+.hero-menu__eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-menu__close{flex-shrink:0;width:44px;height:44px;border:2px solid var(--ink);border-radius:50%;background:var(--yellow);color:var(--ink);font-size:1.7rem;line-height:1;cursor:pointer}
+.hero-menu__links{display:flex;flex-direction:column;gap:0}
+.hero-menu__links a{
+  display:block;padding:20px 0;border-bottom:2px solid rgba(20,20,20,.16);
+  font-family:'Manrope',sans-serif;font-size:clamp(1.25rem,4.5vw,1.8rem);
+  line-height:1.12;font-weight:900;letter-spacing:-.035em;text-transform:uppercase;
+  transition:padding-left .2s ease,color .2s ease;
+}
+.hero-menu__links a:hover{padding-left:10px;color:#6a5410}
+.hero-menu__links a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+body.hero-menu-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){
+  .hero-menu,.hero-menu-backdrop,.hero-menu__links a,.hero__menu-trigger span{transition:none}
+}
+
 /* ---------- HERO ---------- */
 .hero{padding:70px 0 90px;overflow:hidden}
 .hero__bg{
@@ -2326,6 +2369,19 @@ html{scroll-behavior:smooth}
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
+    <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
+    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
+    <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
+      <div class="hero-menu__top"><span class="hero-menu__eyebrow">ГЛАВНЫЕ РАЗДЕЛЫ</span><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню">×</button></div>
+      <div class="hero-menu__links">
+        <a href="#program-all">ВСЯ ПРОГРАММА</a>
+        <a href="#skill">НАВЫКИ</a>
+        <a href="#about">О ПРОЕКТЕ</a>
+        <a href="#pricing">ТАРИФЫ</a>
+        <a href="#faq">ВОПРОСЫ И ОТВЕТЫ</a>
+        <a href="#signup">ОСТАВИТЬ ЗАЯВКУ</a>
+      </div>
+    </nav>
     <div class="wrap hero__in">
       
       <div class="hero__content">
@@ -2624,7 +2680,7 @@ html{scroll-behavior:smooth}
   </section>
 
   <!-- FAQ -->
-  <section class="faq">
+  <section class="faq" id="faq">
     <div class="wrap">
       <h2>Популярные вопросы</h2>
       <div class="faq__list">
@@ -3604,6 +3660,44 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 })();
 
 
+</script>
+
+
+<script>
+/* Меню главных разделов первого экрана */
+(function(){
+  const trigger=document.getElementById('heroMenuTrigger');
+  const menu=document.getElementById('heroMenu');
+  const backdrop=document.getElementById('heroMenuBackdrop');
+  const closeButton=document.getElementById('heroMenuClose');
+  if(!trigger||!menu||!backdrop||!closeButton)return;
+  let previousFocus=null;
+  function openMenu(){
+    previousFocus=document.activeElement;
+    backdrop.hidden=false;
+    menu.inert=false;
+    menu.setAttribute('aria-hidden','false');
+    trigger.setAttribute('aria-expanded','true');
+    document.body.classList.add('hero-menu-open');
+    requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
+    closeButton.focus();
+  }
+  function closeMenu(){
+    backdrop.classList.remove('is-open');
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden','true');
+    menu.inert=true;
+    trigger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('hero-menu-open');
+    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
+    if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();
+  }
+  trigger.addEventListener('click',openMenu);
+  closeButton.addEventListener('click',closeMenu);
+  backdrop.addEventListener('click',closeMenu);
+  menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('is-open'))closeMenu();});
+})();
 </script>
 
 </body>
