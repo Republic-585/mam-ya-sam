@@ -182,8 +182,6 @@ select:focus-visible{
 }
 .topbar__progress-text {
   display: inline-block;
-  visibility: visible;
-  opacity: 1;
   font-family:'SF Pro Condensed',sans-serif;
   font-weight: 800;
   font-size: 0.75rem;
@@ -3041,6 +3039,7 @@ html{scroll-behavior:smooth}
     const docHeight = Math.max(root.scrollHeight, document.body ? document.body.scrollHeight : 0) - window.innerHeight;
     const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
     const roundedProgress = Math.round(progress);
+    text.style.visibility = scrollTop > 0 ? 'visible' : 'hidden';
     bar.style.transform = 'scaleX(' + (progress / 100) + ')';
     if (roundedProgress >= 100) {
       text.innerHTML = '<svg viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M4.5 13.5 10.5 19 21.5 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -3062,7 +3061,8 @@ html{scroll-behavior:smooth}
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', scheduleUpdate, { passive: true });
   window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
-  // Обновляем индикатор сразу при инициализации, не дожидаясь первого скролла.
+  // Скрываем процент при нулевой прокрутке и показываем его при начале скролла.
+  text.style.visibility = 'hidden';
   scheduleUpdate();
   window.addEventListener('load', scheduleUpdate, { once: true });
   window.addEventListener('pageshow', scheduleUpdate);
