@@ -83,11 +83,11 @@ section[id]{scroll-margin-top:80px}
 .btn--yellow{background:var(--yellow)}
 .btn--purple{background:var(--purple)}
 .btn--ink{background:var(--ink);color:var(--paper)}
-/* Signup action: yellow, borderless, with hover and press feedback */
+/* Signup action: thin black outline with hover and press feedback */
 #signupForm button[type="submit"]{
   background:var(--yellow);
   color:var(--ink);
-  border:0;
+  border:1px solid var(--ink);
   box-shadow:none;
   min-height:48px;
   padding:13px 24px;
@@ -96,12 +96,13 @@ section[id]{scroll-margin-top:80px}
   align-self:center;
   width:auto;
   max-width:100%;
-  transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+  transform:translateY(0) scale(1);
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease;
 }
 #signupForm button[type="submit"]:hover{
-  transform:translateY(-3px) scale(1.015);
-  box-shadow:none;
-  background:var(--yellow);
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 4px 0 rgba(20,20,20,.18);
+  background:#ffe36a;
 }
 #signupForm button[type="submit"]:active{
   transform:translateY(1px) scale(.98);
