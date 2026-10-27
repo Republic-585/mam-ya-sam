@@ -239,7 +239,7 @@ select:focus-visible{
 .hero-menu.is-open{transform:translateX(0);visibility:visible}
 .hero-menu__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:36px;margin-bottom:42px}
 .hero-menu__eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.hero-menu__close{flex-shrink:0;display:grid;place-items:center;width:56px;height:56px;padding:0;border:0;border-radius:10px;background:transparent;color:var(--ink);font-family:Arial,sans-serif;font-size:2.8rem;font-weight:800;line-height:1;cursor:pointer}
+.hero-menu__close{position:relative;flex-shrink:0;display:grid;place-items:center;width:56px;height:56px;padding:0;border:0;border-radius:12px;background:transparent;color:var(--muted);font-size:0;cursor:pointer}.hero-menu__close::before,.hero-menu__close::after{content:"";position:absolute;width:32px;height:4px;border-radius:999px;background:currentColor}.hero-menu__close::before{transform:rotate(45deg)}.hero-menu__close::after{transform:rotate(-45deg)}
 .hero-menu__close:hover{background:rgba(20,20,20,.07)}
 .hero-menu__close:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .hero-menu__links{display:flex;flex-direction:column;gap:0}
@@ -2374,7 +2374,7 @@ html{scroll-behavior:smooth}
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
-      <div class="hero-menu__top"><span class="hero-menu__eyebrow">ГЛАВНЫЕ РАЗДЕЛЫ</span><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню">×</button></div>
+      <div class="hero-menu__top"><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню"></button></div>
       <div class="hero-menu__links">
         <a href="#program-all">ВСЯ ПРОГРАММА</a>
         <a href="#skill">НАВЫКИ</a>
