@@ -139,12 +139,14 @@ select:focus-visible{
 /* ---------- TOP BAR & PROGRESS ---------- */
 .topbar{
   position:sticky;top:0;z-index:50;
-  background:var(--paper);
+  background:rgba(255,255,255,.78);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  backdrop-filter:blur(14px) saturate(140%);
   border-bottom:var(--border);
 }
 .topbar__in{
   display:flex;align-items:center;justify-content:space-between;
-  padding:14px 22px;max-width:1120px;margin:0 auto;
+  padding:8px 22px;max-width:1120px;margin:0 auto;
   position:relative;
 }
 .topbar__right{
