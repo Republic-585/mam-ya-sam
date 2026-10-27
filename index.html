@@ -181,6 +181,9 @@ select:focus-visible{
   will-change: transform;
 }
 .topbar__progress-text {
+  display: inline-block;
+  visibility: visible;
+  opacity: 1;
   font-family:'SF Pro Condensed',sans-serif;
   font-weight: 800;
   font-size: 0.75rem;
@@ -3059,9 +3062,11 @@ html{scroll-behavior:smooth}
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', scheduleUpdate, { passive: true });
   window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
+  // Обновляем индикатор сразу при инициализации, не дожидаясь первого скролла.
+  scheduleUpdate();
   window.addEventListener('load', scheduleUpdate, { once: true });
-  if (document.readyState === 'complete') scheduleUpdate();
-  else document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
+  window.addEventListener('pageshow', scheduleUpdate);
+  if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
 })();
 
 // Плеер оставлен как лёгкий контейнер; источник видео подключим позже.
