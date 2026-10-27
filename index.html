@@ -2405,12 +2405,6 @@ html{scroll-behavior:smooth}
         <a href="#pricing">Цены</a>
         <a href="#signup">Записаться</a>
       </nav>
-      <span class="topbar__progress-text" id="progressText">0%</span>
-    </div>
-
-    <!-- Полоска прогресса скролла -->
-    <div class="topbar__progress">
-      <div class="topbar__progress-bar" id="progressBar"></div>
     </div>
   </div>
 </header>
@@ -3026,48 +3020,7 @@ html{scroll-behavior:smooth}
   }
 })();
 
-// ---------- Scroll Progress Bar ----------
-(function() {
-  const bar = document.getElementById('progressBar');
-  const text = document.getElementById('progressText');
-  if (!bar || !text) return;
 
-  let scheduled = false;
-  function updateProgress() {
-    const root = document.documentElement;
-    const scrollTop = Math.max(window.scrollY || root.scrollTop || 0, 0);
-    const docHeight = Math.max(root.scrollHeight, document.body ? document.body.scrollHeight : 0) - window.innerHeight;
-    const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-    const roundedProgress = Math.round(progress);
-    text.style.visibility = scrollTop > 0 ? 'visible' : 'hidden';
-    bar.style.transform = 'scaleX(' + (progress / 100) + ')';
-    if (roundedProgress >= 100) {
-      text.innerHTML = '<svg viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M4.5 13.5 10.5 19 21.5 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      text.classList.add('is-complete');
-      text.setAttribute('aria-label', 'Прокрутка завершена');
-    } else {
-      text.textContent = roundedProgress + '%';
-      text.classList.remove('is-complete');
-      text.removeAttribute('aria-label');
-    }
-    scheduled = false;
-  }
-  function scheduleUpdate() {
-    if (scheduled) return;
-    scheduled = true;
-    window.requestAnimationFrame(updateProgress);
-  }
-
-  window.addEventListener('scroll', scheduleUpdate, { passive: true });
-  window.addEventListener('resize', scheduleUpdate, { passive: true });
-  window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
-  // Скрываем процент при нулевой прокрутке и показываем его при начале скролла.
-  text.style.visibility = 'hidden';
-  scheduleUpdate();
-  window.addEventListener('load', scheduleUpdate, { once: true });
-  window.addEventListener('pageshow', scheduleUpdate);
-  if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
-})();
 
 // Плеер оставлен как лёгкий контейнер; источник видео подключим позже.
 
