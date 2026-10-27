@@ -1220,6 +1220,28 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
+/* Плавное появление текста на активной карточке программы */
+.program-all__card-content > *{
+  opacity:0;
+  transform:translateX(24px);
+}
+.program-all__card.is-active .program-all__card-content > *{
+  animation:programCardTextIn .62s cubic-bezier(.22,.68,0,1) both;
+}
+.program-all__card.is-active .program-all__card-content > *:nth-child(1){animation-delay:0s}
+.program-all__card.is-active .program-all__card-content > *:nth-child(2){animation-delay:.06s}
+.program-all__card.is-active .program-all__card-content > *:nth-child(3){animation-delay:.12s}
+.program-all__card.is-active .program-all__card-content > *:nth-child(4){animation-delay:.18s}
+.program-all__card.is-active .program-all__card-content > *:nth-child(5){animation-delay:.24s}
+@keyframes programCardTextIn{
+  from{opacity:0;transform:translateX(24px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .program-all__card-content > *{opacity:1;transform:none}
+  .program-all__card.is-active .program-all__card-content > *{animation:none}
+}
+
 .program-all__card-content h3 mark{
   background:var(--yellow);
   color:var(--ink);
@@ -3756,6 +3778,42 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   backdrop.addEventListener('click',closeMenu);
   menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('is-open'))closeMenu();});
+})();
+</script>
+
+
+<script>
+/* Анимация текста на карточке программы, которая сейчас в фокусе прокрутки */
+(function(){
+  const carousel=document.querySelector('.program-all__carousel');
+  if(!carousel)return;
+  const cards=Array.from(carousel.querySelectorAll('.program-all__card'));
+  if(!cards.length)return;
+  let frame=0;
+  function updateActiveCard(){
+    frame=0;
+    const bounds=carousel.getBoundingClientRect();
+    const center=bounds.left+bounds.width/2;
+    let active=null;
+    let bestRatio=0;
+    cards.forEach(card=>{
+      const rect=card.getBoundingClientRect();
+      const visible=Math.max(0,Math.min(rect.right,bounds.right)-Math.max(rect.left,bounds.left));
+      const ratio=visible/Math.max(1,rect.width);
+      if(ratio>bestRatio){bestRatio=ratio;active=card;}
+    });
+    cards.forEach(card=>{
+      if(card===active && bestRatio>0) card.classList.add('is-active');
+      else card.classList.remove('is-active');
+    });
+  }
+  function scheduleUpdate(){
+    if(frame)return;
+    frame=window.requestAnimationFrame(updateActiveCard);
+  }
+  carousel.addEventListener('scroll',scheduleUpdate,{passive:true});
+  window.addEventListener('resize',scheduleUpdate,{passive:true});
+  updateActiveCard();
 })();
 </script>
 
