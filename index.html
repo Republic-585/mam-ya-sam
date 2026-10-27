@@ -1220,15 +1220,27 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Проявление текста синхронно с прокруткой самой карточки */
+/* Мягкое растворение текста по мере прокрутки, без жёсткой границы */
 .program-all__card-content{
-  clip-path:inset(0 0 0 calc((1 - var(--card-reveal, 1))*100%));
-  opacity:var(--card-reveal, 1);
-  filter:blur(calc((1 - var(--card-reveal, 1))*3px));
-  will-change:clip-path,opacity,filter;
+  --reveal-edge:calc(var(--card-reveal, 1)*100%);
+  -webkit-mask-image:linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.08) calc(var(--reveal-edge) - 34%),
+    rgba(0,0,0,.42) calc(var(--reveal-edge) - 18%),
+    #000 var(--reveal-edge),
+    #000 100%);
+  mask-image:linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.08) calc(var(--reveal-edge) - 34%),
+    rgba(0,0,0,.42) calc(var(--reveal-edge) - 18%),
+    #000 var(--reveal-edge),
+    #000 100%);
+  opacity:calc(.35 + var(--card-reveal, 1)*.65);
+  filter:blur(calc((1 - var(--card-reveal, 1))*5px));
+  will-change:mask-image,opacity,filter;
 }
 @media(prefers-reduced-motion:reduce){
-  .program-all__card-content{clip-path:none;opacity:1;filter:none;will-change:auto}
+  .program-all__card-content{-webkit-mask-image:none;mask-image:none;opacity:1;filter:none;will-change:auto}
 }
 
 .program-all__card-content h3 mark{
