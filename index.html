@@ -251,6 +251,9 @@ select:focus-visible{
 }
 .hero-menu__links a:hover{padding-left:10px;color:#6a5410}
 .hero-menu__links a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.hero-menu__social{margin-top:auto;padding-top:34px;display:flex;align-items:center;justify-content:flex-start}
+.hero-menu__social-icon{display:grid;place-items:center;width:44px;height:44px;color:var(--ink);opacity:.82}
+.hero-menu__social-icon svg{display:block;width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 body.hero-menu-open{overflow:hidden}
 @media(max-width:640px){
   .hero-menu{width:75vw}
@@ -2386,6 +2389,15 @@ html{scroll-behavior:smooth}
         <a href="#pricing">ТАРИФЫ</a>
         <a href="#faq">ВОПРОСЫ И ОТВЕТЫ</a>
         <a href="#signup">ОСТАВИТЬ ЗАЯВКУ</a>
+      </div>
+      <div class="hero-menu__social" aria-label="Социальные сети">
+        <span class="hero-menu__social-icon" role="img" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.7" r="1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </span>
       </div>
     </nav>
     <div class="wrap hero__in">
