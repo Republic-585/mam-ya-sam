@@ -166,10 +166,12 @@ select:focus-visible{
 }
 .topbar__progress-bar {
   height: 100%;
-  width: 0%;
+  width: 100%;
   background: var(--yellow);
   border-radius: 999px;
-  transition: width 0.1s ease-out;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
 .topbar__progress-text {
   font-family:'Manrope',sans-serif;
@@ -2906,7 +2908,7 @@ html{scroll-behavior:smooth}
     const docHeight = Math.max(root.scrollHeight, document.body ? document.body.scrollHeight : 0) - window.innerHeight;
     const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
     const roundedProgress = Math.round(progress);
-    bar.style.width = roundedProgress + '%';
+    bar.style.transform = 'scaleX(' + (progress / 100) + ')';
     if (roundedProgress >= 100) {
       text.innerHTML = '<svg viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M4.5 13.5 10.5 19 21.5 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       text.classList.add('is-complete');
