@@ -185,6 +185,16 @@ select:focus-visible{
 }
 .topbar__progress-text.is-complete {
   color: #16a34a;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.topbar__progress-text.is-complete svg {
+  display: block;
+  width: 26px;
+  height: 26px;
 }
 
 @media(max-width:760px){
@@ -2898,7 +2908,7 @@ html{scroll-behavior:smooth}
     const roundedProgress = Math.round(progress);
     bar.style.width = roundedProgress + '%';
     if (roundedProgress >= 100) {
-      text.textContent = '✓';
+      text.innerHTML = '<svg viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M4.5 13.5 10.5 19 21.5 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       text.classList.add('is-complete');
       text.setAttribute('aria-label', 'Прокрутка завершена');
     } else {
