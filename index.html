@@ -2384,16 +2384,8 @@ html{scroll-behavior:smooth}
     <div class="wrap">
       <h2>А ВОТ ОДИН ИЗ <span>ПРАКТИКУМОВ!</span> ПОСМОТРИ, КАК ЭТО РАБОТАЕТ.</h2>
 
-      <div class="video__player" id="videoPlayer">
-        <iframe
-          src="https://muuvee.ru/watch~E6mB7LXQcPk"
-          title="ФГ «Обыкновенные дроби» – практикум"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"
-          style="position:absolute;inset:0;width:100%;height:100%;border:0;"
-        ></iframe>
+      <div class="video__player video__player--empty" id="videoPlayer" role="region" aria-label="Видеоплеер практикума">
+        <div class="video__placeholder">ПЛЕЕР БУДЕТ ПОДКЛЮЧЁН ПОЗЖЕ</div>
       </div>
 
     </div>
@@ -2936,7 +2928,7 @@ html{scroll-behavior:smooth}
   else document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
 })();
 
-// Видео встроено через iframe Muuvee.
+// Плеер оставлен как лёгкий контейнер; источник видео подключим позже.
 
 // Идентификатор пробного тарифа в контракте с Supabase/Telegram.
 // Историческое имя trial_7d сохранено для совместимости, но продукт даёт 3 дня.
