@@ -1220,39 +1220,14 @@ body.hero-menu-open{overflow:hidden}
   color:var(--ink);
 }
 .program-all__card-content > span:last-child{font-weight:700;}
-/* Мягкое растворение текста по мере прокрутки, без жёсткой границы */
+/* Текст растворяется целиком и плавно по мере движения карточки */
 .program-all__card-content{
-  --reveal-edge:calc(var(--card-reveal, 1)*100%);
-  -webkit-mask-image:linear-gradient(to right,
-    transparent 0%,
-    rgba(0,0,0,.08) calc(var(--reveal-edge) - 34%),
-    rgba(0,0,0,.42) calc(var(--reveal-edge) - 18%),
-    #000 var(--reveal-edge),
-    #000 100%);
-  mask-image:linear-gradient(to right,
-    transparent 0%,
-    rgba(0,0,0,.08) calc(var(--reveal-edge) - 34%),
-    rgba(0,0,0,.42) calc(var(--reveal-edge) - 18%),
-    #000 var(--reveal-edge),
-    #000 100%);
-  opacity:calc(.35 + var(--card-reveal, 1)*.65);
-  filter:blur(calc((1 - var(--card-reveal, 1))*5px));
-  will-change:mask-image,opacity,filter;
-}
-/* Нативная прокрутка управляет прозрачностью и размытием; маска остаётся плавной */
-@supports (animation-timeline: view(inline)){
-  .program-all__card-content{
-    animation:programCardScrollReveal linear both;
-    animation-timeline:view(inline);
-    animation-range:entry 0% entry 85%;
-  }
-  @keyframes programCardScrollReveal{
-    from{opacity:0;filter:blur(10px)}
-    to{opacity:1;filter:blur(0)}
-  }
+  opacity:var(--card-reveal, 1);
+  filter:blur(calc((1 - var(--card-reveal, 1))*8px));
+  will-change:opacity,filter;
 }
 @media(prefers-reduced-motion:reduce){
-  .program-all__card-content{-webkit-mask-image:none;mask-image:none;opacity:1;filter:none;will-change:auto;animation:none}
+  .program-all__card-content{opacity:1;filter:none;will-change:auto}
 }
 
 .program-all__card-content h3 mark{
