@@ -3349,7 +3349,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 (function(){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealTargets = document.querySelectorAll(
-    '.problems h2,.problem,.problems__recs,.adult h2,.icons h2,.icon-card,.steps h2,.steps__pill,.steps__big,.skill h2,.skill__item,.result h2,.video h2,.video__player,.about__photo,.about__content,.about-v2 .about__mission,.format h2,.format__grid>*,.pricing h2,.pricing__grid>*,.faq h2,.faq details,.signup h2,.signup form'
+    'section:not(.hero) h2,section:not(.hero) h3,section:not(.hero) p,section:not(.hero) .eyebrow,section:not(.hero) article,section:not(.hero) blockquote,section:not(.hero) details,section:not(.hero) .card,section:not(.hero) .problem,section:not(.hero) .problems__recs,section:not(.hero) .adult__item,section:not(.hero) .icon-card,section:not(.hero) .steps__pill,section:not(.hero) .steps__big,section:not(.hero) .skill__item,section:not(.hero) .video__player,section:not(.hero) .about__photo,section:not(.hero) .about__content,section:not(.hero) .about-v2 .about__mission,section:not(.hero) .format__grid>*,section:not(.hero) .pricing__grid>*,section:not(.hero) .signup form'
   );
   if(!reduceMotion && 'IntersectionObserver' in window){
     document.body.classList.add('js-motion-ready');
@@ -3363,7 +3363,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     },{threshold:.12,rootMargin:'0px 0px -35px 0px'});
     revealTargets.forEach((el,index)=>{
       el.classList.add('motion-reveal');
-      el.style.setProperty('--motion-delay', '0ms');
+      el.style.setProperty('--motion-delay', (index % 5 * 65) + 'ms');
       observer.observe(el);
     });
   }
