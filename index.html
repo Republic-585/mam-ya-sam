@@ -249,31 +249,23 @@ select:focus-visible{
 
 
 /* ---------- HERO SECTION MENU ---------- */
-.hero__menu-trigger{
-  position:absolute;top:24px;right:max(22px,calc((100vw - 1120px)/2 + 22px));z-index:15;
-  display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;
-  width:48px;height:42px;padding:7px;border:0;background:transparent;cursor:pointer;
-}
-.hero__menu-trigger span{display:block;height:4px;border-radius:4px;background:var(--paper);transition:width .22s ease,transform .22s ease}
-.hero__menu-trigger span:first-child{width:32px;opacity:1}
-.hero__menu-trigger span:last-child{width:21px;opacity:.72}
-.hero__menu-trigger:hover span:last-child{width:32px}
-.hero__menu-trigger:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:6px}
+:root { --topbar-height: 64px; }
 .hero-menu-backdrop{
-  position:fixed;inset:0;z-index:1001;background:rgba(8,13,32,.48);
+  position:fixed;top:var(--topbar-height);right:0;bottom:0;left:0;z-index:1001;
+  background:rgba(8,13,32,.48);
   opacity:0;visibility:hidden;backdrop-filter:blur(0);
   transition:opacity .42s ease,visibility .42s,backdrop-filter .42s ease;
 }
 .hero-menu-backdrop.is-open{opacity:1;visibility:visible;backdrop-filter:blur(3px)}
 .hero-menu{
-  position:fixed;top:0;right:0;z-index:1002;width:min(700px,56vw);height:100vh;height:100dvh;
+  position:fixed;top:var(--topbar-height);right:0;z-index:1002;
+  width:min(700px,56vw);height:calc(100vh - var(--topbar-height));height:calc(100dvh - var(--topbar-height));
   padding:clamp(28px,6vw,54px) clamp(24px,5vw,42px);overflow-y:auto;
   background:var(--paper);color:var(--ink);border-left:0;
   box-shadow:none;transform:translate3d(105%,0,0);opacity:.94;
   visibility:hidden;transition:transform .58s cubic-bezier(.22,1,.36,1),opacity .32s ease,visibility .58s;
   display:flex;flex-direction:column;will-change:transform;
 }
-.hero-menu.is-open{transform:translate3d(0,0,0);opacity:1;visibility:visible}
 .hero-menu__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:36px;margin-bottom:42px}
 .hero-menu__eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .hero-menu__close{position:relative;flex-shrink:0;display:grid;place-items:center;width:48px;height:48px;margin-left:auto;padding:0;border:0;border-radius:12px;background:transparent;color:var(--muted);font-size:0;cursor:pointer;transition:transform .45s cubic-bezier(.2,.8,.2,1),background .25s ease}.hero-menu__close::before,.hero-menu__close::after{content:"";position:absolute;width:24px;height:4px;border-radius:999px;background:currentColor}.hero-menu__close::before{transform:rotate(45deg)}.hero-menu__close::after{transform:rotate(-45deg)}
@@ -2570,12 +2562,31 @@ body{
   </div>
 </header>
 
+<div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
+<nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
+      <div class="hero-menu__top"><span class="hero-menu__eyebrow">РАЗДЕЛЫ САЙТА</span></div>
+      <div class="hero-menu__links">
+        <a href="#program-all">ПРОГРАММА КУРСА</a>
+        <a href="#skill">НАВЫКИ</a>
+        <a href="#about">О ПРОЕКТЕ</a>
+        <a href="#pricing">ТАРИФЫ</a>
+        <a href="#faq">ВОПРОСЫ И ОТВЕТЫ</a>
+        <a href="#signup">ОСТАВИТЬ ЗАЯВКУ</a>
+      </div>
+      <div class="hero-menu__social" aria-label="Социальные сети">
+        <a class="hero-menu__social-icon" href="https://t.me/maam_ya_sam" target="_blank" rel="noopener noreferrer" aria-label="Telegram, канал Мам, я сам">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M22 2 15 22 11 13 2 9 22 2Z"></path>
+            <path d="M22 2 11 13"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
 <main>
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
-    <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <div class="hero-menu__top"><span class="hero-menu__eyebrow">РАЗДЕЛЫ САЙТА</span></div>
       <div class="hero-menu__links">
         <a href="#program-all">ПРОГРАММА КУРСА</a>
@@ -3885,6 +3896,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const backdrop=document.getElementById('heroMenuBackdrop');
   if(!trigger||!menu||!backdrop)return;
   function openMenu(){
+    const header=document.querySelector('.topbar');
+    if(header) document.documentElement.style.setProperty('--topbar-height',header.getBoundingClientRect().height+'px');
     backdrop.hidden=false;
     menu.inert=false;
     menu.setAttribute('aria-hidden','false');
