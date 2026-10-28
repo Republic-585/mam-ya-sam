@@ -4258,3 +4258,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <style id="hero-math-badge-spacing">
 .hero__badge{margin-top:-12px!important}
 </style>
+<style id="scroll-to-physical-screen-top-fix">
+/* Разрешаем секциям при прокрутке доходить до самого верхнего края экрана, под стеклянную шапку. */
+html{
+  scroll-padding-top:0!important;
+}
+section[id]{
+  scroll-margin-top:0!important;
+}
+</style>
+
