@@ -4302,38 +4302,3 @@ body.menu-trigger-in-header #heroMenuTrigger {
 }
 </style>
 
-<style id="ios26-sticky-header-edge-gap">
-/* iOS Safari: не прижимаем окрашенную sticky-шапку к самому верхнему краю viewport. */
-@supports (top: 12px) {
-  @media (max-width: 760px) {
-    header.topbar {
-      top: 12px !important;
-    }
-  }
-}
-</style>
-
-
-<style id="ios26-safari-header-blur-fix">
-/* iOS Safari 26: отключаем размытие на закреплённой шапке, чтобы Safari корректно обновлял цвет верхней области. */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 760px) {
-    header.topbar {
-      -webkit-backdrop-filter: none !important;
-      backdrop-filter: none !important;
-    }
-  }
-}
-</style>
-
-
-<style id="ios26-fixed-menu-trigger-edge-gap">
-/* iOS Safari 26: не оставляем закреплённую кнопку меню в зоне, по которой Safari определяет цвет верхней полосы. */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 760px) {
-    body.menu-trigger-in-header #heroMenuTrigger {
-      top: calc(12px + env(safe-area-inset-top, 0px)) !important;
-    }
-  }
-}
-</style>
