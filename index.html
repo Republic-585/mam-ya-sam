@@ -4075,3 +4075,14 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   .hero::before{animation:none!important}
 }
 </style>
+
+
+<style id="remove-hero-glow">
+/* Убираем только градиентное пятно, оставляя типографику и остальные изменения первого экрана. */
+.hero::before{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  filter:none!important;
+}
+</style>
