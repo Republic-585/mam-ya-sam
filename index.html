@@ -2576,7 +2576,7 @@ body{
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
-      <div class="hero-menu__top"><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню"></button></div>
+      <div class="hero-menu__top"><span class="hero-menu__eyebrow">РАЗДЕЛЫ САЙТА</span></div>
       <div class="hero-menu__links">
         <a href="#program-all">ПРОГРАММА КУРСА</a>
         <a href="#skill">НАВЫКИ</a>
@@ -3883,18 +3883,15 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const trigger=document.getElementById('heroMenuTrigger');
   const menu=document.getElementById('heroMenu');
   const backdrop=document.getElementById('heroMenuBackdrop');
-  const closeButton=document.getElementById('heroMenuClose');
-  if(!trigger||!menu||!backdrop||!closeButton)return;
-  let previousFocus=null;
+  if(!trigger||!menu||!backdrop)return;
   function openMenu(){
-    previousFocus=document.activeElement;
     backdrop.hidden=false;
     menu.inert=false;
     menu.setAttribute('aria-hidden','false');
     trigger.setAttribute('aria-expanded','true');
+    trigger.setAttribute('aria-label','Закрыть меню');
     document.body.classList.add('hero-menu-open');
     requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
-    closeButton.focus();
   }
   function closeMenu(){
     backdrop.classList.remove('is-open');
@@ -3902,12 +3899,11 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     menu.setAttribute('aria-hidden','true');
     menu.inert=true;
     trigger.setAttribute('aria-expanded','false');
+    trigger.setAttribute('aria-label','Открыть разделы сайта');
     document.body.classList.remove('hero-menu-open');
     window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
-    if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();
   }
-  trigger.addEventListener('click',openMenu);
-  closeButton.addEventListener('click',closeMenu);
+  trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
   menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('is-open'))closeMenu();});
@@ -4292,5 +4288,39 @@ section[id] {
 @media (max-width: 760px) {
   .topbar .topbar__in { padding-right: 14px; }
   .topbar .hero__menu-trigger { margin-left: 8px; }
+}
+</style>
+
+<style id="menu-trigger-transforms-to-close">
+/* Одна кнопка: полоски плавно превращаются в крестик при открытом меню. */
+.topbar .hero__menu-trigger span {
+  position: absolute;
+  right: 7px;
+  transform-origin: center;
+  transition: width .22s ease, transform .28s ease, top .28s ease, opacity .18s ease;
+}
+.topbar .hero__menu-trigger span:first-child {
+  top: 13px;
+  width: 32px;
+}
+.topbar .hero__menu-trigger span:last-child {
+  top: 25px;
+  width: 21px;
+}
+body.hero-menu-open .topbar .hero__menu-trigger span:first-child {
+  top: 19px;
+  width: 27px;
+  transform: rotate(45deg);
+}
+body.hero-menu-open .topbar .hero__menu-trigger span:last-child {
+  top: 19px;
+  width: 27px;
+  transform: rotate(-45deg);
+}
+body.hero-menu-open .topbar .hero__menu-trigger {
+  z-index: 1003;
+  position: fixed !important;
+  top: 6px !important;
+  right: 12px !important;
 }
 </style>
