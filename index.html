@@ -2597,7 +2597,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
-        <p class="hero__lead">Место, где дети и взрослые<br><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="думают">думают</span> вместе.</p>
+        <p class="hero__lead"><span class="hero__lead-first-line">Место, где дети и взрослые</span><br><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</p>
         <a class="hero__cta" href="#program-all" aria-label="Посмотреть программу" onclick="event.preventDefault(); const target=document.getElementById('program-all'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span class="hero__cta-label">ПОСМОТРЕТЬ ПРОГРАММУ</span><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
       </div>
 
@@ -4141,13 +4141,17 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <style id="hero-notion-style-word-pill">
 /* Только анимированная плашка в первом блоке. */
 .hero__lead{
+  width:min(100%,42rem)!important;
   font-family:'SF Pro Condensed',sans-serif!important;
-  font-size:clamp(1.7rem,6.3vw,2.7rem)!important;
+  font-size:clamp(1.15rem,5.5vw,2.7rem)!important;
   font-weight:900!important;
   line-height:1.5!important;
   letter-spacing:-.035em!important;
   color:#000000f2!important;
-  text-wrap:balance!important;
+  text-wrap:normal!important;
+}
+.hero__lead-first-line{
+  white-space:nowrap!important;
 }
 .hero__word-pill{
   display:inline-flex;
