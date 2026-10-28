@@ -3,6 +3,39 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+/* Первое открытие начинается с первого экрана; перезагрузка сохраняет позицию прокрутки. */
+(function () {
+  let savedScrollY = 0;
+  let isReload = false;
+  try {
+    const navigation = performance.getEntriesByType('navigation')[0];
+    isReload = !!navigation && navigation.type === 'reload';
+    if (isReload) savedScrollY = Number(sessionStorage.getItem('mamYaSamScrollY') || 0);
+    else sessionStorage.removeItem('mamYaSamScrollY');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  } catch (_) {}
+
+  if (!isReload) {
+    if (location.hash) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    window.scrollTo(0, 0);
+  } else {
+    window.addEventListener('load', function () {
+      requestAnimationFrame(function () {
+        window.scrollTo(0, savedScrollY);
+        requestAnimationFrame(function () { window.scrollTo(0, savedScrollY); });
+      });
+    }, { once: true });
+  }
+
+  window.addEventListener('pagehide', function () {
+    try { sessionStorage.setItem('mamYaSamScrollY', String(window.scrollY)); } catch (_) {}
+  });
+})();
+</script>
+
 <title>Концепт-курс – Как стать взрослым</title>
 <meta name="description" content="Концепт-курс на основе математики 5-8 класса. Навык самостоятельности через реальные расчёты, практику и челленджи." />
 <meta name="theme-color" content="#FFFFFF" />
