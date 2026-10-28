@@ -4312,3 +4312,16 @@ body.menu-trigger-in-header #heroMenuTrigger {
   }
 }
 </style>
+
+
+<style id="ios26-safari-header-blur-fix">
+/* iOS Safari 26: отключаем размытие на закреплённой шапке, чтобы Safari корректно обновлял цвет верхней области. */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 760px) {
+    header.topbar {
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+  }
+}
+</style>
