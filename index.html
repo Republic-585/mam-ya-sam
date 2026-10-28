@@ -4279,8 +4279,8 @@ section[id]{
 /* iPhone: используем динамическую высоту видимой области с fallback для старых браузеров. */
 html {
   min-height: 100%;
-  scroll-padding-top: 80px;
-  scroll-padding-top: calc(80px + env(safe-area-inset-top, 0px));
+  scroll-padding-top: 80px !important;
+  scroll-padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
 }
 body {
   min-height: 100vh;
