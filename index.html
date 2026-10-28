@@ -3991,6 +3991,46 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 }
 </style>
 
+
+<style id="header-wordmark-skill-scroll-fade">
+/* Плавно скрываем только текст логотипа в шапке начиная с блока навыков. */
+.topbar .logo__text {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .45s ease, visibility .45s ease;
+}
+.topbar.is-wordmark-hidden .logo__text {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar .logo__text { transition: none; }
+}
+</style>
+<script id="header-wordmark-skill-scroll-fade-script">
+(function () {
+  const header = document.querySelector('.topbar');
+  const skill = document.getElementById('skill');
+  if (!header || !skill) return;
+
+  let ticking = false;
+  function updateWordmark() {
+    const hide = skill.getBoundingClientRect().top <= header.getBoundingClientRect().height;
+    header.classList.toggle('is-wordmark-hidden', hide);
+    ticking = false;
+  }
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateWordmark);
+  }
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  updateWordmark();
+})();
+</script>
+
 </body>
 </html>
 
