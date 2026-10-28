@@ -2463,6 +2463,30 @@ html{scroll-behavior:smooth}
   letter-spacing: -.045em;
 }
 
+
+/* Типографика заголовка первого экрана */
+.hero__content { color: #fff !important; }
+.hero__title-main {
+  color: #fff !important;
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(2.4rem, 11.5vw, 7.5rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.065em !important;
+  font-weight: 900;
+  text-align: left;
+  text-wrap: balance;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+}
+.hero__sub {
+  color: #fff !important;
+  font-size: clamp(1.35rem, 6.4vw, 4.1rem) !important;
+  line-height: .94 !important;
+  letter-spacing: -.045em !important;
+}
+.hero__badge, .hero__lead { color: #fff !important; }
+
 </style>
 
 </head>
@@ -2525,7 +2549,6 @@ html{scroll-behavior:smooth}
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <h1>Концепт - курс</h1>
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
