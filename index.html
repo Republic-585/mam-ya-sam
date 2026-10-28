@@ -2532,6 +2532,20 @@ html{scroll-behavior:smooth}
 header.topbar{
   padding-top:env(safe-area-inset-top, 0px);
 }
+/* Полупрозрачный размытый слой заполняет область над шапкой, а не оставляет её белой. */
+header.topbar::before{
+  content:"";
+  position:fixed;
+  z-index:1003;
+  top:0;
+  left:0;
+  right:0;
+  height:max(env(safe-area-inset-top, 0px), 28px);
+  background:rgba(255,255,255,.28);
+  -webkit-backdrop-filter:saturate(180%) blur(22px);
+  backdrop-filter:saturate(180%) blur(22px);
+  pointer-events:none;
+}
 
 /* На iPhone страница занимает всю область экрана; контент прокручивается за стеклянной шапкой. */
 html{
