@@ -3884,6 +3884,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const menu=document.getElementById('heroMenu');
   const backdrop=document.getElementById('heroMenuBackdrop');
   if(!trigger||!menu||!backdrop)return;
+  /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
+  document.body.appendChild(backdrop);
+  document.body.appendChild(menu);
   function openMenu(){
     backdrop.hidden=false;
     menu.inert=false;
