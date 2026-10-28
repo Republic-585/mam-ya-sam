@@ -4031,6 +4031,19 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 })();
 </script>
 
+
+<style id="iphone-dynamic-island-scroll-underlay">
+/* iPhone: продолжаем стеклянную шапку в безопасную область сверху, чтобы прокрутка была видна под вырезом. */
+header.topbar {
+  position: sticky !important;
+  top: 0 !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  background: rgba(255, 255, 255, .68) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(22px) !important;
+  backdrop-filter: saturate(180%) blur(22px) !important;
+}
+</style>
+
 </body>
 </html>
 
