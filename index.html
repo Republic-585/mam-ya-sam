@@ -2531,6 +2531,27 @@ html{scroll-behavior:smooth}
   text-align-last: justify;
 }
 
+
+/* ---------- APPLE-STYLE GLASS HEADER ---------- */
+.topbar{
+  background:rgba(255,255,255,.68);
+  -webkit-backdrop-filter:saturate(180%) blur(22px);
+  backdrop-filter:saturate(180%) blur(22px);
+  border-bottom:1px solid rgba(20,20,20,.10);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset;
+}
+body.menu-trigger-in-header #heroMenuTrigger{
+  background:rgba(255,255,255,.58)!important;
+  -webkit-backdrop-filter:saturate(180%) blur(18px);
+  backdrop-filter:saturate(180%) blur(18px);
+  border:1px solid rgba(20,20,20,.08);
+  box-shadow:0 2px 12px rgba(20,20,20,.06);
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .topbar{background:rgba(255,255,255,.94)}
+  body.menu-trigger-in-header #heroMenuTrigger{background:rgba(255,255,255,.92)!important}
+}
+
 </style>
 
 </head>
