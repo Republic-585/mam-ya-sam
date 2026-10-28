@@ -4286,6 +4286,20 @@ section[id] {
 </style>
 
 
+<style id="sticky-header-logo-text-visibility-fix">
+/* Текст логотипа остаётся видимым в sticky-шапке при прокрутке на iPhone. */
+.topbar .logo__text,
+.topbar .logo__name {
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: var(--ink) !important;
+  flex-shrink: 0;
+}
+.topbar .logo__name {
+  white-space: nowrap;
+}
+</style>
+
 <style id="menu-trigger-always-in-header">
 /* Кнопка меню находится в шапке и доступна при любой прокрутке. */
 .topbar .hero__menu-trigger {
