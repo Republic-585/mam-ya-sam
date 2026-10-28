@@ -4142,9 +4142,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 /* Только анимированная плашка в первом блоке. */
 .hero__lead{
   font-family:'SF Pro Condensed',sans-serif!important;
-  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-size:clamp(1.4rem,5vw,2rem)!important;
   font-weight:900!important;
-  line-height:1.35!important;
+  line-height:1.5!important;
   letter-spacing:-.035em!important;
   color:#000000f2!important;
   text-wrap:balance!important;
@@ -4154,7 +4154,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   align-items:center;
   gap:.32em;
   white-space:nowrap;
-  vertical-align:baseline;
+  vertical-align:.12em;
   padding:.12em .42em .14em .32em;
   margin:0 .04em;
   border-radius:9999px;
@@ -4168,9 +4168,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 .hero__word-pill::before{
   content:'';
   display:inline-block;
-  flex:0 0 .42em;
-  width:.42em;
-  height:.42em;
+  flex:0 0 .52em;
+  width:.52em;
+  height:.52em;
   border-radius:50%;
   background:var(--hero-word-color,#3984F7);
 }
@@ -4189,12 +4189,12 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   if(!pill || pill.dataset.rotationReady) return;
   pill.dataset.rotationReady='true';
   const words=[
-    {text:'думают',color:'#3984F7',bg:'#D9E9FF'},
-    {text:'создают',color:'#20A779',bg:'#CFF3E5'},
-    {text:'строят',color:'#E7A126',bg:'#FFE9B8'},
-    {text:'решают',color:'#8B65D8',bg:'#E8DFFF'},
-    {text:'масштабируют',color:'#E87545',bg:'#FFDCCF'},
-    {text:'созидают',color:'#D94F87',bg:'#F9D5E5'}
+    {text:'Думают',color:'#3984F7',bg:'#D9E9FF'},
+    {text:'Создают',color:'#20A779',bg:'#CFF3E5'},
+    {text:'Строят',color:'#E7A126',bg:'#FFE9B8'},
+    {text:'Решают',color:'#8B65D8',bg:'#E8DFFF'},
+    {text:'Масштабируют',color:'#E87545',bg:'#FFDCCF'},
+    {text:'Созидают',color:'#D94F87',bg:'#F9D5E5'}
   ];
   let index=0;
   function applyWord(){
