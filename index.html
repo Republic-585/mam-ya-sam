@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <script>
 /* Первое открытие начинается с первого экрана; перезагрузка сохраняет позицию прокрутки. */
 (function () {
@@ -2550,6 +2550,21 @@ body.menu-trigger-in-header #heroMenuTrigger{
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .topbar{background:rgba(255,255,255,.94)}
   body.menu-trigger-in-header #heroMenuTrigger{background:rgba(255,255,255,.92)!important}
+}
+
+
+/* На iPhone страница занимает всю область экрана; контент прокручивается за стеклянной шапкой. */
+html{
+  min-height:100%;
+  scroll-padding-top:0;
+}
+body{
+  min-height:100%;
+}
+.topbar{
+  top:0;
+  -webkit-backdrop-filter:saturate(180%) blur(22px);
+  backdrop-filter:saturate(180%) blur(22px);
 }
 
 </style>
