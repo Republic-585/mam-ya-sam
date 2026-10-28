@@ -4275,3 +4275,29 @@ section[id]{
 }
 </style>
 
+<style id="iphone-viewport-safe-area-fix">
+/* iPhone: используем динамическую высоту видимой области с fallback для старых браузеров. */
+html {
+  min-height: 100%;
+  scroll-padding-top: 80px;
+  scroll-padding-top: calc(80px + env(safe-area-inset-top, 0px));
+}
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+/* Якоря учитывают sticky-шапку; не дублируем отступ через scroll-margin. */
+section[id] {
+  scroll-margin-top: 0 !important;
+}
+/* Полноэкранное меню учитывает вырез и нижнюю системную область iPhone. */
+.hero-menu {
+  height: 100vh;
+  height: 100dvh;
+  padding-top: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-bottom, 0px));
+}
+body.menu-trigger-in-header #heroMenuTrigger {
+  top: calc(4px + env(safe-area-inset-top, 0px)) !important;
+}
+</style>
