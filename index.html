@@ -4139,7 +4139,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <style id="hero-notion-style-word-pill">
-/* Только текст и анимированная плашка в первом блоке. */
+/* Только анимированная плашка в первом блоке. */
 .hero__lead{
   font-family:'SF Pro Condensed',sans-serif!important;
   font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
@@ -4150,18 +4150,29 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   text-wrap:balance!important;
 }
 .hero__word-pill{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:.32em;
   white-space:nowrap;
   vertical-align:baseline;
-  padding:.04em .34em .09em;
+  padding:.12em .42em .14em .32em;
   margin:0 .04em;
   border-radius:9999px;
-  background:#f2f9ff;
-  color:#0075de;
+  background:#3984F7;
+  color:#000!important;
   font:inherit;
   letter-spacing:inherit;
   line-height:1.15;
   transition:background-color .25s ease,color .25s ease;
+}
+.hero__word-pill::before{
+  content:'';
+  display:inline-block;
+  flex:0 0 .42em;
+  width:.42em;
+  height:.42em;
+  border-radius:50%;
+  background:var(--hero-word-color,#3984F7);
 }
 .hero__word-pill.is-changing{animation:heroWordPillSwap .36s cubic-bezier(.2,.7,.25,1) both}
 @keyframes heroWordPillSwap{
@@ -4177,13 +4188,28 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const pill=document.getElementById('hero-rotating-verb-pill');
   if(!pill || pill.dataset.rotationReady) return;
   pill.dataset.rotationReady='true';
-  const words=['думают','создают','строят','решают','масштабируют','созидают'];
+  const words=[
+    {text:'думают',color:'#3984F7',bg:'#D9E9FF'},
+    {text:'создают',color:'#20A779',bg:'#CFF3E5'},
+    {text:'строят',color:'#E7A126',bg:'#FFE9B8'},
+    {text:'решают',color:'#8B65D8',bg:'#E8DFFF'},
+    {text:'масштабируют',color:'#E87545',bg:'#FFDCCF'},
+    {text:'созидают',color:'#D94F87',bg:'#F9D5E5'}
+  ];
   let index=0;
+  function applyWord(){
+    const word=words[index];
+    pill.textContent=word.text;
+    pill.style.backgroundColor=word.bg;
+    pill.style.setProperty('--hero-word-color',word.color);
+    pill.style.color='#000000';
+    pill.setAttribute('aria-label',word.text);
+  }
+  applyWord();
   window.setInterval(function(){
     index=(index+1)%words.length;
     pill.classList.remove('is-changing');
-    pill.textContent=words[index];
-    pill.setAttribute('aria-label',words[index]);
+    applyWord();
     void pill.offsetWidth;
     pill.classList.add('is-changing');
   },2200);
