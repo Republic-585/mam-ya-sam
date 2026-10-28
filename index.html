@@ -2542,6 +2542,18 @@ body{
   backdrop-filter:saturate(180%) blur(22px);
 }
 
+
+/* Убираем белую полосу над шапкой на iPhone, заполняя верхнюю safe-area фоном шапки. */
+header.topbar{position:sticky!important;top:0!important}
+header.topbar::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  top:calc(-1 * env(safe-area-inset-top, 0px));
+  height:env(safe-area-inset-top, 0px);
+  background:inherit;
+  pointer-events:none;
+}
 </style>
 
 </head>
