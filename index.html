@@ -2547,10 +2547,10 @@ body{
 header.topbar{position:sticky!important;top:0!important}
 header.topbar::before{
   content:"";
-  position:absolute;
-  left:0;right:0;
-  top:calc(-1 * max(env(safe-area-inset-top, 0px), 24px));
-  height:max(env(safe-area-inset-top, 0px), 24px);
+  position:fixed;
+  z-index:-1;
+  left:0;right:0;top:0;
+  height:max(env(safe-area-inset-top, 0px), 28px);
   background:rgba(255,255,255,.68);
   -webkit-backdrop-filter:saturate(180%) blur(22px);
   backdrop-filter:saturate(180%) blur(22px);
