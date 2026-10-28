@@ -4336,8 +4336,9 @@ body.hero-menu-open .topbar {
 }
 body.hero-menu-open .topbar .hero__menu-trigger {
   z-index: 1005;
-  position: fixed !important;
-  top: 6px !important;
-  right: 12px !important;
+  /* Оставляем кнопку в потоке шапки: fixed убирал её из flex-разметки и менял высоту шапки. */
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
 }
 </style>
