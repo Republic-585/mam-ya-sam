@@ -367,13 +367,14 @@ body.hero-menu-open{overflow:hidden}
   transform:rotate(-1.5deg);
 }
 .hero__lead{
-  width:min(100%, 680px);
+  width:100%;
+  max-width:900px;
   margin:0 auto;
   font-family:'SF Pro Condensed',sans-serif;
-  font-size:clamp(1rem,2.2vw,1.22rem);
+  font-size:clamp(1.2rem,3vw,1.65rem);
   font-weight:600;
-  line-height:1.65;
-  letter-spacing:-.015em;
+  line-height:1.4;
+  letter-spacing:-.025em;
   text-transform:none;
   text-wrap:balance;
   color:#fff;
@@ -4183,6 +4184,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   background:#3984F7;
   color:#000!important;
   font:inherit;
+  font-size:.88em;
+  font-weight:400;
   letter-spacing:inherit;
   line-height:1.15;
   transition:background-color .25s ease,color .25s ease;
