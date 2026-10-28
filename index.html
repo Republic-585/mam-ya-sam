@@ -2549,9 +2549,11 @@ header.topbar::before{
   content:"";
   position:absolute;
   left:0;right:0;
-  top:calc(-1 * env(safe-area-inset-top, 0px));
-  height:env(safe-area-inset-top, 0px);
-  background:inherit;
+  top:calc(-1 * max(env(safe-area-inset-top, 0px), 24px));
+  height:max(env(safe-area-inset-top, 0px), 24px);
+  background:rgba(255,255,255,.68);
+  -webkit-backdrop-filter:saturate(180%) blur(22px);
+  backdrop-filter:saturate(180%) blur(22px);
   pointer-events:none;
 }
 </style>
