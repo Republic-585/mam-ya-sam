@@ -225,13 +225,12 @@ select:focus-visible{
 .hero__menu-trigger span:first-child{width:32px;opacity:1}
 .hero__menu-trigger span:last-child{width:21px;opacity:.72}
 .hero__menu-trigger:hover span:last-child{width:32px}
-/* Кнопка меню в шапке видна только после первого экрана. */
-.topbar__in > #heroMenuTrigger{display:none}
-body.menu-trigger-in-header .topbar__in > #heroMenuTrigger{
-  position:absolute !important;
-  top:0 !important;
+/* Кнопка меню закрепляется поверх шапки после первого экрана. */
+body.menu-trigger-in-header #heroMenuTrigger{
+  position:fixed !important;
+  top:4px !important;
   right:12px !important;
-  z-index:60 !important;
+  z-index:999 !important;
   display:flex !important;
   visibility:visible !important;
   opacity:1 !important;
@@ -239,7 +238,7 @@ body.menu-trigger-in-header .topbar__in > #heroMenuTrigger{
   background:var(--paper) !important;
   border-radius:8px;
 }
-body.menu-trigger-in-header .topbar__in > #heroMenuTrigger span{
+body.menu-trigger-in-header #heroMenuTrigger span{
   background:var(--ink) !important;
   opacity:1 !important;
 }
@@ -2418,7 +2417,6 @@ html{scroll-behavior:smooth}
 <header class="topbar">
   <div class="topbar__in">
     <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span><span class="logo__text"><span class="logo__name">МАМ, Я САМ!</span></span></a>
-    <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     
     <div class="topbar__right">
       <nav class="topbar__nav" aria-label="Основная навигация">
@@ -2440,6 +2438,7 @@ html{scroll-behavior:smooth}
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
+    <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <div class="hero-menu__top"><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню"></button></div>
