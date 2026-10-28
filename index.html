@@ -2597,7 +2597,7 @@ html{scroll-behavior:smooth}
         <div class="hero__title-main">Финансовая<br>грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
-        <p class="hero__lead">Научим ребенка управлять карманными деньгами и ставить цели за месяц</p>
+        <p class="hero__lead">Место, где дети и взрослые <span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="думают">думают</span> вместе.</p>
         <a class="hero__cta" href="#program-all" aria-label="Посмотреть программу" onclick="event.preventDefault(); const target=document.getElementById('program-all'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span class="hero__cta-label">ПОСМОТРЕТЬ ПРОГРАММУ</span><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
       </div>
 
@@ -4136,3 +4136,56 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
+
+
+<style id="hero-notion-style-word-pill">
+/* Только текст и анимированная плашка в первом блоке. */
+.hero__lead{
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:900!important;
+  line-height:1.35!important;
+  letter-spacing:-.035em!important;
+  color:#000000f2!important;
+  text-wrap:balance!important;
+}
+.hero__word-pill{
+  display:inline-block;
+  white-space:nowrap;
+  vertical-align:baseline;
+  padding:.04em .34em .09em;
+  margin:0 .04em;
+  border-radius:9999px;
+  background:#f2f9ff;
+  color:#0075de;
+  font:inherit;
+  letter-spacing:inherit;
+  line-height:1.15;
+  transition:background-color .25s ease,color .25s ease;
+}
+.hero__word-pill.is-changing{animation:heroWordPillSwap .36s cubic-bezier(.2,.7,.25,1) both}
+@keyframes heroWordPillSwap{
+  from{opacity:0;transform:translateY(.22em)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero__word-pill.is-changing{animation:none}
+}
+</style>
+<script id="hero-notion-word-rotation">
+(function(){
+  const pill=document.getElementById('hero-rotating-verb-pill');
+  if(!pill || pill.dataset.rotationReady) return;
+  pill.dataset.rotationReady='true';
+  const words=['думают','создают','строят','решают','масштабируют','созидают'];
+  let index=0;
+  window.setInterval(function(){
+    index=(index+1)%words.length;
+    pill.classList.remove('is-changing');
+    pill.textContent=words[index];
+    pill.setAttribute('aria-label',words[index]);
+    void pill.offsetWidth;
+    pill.classList.add('is-changing');
+  },2200);
+})();
+</script>
