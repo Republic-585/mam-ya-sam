@@ -4301,3 +4301,14 @@ body.menu-trigger-in-header #heroMenuTrigger {
   top: calc(4px + env(safe-area-inset-top, 0px)) !important;
 }
 </style>
+
+<style id="ios26-sticky-header-edge-gap">
+/* iOS Safari: не прижимаем окрашенную sticky-шапку к самому верхнему краю viewport. */
+@supports (top: 12px) {
+  @media (max-width: 760px) {
+    header.topbar {
+      top: 12px !important;
+    }
+  }
+}
+</style>
