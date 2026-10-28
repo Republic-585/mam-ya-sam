@@ -258,24 +258,6 @@ select:focus-visible{
 .hero__menu-trigger span:first-child{width:32px;opacity:1}
 .hero__menu-trigger span:last-child{width:21px;opacity:.72}
 .hero__menu-trigger:hover span:last-child{width:32px}
-/* Кнопка меню закрепляется поверх шапки после первого экрана. */
-body.menu-trigger-in-header #heroMenuTrigger{
-  position:fixed !important;
-  top:4px !important;
-  right:12px !important;
-  z-index:999 !important;
-  display:flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  pointer-events:auto !important;
-  background:var(--paper) !important;
-  border-radius:8px;
-}
-body.menu-trigger-in-header #heroMenuTrigger span{
-  background:var(--ink) !important;
-  opacity:1 !important;
-}
-
 .hero__menu-trigger:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:6px}
 .hero-menu-backdrop{
   position:fixed;inset:0;z-index:1001;background:rgba(8,13,32,.48);
@@ -2540,13 +2522,6 @@ html{scroll-behavior:smooth}
   border-bottom:1px solid rgba(20,20,20,.10);
   box-shadow:0 1px 0 rgba(255,255,255,.35) inset;
 }
-body.menu-trigger-in-header #heroMenuTrigger{
-  background:rgba(255,255,255,.58)!important;
-  -webkit-backdrop-filter:saturate(180%) blur(18px);
-  backdrop-filter:saturate(180%) blur(18px);
-  border:1px solid rgba(20,20,20,.08);
-  box-shadow:0 2px 12px rgba(20,20,20,.06);
-}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .topbar{background:rgba(255,255,255,.94)}
   body.menu-trigger-in-header #heroMenuTrigger{background:rgba(255,255,255,.92)!important}
@@ -2587,6 +2562,7 @@ body{
         <a href="#signup">Записаться</a>
       </nav>
     </div>
+    <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <!-- Полоска прогресса прокрутки -->
     <div class="topbar__progress" aria-hidden="true">
       <div class="topbar__progress-bar" id="progressBar"></div>
@@ -2598,7 +2574,6 @@ body{
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
-    <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <div class="hero-menu__top"><button class="hero-menu__close" id="heroMenuClose" type="button" aria-label="Закрыть меню"></button></div>
@@ -3931,16 +3906,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
     if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();
   }
-  const secondSection=document.getElementById('skill');
-  const topbar=document.querySelector('.topbar');
-  function syncMenuTrigger(){
-    if(!secondSection||!topbar)return;
-    const showInHeader = secondSection.getBoundingClientRect().top <= topbar.getBoundingClientRect().bottom;
-    document.body.classList.toggle('menu-trigger-in-header',showInHeader);
-  }
-  window.addEventListener('scroll',syncMenuTrigger,{passive:true});
-  window.addEventListener('resize',syncMenuTrigger);
-  requestAnimationFrame(syncMenuTrigger);
   trigger.addEventListener('click',openMenu);
   closeButton.addEventListener('click',closeMenu);
   backdrop.addEventListener('click',closeMenu);
@@ -4297,8 +4262,35 @@ section[id] {
   padding-top: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-top, 0px));
   padding-bottom: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-bottom, 0px));
 }
-body.menu-trigger-in-header #heroMenuTrigger {
-  top: calc(4px + env(safe-area-inset-top, 0px)) !important;
-}
 </style>
 
+
+<style id="menu-trigger-always-in-header">
+/* Кнопка меню находится в шапке и доступна при любой прокрутке. */
+.topbar .hero__menu-trigger {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+  flex: 0 0 42px;
+  width: 48px;
+  height: 42px;
+  margin-left: 14px;
+  z-index: 60;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 6px;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.topbar .hero__menu-trigger span {
+  background: var(--ink) !important;
+  opacity: 1 !important;
+}
+.topbar .topbar__in { padding-right: 22px; }
+@media (max-width: 760px) {
+  .topbar .topbar__in { padding-right: 14px; }
+  .topbar .hero__menu-trigger { margin-left: 8px; }
+}
+</style>
