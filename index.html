@@ -2498,6 +2498,39 @@ html{scroll-behavior:smooth}
   text-transform: uppercase;
 }
 
+
+/* Обе строки заголовка выровнены по одной ширине */
+.hero__title-main { 
+  width: 100%;
+  font-size: clamp(2.4rem, 11.5vw, 7.5rem) !important;
+}
+.hero__title-main { 
+  font-stretch: condensed;
+}
+.hero__title-main {
+  letter-spacing: -.065em !important;
+}
+.hero__title-main {
+  text-align: left;
+}
+.hero__title-main {
+  word-spacing: 0;
+}
+.hero__title-main {
+  display: block;
+}
+.hero__title-main {
+  line-height: .88 !important;
+}
+.hero__title-main {
+  transform: none;
+}
+.hero__title-main {
+  /* Растягиваем вторую строку ровно до длины первой */
+  text-align: justify;
+  text-align-last: justify;
+}
+
 </style>
 
 </head>
