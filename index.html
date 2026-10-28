@@ -2528,6 +2528,11 @@ html{scroll-behavior:smooth}
 }
 
 
+/* Safe Area: учитываем Dynamic Island и вырез iPhone в шапке. */
+header.topbar{
+  padding-top:env(safe-area-inset-top, 0px);
+}
+
 /* На iPhone страница занимает всю область экрана; контент прокручивается за стеклянной шапкой. */
 html{
   min-height:100%;
