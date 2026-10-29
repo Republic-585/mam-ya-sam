@@ -4033,7 +4033,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <style id="iphone-dynamic-island-scroll-underlay">
-/* Компактная шапка: без верхней компенсации safe-area, минимальная высота и отступы. */
+/* Компактная шапка с едва заметным эффектом стекла. */
 header.topbar {
   position: sticky !important;
   top: 0 !important;
@@ -4049,11 +4049,11 @@ header.topbar {
 header.topbar > .topbar__in {
   min-height: 0 !important;
   padding: 2px 14px !important;
-  background: rgba(251, 251, 253, .72) !important;
-  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
-  backdrop-filter: saturate(180%) blur(20px) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, .055);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .22) inset;
+  background: rgba(251, 251, 253, .94) !important;
+  -webkit-backdrop-filter: saturate(105%) blur(3px) !important;
+  backdrop-filter: saturate(105%) blur(3px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .018);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset;
   pointer-events: auto !important;
 }
 header.topbar > .topbar__in > *,
