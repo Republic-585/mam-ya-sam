@@ -3153,32 +3153,32 @@ html body header.topbar .hero__menu-trigger{
 
 
 <style id="floating-bottom-header-godly-style">
-/* Floating, rounded glass navigation inspired by the supplied Godly Design screenshots. */
+/* Detached floating glass island navigation. */
 html body header.topbar{
   position:fixed!important;
   top:auto!important;
-  bottom:0!important;
-  left:0!important;
-  right:0!important;
+  bottom:calc(12px + env(safe-area-inset-bottom, 0px))!important;
+  left:14px!important;
+  right:14px!important;
   width:auto!important;
-  max-width:none!important;
-  margin:0!important;
+  max-width:720px!important;
+  margin:0 auto!important;
   padding:0!important;
   overflow:visible!important;
   z-index:1004!important;
-  background:rgba(255,255,255,.76)!important;
+  background:rgba(255,255,255,.78)!important;
   -webkit-backdrop-filter:saturate(165%) blur(24px)!important;
   backdrop-filter:saturate(165%) blur(24px)!important;
   border:1px solid rgba(25,25,25,.15)!important;
-  border-radius:22px 22px 0 0!important;
-  box-shadow:0 -6px 28px rgba(0,0,0,.12),0 -1px 8px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.75)!important;
+  border-radius:26px!important;
+  box-shadow:0 6px 28px rgba(0,0,0,.14),0 1px 8px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.78)!important;
 }
 html body header.topbar > .topbar__in{
   width:100%!important;
   max-width:none!important;
   min-height:48px!important;
   padding:5px 54px 5px 13px!important;
-  border-radius:22px 22px 0 0!important;
+  border-radius:26px!important;
   background:transparent!important;
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
@@ -3227,7 +3227,12 @@ html body header.topbar .topbar__progress{
 }
 html body header.topbar .topbar__progress-bar{border-radius:999px!important}
 @media(max-width:760px){
-  html body header.topbar{left:0!important;right:0!important;bottom:0!important}
+  html body header.topbar{
+    left:12px!important;
+    right:12px!important;
+    bottom:calc(10px + env(safe-area-inset-bottom, 0px))!important;
+    max-width:none!important;
+  }
   html body header.topbar > .topbar__in{min-height:46px!important;padding:4px 48px 4px 11px!important}
   html body header.topbar .topbar__nav{display:none!important}
 }
