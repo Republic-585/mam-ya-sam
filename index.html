@@ -4844,5 +4844,41 @@ html body.hero-menu-open header.topbar .hero__menu-trigger span {
 }
 </style>
 
+
+<style id="hero-menu-modal-window">
+/* Меню появляется отдельным окном поверх страницы, без бокового выезда. */
+html body .hero-menu {
+  top:50%!important;
+  right:auto!important;
+  left:50%!important;
+  width:min(680px,calc(100vw - 32px))!important;
+  height:auto!important;
+  max-height:calc(100dvh - 40px)!important;
+  padding:clamp(28px,5vw,48px)!important;
+  border:1px solid rgba(255,255,255,.55)!important;
+  border-radius:28px!important;
+  box-shadow:0 24px 80px rgba(8,13,32,.24)!important;
+  transform:translate3d(-50%,-46%,0) scale(.96)!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  transition:transform .48s cubic-bezier(.22,1,.36,1),opacity .38s ease,visibility .48s!important;
+  will-change:transform,opacity!important;
+}
+html body .hero-menu.is-open {
+  transform:translate3d(-50%,-50%,0) scale(1)!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+@media(max-width:640px) {
+  html body .hero-menu {
+    width:calc(100vw - 28px)!important;
+    max-height:calc(100dvh - 32px)!important;
+    padding:28px 24px!important;
+    border-radius:24px!important;
+  }
+  html body .hero-menu__links { margin-top:24px!important; }
+}
+</style>
+
 </body>
 </html>
