@@ -4084,6 +4084,42 @@ header.topbar .hero__menu-trigger {
 }
 </style>
 
+
+<style id="hero-heading-final-override">
+/* Финальная типографика заголовка первого экрана: одинаковое начертание и левый край. */
+.hero__content{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.hero__course-label,
+.hero__title-main,
+.hero__sub,
+.hero__badge{
+  width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:400!important;
+  text-align:left!important;
+  text-align-last:left!important;
+  letter-spacing:0!important;
+  word-spacing:normal!important;
+  text-wrap:normal!important;
+}
+.hero__title-main{
+  line-height:1.08!important;
+  font-size:clamp(2.15rem,9.2vw,5rem)!important;
+}
+.hero__sub{
+  line-height:1.12!important;
+  font-size:clamp(1.45rem,5.7vw,3rem)!important;
+}
+.hero__badge{
+  line-height:1.12!important;
+  font-size:clamp(.95rem,3.2vw,1.15rem)!important;
+}
+</style>
+
 </body>
 </html>
 
