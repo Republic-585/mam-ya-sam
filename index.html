@@ -4466,7 +4466,7 @@ body.hero-menu-open .topbar .hero__menu-trigger {
   border-radius:50%; transform:translate3d(calc(-50% + var(--drag-x,0px)),var(--drag-y,0px),0) scale(var(--shape,1));
   transform-origin:center; will-change:transform,border-radius,filter;
   box-shadow:none!important; cursor:grab; pointer-events:auto; touch-action:pan-y;
-  animation:heroSphereLiving var(--float-time,8s) ease-in-out infinite;
+  animation:heroSphereLiving var(--float-time,8s) ease-in-out infinite,heroSphereDrift calc(var(--float-time,8s) * 1.17) ease-in-out infinite alternate;
   transition:filter .25s ease;
 }
 .hero-kinetic__ball:active { cursor:grabbing; filter:brightness(1.08) saturate(1.12); }
@@ -4497,6 +4497,7 @@ body.hero-menu-open .topbar .hero__menu-trigger {
   28% { border-radius:47% 53% 54% 46% / 48% 54% 46% 52%; }
   62% { border-radius:53% 47% 45% 55% / 55% 45% 55% 45%; }
 }
+@keyframes heroSphereDrift { 0% { translate:0 0; } 33% { translate:-5px 4px; } 68% { translate:4px -6px; } 100% { translate:-2px 3px; } }
 @media(max-width:600px) {
   .hero-kinetic__thread { width:175vw;left:18%;top:3%;height:170px;transform:rotate(12deg); }
   .hero-kinetic__ball--1 { width:51px;height:51px;top:5%;left:calc(50% + 63px); }
@@ -4507,7 +4508,7 @@ body.hero-menu-open .topbar .hero__menu-trigger {
   .hero-kinetic__ball--6 { width:27px;height:27px;top:1%;left:calc(50% + 235px); }
   .hero-kinetic__ball--7 { width:13px;height:13px;top:24%;left:calc(50% + 256px); }
 }
-@media(prefers-reduced-motion:reduce) { .hero-kinetic__ball { animation:none!important; } }
+@media(prefers-reduced-motion:reduce) { .hero-kinetic__ball { animation:none!important; translate:none!important; } }
 </style>
 <script id="hero-spheres-touch-interaction">
 (function(){
