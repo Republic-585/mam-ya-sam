@@ -4449,7 +4449,7 @@ body.hero-menu-open .topbar .hero__menu-trigger {
 
 
 <style id="hero-organic-aura">
-/* Мягкая органическая форма обрамляет первый экран, не перекрывая текст. */
+/* Авторская многоцветная абстракция: мягкие текучие слои вокруг первого экрана. */
 .hero {
   position: relative !important;
   isolation: isolate !important;
@@ -4460,72 +4460,129 @@ body.hero-menu-open .topbar .hero__menu-trigger {
   position: absolute;
   z-index: 0;
   pointer-events: none;
-  inset: -7% -12% -5%;
+  inset: -13% -14% -8%;
   overflow: hidden;
   contain: paint;
 }
+.hero__aura::before,
+.hero__aura::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.hero__aura::before {
+  width: 124%;
+  height: 84%;
+  left: -12%;
+  top: 4%;
+  border-radius: 42% 58% 37% 63% / 50% 39% 61% 50%;
+  background:
+    radial-gradient(ellipse at 20% 40%, rgba(255,190,163,.92) 0%, transparent 37%),
+    radial-gradient(ellipse at 43% 23%, rgba(255,208,231,.90) 0%, transparent 40%),
+    radial-gradient(ellipse at 69% 42%, rgba(190,205,255,.94) 0%, transparent 42%),
+    radial-gradient(ellipse at 79% 74%, rgba(183,226,255,.86) 0%, transparent 38%),
+    radial-gradient(ellipse at 43% 82%, rgba(211,195,255,.76) 0%, transparent 39%);
+  filter: blur(34px) saturate(125%);
+  opacity: .92;
+  animation: heroAuraFlow 22s cubic-bezier(.45,0,.55,1) infinite alternate;
+}
+.hero__aura::after {
+  width: 102%;
+  height: 70%;
+  left: 2%;
+  top: 21%;
+  border-radius: 56% 44% 63% 37% / 41% 55% 45% 59%;
+  background:
+    linear-gradient(118deg, transparent 12%, rgba(255,221,155,.30) 25%, rgba(255,180,199,.55) 39%, rgba(188,181,255,.54) 55%, rgba(153,213,255,.44) 68%, transparent 84%);
+  filter: blur(25px);
+  opacity: .75;
+  transform: rotate(-10deg);
+  animation: heroAuraRibbon 28s ease-in-out infinite alternate;
+}
 .hero__aura-shape {
   position: absolute;
-  width: min(112vw, 1120px);
-  height: clamp(390px, 78vh, 820px);
+  width: min(105vw, 1100px);
+  height: clamp(330px, 66vh, 700px);
   left: 50%;
-  top: 46%;
+  top: 49%;
   transform: translate(-50%, -50%) rotate(-8deg);
-  border-radius: 39% 61% 58% 42% / 43% 38% 62% 57%;
+  border-radius: 43% 57% 61% 39% / 47% 36% 64% 53%;
   background:
-    radial-gradient(ellipse at 28% 28%, rgba(204,229,255,.92), transparent 47%),
-    radial-gradient(ellipse at 74% 35%, rgba(220,211,255,.78), transparent 48%),
-    radial-gradient(ellipse at 63% 76%, rgba(255,224,239,.74), transparent 45%),
-    radial-gradient(ellipse at 26% 78%, rgba(255,235,177,.60), transparent 43%);
-  filter: blur(25px) saturate(108%);
-  opacity: .9;
-  animation: heroAuraBreathe 17s ease-in-out infinite alternate;
+    radial-gradient(ellipse at 28% 24%, rgba(255,255,255,.56), transparent 38%),
+    radial-gradient(ellipse at 72% 72%, rgba(255,255,255,.34), transparent 36%);
+  border: 1px solid rgba(255,255,255,.62);
+  box-shadow: inset 0 0 70px rgba(255,255,255,.24), 0 0 0 1px rgba(174,190,239,.08);
+  filter: blur(1px);
+  animation: heroAuraBreathe 19s ease-in-out infinite alternate;
 }
 .hero__aura-ribbon {
   position: absolute;
-  width: min(106vw, 1080px);
-  height: clamp(320px, 62vh, 680px);
+  width: min(110vw, 1140px);
+  height: clamp(270px, 54vh, 580px);
   left: 50%;
-  top: 49%;
-  transform: translate(-50%, -50%) rotate(12deg);
-  border: 1px solid rgba(154,177,231,.23);
-  border-radius: 46% 54% 64% 36% / 51% 39% 61% 49%;
+  top: 52%;
+  transform: translate(-50%, -50%) rotate(13deg);
+  border: 1px solid rgba(255,255,255,.68);
+  border-radius: 49% 51% 38% 62% / 54% 43% 57% 46%;
   box-shadow:
-    0 0 0 18px rgba(205,220,255,.055),
-    0 0 0 38px rgba(205,220,255,.04),
-    inset 0 0 42px rgba(255,255,255,.34);
-  animation: heroAuraOrbit 24s ease-in-out infinite alternate;
+    0 0 0 13px rgba(255,255,255,.20),
+    0 0 0 28px rgba(178,195,255,.12),
+    0 0 0 48px rgba(255,204,223,.09),
+    inset 0 0 52px rgba(255,255,255,.48);
+  animation: heroAuraOrbit 25s ease-in-out infinite alternate;
 }
 .hero__in, .hero__cta {
   position: relative !important;
   z-index: 1 !important;
 }
+@keyframes heroAuraFlow {
+  0% { transform: translate3d(-2%, -2%, 0) rotate(-5deg) scale(1); border-radius: 42% 58% 37% 63% / 50% 39% 61% 50%; }
+  50% { border-radius: 58% 42% 53% 47% / 38% 59% 41% 62%; }
+  100% { transform: translate3d(2%, 3%, 0) rotate(5deg) scale(1.06); border-radius: 47% 53% 64% 36% / 58% 42% 58% 42%; }
+}
+@keyframes heroAuraRibbon {
+  0% { transform: translate3d(-2%, 1%, 0) rotate(-10deg) scale(.98); }
+  100% { transform: translate3d(2%, -2%, 0) rotate(7deg) scale(1.05); }
+}
 @keyframes heroAuraBreathe {
-  0% { border-radius: 39% 61% 58% 42% / 43% 38% 62% 57%; transform: translate(-51%,-49%) rotate(-8deg) scale(.97); }
-  50% { border-radius: 54% 46% 43% 57% / 38% 56% 44% 62%; }
-  100% { border-radius: 45% 55% 62% 38% / 55% 43% 57% 45%; transform: translate(-49%,-51%) rotate(5deg) scale(1.04); }
+  0% { transform: translate(-51%,-49%) rotate(-8deg) scale(.97); border-radius: 43% 57% 61% 39% / 47% 36% 64% 53%; }
+  100% { transform: translate(-49%,-51%) rotate(5deg) scale(1.04); border-radius: 57% 43% 44% 56% / 39% 57% 43% 61%; }
 }
 @keyframes heroAuraOrbit {
-  0% { transform: translate(-50%,-50%) rotate(12deg) scale(.98); border-radius: 46% 54% 64% 36% / 51% 39% 61% 49%; }
-  100% { transform: translate(-50%,-50%) rotate(-7deg) scale(1.035); border-radius: 58% 42% 45% 55% / 40% 58% 42% 60%; }
+  0% { transform: translate(-50%,-50%) rotate(13deg) scale(.98); border-radius: 49% 51% 38% 62% / 54% 43% 57% 46%; }
+  100% { transform: translate(-50%,-50%) rotate(-7deg) scale(1.035); border-radius: 58% 42% 54% 46% / 40% 58% 42% 60%; }
 }
 @media (max-width: 600px) {
-  .hero__aura { inset: -3% -26% -2%; }
+  .hero__aura { inset: -8% -30% -4%; }
+  .hero__aura::before {
+    width: 150%;
+    height: 72%;
+    left: -24%;
+    top: 10%;
+    filter: blur(27px) saturate(120%);
+    opacity: .88;
+  }
+  .hero__aura::after {
+    width: 128%;
+    height: 55%;
+    left: -14%;
+    top: 24%;
+    filter: blur(22px);
+  }
   .hero__aura-shape {
-    width: 138vw;
-    height: 58vh;
-    top: 45%;
-    filter: blur(20px) saturate(106%);
-    opacity: .86;
+    width: 128vw;
+    height: 50vh;
+    top: 47%;
   }
   .hero__aura-ribbon {
-    width: 128vw;
-    height: 47vh;
-    top: 47%;
-    box-shadow: 0 0 0 12px rgba(205,220,255,.05), 0 0 0 26px rgba(205,220,255,.035), inset 0 0 28px rgba(255,255,255,.3);
+    width: 138vw;
+    height: 40vh;
+    top: 49%;
+    box-shadow: 0 0 0 10px rgba(255,255,255,.18), 0 0 0 23px rgba(178,195,255,.10), 0 0 0 38px rgba(255,204,223,.07), inset 0 0 32px rgba(255,255,255,.42);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero__aura-shape, .hero__aura-ribbon { animation: none !important; }
+  .hero__aura::before, .hero__aura::after, .hero__aura-shape, .hero__aura-ribbon { animation: none !important; }
 }
 </style>
