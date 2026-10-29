@@ -3070,6 +3070,34 @@ body.hero-menu-open .topbar .hero__menu-trigger {
 }
 </style>
 
+
+<style id="ios-edge-to-edge-scroll">
+/* iPhone: прокрутка контента проходит под Dynamic Island и вырезом, без отдельной белой полосы сверху. */
+html {
+  width: 100%;
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+header.topbar {
+  top: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+header.topbar > .topbar__in {
+  padding-top: max(2px, env(safe-area-inset-top, 0px)) !important;
+  background: rgba(255, 255, 255, .72) !important;
+  -webkit-backdrop-filter: saturate(150%) blur(18px) !important;
+  backdrop-filter: saturate(150%) blur(18px) !important;
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
