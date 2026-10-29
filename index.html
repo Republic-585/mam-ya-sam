@@ -4265,6 +4265,9 @@ header.topbar .hero__menu-trigger {
   display:inline-flex;
   align-items:center;
   gap:.32em;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   white-space:nowrap;
   vertical-align:.12em;
   padding:.12em .42em .14em .32em;
@@ -4288,7 +4291,27 @@ header.topbar .hero__menu-trigger {
   border-radius:50%;
   background:var(--hero-word-color,#3984F7);
 }
+.hero__word-pill::after{
+  content:'';
+  position:absolute;
+  z-index:2;
+  top:-35%;
+  bottom:-35%;
+  left:0;
+  width:42%;
+  pointer-events:none;
+  opacity:0;
+  transform:translateX(-160%) skewX(-20deg);
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.18) 28%,rgba(255,255,255,.88) 50%,rgba(255,255,255,.28) 72%,transparent 100%);
+}
 .hero__word-pill.is-changing{animation:heroWordPillSwap .36s cubic-bezier(.2,.7,.25,1) both}
+.hero__word-pill.is-changing::after{animation:heroPillGlassShine .72s cubic-bezier(.18,.65,.3,1) both}
+@keyframes heroPillGlassShine{
+  0%{opacity:0;transform:translateX(-160%) skewX(-20deg)}
+  15%{opacity:.9}
+  75%{opacity:.75}
+  100%{opacity:0;transform:translateX(360%) skewX(-20deg)}
+}
 @keyframes heroWordPillSwap{
   from{opacity:0}
   to{opacity:1}
