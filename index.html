@@ -4791,5 +4791,37 @@ html body .back-to-top{
 }
 </style>
 
+
+<style id="menu-trigger-cross-final-fix">
+/* Восстанавливаем плавное превращение двух линий меню в крестик. */
+html body header.topbar .hero__menu-trigger span {
+  position:absolute!important;
+  right:5.5px!important;
+  height:3px!important;
+  transform-origin:center!important;
+  transition:top .28s ease,width .28s ease,transform .28s ease!important;
+}
+html body header.topbar .hero__menu-trigger span:first-child {
+  top:10px!important;
+  width:25px!important;
+  transform:rotate(0)!important;
+}
+html body header.topbar .hero__menu-trigger span:last-child {
+  top:22px!important;
+  width:17px!important;
+  transform:rotate(0)!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child {
+  top:16px!important;
+  width:25px!important;
+  transform:rotate(45deg)!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
+  top:16px!important;
+  width:25px!important;
+  transform:rotate(-45deg)!important;
+}
+</style>
+
 </body>
 </html>
