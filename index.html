@@ -4823,5 +4823,26 @@ html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
 }
 </style>
 
+
+<style id="menu-trigger-single-control-final">
+/* Кнопка меню остаётся на своём месте в стеклянной шапке и сама становится кнопкой закрытия. */
+html body.hero-menu-open header.topbar {
+  z-index:1004!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger {
+  position:absolute!important;
+  top:50%!important;
+  right:9px!important;
+  left:auto!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+  z-index:1006!important;
+  display:flex!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span {
+  position:absolute!important;
+}
+</style>
+
 </body>
 </html>
