@@ -3072,45 +3072,25 @@ body.hero-menu-open .topbar .hero__menu-trigger {
 
 
 <style id="ios-edge-to-edge-scroll">
-/* Полноширинная страница с плавным стеклянным размытием у верхнего края. */
+/* iPhone: прокрутка контента проходит под Dynamic Island и вырезом, без отдельной белой полосы сверху. */
 html {
   width: 100%;
   min-height: 100%;
   -webkit-text-size-adjust: 100%;
   touch-action: pan-y;
   overscroll-behavior-y: auto;
-  background: #080d20;
 }
 body {
   width: 100%;
-  min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  margin: 0;
   overflow-x: clip;
   touch-action: pan-y;
   overscroll-behavior-y: auto;
-  background: var(--paper);
-}
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 92px;
-  z-index: 40;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(8, 13, 32, .24), rgba(8, 13, 32, .10) 58%, transparent);
-  -webkit-backdrop-filter: saturate(145%) blur(18px);
-  backdrop-filter: saturate(145%) blur(18px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.88) 58%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.88) 58%, transparent 100%);
 }
 header.topbar {
-  position: relative !important;
+  position: static !important;
   top: auto !important;
-  z-index: 41 !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -3122,11 +3102,6 @@ header.topbar > .topbar__in {
   -webkit-backdrop-filter: saturate(150%) blur(18px) !important;
   backdrop-filter: saturate(150%) blur(18px) !important;
   touch-action: pan-y;
-}
-@media (display-mode: standalone) {
-  body::before {
-    height: calc(env(safe-area-inset-top, 0px) + 92px);
-  }
 }
 </style>
 
