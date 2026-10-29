@@ -4881,18 +4881,21 @@ html body .hero-menu.is-open {
 </style>
 
 <style id="hero-menu-white-edge-fix">
-/* Убираем белые полосы сверху и снизу при открытом меню на iPhone. */
-html body.hero-menu-open {
-  background-color:#080d20!important;
-}
+/* Окно меню не затемняет и не размывает страницу под ним. */
 html body.hero-menu-open .hero {
   overflow:visible!important;
 }
-html body .hero-menu-backdrop {
+html body .hero-menu-backdrop,
+html body .hero-menu-backdrop.is-open {
   position:fixed!important;
   inset:-2px!important;
   width:auto!important;
   height:auto!important;
+  background:transparent!important;
+  opacity:0!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  pointer-events:auto!important;
 }
 </style>
 
