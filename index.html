@@ -2630,7 +2630,7 @@ body{
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <div class="hero__title-main">Финансовая<br>грамотность</div>
+        <div class="hero__title-main">Финансовая грамотность</div>
         <div class="hero__sub">для школьников</div>
         <div class="hero__badge">на основе математики</div>
         <p class="hero__lead"><span class="hero__lead-first-line">Место, где дети и взрослые</span><br><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</p>
@@ -4528,4 +4528,31 @@ body.hero-menu-open .topbar .hero__menu-trigger {
 <style id="hero-organic-aura">
 /* Убираем декоративную анимацию сфер с первого экрана. */
 .hero__aura.hero-kinetic { display:none!important; }
+</style>
+
+
+<style id="hero-first-block-text-final-fix">
+/* Исправляем только текст первого экрана. Этот стиль расположен после прежних переопределений. */
+.hero .hero__content{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.hero .hero__course-label,
+.hero .hero__title-main,
+.hero .hero__sub,
+.hero .hero__badge{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  text-align:left!important;
+  text-align-last:left!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  word-spacing:normal!important;
+  text-wrap:wrap!important;
+  white-space:normal!important;
+}
+.hero .hero__badge{margin-top:0!important}
 </style>
