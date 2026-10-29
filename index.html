@@ -2578,7 +2578,7 @@ body{
   <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__aura" aria-hidden="true"><div class="hero-visual__coin"></div><div class="hero-visual__calculator"><span></span><i></i><i></i><i></i><i></i><i></i></div><div class="hero-visual__chart"><i></i><i></i><i></i><i></i><b></b></div><div class="hero-visual__math">+ <span>×</span> =</div></div>
+    <div class="hero__aura" aria-hidden="true"><div class="hero-form__orbit"></div><div class="hero-form__plane"></div><div class="hero-form__cube"><span></span><i></i></div><div class="hero-form__line"></div></div>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <div class="hero-menu__links">
@@ -4449,7 +4449,7 @@ body.hero-menu-open .topbar .hero__menu-trigger {
 
 
 <style id="hero-organic-aura">
-/* Лаконичная графика о деньгах и математике в верхней части первого экрана. */
+/* Абстрактная геометрическая композиция: форма, пространство и движение. */
 .hero {
   position: relative !important;
   isolation: isolate !important;
@@ -4463,178 +4463,157 @@ body.hero-menu-open .topbar .hero__menu-trigger {
   inset: 0;
   overflow: hidden;
 }
-.hero-visual__coin,
-.hero-visual__calculator,
-.hero-visual__chart {
+.hero-form__orbit,
+.hero-form__plane,
+.hero-form__cube,
+.hero-form__line {
   position: absolute;
   box-sizing: border-box;
-  will-change: transform;
 }
-.hero-visual__coin {
-  width: clamp(58px, 8vw, 88px);
-  height: clamp(58px, 8vw, 88px);
-  top: 11%;
-  left: calc(50% - 220px);
+.hero-form__orbit {
+  width: clamp(240px, 39vw, 490px);
+  height: clamp(240px, 39vw, 490px);
+  top: -19%;
+  left: 50%;
+  border: 1px solid rgba(23,35,63,.16);
   border-radius: 50%;
-  background: linear-gradient(145deg, #ffe77a 0%, #ffd93d 58%, #f1b900 100%);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 24px rgba(255,217,61,.10), 0 0 0 58px rgba(23,35,63,.035);
+  animation: heroFormOrbit 24s linear infinite;
+}
+.hero-form__plane {
+  width: clamp(250px, 47vw, 570px);
+  height: clamp(115px, 18vw, 210px);
+  top: 3%;
+  left: 50%;
+  border-radius: 48% 52% 12% 12% / 65% 65% 18% 18%;
+  background: linear-gradient(118deg, rgba(255,217,61,.88), rgba(255,217,61,.28) 48%, rgba(255,217,61,0) 78%);
+  clip-path: polygon(0 0, 100% 0, 76% 100%, 23% 82%);
+  transform: translateX(-50%) rotate(-7deg);
+  opacity: .82;
+  animation: heroFormPlane 12s ease-in-out infinite alternate;
+}
+.hero-form__cube {
+  width: clamp(62px, 8vw, 94px);
+  height: clamp(62px, 8vw, 94px);
+  top: 9%;
+  left: calc(50% - 142px);
+  background: linear-gradient(145deg, #ffe778, #ffd93d 70%);
   border: 2px solid #17233f;
-  box-shadow: inset 0 0 0 5px rgba(255,255,255,.28), 5px 6px 0 rgba(23,35,63,.13);
+  border-radius: 9px;
+  box-shadow: 8px 9px 0 rgba(23,35,63,.12), inset 7px 7px 0 rgba(255,255,255,.26);
   transform: rotate(-13deg);
-  animation: heroCoinFloat 6s ease-in-out infinite;
+  animation: heroFormCube 7s ease-in-out infinite;
 }
-.hero-visual__coin::before {
-  content: "₽";
+.hero-form__cube::before,
+.hero-form__cube::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #17233f;
-  font: 800 clamp(29px, 4vw, 43px)/1 sans-serif;
-}
-.hero-visual__calculator {
-  width: 76px;
-  height: 94px;
-  top: 7%;
-  left: calc(50% + 164px);
-  padding: 12px 10px 9px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  border: 2px solid #17233f;
-  border-radius: 13px;
-  background: #fff;
-  box-shadow: 5px 6px 0 rgba(23,35,63,.12);
-  transform: rotate(9deg);
-  animation: heroCalcFloat 7s ease-in-out infinite;
-}
-.hero-visual__calculator span {
-  grid-column: 1 / -1;
-  height: 18px;
-  border-radius: 4px;
   background: #17233f;
-  position: relative;
+  opacity: .88;
 }
-.hero-visual__calculator span::after {
-  content: "123";
+.hero-form__cube::before {
+  width: 2px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: rotate(0deg);
+}
+.hero-form__cube::after {
+  height: 2px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+}
+.hero-form__cube span {
   position: absolute;
-  right: 5px;
-  top: 2px;
-  color: #ffe16b;
-  font: 700 10px/14px ui-monospace, monospace;
+  width: 19px;
+  height: 19px;
+  top: 9px;
+  right: 9px;
+  border: 2px solid #17233f;
+  border-radius: 50%;
+  background: #fff8d9;
 }
-.hero-visual__calculator i {
-  display: block;
-  height: 11px;
+.hero-form__cube i {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  bottom: 10px;
+  left: 10px;
+  background: #17233f;
   border-radius: 3px;
-  background: #dce5ff;
 }
-.hero-visual__calculator i:nth-of-type(2),
-.hero-visual__calculator i:nth-of-type(5) { background: #ffd93d; }
-.hero-visual__chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 7px;
-  width: 92px;
-  height: 70px;
-  top: 22%;
-  left: calc(50% + 260px);
-  padding: 0 0 3px;
-  border-bottom: 2px solid #17233f;
-  transform: rotate(-5deg);
-  animation: heroChartFloat 8s ease-in-out infinite;
+.hero-form__line {
+  width: clamp(310px, 62vw, 760px);
+  height: clamp(105px, 18vw, 210px);
+  top: 11%;
+  left: 50%;
+  border-top: 1.5px solid rgba(23,35,63,.5);
+  border-radius: 50%;
+  transform: translateX(-50%) rotate(-11deg);
+  animation: heroFormLine 16s ease-in-out infinite alternate;
 }
-.hero-visual__chart i {
-  width: 15px;
-  display: block;
-  border: 1.5px solid #17233f;
-  border-radius: 4px 4px 0 0;
-  background: #b9d4ff;
-}
-.hero-visual__chart i:nth-child(1) { height: 22px; }
-.hero-visual__chart i:nth-child(2) { height: 34px; background: #d4c9ff; }
-.hero-visual__chart i:nth-child(3) { height: 45px; background: #ffe16b; }
-.hero-visual__chart i:nth-child(4) { height: 59px; background: #17233f; }
-.hero-visual__chart b {
+.hero-form__line::after {
+  content: "";
   position: absolute;
-  width: 43px;
-  height: 24px;
-  right: -1px;
-  top: -11px;
-  border-top: 2px solid #17233f;
-  border-right: 2px solid #17233f;
-  border-radius: 0 12px 0 0;
-  transform: rotate(-25deg);
+  width: 9px;
+  height: 9px;
+  top: -5px;
+  right: 17%;
+  border-radius: 50%;
+  background: #17233f;
+  box-shadow: 0 0 0 5px rgba(255,217,61,.42);
 }
-.hero-visual__math {
-  position: absolute;
-  top: 26%;
-  left: calc(50% - 315px);
-  color: #17233f;
-  font: 800 26px/1 ui-monospace, monospace;
-  letter-spacing: 7px;
-  opacity: .72;
-  transform: rotate(-8deg);
-  animation: heroMathFloat 9s ease-in-out infinite;
-}
-.hero-visual__math span { color: #e2b600; }
 .hero__in, .hero__cta {
   position: relative !important;
   z-index: 1 !important;
 }
-@keyframes heroCoinFloat {
+@keyframes heroFormOrbit {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+@keyframes heroFormPlane {
+  from { transform: translateX(-50%) rotate(-7deg) translateY(0); }
+  to { transform: translateX(-50%) rotate(3deg) translateY(12px); }
+}
+@keyframes heroFormCube {
   0%, 100% { transform: translateY(0) rotate(-13deg); }
-  50% { transform: translateY(-7px) rotate(-8deg); }
+  50% { transform: translateY(-8px) rotate(-5deg); }
 }
-@keyframes heroCalcFloat {
-  0%, 100% { transform: translateY(0) rotate(9deg); }
-  50% { transform: translateY(6px) rotate(5deg); }
-}
-@keyframes heroChartFloat {
-  0%, 100% { transform: translateY(0) rotate(-5deg); }
-  50% { transform: translateY(-5px) rotate(-2deg); }
-}
-@keyframes heroMathFloat {
-  0%, 100% { transform: translateY(0) rotate(-8deg); }
-  50% { transform: translateY(5px) rotate(-4deg); }
+@keyframes heroFormLine {
+  from { transform: translateX(-50%) rotate(-11deg) translateY(0); }
+  to { transform: translateX(-50%) rotate(-5deg) translateY(8px); }
 }
 @media (max-width: 600px) {
-  .hero-visual__coin {
-    width: 47px;
-    height: 47px;
-    top: 6%;
-    left: 8%;
+  .hero-form__orbit {
+    width: 250px;
+    height: 250px;
+    top: -8%;
+    box-shadow: 0 0 0 17px rgba(255,217,61,.10), 0 0 0 39px rgba(23,35,63,.035);
   }
-  .hero-visual__coin::before { font-size: 25px; }
-  .hero-visual__calculator {
-    width: 54px;
-    height: 68px;
-    top: 5%;
-    left: auto;
-    right: 8%;
-    padding: 8px 7px 6px;
-    gap: 4px;
-    border-radius: 9px;
+  .hero-form__plane {
+    width: 310px;
+    height: 115px;
+    top: 3%;
   }
-  .hero-visual__calculator span { height: 13px; }
-  .hero-visual__calculator span::after { font-size: 8px; line-height: 11px; right: 3px; }
-  .hero-visual__calculator i { height: 8px; }
-  .hero-visual__chart {
-    width: 65px;
-    height: 46px;
-    top: 15%;
-    left: auto;
-    right: 17%;
-    gap: 4px;
+  .hero-form__cube {
+    width: 53px;
+    height: 53px;
+    top: 7%;
+    left: calc(50% - 96px);
+    border-radius: 7px;
+    box-shadow: 5px 6px 0 rgba(23,35,63,.12), inset 5px 5px 0 rgba(255,255,255,.26);
   }
-  .hero-visual__chart i { width: 10px; }
-  .hero-visual__chart i:nth-child(1) { height: 15px; }
-  .hero-visual__chart i:nth-child(2) { height: 23px; }
-  .hero-visual__chart i:nth-child(3) { height: 30px; }
-  .hero-visual__chart i:nth-child(4) { height: 38px; }
-  .hero-visual__chart b { display: none; }
-  .hero-visual__math { top: 17%; left: 11%; font-size: 17px; letter-spacing: 4px; }
+  .hero-form__cube span { width: 13px; height: 13px; top: 6px; right: 6px; }
+  .hero-form__cube i { width: 10px; height: 10px; bottom: 6px; left: 6px; }
+  .hero-form__line {
+    width: 350px;
+    height: 110px;
+    top: 12%;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-visual__coin, .hero-visual__calculator, .hero-visual__chart, .hero-visual__math { animation: none !important; }
+  .hero-form__orbit, .hero-form__plane, .hero-form__cube, .hero-form__line { animation: none !important; }
 }
 </style>
