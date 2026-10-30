@@ -5125,12 +5125,16 @@ html body .hero .hero__cta {
 </style>
 
 <style id="hero-first-screen-text-max-size">
-/* Увеличиваем текст первого экрана, сохраняя строки без автоматических переносов. */
+/* Увеличиваем текст первого экрана и делаем боковые поля одинаковыми. */
 html body .hero .hero__lead {
-  width:100%!important;
-  max-width:42rem!important;
-  font-size:clamp(1.25rem,6.5vw,3.2rem)!important;
+  width:calc(100vw - 24px)!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw + 12px)!important;
+  margin-right:calc(50% - 50vw + 12px)!important;
+  font-size:clamp(1.25rem,7.2vw,3.6rem)!important;
   line-height:1.28!important;
+  letter-spacing:-.045em!important;
+  text-align:center!important;
   white-space:nowrap!important;
   text-wrap:nowrap!important;
 }
