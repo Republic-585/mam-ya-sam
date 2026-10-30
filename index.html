@@ -3255,7 +3255,7 @@ html body header.topbar .topbar__progress{
 
 
 <style id="hero-start-button-style">
-@keyframes heroStartKenBurns { from { transform:scale(1); } to { transform:scale(1.035); } }
+@keyframes heroStartPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.018); } }
 /* Кнопка первого экрана повторяет оформление «СВЯЗАТЬСЯ» в меню. */
 html body .hero .hero-start-button {
   display:flex!important;
@@ -3280,7 +3280,7 @@ html body .hero .hero-start-button {
   text-align:center!important;
   text-decoration:none!important;
   opacity:1!important;
-  animation:heroStartKenBurns 9s ease-in-out infinite alternate!important;
+  animation:heroStartPulse 2.4s ease-in-out infinite!important;
   transition:transform .22s cubic-bezier(.2,.75,.2,1),background-color .22s ease,box-shadow .22s ease!important;
   -webkit-tap-highlight-color:transparent;
 }
