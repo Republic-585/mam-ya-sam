@@ -4995,6 +4995,15 @@ html body header.topbar .hero__menu-trigger span:first-child {
 html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child {
   width:25px!important;
 }
+
+<style id="menu-trigger-hover-line-fix">
+/* Наведение не должно удлинять нижнюю линию относительно верхней. */
+html body header.topbar .hero__menu-trigger:hover span:last-child,
+html body header.topbar .hero__menu-trigger:active span:last-child {
+  width:17px!important;
+}
+</style>
+
 </style>
 
 </body>
