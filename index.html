@@ -5438,6 +5438,27 @@ html body.theme-dark .learning-format__card p { color:#aab2c0; }
 }
 </style>
 
+
+<style id="hero-menu-header-clearance-fix">
+/* Немного поднимаем окно меню, чтобы его нижний край не заходил на шапку. */
+html body .hero-menu {
+  top:calc(50% - 28px)!important;
+  max-height:calc(100dvh - 72px)!important;
+}
+@media(max-width:640px) {
+  html body .hero-menu {
+    top:calc(50% - 28px)!important;
+    max-height:calc(100dvh - 64px)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu,
+  html body .hero-menu.is-open {
+    top:calc(50% - 28px)!important;
+  }
+}
+</style>
+
 </body>
 </html>
 
