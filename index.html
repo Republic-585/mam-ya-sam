@@ -3266,6 +3266,10 @@ html body header.topbar .topbar__progress{
     <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
+      <button class="hero-menu__theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false">
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"></path></svg>
+      </button>
       <div class="hero-menu__links">
         <a href="#program-all">ПРОГРАММА КУРСА</a>
         <a href="#skill">НАВЫКИ</a>
@@ -5023,6 +5027,71 @@ html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
   width:25px!important;
 }
 </style>
+
+
+
+<style id="menu-theme-toggle">
+/* Переключатель светлой и тёмной темы в окне меню. */
+html body .hero-menu__theme-toggle {
+  align-self:flex-end;display:grid;place-items:center;width:42px;height:42px;margin:0 0 8px auto;
+  padding:0;border:1px solid currentColor;border-radius:50%;background:transparent;color:var(--ink);
+  cursor:pointer;opacity:.82;-webkit-tap-highlight-color:transparent;
+  transition:transform .22s ease,opacity .22s ease,background-color .22s ease;
+}
+html body .hero-menu__theme-toggle:hover { transform:rotate(-12deg);opacity:1; }
+html body .hero-menu__theme-toggle:focus-visible { outline:2px solid currentColor;outline-offset:4px; }
+html body .hero-menu__theme-toggle svg { width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+html body .hero-menu__theme-toggle .theme-icon--moon { display:none; }
+html body.theme-dark .hero-menu__theme-toggle .theme-icon--sun { display:none; }
+html body.theme-dark .hero-menu__theme-toggle .theme-icon--moon { display:block; }
+
+/* Тёмная палитра страницы; цветные акценты и изображения сохраняются. */
+html body.theme-dark { --ink:#f3f4f6;--paper:#101522;--muted:#aab2c0;--border:1px solid rgba(255,255,255,.16);background:#101522!important;color:#f3f4f6!important;color-scheme:dark; }
+html body.theme-dark .hero,html body.theme-dark .problems,html body.theme-dark .program-all,
+html body.theme-dark .skill,html body.theme-dark .about,html body.theme-dark .pricing,
+html body.theme-dark .faq,html body.theme-dark .signup,html body.theme-dark .footer,
+html body.theme-dark section:not(.adult) { background-color:#101522!important;color:#f3f4f6!important; }
+html body.theme-dark .hero__content,html body.theme-dark .hero__content h1,
+html body.theme-dark .hero__lead,html body.theme-dark .hero__sub { background-color:transparent!important;color:#f3f4f6!important; }
+html body.theme-dark .card,html body.theme-dark .problems__recs,
+html body.theme-dark .skill__item,html body.theme-dark .program-all__card,
+html body.theme-dark .pricing__card,html body.theme-dark .faq details,
+html body.theme-dark .signup__form,html body.theme-dark .about__card {
+  background-color:#1a2232!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.16)!important;
+}
+html body.theme-dark .topbar > .topbar__in { background:rgba(16,21,34,.88)!important;border-color:rgba(255,255,255,.1)!important; }
+html body.theme-dark .topbar,html body.theme-dark .topbar__progress-text { color:#f3f4f6!important; }
+html body.theme-dark .hero-menu { background:#171e2d!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.12)!important; }
+html body.theme-dark .hero-menu__links a,html body.theme-dark .hero-menu__social-icon,
+html body.theme-dark .hero-menu__close { color:#f3f4f6!important; }
+html body.theme-dark .hero-menu__links a:hover { color:#ffd93d!important; }
+html body.theme-dark input,html body.theme-dark textarea,html body.theme-dark select {
+  background:#1a2232!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.25)!important;
+}
+html body.theme-dark .footer a,html body.theme-dark .footer p,html body.theme-dark .footer span { color:inherit; }
+@media(prefers-reduced-motion:reduce) { html body .hero-menu__theme-toggle { transition:none; } }
+</style>
+
+<script id="menu-theme-toggle-script">
+(function(){
+  const button=document.getElementById('themeToggle');
+  if(!button)return;
+  let dark=false;
+  try{dark=localStorage.getItem('mamYaSamTheme')==='dark';}catch(_){}
+  function applyTheme(){
+    document.body.classList.toggle('theme-dark',dark);
+    button.setAttribute('aria-pressed',String(dark));
+    button.setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',dark?'#101522':'#080d20');
+  }
+  button.addEventListener('click',function(){
+    dark=!dark;applyTheme();
+    try{localStorage.setItem('mamYaSamTheme',dark?'dark':'light');}catch(_){}
+  });
+  applyTheme();
+})();
+</script>
 
 </body>
 </html>
