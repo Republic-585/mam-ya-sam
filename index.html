@@ -3253,6 +3253,64 @@ html body header.topbar .topbar__progress{
 }
 </style>
 
+
+<style id="hero-start-button-style">
+/* Кнопка первого экрана повторяет оформление «СВЯЗАТЬСЯ» в меню. */
+html body .hero .hero-start-button {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  max-width:310px!important;
+  height:48px!important;
+  min-height:48px!important;
+  margin:clamp(150px,25vh,260px) auto 0!important;
+  padding:0 18px!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:#FFD93D!important;
+  color:#171717!important;
+  box-shadow:none!important;
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:900!important;
+  letter-spacing:-.035em!important;
+  line-height:1.12!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  opacity:1!important;
+  transform:none!important;
+  animation:none!important;
+  transition:transform .22s cubic-bezier(.2,.75,.2,1),background-color .22s ease,box-shadow .22s ease!important;
+  -webkit-tap-highlight-color:transparent;
+}
+html body .hero .hero-start-button:hover {
+  background:#F5CE32!important;
+  box-shadow:0 5px 14px rgba(23,23,23,.13)!important;
+  transform:translateY(-2px)!important;
+}
+html body .hero .hero-start-button:active {
+  background:#EBC52D!important;
+  box-shadow:0 1px 4px rgba(23,23,23,.12)!important;
+  transform:translateY(0) scale(.97)!important;
+}
+html body .hero .hero-start-button:focus-visible {
+  outline:2px solid #171717!important;
+  outline-offset:3px!important;
+}
+@media(max-width:640px) {
+  html body .hero .hero-start-button {
+    max-width:310px!important;
+    height:48px!important;
+    min-height:48px!important;
+    border-radius:14px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero .hero-start-button {transition:none!important}
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -3332,7 +3390,7 @@ html body header.topbar .topbar__progress{
       
       <div class="hero__content">
         <p class="hero__lead"><span class="hero__lead-first-line">Место, где дети и взрослые</span><br><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</p>
-        <a class="hero__cta" href="#program-all" aria-label="Посмотреть программу" onclick="event.preventDefault(); const target=document.getElementById('program-all'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span class="hero__cta-label">ПОСМОТРЕТЬ ПРОГРАММУ</span><svg viewBox="0 0 36 48" aria-hidden="true" focusable="false"><path class="hero__cta-arrow hero__cta-arrow--one" d="M4 5 L18 17 L32 5"/><path class="hero__cta-arrow hero__cta-arrow--two" d="M8 23 L18 32 L28 23"/></svg></a>
+        <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>НАЧАТЬ СЕЙЧАС</span></a>
       </div>
 
     </div>
