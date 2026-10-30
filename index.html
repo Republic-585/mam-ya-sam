@@ -4910,5 +4910,15 @@ html body .hero-menu__links a:hover {
 }
 </style>
 
+
+<style id="footer-clearance-for-floating-header">
+/* Дополнительное пространство под информацией подвала, чтобы нижняя шапка её не перекрывала. */
+@media(max-width:760px) {
+  html body .footer {
+    padding-bottom:calc(110px + env(safe-area-inset-bottom, 0px))!important;
+  }
+}
+</style>
+
 </body>
 </html>
