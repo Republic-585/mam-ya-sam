@@ -3412,7 +3412,7 @@ html body .hero .hero__subtitle {
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <p class="hero__lead"><span class="hero__lead-first-line">Место, где дети и взрослые</span><br><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</p>
+        <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">Дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</span></p>
         <p class="hero__subtitle"><span class="hero__subtitle-first">Курс финансовой грамотности<br>на основе математики.</span><span class="hero__subtitle-second">Для детей 5-8 классов и их родителей.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать сейчас</span></a>
       </div>
@@ -5619,6 +5619,32 @@ html body .hero .hero__subtitle-second {
   text-align:center!important;
   text-align-last:center!important;
   white-space:normal!important;
+}
+</style>
+
+<style id="hero-lead-three-line-layout">
+/* Три заданные строки заголовка первого экрана. */
+html body .hero .hero__lead-three-lines {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  max-width:none!important;
+  white-space:normal!important;
+  text-wrap:normal!important;
+  line-height:1.18!important;
+  gap:.08em!important;
+}
+html body .hero .hero__lead-three-lines .hero__lead-line {
+  display:block!important;
+  width:100%!important;
+  white-space:nowrap!important;
+  text-align:center!important;
+}
+html body .hero .hero__lead-three-lines .hero__word-pill {
+  display:inline-flex!important;
+  vertical-align:middle!important;
 }
 </style>
 </body>
