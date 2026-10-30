@@ -5587,6 +5587,14 @@ html body .hero-menu .hero-menu__contact:focus-visible {
 }
 </style>
 
+
+<style id="hero-subtitle-case-final-fix">
+/* Подзаголовок должен сохранять обычный регистр независимо от общих правил первого экрана. */
+html body .hero .hero__content p.hero__subtitle {
+  text-transform:none!important;
+  font-variant:normal!important;
+}
+</style>
 </body>
 </html>
 
