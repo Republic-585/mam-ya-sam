@@ -4886,14 +4886,14 @@ html body .hero-menu {
   border:1px solid rgba(255,255,255,.55)!important;
   border-radius:28px!important;
   box-shadow:0 24px 80px rgba(8,13,32,.24)!important;
-  transform:translate3d(-50%,calc(-50% + 8px),0) scale(.985)!important;
+  transform:translate3d(-50%,calc(-50% + 8px),0) scale(.985);
   opacity:0!important;
   visibility:hidden!important;
   transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .18s ease,visibility .24s!important;
   will-change:transform,opacity!important;
 }
 html body .hero-menu.is-open {
-  transform:translate3d(-50%,-50%,0) scale(1)!important;
+  transform:translate3d(-50%,-50%,0) scale(1);
   opacity:1!important;
   visibility:visible!important;
 }
@@ -5185,7 +5185,7 @@ html body .hero-menu.is-open .hero-menu__theme-toggle {
 /* Пружинное появление окна и последовательное проявление пунктов меню.
    Вдохновлено принципами motion из Apple HIG; адаптировано для веб-меню. */
 html body .hero-menu {
-  transform:translate3d(-50%,calc(-50% + 12px),0) scale(.94)!important;
+  transform:translate3d(-50%,calc(-50% + 12px),0) scale(.94);
   transform-origin:center center!important;
   transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .20s ease,visibility .42s!important;
 }
