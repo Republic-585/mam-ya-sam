@@ -5124,6 +5124,21 @@ html body .hero .hero__cta {
 }
 </style>
 
+<style id="hero-first-screen-text-max-size">
+/* Увеличиваем текст первого экрана, сохраняя строки без автоматических переносов. */
+html body .hero .hero__lead {
+  width:100%!important;
+  max-width:42rem!important;
+  font-size:clamp(1.25rem,6.5vw,3.2rem)!important;
+  line-height:1.28!important;
+  white-space:nowrap!important;
+  text-wrap:nowrap!important;
+}
+html body .hero .hero__lead-first-line {
+  white-space:nowrap!important;
+}
+</style>
+
 </body>
 </html>
 
