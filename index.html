@@ -5647,6 +5647,20 @@ html body .hero .hero__lead-three-lines .hero__word-pill {
   vertical-align:middle!important;
 }
 </style>
+
+<style id="hero-lead-maximum-size">
+/* Максимально увеличиваем заголовок, сохраняя три строки и смену слов. */
+html body .hero .hero__lead-three-lines {
+  width:calc(100vw - 12px)!important;
+  max-width:none!important;
+  font-size:clamp(1.35rem,9.2vw,6rem)!important;
+  line-height:1.12!important;
+  letter-spacing:-.045em!important;
+}
+html body .hero .hero__lead-three-lines .hero__lead-line {
+  white-space:nowrap!important;
+}
+</style>
 </body>
 </html>
 
