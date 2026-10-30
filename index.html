@@ -5180,6 +5180,56 @@ html body .hero-menu.is-open .hero-menu__theme-toggle {
 }
 </style>
 
+
+<style id="apple-inspired-menu-spring-motion">
+/* Пружинное появление окна и последовательное проявление пунктов меню.
+   Вдохновлено принципами motion из Apple HIG; адаптировано для веб-меню. */
+html body .hero-menu {
+  transform:translate3d(-50%,calc(-50% + 12px),0) scale(.94)!important;
+  transform-origin:center center!important;
+  transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .20s ease,visibility .42s!important;
+}
+html body .hero-menu.is-open {
+  animation:apple-menu-window-in .48s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes apple-menu-window-in {
+  0% { transform:translate3d(-50%,calc(-50% + 12px),0) scale(.94); }
+  72% { transform:translate3d(-50%,calc(-50% - 1px),0) scale(1.012); }
+  100% { transform:translate3d(-50%,-50%,0) scale(1); }
+}
+html body .hero-menu .hero-menu__links a {
+  opacity:0!important;
+  transform:translateY(9px)!important;
+}
+html body .hero-menu.is-open .hero-menu__links a {
+  animation:apple-menu-item-in .34s cubic-bezier(.22,1,.36,1) both;
+}
+html body .hero-menu.is-open .hero-menu__links a:nth-child(1) { animation-delay:.055s; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(2) { animation-delay:.085s; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(3) { animation-delay:.115s; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(4) { animation-delay:.145s; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(5) { animation-delay:.175s; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(6) { animation-delay:.205s; }
+@keyframes apple-menu-item-in {
+  from { opacity:0; transform:translateY(9px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu,
+  html body .hero-menu.is-open,
+  html body .hero-menu .hero-menu__links a,
+  html body .hero-menu.is-open .hero-menu__links a {
+    animation:none!important;
+    transition:none!important;
+    opacity:1!important;
+    transform:translate3d(-50%,-50%,0)!important;
+  }
+  html body .hero-menu .hero-menu__links a {
+    transform:none!important;
+  }
+}
+</style>
+
 </body>
 </html>
 
