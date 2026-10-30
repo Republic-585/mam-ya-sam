@@ -4985,22 +4985,29 @@ html body .hero-menu__social-icon svg {
 
 
 <style id="hero-menu-social-animation-smooth">
-/* Иконки мягко выезжают снизу с плавным затуханием, без резкого старта и скачка. */
+/* При открытии меню иконки слегка увеличиваются на месте; прежний выезд снизу убран. */
 html body .hero-menu__social {
-  opacity:0!important;
-  transform:translate3d(0,12px,0)!important;
-  transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .52s cubic-bezier(.22,.61,.36,1)!important;
+  opacity:1!important;
+  transform:none!important;
+  transition:none!important;
+}
+html body .hero-menu__social-icon {
+  opacity:.76!important;
+  transform:scale(.86)!important;
+  transform-origin:center!important;
+  transition:transform .56s cubic-bezier(.22,.61,.36,1),opacity .42s ease!important;
   transition-delay:0s!important;
   will-change:transform,opacity;
 }
-html body .hero-menu.is-open .hero-menu__social {
+html body .hero-menu.is-open .hero-menu__social-icon {
   opacity:1!important;
-  transform:translate3d(0,0,0)!important;
-  transition-delay:.18s!important;
+  transform:scale(1)!important;
+  transition-delay:.16s!important;
 }
 @media(prefers-reduced-motion:reduce) {
   html body .hero-menu__social,
-  html body .hero-menu.is-open .hero-menu__social {
+  html body .hero-menu__social-icon,
+  html body .hero-menu.is-open .hero-menu__social-icon {
     opacity:1!important;
     transform:none!important;
     transition:none!important;
@@ -5147,18 +5154,19 @@ html body .hero .hero__lead-first-line {
 
 
 <style id="menu-theme-toggle-social-matching-animation">
-/* Иконка инь-янь появляется так же мягко, как ряд социальных иконок. */
+/* Инь-янь увеличивается на месте одновременно с социальными иконками; выезд снизу убран. */
 html body .hero-menu__theme-toggle {
-  opacity:0!important;
-  transform:translate3d(-50%,12px,0)!important;
-  transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .52s cubic-bezier(.22,.61,.36,1)!important;
+  opacity:.82!important;
+  transform:translateX(-50%) scale(.86)!important;
+  transform-origin:center!important;
+  transition:transform .56s cubic-bezier(.22,.61,.36,1),opacity .42s ease!important;
   transition-delay:0s!important;
   will-change:transform,opacity;
 }
 html body .hero-menu.is-open .hero-menu__theme-toggle {
-  opacity:.82!important;
-  transform:translate3d(-50%,0,0)!important;
-  transition-delay:.18s!important;
+  opacity:1!important;
+  transform:translateX(-50%) scale(1)!important;
+  transition-delay:.16s!important;
 }
 @media(prefers-reduced-motion:reduce) {
   html body .hero-menu__theme-toggle,
