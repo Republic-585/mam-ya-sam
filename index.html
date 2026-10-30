@@ -4949,5 +4949,23 @@ html body .hero-menu__social-icon svg {
 }
 </style>
 
+
+<style id="hero-menu-social-animation-smooth">
+/* Иконки появляются без вертикального смещения и скачка после завершения анимации. */
+html body .hero-menu__social,
+html body .hero-menu.is-open .hero-menu__social {
+  transform:none!important;
+  transition:opacity .42s ease!important;
+}
+html body .hero-menu__social {
+  opacity:0!important;
+  transition-delay:0s!important;
+}
+html body .hero-menu.is-open .hero-menu__social {
+  opacity:1!important;
+  transition-delay:.32s!important;
+}
+</style>
+
 </body>
 </html>
