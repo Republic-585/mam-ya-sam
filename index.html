@@ -5143,6 +5143,32 @@ html body .hero .hero__lead-first-line {
 }
 </style>
 
+
+
+<style id="menu-theme-toggle-social-matching-animation">
+/* Иконка инь-янь появляется так же мягко, как ряд социальных иконок. */
+html body .hero-menu__theme-toggle {
+  opacity:0!important;
+  transform:translate3d(-50%,12px,0)!important;
+  transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .52s cubic-bezier(.22,.61,.36,1)!important;
+  transition-delay:0s!important;
+  will-change:transform,opacity;
+}
+html body .hero-menu.is-open .hero-menu__theme-toggle {
+  opacity:.82!important;
+  transform:translate3d(-50%,0,0)!important;
+  transition-delay:.18s!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu__theme-toggle,
+  html body .hero-menu.is-open .hero-menu__theme-toggle {
+    opacity:.82!important;
+    transform:translateX(-50%)!important;
+    transition:none!important;
+  }
+}
+</style>
+
 </body>
 </html>
 
