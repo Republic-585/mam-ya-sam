@@ -4985,32 +4985,31 @@ html body .hero-menu__social-icon svg {
 
 
 <style id="hero-menu-social-animation-smooth">
-/* При открытии меню иконки слегка увеличиваются на месте; прежний выезд снизу убран. */
-html body .hero-menu__social {
-  opacity:1!important;
-  transform:none!important;
-  transition:none!important;
-}
+/* Быстрый мягкий overshoot: 86% → 110% → 100%, без смещения и затухания. */
+html body .hero-menu__social { opacity:1!important;transform:none!important;transition:none!important; }
 html body .hero-menu__social-icon {
-  opacity:.76!important;
+  opacity:1!important;
   transform:scale(.86)!important;
   transform-origin:center!important;
-  transition:transform .56s cubic-bezier(.22,.61,.36,1),opacity .42s ease!important;
+  transition:transform .34s cubic-bezier(.2,.75,.25,1)!important;
   transition-delay:0s!important;
-  will-change:transform,opacity;
+  will-change:transform;
 }
 html body .hero-menu.is-open .hero-menu__social-icon {
-  opacity:1!important;
   transform:scale(1)!important;
-  transition-delay:.16s!important;
+  animation:menu-icon-soft-pop .34s cubic-bezier(.2,.75,.25,1) both;
+  animation-delay:.02s;
+}
+@keyframes menu-icon-soft-pop {
+  0% { transform:scale(.86); }
+  58% { transform:scale(1.10); }
+  100% { transform:scale(1); }
 }
 @media(prefers-reduced-motion:reduce) {
   html body .hero-menu__social,
   html body .hero-menu__social-icon,
   html body .hero-menu.is-open .hero-menu__social-icon {
-    opacity:1!important;
-    transform:none!important;
-    transition:none!important;
+    opacity:1!important;transform:none!important;transition:none!important;animation:none!important;
   }
 }
 </style>
@@ -5154,26 +5153,29 @@ html body .hero .hero__lead-first-line {
 
 
 <style id="menu-theme-toggle-social-matching-animation">
-/* Инь-янь увеличивается на месте одновременно с социальными иконками; выезд снизу убран. */
+/* Инь-янь повторяет ту же короткую мягкую траекторию: 86% → 110% → 100%. */
 html body .hero-menu__theme-toggle {
-  opacity:.82!important;
+  opacity:1!important;
   transform:translateX(-50%) scale(.86)!important;
   transform-origin:center!important;
-  transition:transform .56s cubic-bezier(.22,.61,.36,1),opacity .42s ease!important;
-  transition-delay:0s!important;
-  will-change:transform,opacity;
+  transition:none!important;
+  will-change:transform;
 }
 html body .hero-menu.is-open .hero-menu__theme-toggle {
   opacity:1!important;
   transform:translateX(-50%) scale(1)!important;
-  transition-delay:.16s!important;
+  animation:menu-yinyang-soft-pop .34s cubic-bezier(.2,.75,.25,1) both;
+  animation-delay:.02s;
+}
+@keyframes menu-yinyang-soft-pop {
+  0% { transform:translateX(-50%) scale(.86); }
+  58% { transform:translateX(-50%) scale(1.10); }
+  100% { transform:translateX(-50%) scale(1); }
 }
 @media(prefers-reduced-motion:reduce) {
   html body .hero-menu__theme-toggle,
   html body .hero-menu.is-open .hero-menu__theme-toggle {
-    opacity:.82!important;
-    transform:translateX(-50%)!important;
-    transition:none!important;
+    opacity:.82!important;transform:translateX(-50%)!important;transition:none!important;animation:none!important;
   }
 }
 </style>
