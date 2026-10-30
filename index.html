@@ -3413,7 +3413,7 @@ html body .hero .hero__subtitle {
       
       <div class="hero__content">
         <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">Дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</span></p>
-        <p class="hero__subtitle"><span class="hero__subtitle-first">Курс финансовой грамотности<br>на основе математики.</span><span class="hero__subtitle-second">Для детей 5-8 классов и их родителей.</span></p>
+        <p class="hero__subtitle"><span class="hero__subtitle-first">Курс финансовой грамотности<br>на основе математики.</span><span class="hero__subtitle-second">Для детей 5-8 классов<br>и их родителей.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать сейчас</span></a>
       </div>
 
@@ -5673,6 +5673,21 @@ html body .hero .hero__subtitle .hero__subtitle-first,
 html body .hero .hero__subtitle .hero__subtitle-second {
   letter-spacing:.06em!important;
   color:#000000!important;
+}
+</style>
+
+<style id="hero-subtitle-spacing-and-cta">
+/* Только интервалы подзаголовка и положение кнопки первого экрана. */
+html body .hero .hero__subtitle {
+  line-height:1.15!important;
+  letter-spacing:normal!important;
+}
+html body .hero .hero__subtitle .hero__subtitle-first,
+html body .hero .hero__subtitle .hero__subtitle-second {
+  letter-spacing:normal!important;
+}
+html body .hero .hero__cta {
+  margin-top:18px!important;
 }
 </style>
 </body>
