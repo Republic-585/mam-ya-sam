@@ -4988,22 +4988,27 @@ html body header.topbar .hero__menu-trigger:focus-visible {
 
 
 <style id="menu-trigger-open-lines-length">
-/* В закрытом меню верхняя линия немного короче нижней; крестик не меняется. */
+/* В закрытом меню верхняя линия короче нижней. */
 html body header.topbar .hero__menu-trigger span:first-child {
-  width:21px!important;
-}
-html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child {
-  width:25px!important;
-}
-
-<style id="menu-trigger-hover-line-fix">
-/* Наведение не должно удлинять нижнюю линию относительно верхней. */
-html body header.topbar .hero__menu-trigger:hover span:last-child,
-html body header.topbar .hero__menu-trigger:active span:last-child {
   width:17px!important;
 }
-</style>
-
+html body header.topbar .hero__menu-trigger span:last-child {
+  width:21px!important;
+}
+/* На касании и наведении длина линий не меняется. */
+html body header.topbar .hero__menu-trigger:hover span:first-child,
+html body header.topbar .hero__menu-trigger:active span:first-child {
+  width:17px!important;
+}
+html body header.topbar .hero__menu-trigger:hover span:last-child,
+html body header.topbar .hero__menu-trigger:active span:last-child {
+  width:21px!important;
+}
+/* При открытии обе линии образуют симметричный крестик. */
+html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child,
+html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
+  width:25px!important;
+}
 </style>
 
 </body>
