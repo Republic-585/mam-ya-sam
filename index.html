@@ -3297,6 +3297,7 @@ html body header.topbar .topbar__progress{
       <div class="hero-menu__links">
         <a href="#program-all">ПРОГРАММА КУРСА</a>
         <a href="#about">АВТОР И ПРОЕКТ</a>
+        <a href="#learning-format">ФОРМАТ ОБУЧЕНИЯ</a>
         <a href="#reviews">ОТЗЫВЫ</a>
         <a href="#pricing">ТАРИФЫ</a>
         <a href="#faq">ВОПРОСЫ И ОТВЕТЫ</a>
@@ -3538,6 +3539,23 @@ html body header.topbar .topbar__progress{
         </div>
       </div>
       <div class="about-v2__final"><span>НЕ ПРОСТО УЗНАТЬ.</span> Понять. Попробовать. Научиться делать самому.</div>
+    </div>
+  </section>
+
+
+  <!-- LEARNING FORMAT -->
+  <section class="learning-format" id="learning-format" aria-labelledby="learningFormatHeading">
+    <div class="wrap learning-format__inner">
+      <span class="learning-format__eyebrow">ФОРМАТ ОБУЧЕНИЯ</span>
+      <h2 id="learningFormatHeading">Как проходит <mark>обучение</mark></h2>
+      <p class="learning-format__lead">Здесь будет собрана понятная и подробная информация о том, как устроено обучение в проекте «Мам, я сам!».</p>
+      <div class="learning-format__card">
+        <span class="learning-format__symbol" aria-hidden="true">i</span>
+        <div>
+          <strong>Всё о процессе обучения</strong>
+          <p>Расскажем, как проходят занятия, в каком формате открываются уроки, как устроена работа с материалами и заданиями, а также где участники могут общаться и получать поддержку.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -5360,6 +5378,66 @@ html body .hero-menu.is-open .hero-menu__links a:nth-child(7) { animation-delay:
   html body .reviews * { scroll-behavior:auto!important; }
 }
 </style>
+
+<style id="learning-format-section-style">
+/* Отдельный информационный раздел о формате обучения. */
+html body .learning-format {
+  position:relative;
+  overflow:hidden;
+  padding:clamp(76px,10vw,124px) 0;
+  background:#fff;
+  color:#111827;
+}
+html body .learning-format__inner { max-width:900px;margin:0 auto; }
+html body .learning-format__eyebrow {
+  display:block;margin-bottom:18px;color:#667085;
+  font-family:'SF Pro Condensed',sans-serif;font-size:.76rem;
+  font-weight:800;letter-spacing:.16em;text-align:center;
+}
+html body .learning-format h2 {
+  margin:0 auto 22px;font-family:'SF Pro Condensed',sans-serif;
+  font-size:clamp(2rem,6vw,3.6rem);font-weight:900;
+  line-height:1.02;letter-spacing:-.045em;text-align:center;text-transform:uppercase;
+}
+html body .learning-format h2 mark {
+  padding:0 .16em;border-radius:8px;background:#ffd93d;color:#111827;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+html body .learning-format__lead {
+  max-width:650px;margin:0 auto 34px;color:#596273;
+  font-size:clamp(1rem,2.2vw,1.12rem);font-weight:500;line-height:1.6;text-align:center;
+}
+html body .learning-format__card {
+  display:flex;align-items:flex-start;gap:22px;max-width:720px;
+  margin:0 auto;padding:clamp(24px,5vw,38px);
+  border:1px solid rgba(17,24,39,.09);border-radius:24px;
+  background:#f7f8fa;box-shadow:0 18px 55px rgba(20,31,54,.06);
+}
+html body .learning-format__symbol {
+  flex:0 0 54px;width:54px;height:54px;display:grid;place-items:center;
+  border-radius:17px;background:#ffd93d;color:#111827;
+  font-family:Georgia,serif;font-size:2rem;font-weight:700;
+}
+html body .learning-format__card strong {
+  display:block;margin:2px 0 8px;color:#111827;
+  font-family:'SF Pro Condensed',sans-serif;font-size:1.2rem;font-weight:800;
+}
+html body .learning-format__card p { margin:0;color:#667085;font-size:.98rem;line-height:1.65; }
+html body.theme-dark .learning-format { background:#101522!important;color:#f3f4f6!important; }
+html body.theme-dark .learning-format__eyebrow,
+html body.theme-dark .learning-format__lead { color:#aab2c0!important; }
+html body.theme-dark .learning-format__card { background:#1a2232;border-color:rgba(255,255,255,.12); }
+html body.theme-dark .learning-format__card strong { color:#f3f4f6; }
+html body.theme-dark .learning-format__card p { color:#aab2c0; }
+@media(max-width:600px) {
+  html body .learning-format__card { gap:15px;border-radius:20px; }
+  html body .learning-format__symbol { flex-basis:44px;width:44px;height:44px;border-radius:14px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .learning-format * { scroll-behavior:auto!important; }
+}
+</style>
+
 </body>
 </html>
 
