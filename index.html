@@ -5591,22 +5591,34 @@ html body .hero-menu .hero-menu__contact:focus-visible {
 <style id="hero-subtitle-case-final-fix">
 /* Подзаголовок должен сохранять обычный регистр независимо от общих правил первого экрана. */
 html body .hero .hero__content p.hero__subtitle {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
   width:100%!important;
   max-width:none!important;
   text-align:center!important;
+  text-align-last:center!important;
   text-transform:none!important;
   font-variant:normal!important;
   letter-spacing:.012em!important;
 }
 html body .hero .hero__subtitle-first {
   display:block!important;
-  width:100%!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+  text-align-last:center!important;
   white-space:nowrap!important;
   letter-spacing:.012em!important;
 }
 html body .hero .hero__subtitle-second {
   display:block!important;
-  margin-top:.12em!important;
+  width:100%!important;
+  margin:.12em auto 0!important;
+  text-align:center!important;
+  text-align-last:center!important;
   white-space:normal!important;
 }
 </style>
