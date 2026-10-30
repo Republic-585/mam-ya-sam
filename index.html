@@ -3334,6 +3334,29 @@ html body .hero .hero__subtitle {
 
 </style>
 
+
+<style id="hero-notion-style-image">
+/* Декоративное изображение над заголовком первого экрана. */
+html body .hero .hero__visual{
+  display:block!important;
+  width:clamp(112px,15vw,184px)!important;
+  height:auto!important;
+  max-width:48vw!important;
+  object-fit:contain!important;
+  margin:0 auto 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  flex:0 0 auto!important;
+}
+@media(max-width:640px){
+  html body .hero .hero__visual{
+    width:clamp(104px,31vw,138px)!important;
+    margin-bottom:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -3412,6 +3435,7 @@ html body .hero .hero__subtitle {
     <div class="wrap hero__in">
       
       <div class="hero__content">
+        <img class="hero__visual" src="IMG_3799.png" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
         <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</span></p>
         <p class="hero__subtitle"><span class="hero__subtitle-first">Курс финансовой грамотности<br>на основе математики.</span><span class="hero__subtitle-second">Для детей 5-8 классов.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать сейчас</span></a>
