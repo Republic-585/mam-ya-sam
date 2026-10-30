@@ -3298,6 +3298,7 @@ html body header.topbar .topbar__progress{
         <a href="#program-all">ПРОГРАММА КУРСА</a>
         <a href="#skill">НАВЫКИ</a>
         <a href="#about">О ПРОЕКТЕ</a>
+        <a href="#reviews">ОТЗЫВЫ</a>
         <a href="#pricing">ТАРИФЫ</a>
         <a href="#faq">ВОПРОСЫ И ОТВЕТЫ</a>
         <a href="#signup">ОСТАВИТЬ ЗАЯВКУ</a>
@@ -3541,6 +3542,22 @@ html body header.topbar .topbar__progress{
     </div>
   </section>
 
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews" aria-labelledby="reviewsHeading">
+    <div class="wrap reviews__inner">
+      <span class="reviews__eyebrow">ОТЗЫВЫ</span>
+      <h2 id="reviewsHeading">Важны не обещания.<br><mark>Важен опыт.</mark></h2>
+      <p class="reviews__lead">Здесь будут собраны реальные впечатления родителей и учеников о проекте «Мам, я сам!».</p>
+      <div class="reviews__empty">
+        <span class="reviews__quote" aria-hidden="true">“</span>
+        <div>
+          <strong>Первые отзывы появятся здесь</strong>
+          <p>Мы не придумываем истории и оценки. Публикуем только настоящие отзывы участников и их семей.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- PRICING -->
   <section class="pricing" id="pricing">
@@ -5232,6 +5249,118 @@ html body .hero-menu.is-open .hero-menu__links a:nth-child(6) { animation-delay:
 }
 </style>
 
+
+<style id="reviews-section-style">
+/* Новый раздел отзывов: честная стартовая версия без вымышленных рекомендаций. */
+html body .reviews {
+  position:relative;
+  overflow:hidden;
+  padding:clamp(76px,10vw,124px) 0;
+  background:#f4f5f7;
+  color:#111827;
+}
+html body .reviews__inner {
+  max-width:900px;
+  margin:0 auto;
+}
+html body .reviews__eyebrow {
+  display:block;
+  margin-bottom:18px;
+  color:#667085;
+  font-family:'SF Pro Condensed',sans-serif;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-align:center;
+}
+html body .reviews h2 {
+  margin:0 auto 22px;
+  font-family:'SF Pro Condensed',sans-serif;
+  font-size:clamp(2rem,6vw,3.6rem);
+  font-weight:900;
+  line-height:1.02;
+  letter-spacing:-.045em;
+  text-align:center;
+  text-transform:uppercase;
+}
+html body .reviews h2 mark {
+  padding:0 .16em;
+  border-radius:8px;
+  background:#ffd93d;
+  color:#111827;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+html body .reviews__lead {
+  max-width:620px;
+  margin:0 auto 34px;
+  color:#596273;
+  font-size:clamp(1rem,2.2vw,1.12rem);
+  font-weight:500;
+  line-height:1.6;
+  text-align:center;
+}
+html body .reviews__empty {
+  display:flex;
+  align-items:center;
+  gap:22px;
+  max-width:680px;
+  margin:0 auto;
+  padding:clamp(24px,5vw,38px);
+  border:1px solid rgba(17,24,39,.09);
+  border-radius:24px;
+  background:rgba(255,255,255,.82);
+  box-shadow:0 18px 55px rgba(20,31,54,.07);
+}
+html body .reviews__quote {
+  flex:0 0 54px;
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  background:#ffd93d;
+  color:#111827;
+  font-family:Georgia,serif;
+  font-size:3.2rem;
+  line-height:1;
+  padding-top:12px;
+}
+html body .reviews__empty strong {
+  display:block;
+  margin-bottom:7px;
+  color:#111827;
+  font-family:'SF Pro Condensed',sans-serif;
+  font-size:1.18rem;
+  font-weight:800;
+}
+html body .reviews__empty p {
+  margin:0;
+  color:#667085;
+  font-size:.96rem;
+  line-height:1.55;
+}
+html body .theme-dark .reviews {
+  background:#101522!important;
+  color:#f3f4f6!important;
+}
+html body.theme-dark .reviews__eyebrow,
+html body.theme-dark .reviews__lead { color:#aab2c0!important; }
+html body.theme-dark .reviews__empty {
+  background:#1a2232;
+  border-color:rgba(255,255,255,.12);
+}
+html body.theme-dark .reviews__empty strong { color:#f3f4f6; }
+html body.theme-dark .reviews__empty p { color:#aab2c0; }
+html body .hero-menu.is-open .hero-menu__links a:nth-child(7) { animation-delay:.155s; }
+@media(max-width:600px) {
+  html body .reviews__empty { align-items:flex-start;gap:15px;border-radius:20px; }
+  html body .reviews__quote { flex-basis:44px;width:44px;height:44px;border-radius:14px;font-size:2.8rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .reviews * { scroll-behavior:auto!important; }
+}
+</style>
 </body>
 </html>
 
