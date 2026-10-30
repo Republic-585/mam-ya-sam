@@ -3266,17 +3266,12 @@ html body header.topbar .topbar__progress{
     <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
     <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
-      <div class="hero-menu-cat-scene" aria-hidden="true">
-        <span class="hero-menu-cat-line"></span>
-        <svg class="hero-menu-cat" viewBox="0 0 40 32" focusable="false"><path d="M8 13 6 4l9 5c3-1 7-1 10 0l9-5-2 10c2 3 2 7 0 10-3 4-8 5-13 5S9 27 7 23c-2-3-1-7 1-10Z"/><path d="M13 18h.1M27 18h.1M16 23c2 2 6 2 8 0M19 20h2M2 21l5-1M33 20l5 1"/></svg>
-        <svg class="hero-menu-yin-roll" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10"/><circle cx="12" cy="7" r="1.35" fill="currentColor" stroke="none"/><circle cx="12" cy="17" r="1.35"/></svg>
-      </div>
       <button class="hero-menu__theme-toggle" id="themeToggle" type="button" aria-label="Переключить светлую или тёмную тему" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10"></path>
-          <circle cx="12" cy="7" r="1.35" fill="currentColor" stroke="none"></circle>
-          <circle cx="12" cy="17" r="1.35"></circle>
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"></circle>
+          <path d="M12 2a5 5 0 0 1 0 10 5 5 0 0 0 0 10A10 10 0 0 0 12 2Z" fill="#171717" stroke="none"></path>
+          <circle cx="12" cy="7" r="1.35" fill="#fff" stroke="none"></circle>
+          <circle cx="12" cy="17" r="1.35" fill="#171717" stroke="none"></circle>
         </svg>
       </button>
       <div class="hero-menu__links">
@@ -5042,8 +5037,9 @@ html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
 <style id="menu-theme-toggle">
 /* Переключатель светлой и тёмной темы в окне меню. */
 html body .hero-menu__theme-toggle {
-  align-self:flex-end;display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;margin:0 0 8px auto;
-  padding:0;border:0;border-radius:0;background:transparent;color:var(--ink);
+  position:absolute;top:clamp(28px,6vw,54px);left:50%;right:auto;transform:translateX(-50%);
+  display:grid;place-items:center;width:44px;height:44px;margin:0;padding:0;
+  border:0;border-radius:0;background:transparent;color:var(--ink);
   cursor:pointer;opacity:.82;-webkit-tap-highlight-color:transparent;
   transition:opacity .22s ease;
 }
@@ -5104,23 +5100,4 @@ html body.theme-dark .footer a,html body.theme-dark .footer p,html body.theme-da
 
 </body>
 </html>
-
-
-<style id="hero-menu-cat-scene-style">
-html body .hero-menu-cat-scene{position:absolute;top:clamp(28px,6vw,54px);left:clamp(24px,5vw,42px);right:clamp(24px,5vw,42px);height:44px;pointer-events:none;color:var(--ink);z-index:3}
-html body .hero-menu-cat-line{position:absolute;left:0;right:0;top:22px;height:1px;background:currentColor;opacity:.32;transform:scaleX(0);transform-origin:left}
-html body .hero-menu-cat{position:absolute;left:0;top:5px;width:34px;height:28px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;opacity:0}
-html body .hero-menu-yin-roll{position:absolute;left:36px;top:10px;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:0}
-html body .hero-menu__theme-toggle{position:absolute!important;top:clamp(28px,6vw,54px)!important;right:clamp(24px,5vw,42px)!important;z-index:4!important;margin:0!important}
-html body .hero-menu.is-open .hero-menu-cat-line{animation:menu-cat-line .42s ease-out .08s both}
-html body .hero-menu.is-open .hero-menu-cat{animation:menu-cat-in .42s ease-out .12s both,menu-cat-paw .42s ease-in-out .52s 2}
-html body .hero-menu.is-open .hero-menu-yin-roll{animation:menu-yin-roll 1.05s cubic-bezier(.22,.72,.24,1) .48s both}
-html body .hero-menu.is-open .hero-menu__theme-toggle svg{opacity:0}
-@keyframes menu-cat-line{to{transform:scaleX(1)}}
-@keyframes menu-cat-in{to{opacity:1}}
-@keyframes menu-cat-paw{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-@keyframes menu-yin-roll{0%{opacity:1;left:36px;transform:rotate(0)}18%{transform:rotate(110deg)}100%{opacity:1;left:calc(100% - 34px);transform:rotate(760deg)}}
-@media(max-width:640px){html body .hero-menu-cat-scene{top:28px}html body .hero-menu__theme-toggle{top:28px!important}}
-@media(prefers-reduced-motion:reduce){html body .hero-menu-cat-line{transform:scaleX(1)}html body .hero-menu-cat{opacity:1}html body .hero-menu-yin-roll{display:none}html body .hero-menu__theme-toggle svg{opacity:1!important}html body .hero-menu-cat-line,html body .hero-menu-cat{animation:none!important}}
-</style>
 
