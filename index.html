@@ -5931,6 +5931,53 @@ html body .hero-menu .hero-menu__links a span {
 
 
 
+<style id="iphone-header-follow-visible-viewport">
+/* На iPhone нижняя шапка следует за нижней границей именно видимой области Safari. */
+@media (max-width:760px) {
+  html body header.topbar {
+    position:fixed!important;
+    top:auto!important;
+    bottom:var(--safari-visible-bottom-gap, 0px)!important;
+    left:12px!important;
+    right:12px!important;
+    width:auto!important;
+    max-width:none!important;
+    z-index:1000!important;
+    margin:0!important;
+    transition:none!important;
+  }
+}
+</style>
+<script id="iphone-header-follow-visible-viewport-script">
+(function () {
+  const header = document.querySelector('header.topbar');
+  if (!header || !window.visualViewport) return;
+
+  const viewport = window.visualViewport;
+  let frame = 0;
+
+  function syncHeaderToVisibleViewport() {
+    if (frame) return;
+    frame = window.requestAnimationFrame(function () {
+      frame = 0;
+      const visibleBottom = viewport.offsetTop + viewport.height;
+      const layoutHeight = window.innerHeight;
+      const gap = Math.max(0, layoutHeight - visibleBottom);
+      document.documentElement.style.setProperty(
+        '--safari-visible-bottom-gap',
+        gap.toFixed(2) + 'px'
+      );
+    });
+  }
+
+  viewport.addEventListener('resize', syncHeaderToVisibleViewport, {passive:true});
+  viewport.addEventListener('scroll', syncHeaderToVisibleViewport, {passive:true});
+  window.addEventListener('resize', syncHeaderToVisibleViewport, {passive:true});
+  window.addEventListener('orientationchange', syncHeaderToVisibleViewport, {passive:true});
+  syncHeaderToVisibleViewport();
+})();
+</script>
+
 </body>
 </html>
 
