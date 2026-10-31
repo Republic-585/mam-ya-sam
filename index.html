@@ -6180,6 +6180,21 @@ html body .hero-menu .hero-menu__links a span {
   }
 }
 </style>
+
+<style id="mobile-menu-glass-and-soft-shadow">
+@media(max-width:760px) {
+  /* Стеклянная поверхность меню в том же стиле, что и нижняя шапка. */
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    background:rgba(255,255,255,.72)!important;
+    -webkit-backdrop-filter:saturate(180%) blur(22px)!important;
+    backdrop-filter:saturate(180%) blur(22px)!important;
+    box-shadow:0 -18px 48px rgba(8,13,32,.22),
+               0 -4px 16px rgba(8,13,32,.10),
+               inset 0 1px 0 rgba(255,255,255,.52)!important;
+  }
+}
+</style>
 </body>
 </html>
 
