@@ -5953,29 +5953,45 @@ html body .hero-menu .hero-menu__links a span {
   if (!header || !viewport || !/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
 
   let previousHeight = viewport.height;
-  let resizeTimer = 0;
+  let previousScrollY = window.scrollY;
+  let resizeFrame = 0;
 
   function syncWithSafariToolbar() {
     const currentHeight = viewport.height;
     const difference = currentHeight - previousHeight;
 
-    /* Расширение видимой области означает, что нижняя панель Safari скрылась. */
-    if (difference > 24) {
+    if (difference > 12) {
       header.classList.add('safari-toolbar-hidden');
-    } else if (difference < -24) {
+    } else if (difference < -12) {
       header.classList.remove('safari-toolbar-hidden');
     }
     previousHeight = currentHeight;
   }
 
+  /* Реагируем на жест прокрутки сразу, не ожидая завершения анимации Safari. */
+  window.addEventListener('scroll', function () {
+    const currentScrollY = window.scrollY;
+    const difference = currentScrollY - previousScrollY;
+    if (difference > 1) {
+      header.classList.add('safari-toolbar-hidden');
+    } else if (difference < -1 || currentScrollY <= 2) {
+      header.classList.remove('safari-toolbar-hidden');
+    }
+    previousScrollY = currentScrollY;
+  }, { passive: true });
+
   viewport.addEventListener('resize', function () {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(syncWithSafariToolbar, 100);
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(function () {
+      resizeFrame = 0;
+      syncWithSafariToolbar();
+    });
   }, { passive: true });
 
   window.addEventListener('orientationchange', function () {
     header.classList.remove('safari-toolbar-hidden');
     previousHeight = viewport.height;
+    previousScrollY = window.scrollY;
   }, { passive: true });
 })();
 </script>
