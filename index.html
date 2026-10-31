@@ -6214,6 +6214,18 @@ html body .hero-menu .hero-menu__links a span {
   }
 }
 </style>
+
+<style id="hero-menu-page-soft-dim">
+/* Лёгкое затемнение и размытие страницы под открытым меню. */
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  background:rgba(8,13,32,.12)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+</style>
 </body>
 </html>
 
