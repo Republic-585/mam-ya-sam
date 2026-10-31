@@ -5840,8 +5840,8 @@ html body .hero .hero__content p.hero__subtitle {
 }
 html body .hero .hero-start-button {
   opacity:calc(1 - var(--hero-button-fade, 0));
-  filter:blur(calc(var(--hero-button-fade, 0) * 2px));
-  will-change:opacity,filter;
+  transform:translate3d(0, calc(var(--hero-button-fade, 0) * 24px), 0);
+  will-change:opacity,transform;
 }
 html body .hero .hero-start-button.is-scroll-faded {
   pointer-events:none;
