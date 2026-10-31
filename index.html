@@ -6007,13 +6007,16 @@ html body .hero-menu .hero-menu__links a span {
 <style id="header-expands-into-menu">
 /* Мобильное меню компактно раскрывается вверх от верхнего края нижней шапки. */
 @media(max-width:760px) {
-  html body .hero-menu {
+  html body #heroMenu.hero-menu {
     position:fixed!important;
     top:auto!important;
-    right:12px!important;
-    bottom:calc(var(--topbar-height, 60px) + env(safe-area-inset-bottom, 0px))!important;
     left:12px!important;
-    width:auto!important;
+    right:12px!important;
+    width:calc(100vw - 24px)!important;
+    min-width:0!important;
+    max-width:none!important;
+    box-sizing:border-box!important;
+    bottom:calc(var(--topbar-height, 60px) + env(safe-area-inset-bottom, 0px))!important;
     height:min(62dvh, 470px)!important;
     max-height:min(62dvh, 470px)!important;
     margin:0!important;
