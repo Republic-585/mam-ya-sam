@@ -6242,6 +6242,27 @@ html body.hero-menu-open .hero-menu-backdrop.is-open {
   backdrop-filter:blur(3px)!important;
 }
 </style>
+
+
+<style id="mobile-menu-plain-white">
+/* Простые белые поверхности без стекла, размытия и теней. */
+@media(max-width:760px) {
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open,
+  html body.hero-menu-open header.topbar {
+    background:#fff!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+}
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+</style>
+
 </body>
 </html>
-
