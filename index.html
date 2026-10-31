@@ -5763,6 +5763,41 @@ html body .hero .hero__subtitle-line-one {
 }
 </style>
 
+
+<style id="hero-buttons-rounded-compact">
+/* Единый более компактный и округлый вид двух жёлтых кнопок. */
+html body .hero .hero-start-button,
+html body .hero-menu .hero-menu__contact {
+  width:100%!important;
+  max-width:280px!important;
+  height:44px!important;
+  min-height:44px!important;
+  border-radius:22px!important;
+}
+html body .hero .hero-start-button {
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html body .hero-menu .hero-menu__contact {
+  margin-left:auto!important;
+  margin-right:auto!important;
+  font-weight:400!important;
+}
+html body .hero-menu .hero-menu__contact span {
+  font-weight:400!important;
+}
+@media(max-width:640px) {
+  html body .hero .hero-start-button,
+  html body .hero-menu .hero-menu__contact {
+    width:calc(100% - 32px)!important;
+    max-width:280px!important;
+    height:44px!important;
+    min-height:44px!important;
+    border-radius:22px!important;
+  }
+}
+</style>
+
 </body>
 </html>
 
