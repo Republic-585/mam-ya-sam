@@ -6132,6 +6132,17 @@ html body .hero-menu .hero-menu__links a span {
   }
 }
 </style>
+
+<style id="mobile-menu-content-slightly-higher">
+@media(max-width:760px) {
+  /* Разделы и кнопка связи немного выше; остальные элементы меню без изменений. */
+  html body #heroMenu .hero-menu__links,
+  html body #heroMenu .hero-menu__contact {
+    position:relative!important;
+    top:-10px!important;
+  }
+}
+</style>
 </body>
 </html>
 
