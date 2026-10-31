@@ -88,6 +88,7 @@ textarea:focus-visible{
 /* ---------- TOP BAR & PROGRESS ---------- */
 .topbar{
   position:sticky;top:0;z-index:50;
+  margin-top:12px;
   background:var(--paper);
   border-bottom:var(--border);
 }
