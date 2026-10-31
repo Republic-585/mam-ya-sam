@@ -4855,9 +4855,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     header.style.setProperty('--wordmark-scroll-progress', '0');
     const wordRect = wordmark.getBoundingClientRect();
     const cubeRect = cube.getBoundingClientRect();
-    /* К моменту полного растворения правый край текста касается левой обводки кубика. */
-    const fadeEndScale = 1 - .56 * .12;
-    header.style.setProperty('--wordmark-into-x', (cubeRect.left - wordRect.left - wordRect.width * fadeEndScale).toFixed(2) + 'px');
+    /* Текст подходит слева направо и растворяется у правой внешней обводки кубика. */
+    header.style.setProperty('--wordmark-into-x', (cubeRect.right - wordRect.left).toFixed(2) + 'px');
     header.style.setProperty('--wordmark-into-y', (cubeRect.top + cubeRect.height / 2 - wordRect.top - wordRect.height / 2).toFixed(2) + 'px');
   }
   function updateWordmark() {
