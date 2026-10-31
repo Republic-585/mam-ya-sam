@@ -6273,5 +6273,40 @@ html body #heroMenu .hero-menu__social-icon {
 }
 </style>
 
+
+
+<style id="mobile-menu-taller-and-social-visible">
+/* Увеличиваем высоту панели вверх и гарантируем видимость ряда соцсетей. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    height:min(88dvh, 960px)!important;
+    max-height:min(88dvh, 960px)!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+  html body #heroMenu .hero-menu__social {
+    display:flex!important;
+    flex:0 0 auto!important;
+    position:relative!important;
+    z-index:2!important;
+    min-height:44px!important;
+    margin-top:24px!important;
+    padding:20px 0 max(20px, env(safe-area-inset-bottom, 0px))!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+  }
+  html body #heroMenu .hero-menu__social-icon,
+  html body #heroMenu .hero-menu__social-icon svg {
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  html body #heroMenu .hero-menu__social-icon {
+    color:#171717!important;
+  }
+}
+</style>
+
 </body>
 </html>
