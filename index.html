@@ -5850,13 +5850,7 @@ html body .hero .hero-start-button.is-scroll-faded {
 }
 /* Плашка увеличивается при прокрутке, а слово «вместе» мягко смещается и растворяется. */
 html body .hero .hero__word-pill {
-  height:44px;
-  max-height:44px;
-  box-sizing:border-box;
-  padding-top:0;
-  padding-bottom:0;
-  line-height:1;
-  transform:translate3d(calc((50vw - var(--hero-pill-center-x, 50vw)) * var(--hero-pill-move, 0)),0,0) scale(calc(1 + var(--hero-pill-scale, 0) * var(--hero-pill-scale-growth, .28)));
+  transform:translate3d(calc((50vw - var(--hero-pill-center-x, 50vw)) * var(--hero-pill-move, 0)),0,0) scale(calc(1 + var(--hero-pill-scale, 0) * .28));
   transform-origin:center;
   position:relative;
   z-index:2;
@@ -5903,8 +5897,6 @@ html body .hero .hero__together-word {
     hero.style.setProperty('--hero-pill-scale', '0');
     hero.style.setProperty('--hero-pill-move', '0');
     const rect = pill.getBoundingClientRect();
-    const maxScaleGrowth = Math.max(0, Math.min(.28, 44 / Math.max(1, rect.height) - 1));
-    hero.style.setProperty('--hero-pill-scale-growth', maxScaleGrowth.toFixed(4));
     hero.style.setProperty('--hero-pill-center-x', (rect.left + rect.width / 2).toFixed(2) + 'px');
   }
 
