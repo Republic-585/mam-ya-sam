@@ -4825,31 +4825,36 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <style id="header-wordmark-skill-scroll-fade">
-/* Плавно скрываем только текст логотипа в шапке начиная с блока навыков. */
+/* Текст логотипа плавно растворяется по мере приближения к блоку навыков. */
 .topbar .logo__text {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity .45s ease, visibility .45s ease;
+  opacity:var(--wordmark-scroll-opacity, 1);
+  visibility:visible;
+  pointer-events:auto;
+  will-change:opacity;
 }
 .topbar.is-wordmark-hidden .logo__text {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  opacity:0!important;
+  visibility:hidden;
+  pointer-events:none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .topbar .logo__text { transition: none; }
+  .topbar .logo__text { will-change:auto; }
 }
 </style>
 <script id="header-wordmark-skill-scroll-fade-script">
 (function () {
   const header = document.querySelector('.topbar');
   const skill = document.getElementById('skill');
-  if (!header || !skill) return;
+  if (!header || !skill || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   let ticking = false;
   function updateWordmark() {
-    const hide = skill.getBoundingClientRect().top <= header.getBoundingClientRect().height;
-    header.classList.toggle('is-wordmark-hidden', hide);
+    const headerHeight = header.getBoundingClientRect().height;
+    const skillTop = skill.getBoundingClientRect().top;
+    const fadeDistance = Math.max(1, window.innerHeight - headerHeight);
+    const progress = Math.min(1, Math.max(0, (window.innerHeight - skillTop) / fadeDistance));
+    header.style.setProperty('--wordmark-scroll-opacity', (1 - progress).toFixed(4));
+    header.classList.toggle('is-wordmark-hidden', progress >= 0.999);
     ticking = false;
   }
   function requestUpdate() {
@@ -4858,7 +4863,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     window.requestAnimationFrame(updateWordmark);
   }
   window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('resize', requestUpdate, { passive: true });
   updateWordmark();
 })();
 </script>
