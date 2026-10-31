@@ -6323,45 +6323,4 @@ html body #heroMenu .hero-menu__social-icon {
 </html>
 
 
-<style id="hero-menu-links-center-out-shimmer">
-/* Мягкий горизонтальный блик раскрывается от центра каждого пункта к краям при открытии меню. */
-html body #heroMenu .hero-menu__links a {
-  position:relative!important;
-  overflow:hidden!important;
-  isolation:isolate;
-}
-html body #heroMenu .hero-menu__links a::after {
-  content:"";
-  position:absolute;
-  z-index:1;
-  inset:0;
-  pointer-events:none;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    rgba(255,255,255,.08) 25%,
-    rgba(255,255,255,.78) 50%,
-    rgba(255,255,255,.08) 75%,
-    transparent 100%);
-  opacity:0;
-  transform:scaleX(0);
-  transform-origin:center center;
-}
-html body #heroMenu.is-open .hero-menu__links a::after {
-  animation:hero-menu-center-out-shimmer .72s cubic-bezier(.2,.65,.25,1) both;
-}
-html body #heroMenu.is-open .hero-menu__links a:nth-child(2)::after { animation-delay:.07s; }
-html body #heroMenu.is-open .hero-menu__links a:nth-child(3)::after { animation-delay:.14s; }
-html body #heroMenu.is-open .hero-menu__links a:nth-child(4)::after { animation-delay:.21s; }
-html body #heroMenu.is-open .hero-menu__links a:nth-child(5)::after { animation-delay:.28s; }
-html body #heroMenu.is-open .hero-menu__links a:nth-child(6)::after { animation-delay:.35s; }
-html body #heroMenu.is-open .hero-menu__links a:nth-child(7)::after { animation-delay:.42s; }
-@keyframes hero-menu-center-out-shimmer {
-  0% { opacity:0;transform:scaleX(0); }
-  18% { opacity:.9; }
-  72% { opacity:.7;transform:scaleX(1); }
-  100% { opacity:0;transform:scaleX(1); }
-}
-@media(prefers-reduced-motion:reduce) {
-  html body #heroMenu.is-open .hero-menu__links a::after { animation:none!important; }
-}
-</style>
+
