@@ -3414,7 +3414,7 @@ html body .hero .hero__subtitle {
     <div class="wrap hero__in">
       
       <div class="hero__content">
-        <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</span></p>
+        <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> <span class="hero__together-word">вместе.</span></span></p>
         <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Курс финансовой грамотности</span><span class="hero__subtitle-line-two">на основе математики.</span></span><span class="hero__subtitle-second">Для детей 5-8 классов.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать сейчас</span></a>
       </div>
@@ -5850,7 +5850,19 @@ html body .hero .hero-start-button.is-scroll-faded {
 html body .hero .hero__word-pill {
   transform:scale(calc(1 + var(--hero-pill-scale, 0) * .5));
   transform-origin:center;
+  position:relative;
+  z-index:2;
   will-change:transform;
+}
+/* Слово «вместе» мягко смещается под растущую плашку и растворяется. */
+html body .hero .hero__together-word {
+  display:inline-block;
+  position:relative;
+  z-index:1;
+  opacity:calc(1 - clamp(0, (var(--hero-pill-scale, 0) - .06) / .5, 1));
+  transform:translate3d(calc(var(--hero-pill-scale, 0) * -42%), calc(var(--hero-pill-scale, 0) * -2px), 0) scale(calc(1 - var(--hero-pill-scale, 0) * .12));
+  transform-origin:left center;
+  will-change:opacity,transform;
 }
 @media(prefers-reduced-motion:reduce) {
   html body .hero .hero__lead-three-lines,
@@ -5862,6 +5874,11 @@ html body .hero .hero__word-pill {
     will-change:auto;
   }
   html body .hero .hero__word-pill {
+    transform:none!important;
+    will-change:auto;
+  }
+  html body .hero .hero__together-word {
+    opacity:1!important;
     transform:none!important;
     will-change:auto;
   }
