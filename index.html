@@ -6003,6 +6003,75 @@ html body .hero-menu .hero-menu__links a span {
 
 
 
+
+<style id="header-expands-into-menu">
+/* На мобильных меню вырастает вверх непосредственно из нижней шапки. */
+@media(max-width:760px) {
+  html body .hero-menu {
+    position:fixed!important;
+    top:12px!important;
+    right:12px!important;
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 16px + var(--topbar-height, 60px))!important;
+    left:12px!important;
+    width:auto!important;
+    height:auto!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:76px 24px 28px!important;
+    overflow-y:auto!important;
+    border:1px solid rgba(20,20,20,.08)!important;
+    border-bottom:0!important;
+    border-radius:24px 24px 0 0!important;
+    box-shadow:0 -14px 44px rgba(8,13,32,.10)!important;
+    transform:translate3d(0,12px,0) scaleY(.08)!important;
+    transform-origin:center bottom!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    transition:transform .48s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility .48s!important;
+    will-change:transform,opacity!important;
+  }
+  html body .hero-menu.is-open {
+    transform:translate3d(0,0,0) scaleY(1)!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+  html body .hero-menu__links {
+    margin-top:20px!important;
+  }
+  html body.hero-menu-open header.topbar {
+    background:var(--paper)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    border-top-color:rgba(20,20,20,.08)!important;
+    border-radius:0 0 22px 22px!important;
+    box-shadow:0 12px 28px rgba(8,13,32,.08)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  @media(max-width:760px) {
+    html body .hero-menu,
+    html body .hero-menu.is-open {
+      transition:none!important;
+      transform:none!important;
+    }
+  }
+}
+</style>
+<script id="header-expands-into-menu-script">
+(function () {
+  const header = document.querySelector('header.topbar');
+  if (!header) return;
+  function syncMenuHeight() {
+    document.documentElement.style.setProperty('--topbar-height', header.getBoundingClientRect().height.toFixed(2) + 'px');
+  }
+  syncMenuHeight();
+  window.addEventListener('resize', syncMenuHeight, {passive:true});
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncMenuHeight, {passive:true});
+  }
+})();
+</script>
+
 </body>
 </html>
 
