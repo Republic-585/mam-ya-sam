@@ -4825,18 +4825,18 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <style id="header-wordmark-skill-scroll-fade">
-/* При прокрутке название плавно собирается в кубике с буквой М. */
+/* Название уходит в кубик по той же плавной кривой, что и слово «вместе» в Hero. */
 .topbar .logo__text {
-  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .88) / .12, 1));
+  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .06) / .5, 1));
   transform:translate3d(
     calc(var(--wordmark-into-x, 0px) * var(--wordmark-scroll-progress, 0)),
     calc(var(--wordmark-into-y, 0px) * var(--wordmark-scroll-progress, 0)),
     0
-  ) scale(calc(1 - var(--wordmark-scroll-progress, 0) * .96));
-  transform-origin:center center;
+  ) scale(calc(1 - var(--wordmark-scroll-progress, 0) * .12));
+  transform-origin:left center;
   visibility:visible;
   pointer-events:none;
-  will-change:transform,opacity;
+  will-change:opacity,transform;
 }
 @media (prefers-reduced-motion: reduce) {
   .topbar .logo__text { transform:none; opacity:1; will-change:auto; }
