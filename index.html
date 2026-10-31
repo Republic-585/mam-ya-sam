@@ -6330,18 +6330,25 @@ html body #heroMenu .hero-menu__social-icon {
 
 
 <style id="hero-menu-links-center-reveal">
-/* Разделы проявляются из центра по горизонтали к обоим краям. */
+/* Сдержанное появление пунктов меню в духе системных переходов Apple. */
 html body #heroMenu.is-open .hero-menu__links a {
-  animation:hero-menu-center-reveal .6s cubic-bezier(.22,.7,.25,1) both!important;
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
 }
-@keyframes hero-menu-center-reveal {
-  from { clip-path:inset(0 50% 0 50%); }
-  to { clip-path:inset(0 -1% 0 -1%); }
+@keyframes hero-menu-apple-appear {
+  from {
+    opacity:0;
+    transform:translateY(5px) scale(.985);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 @media(prefers-reduced-motion:reduce) {
   html body #heroMenu.is-open .hero-menu__links a {
     animation:none!important;
-    clip-path:none!important;
+    opacity:1!important;
+    transform:none!important;
   }
 }
 </style>
