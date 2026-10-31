@@ -6078,6 +6078,40 @@ html body .hero-menu .hero-menu__links a span {
 })();
 </script>
 
+
+<style id="mobile-menu-final-position-lock">
+/* Финальная фиксация мобильной геометрии: отключаем старые modal/keyframe-анимации. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    position:fixed!important;
+    top:auto!important;
+    right:12px!important;
+    bottom:calc(var(--topbar-height, 60px) + env(safe-area-inset-bottom, 0px))!important;
+    left:12px!important;
+    width:calc(100vw - 24px)!important;
+    height:min(62dvh, 470px)!important;
+    max-height:min(62dvh, 470px)!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+    transform:none!important;
+    animation:none!important;
+    transform-origin:center bottom!important;
+    transition:clip-path .48s cubic-bezier(.22,1,.36,1),opacity .24s ease,visibility .48s!important;
+  }
+  html body #heroMenu.hero-menu {
+    clip-path:inset(100% 0 0 0)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+  }
+  html body #heroMenu.hero-menu.is-open {
+    clip-path:inset(0 0 0 0)!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+}
+</style>
+
 </body>
 </html>
 
