@@ -4825,36 +4825,45 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <style id="header-wordmark-skill-scroll-fade">
-/* Текст логотипа плавно растворяется по мере приближения к блоку навыков. */
+/* При прокрутке название плавно собирается в кубике с буквой М. */
 .topbar .logo__text {
-  opacity:var(--wordmark-scroll-opacity, 1);
+  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .88) / .12, 1));
+  transform:translate3d(
+    calc(var(--wordmark-into-x, 0px) * var(--wordmark-scroll-progress, 0)),
+    calc(var(--wordmark-into-y, 0px) * var(--wordmark-scroll-progress, 0)),
+    0
+  ) scale(calc(1 - var(--wordmark-scroll-progress, 0) * .96));
+  transform-origin:center center;
   visibility:visible;
-  pointer-events:auto;
-  will-change:opacity;
-}
-.topbar.is-wordmark-hidden .logo__text {
-  opacity:0!important;
-  visibility:hidden;
   pointer-events:none;
+  will-change:transform,opacity;
 }
 @media (prefers-reduced-motion: reduce) {
-  .topbar .logo__text { will-change:auto; }
+  .topbar .logo__text { transform:none; opacity:1; will-change:auto; }
 }
 </style>
 <script id="header-wordmark-skill-scroll-fade-script">
 (function () {
   const header = document.querySelector('.topbar');
   const skill = document.getElementById('skill');
-  if (!header || !skill || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const wordmark = header && header.querySelector('.logo__text');
+  const cube = header && header.querySelector('.logo__dot');
+  if (!header || !skill || !wordmark || !cube || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   let ticking = false;
+  function measureWordmarkTarget() {
+    header.style.setProperty('--wordmark-scroll-progress', '0');
+    const wordRect = wordmark.getBoundingClientRect();
+    const cubeRect = cube.getBoundingClientRect();
+    header.style.setProperty('--wordmark-into-x', (cubeRect.left + cubeRect.width / 2 - wordRect.left - wordRect.width / 2).toFixed(2) + 'px');
+    header.style.setProperty('--wordmark-into-y', (cubeRect.top + cubeRect.height / 2 - wordRect.top - wordRect.height / 2).toFixed(2) + 'px');
+  }
   function updateWordmark() {
     const headerHeight = header.getBoundingClientRect().height;
     const skillTop = skill.getBoundingClientRect().top;
-    const fadeDistance = Math.max(1, window.innerHeight - headerHeight);
-    const progress = Math.min(1, Math.max(0, (window.innerHeight - skillTop) / fadeDistance));
-    header.style.setProperty('--wordmark-scroll-opacity', (1 - progress).toFixed(4));
-    header.classList.toggle('is-wordmark-hidden', progress >= 0.999);
+    const travelDistance = Math.max(1, window.innerHeight - headerHeight);
+    const progress = Math.min(1, Math.max(0, (window.innerHeight - skillTop) / travelDistance));
+    header.style.setProperty('--wordmark-scroll-progress', progress.toFixed(4));
     ticking = false;
   }
   function requestUpdate() {
@@ -4863,7 +4872,11 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     window.requestAnimationFrame(updateWordmark);
   }
   window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate, { passive: true });
+  window.addEventListener('resize', function () {
+    measureWordmarkTarget();
+    requestUpdate();
+  }, { passive: true });
+  measureWordmarkTarget();
   updateWordmark();
 })();
 </script>
