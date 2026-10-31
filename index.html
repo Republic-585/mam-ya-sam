@@ -3415,7 +3415,7 @@ html body .hero .hero__subtitle {
       
       <div class="hero__content">
         <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Место, где</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> вместе.</span></p>
-        <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Курс финансовой грамотности</span><br>на основе математики.</span><span class="hero__subtitle-second">Для детей 5-8 классов.</span></p>
+        <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Курс финансовой грамотности</span><span class="hero__subtitle-line-two">на основе математики.</span></span><span class="hero__subtitle-second">Для детей 5-8 классов.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать сейчас</span></a>
       </div>
 
@@ -5795,6 +5795,38 @@ html body .hero-menu .hero-menu__contact span {
     min-height:44px!important;
     border-radius:22px!important;
   }
+}
+</style>
+
+
+<style id="hero-subtitle-unified-typography">
+/* Единое округлое начертание и одинаковый интервал всех трёх строк подзаголовка. */
+html body .hero .hero__content p.hero__subtitle,
+html body .hero .hero__subtitle .hero__subtitle-first,
+html body .hero .hero__subtitle .hero__subtitle-second,
+html body .hero .hero__subtitle-line-one,
+html body .hero .hero__subtitle-line-two {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(.72rem,4.9vw,3.05rem)!important;
+  font-weight:400!important;
+  font-stretch:normal!important;
+  font-style:normal!important;
+  letter-spacing:normal!important;
+  line-height:1.3!important;
+  color:#666666!important;
+}
+html body .hero .hero__subtitle .hero__subtitle-first {
+  display:flex!important;
+  flex-direction:column!important;
+  gap:0!important;
+}
+html body .hero .hero__subtitle-line-one,
+html body .hero .hero__subtitle-line-two,
+html body .hero .hero__subtitle-second {
+  display:block!important;
+  margin:0!important;
+  white-space:nowrap!important;
+  text-align:center!important;
 }
 </style>
 
