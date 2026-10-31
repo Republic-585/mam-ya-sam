@@ -4827,7 +4827,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <style id="header-wordmark-skill-scroll-fade">
 /* Название уходит в кубик по той же плавной кривой, что и слово «вместе» в Hero. */
 .topbar .logo__text {
-  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .06) / .5, 1));
+  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .40) / .08, 1));
   transform:translate3d(
     calc(var(--wordmark-into-x, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
     calc(var(--wordmark-into-y, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
