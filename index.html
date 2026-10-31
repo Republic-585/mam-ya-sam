@@ -5846,6 +5846,12 @@ html body .hero .hero-start-button {
 html body .hero .hero-start-button.is-scroll-faded {
   pointer-events:none;
 }
+/* Плашка с меняющимся словом плавно увеличивается вместе с прокруткой. */
+html body .hero .hero__word-pill {
+  transform:scale(calc(1 + var(--hero-pill-scale, 0) * .5));
+  transform-origin:center;
+  will-change:transform;
+}
 @media(prefers-reduced-motion:reduce) {
   html body .hero .hero__lead-three-lines,
   html body .hero .hero__content p.hero__subtitle,
@@ -5853,6 +5859,10 @@ html body .hero .hero-start-button.is-scroll-faded {
     opacity:1!important;
     transform:none!important;
     filter:none!important;
+    will-change:auto;
+  }
+  html body .hero .hero__word-pill {
+    transform:none!important;
     will-change:auto;
   }
 }
@@ -5872,6 +5882,7 @@ html body .hero .hero-start-button.is-scroll-faded {
 
     hero.style.setProperty('--hero-text-fade', progress.toFixed(4));
     hero.style.setProperty('--hero-button-fade', buttonProgress.toFixed(4));
+    hero.style.setProperty('--hero-pill-scale', progress.toFixed(4));
 
     if (button) button.classList.toggle('is-scroll-faded', buttonProgress > 0.98);
     ticking = false;
