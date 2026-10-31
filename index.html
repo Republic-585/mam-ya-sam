@@ -5928,6 +5928,59 @@ html body .hero-menu .hero-menu__links a span {
 }
 </style>
 
+
+<style id="safari-toolbar-header-sync">
+/* На iPhone шапка синхронно скрывается и появляется вместе с нижней панелью Safari. */
+@media (max-width: 900px) {
+  html body header.topbar {
+    transition: transform .22s ease, opacity .18s ease !important;
+    will-change: transform;
+  }
+  html body header.topbar.safari-toolbar-hidden {
+    transform: translate3d(0, calc(-100% - 12px), 0) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body header.topbar { transition: none !important; }
+}
+</style>
+<script id="safari-toolbar-header-sync-script">
+(function () {
+  const header = document.querySelector('header.topbar');
+  const viewport = window.visualViewport;
+  if (!header || !viewport || !/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
+
+  let previousHeight = viewport.height;
+  let frame = 0;
+
+  function syncWithSafariToolbar() {
+    frame = 0;
+    const currentHeight = viewport.height;
+    const difference = currentHeight - previousHeight;
+
+    /* Расширение видимой области означает, что нижняя панель Safari скрылась. */
+    if (difference > 24) {
+      header.classList.add('safari-toolbar-hidden');
+    } else if (difference < -24) {
+      header.classList.remove('safari-toolbar-hidden');
+    }
+    previousHeight = currentHeight;
+  }
+
+  viewport.addEventListener('resize', function () {
+    if (frame) cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(syncWithSafariToolbar);
+  }, { passive: true });
+
+  window.addEventListener('orientationchange', function () {
+    header.classList.remove('safari-toolbar-hidden');
+    previousHeight = viewport.height;
+  }, { passive: true });
+})();
+</script>
+
 </body>
 </html>
 
