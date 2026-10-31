@@ -5953,10 +5953,9 @@ html body .hero-menu .hero-menu__links a span {
   if (!header || !viewport || !/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
 
   let previousHeight = viewport.height;
-  let frame = 0;
+  let resizeTimer = 0;
 
   function syncWithSafariToolbar() {
-    frame = 0;
     const currentHeight = viewport.height;
     const difference = currentHeight - previousHeight;
 
@@ -5970,8 +5969,8 @@ html body .hero-menu .hero-menu__links a span {
   }
 
   viewport.addEventListener('resize', function () {
-    if (frame) cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(syncWithSafariToolbar);
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(syncWithSafariToolbar, 100);
   }, { passive: true });
 
   window.addEventListener('orientationchange', function () {
