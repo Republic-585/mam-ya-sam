@@ -4829,8 +4829,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 .topbar .logo__text {
   opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .06) / .5, 1));
   transform:translate3d(
-    calc(var(--wordmark-into-x, 0px) * var(--wordmark-scroll-progress, 0)),
-    calc(var(--wordmark-into-y, 0px) * var(--wordmark-scroll-progress, 0)),
+    calc(var(--wordmark-into-x, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .56, 1)),
+    calc(var(--wordmark-into-y, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .56, 1)),
     0
   ) scale(calc(1 - var(--wordmark-scroll-progress, 0) * .12));
   transform-origin:left center;
@@ -4855,7 +4855,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     header.style.setProperty('--wordmark-scroll-progress', '0');
     const wordRect = wordmark.getBoundingClientRect();
     const cubeRect = cube.getBoundingClientRect();
-    header.style.setProperty('--wordmark-into-x', (cubeRect.left + cubeRect.width / 2 - wordRect.left - wordRect.width / 2).toFixed(2) + 'px');
+    /* К моменту полного растворения правый край текста касается левой обводки кубика. */
+    const fadeEndScale = 1 - .56 * .12;
+    header.style.setProperty('--wordmark-into-x', (cubeRect.left - wordRect.left - wordRect.width * fadeEndScale).toFixed(2) + 'px');
     header.style.setProperty('--wordmark-into-y', (cubeRect.top + cubeRect.height / 2 - wordRect.top - wordRect.height / 2).toFixed(2) + 'px');
   }
   function updateWordmark() {
