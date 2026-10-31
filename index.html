@@ -6324,3 +6324,28 @@ html body #heroMenu .hero-menu__social-icon {
 
 
 
+
+
+<style id="hero-menu-links-quick-bounce">
+/* Пункты меню мягко подпрыгивают и занимают своё место при раскрытии панели. */
+html body #heroMenu.is-open .hero-menu__links a {
+  animation:hero-menu-link-bounce-in .42s cubic-bezier(.2,.75,.25,1) both!important;
+}
+html body #heroMenu.is-open .hero-menu__links a:nth-child(2) { animation-delay:.045s!important; }
+html body #heroMenu.is-open .hero-menu__links a:nth-child(3) { animation-delay:.09s!important; }
+html body #heroMenu.is-open .hero-menu__links a:nth-child(4) { animation-delay:.135s!important; }
+html body #heroMenu.is-open .hero-menu__links a:nth-child(5) { animation-delay:.18s!important; }
+html body #heroMenu.is-open .hero-menu__links a:nth-child(6) { animation-delay:.225s!important; }
+html body #heroMenu.is-open .hero-menu__links a:nth-child(7) { animation-delay:.27s!important; }
+@keyframes hero-menu-link-bounce-in {
+  0% { translate:0 13px; }
+  68% { translate:0 -3px; }
+  100% { translate:0 0; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__links a {
+    animation:none!important;
+    translate:none!important;
+  }
+}
+</style>
