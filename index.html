@@ -5836,87 +5836,26 @@ html body .hero .hero__subtitle-second {
 </style>
 
 <style id="hero-scroll-fade">
-/* Плавное растворение текста и кнопки Hero по мере прокрутки. */
+/* Текст и кнопка Hero не растворяются и не размываются: уходят вверх вместе со страницей. */
 html body .hero .hero__lead-three-lines,
-html body .hero .hero__content p.hero__subtitle {
-  opacity:calc(1 - var(--hero-text-fade, 0));
-  transform:translate3d(0, calc(var(--hero-text-fade, 0) * -18px), 0);
-  will-change:opacity,transform;
-}
-html body .hero .hero-start-button {
-  opacity:calc(1 - var(--hero-text-fade, 0))!important;
-  transform:translate3d(0, calc(var(--hero-text-fade, 0) * 8px), 0);
-  will-change:opacity,transform;
+html body .hero .hero__content p.hero__subtitle,
+html body .hero .hero-start-button,
+html body .hero .hero__together-word {
+  opacity:1!important;
+  filter:none!important;
+  transform:none!important;
+  will-change:auto;
 }
 html body .hero .hero-start-button.is-scroll-faded {
-  pointer-events:none;
+  pointer-events:auto;
 }
-/* Плашка с меняющимся словом плавно увеличивается вместе с прокруткой. */
 html body .hero .hero__word-pill {
-  transform:scale(calc(1 + var(--hero-pill-scale, 0) * .5));
-  transform-origin:center;
-  position:relative;
-  z-index:2;
-  will-change:transform;
-}
-/* Слово «вместе» мягко смещается под растущую плашку и растворяется. */
-html body .hero .hero__together-word {
-  display:inline-block;
-  position:relative;
-  z-index:1;
-  opacity:calc(1 - clamp(0, (var(--hero-pill-scale, 0) - .06) / .5, 1));
-  transform:translate3d(calc(var(--hero-pill-scale, 0) * -42%), calc(var(--hero-pill-scale, 0) * -2px), 0) scale(calc(1 - var(--hero-pill-scale, 0) * .12));
-  transform-origin:left center;
-  will-change:opacity,transform;
-}
-@media(prefers-reduced-motion:reduce) {
-  html body .hero .hero__lead-three-lines,
-  html body .hero .hero__content p.hero__subtitle,
-  html body .hero .hero-start-button {
-    opacity:1!important;
-    transform:none!important;
-    filter:none!important;
-    will-change:auto;
-  }
-  html body .hero .hero__word-pill {
-    transform:none!important;
-    will-change:auto;
-  }
-  html body .hero .hero__together-word {
-    opacity:1!important;
-    transform:none!important;
-    will-change:auto;
-  }
+  transform:none!important;
+  will-change:auto;
 }
 </style>
 <script id="hero-scroll-fade-script">
-(function () {
-  const hero = document.querySelector('.hero');
-  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const button = hero.querySelector('.hero-start-button');
-  let ticking = false;
-
-  function updateHeroFade() {
-    const distance = Math.max(1, window.innerHeight * 0.58);
-    const progress = Math.min(1, Math.max(0, window.scrollY / distance));
-    hero.style.setProperty('--hero-text-fade', progress.toFixed(4));
-    hero.style.setProperty('--hero-pill-scale', progress.toFixed(4));
-
-    if (button) button.classList.toggle('is-scroll-faded', progress > 0.98);
-    ticking = false;
-  }
-
-  function requestUpdate() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(updateHeroFade);
-  }
-
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate, { passive: true });
-  updateHeroFade();
-})();
+/* Текст и кнопка Hero прокручиваются естественно вместе со страницей. */
 </script>
 
 
