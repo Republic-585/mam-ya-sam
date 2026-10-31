@@ -6327,3 +6327,21 @@ html body #heroMenu .hero-menu__social-icon {
 
 
 
+
+
+<style id="hero-menu-links-center-reveal">
+/* Разделы проявляются из центра по горизонтали к обоим краям. */
+html body #heroMenu.is-open .hero-menu__links a {
+  animation:hero-menu-center-reveal .46s cubic-bezier(.22,.7,.25,1) both!important;
+}
+@keyframes hero-menu-center-reveal {
+  from { clip-path:inset(0 50% 0 50%); }
+  to { clip-path:inset(0 -1% 0 -1%); }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__links a {
+    animation:none!important;
+    clip-path:none!important;
+  }
+}
+</style>
