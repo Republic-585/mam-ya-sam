@@ -6161,6 +6161,25 @@ html body .hero-menu .hero-menu__links a span {
   }
 }
 </style>
+
+<style id="mobile-menu-seam-final-fix">
+@media(max-width:760px) {
+  /* Панель заходит на 2px под шапку; шапка остаётся верхним слоем. */
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 14px + var(--topbar-height, 60px))!important;
+    z-index:1003!important;
+    border-top:0!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar {
+    z-index:1004!important;
+    border-bottom:0!important;
+    box-shadow:none!important;
+    background:var(--paper)!important;
+  }
+}
+</style>
 </body>
 </html>
 
