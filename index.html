@@ -6019,9 +6019,9 @@ html body .hero-menu .hero-menu__links a span {
     z-index:1005!important;
     background:var(--paper)!important;
     color:var(--ink)!important;
-    bottom:calc(var(--topbar-height, 60px) + env(safe-area-inset-bottom, 0px))!important;
-    height:min(62dvh, 470px)!important;
-    max-height:min(62dvh, 470px)!important;
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 16px + var(--topbar-height, 60px))!important;
+    height:min(78dvh, 900px)!important;
+    max-height:min(78dvh, 900px)!important;
     margin:0!important;
     padding:68px 24px 24px!important;
     overflow-y:auto!important;
@@ -6087,11 +6087,11 @@ html body .hero-menu .hero-menu__links a span {
     position:fixed!important;
     top:auto!important;
     right:12px!important;
-    bottom:calc(var(--topbar-height, 60px) + env(safe-area-inset-bottom, 0px))!important;
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 16px + var(--topbar-height, 60px))!important;
     left:12px!important;
     width:calc(100vw - 24px)!important;
-    height:min(62dvh, 470px)!important;
-    max-height:min(62dvh, 470px)!important;
+    height:min(78dvh, 900px)!important;
+    max-height:min(78dvh, 900px)!important;
     margin:0!important;
     box-sizing:border-box!important;
     transform:none!important;
