@@ -4953,9 +4953,10 @@ header.topbar .hero__menu-trigger {
   font-size:clamp(.95rem,3.2vw,1.15rem)!important;
 }
 
-/* Стрелки возврата располагаются над нижней стеклянной шапкой. */
+/* Стрелки возврата: на 20px выше шапки, их острия по центру крестика меню. */
 html body .back-to-top{
-  bottom: calc(66px + env(safe-area-inset-bottom, 0px)) !important;
+  right: 4px !important;
+  bottom: calc(86px + env(safe-area-inset-bottom, 0px)) !important;
 }
 </style>
 
