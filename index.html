@@ -3337,14 +3337,14 @@ html body .hero .hero__subtitle {
 
 
 <style id="header-walking-boy-style">
-/* Компактный чёрный силуэт; анимация суставов управляется прокруткой. */
+/* Цельный округлый силуэт ребёнка; движения задаются плавными поворотами частей тела. */
 header.topbar .header-walking-boy {
   position:absolute;
   z-index:3;
   left:43px;
   top:50%;
-  width:22px;
-  height:36px;
+  width:26px;
+  height:42px;
   color:#080808;
   opacity:0;
   visibility:hidden;
@@ -3383,24 +3383,41 @@ header.topbar .header-walking-boy svg {
     </div>
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="header-walking-boy" id="header-walking-boy" aria-hidden="true">
-      <svg viewBox="0 0 30 48" role="presentation" focusable="false">
+      <svg viewBox="0 0 40 60" role="presentation" focusable="false">
         <g id="header-boy-rig">
-          <g id="header-boy-back-arm" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
-            <line id="header-boy-back-upper"/><line id="header-boy-back-fore"/>
+          <g id="header-boy-back-arm" fill="currentColor">
+            <path id="header-boy-back-upper" d="M0 0 C-1.4 2.2 -1.1 5.5 .1 8.2 L1.4 9.1 C2.6 9.2 3 8.1 2.5 6.8 L2 1Z"/>
+            <g id="header-boy-back-fore">
+              <path d="M0 0 C-1.1 2.2 -1 4.8 .3 6.5 L1.7 7 C2.7 6.7 2.6 5.8 2.1 4.9 L1.8 0Z"/>
+            </g>
           </g>
-          <g id="header-boy-back-leg" fill="none" stroke="currentColor" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round">
-            <line id="header-boy-back-thigh"/><line id="header-boy-back-shin"/><line id="header-boy-back-foot" stroke-width="2.4"/>
+          <g id="header-boy-back-leg" fill="currentColor">
+            <path id="header-boy-back-thigh" d="M-2.4 0 C-3.2 3.2 -2.7 7.8 -1.5 11.7 C-.8 13.2 1.2 13.4 2.2 12.2 C2.8 8.2 2.4 3.2 1.8 0Z"/>
+            <g id="header-boy-back-shin">
+              <path d="M-1.8 0 C-2.7 2.8 -2.3 6.4 -.9 9.2 C-.1 10.2 1.5 9.9 2 8.8 L1.5 0Z"/>
+              <path id="header-boy-back-foot" d="M-.8 8.2 C.7 8.6 2.2 8.4 3.5 9.1 C4.3 9.6 4.1 10.5 3.1 10.6 L-.9 10.4 C-1.8 10.2 -1.7 9.1 -.8 8.2Z"/>
+            </g>
           </g>
-          <path id="header-boy-torso" fill="currentColor" d="M11.4 14.3 Q15 12.8 18.6 14.3 L18 29.1 Q15 30.1 12 29.1Z"/>
-          <line id="header-boy-neck" x1="15" y1="12.3" x2="15" y2="10.2" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-          <g id="header-boy-head-group">
-            <path id="header-boy-head" fill="currentColor" d="M15 1.8 C12.2 1.8 10.1 4 10.1 6.7 C10.1 8.8 11.2 10.2 13.1 11.1 L17.2 10.5 L18.5 8.1 L21.1 7.1 L18.5 5.9 C18.2 3.4 16.8 1.8 15 1.8Z"/>
+          <g id="header-boy-body">
+            <path id="header-boy-torso" fill="currentColor" d="M15.3 17.2 C17.2 15.9 22.8 16 24.8 18.2 C26 21.4 25.6 27.5 25.2 33.4 C23.5 35.2 16.1 35.4 14.5 33.2 C14.8 27.3 14.4 21.2 15.3 17.2Z"/>
+            <path id="header-boy-neck" fill="currentColor" d="M18 13.4 C19.5 12.6 21.5 13 22 14.8 L22.2 18.2 L17.8 18.2Z"/>
+            <g id="header-boy-head-group">
+              <path id="header-boy-head" fill="currentColor" d="M19.4 3.1 C15.8 3.1 13.2 5.9 13.2 9.4 C13.2 12.8 15.3 15.4 18.4 16.2 C20.8 16.8 23.2 15.6 24.2 13.7 C25.1 13.5 26.2 13.1 26.6 12.3 C26.9 11.8 26.3 11.4 25.5 11.1 C25.7 8.2 24.6 5.4 22.2 4 C21.4 3.5 20.4 3.1 19.4 3.1Z"/>
+              <path d="M14.1 8.1 C14.3 4.4 17.2 2.1 20.6 2.4 C23.1 2.5 24.7 4 25.1 6.2 C23.5 5.8 22.1 5.2 20.7 4.2 C19.5 6.2 17.3 7.4 14.1 8.1Z" fill="currentColor"/>
+            </g>
           </g>
-          <g id="header-boy-front-leg" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-            <line id="header-boy-front-thigh"/><line id="header-boy-front-shin"/><line id="header-boy-front-foot" stroke-width="2.5"/>
+          <g id="header-boy-front-leg" fill="currentColor">
+            <path id="header-boy-front-thigh" d="M-2.4 0 C-3.2 3.2 -2.7 7.8 -1.5 11.7 C-.8 13.2 1.2 13.4 2.2 12.2 C2.8 8.2 2.4 3.2 1.8 0Z"/>
+            <g id="header-boy-front-shin">
+              <path d="M-1.8 0 C-2.7 2.8 -2.3 6.4 -.9 9.2 C-.1 10.2 1.5 9.9 2 8.8 L1.5 0Z"/>
+              <path id="header-boy-front-foot" d="M-.8 8.2 C.7 8.6 2.2 8.4 3.5 9.1 C4.3 9.6 4.1 10.5 3.1 10.6 L-.9 10.4 C-1.8 10.2 -1.7 9.1 -.8 8.2Z"/>
+            </g>
           </g>
-          <g id="header-boy-front-arm" fill="none" stroke="currentColor" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round">
-            <line id="header-boy-front-upper"/><line id="header-boy-front-fore"/>
+          <g id="header-boy-front-arm" fill="currentColor">
+            <path id="header-boy-front-upper" d="M-2.1 0 C-3.2 2.5 -2.7 5.8 -1.4 8.1 C-.5 9.1 1.3 8.9 1.8 7.7 L1.2 0Z"/>
+            <g id="header-boy-front-fore">
+              <path d="M-1.5 0 C-2.2 2.3 -1.7 4.8 -.2 6.6 C.8 7.3 2.1 6.7 2.1 5.6 L1.1 0Z"/>
+            </g>
           </g>
         </g>
       </svg>
@@ -6384,213 +6401,101 @@ html body #heroMenu .hero-menu__social-icon {
   if (!header || !boy || !skill || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const $ = id => boy.querySelector('#' + id);
-  const nodes = {
+  const parts = {
     head: $('header-boy-head-group'),
-    torso: $('header-boy-torso'),
-    neck: $('header-boy-neck'),
-    backArmUpper: $('header-boy-back-upper'),
+    body: $('header-boy-body'),
+    backArm: $('header-boy-back-arm'),
     backArmFore: $('header-boy-back-fore'),
-    frontArmUpper: $('header-boy-front-upper'),
+    frontArm: $('header-boy-front-arm'),
     frontArmFore: $('header-boy-front-fore'),
-    backThigh: $('header-boy-back-thigh'),
+    backLeg: $('header-boy-back-leg'),
     backShin: $('header-boy-back-shin'),
-    backFoot: $('header-boy-back-foot'),
-    frontThigh: $('header-boy-front-thigh'),
-    frontShin: $('header-boy-front-shin'),
-    frontFoot: $('header-boy-front-foot')
+    frontLeg: $('header-boy-front-leg'),
+    frontShin: $('header-boy-front-shin')
   };
-
-  const BONE = { upperArm:6.4, foreArm:5.9, thigh:8.6, shin:8.6, foot:2.9 };
-  const HIP = { x:15, y:29.0 };
-  const GROUND = 45.0;
-  const GAIT = { stride:18, duty:.62, lift:2.35, bounce:.42 };
-  const RAD = Math.PI / 180;
   let frame = 0;
   let travel = 0;
-  let cssScale = 1;
+  let scale = 1;
 
-  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  const smooth = (a, b, x) => {
-    const t = clamp((x-a)/(b-a), 0, 1);
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const smooth = (a,b,x) => {
+    const t=clamp((x-a)/(b-a),0,1);
     return t*t*(3-2*t);
   };
-  const down = (angle, length) => ({
-    x:length*Math.sin(angle*RAD),
-    y:length*Math.cos(angle*RAD)
-  });
-  const up = (angle, length) => ({
-    x:length*Math.sin(angle*RAD),
-    y:-length*Math.cos(angle*RAD)
-  });
-  const point = (origin, vector) => ({x:origin.x+vector.x,y:origin.y+vector.y});
-
-  function setLine(node, a, b) {
-    node.setAttribute('x1', a.x.toFixed(3));
-    node.setAttribute('y1', a.y.toFixed(3));
-    node.setAttribute('x2', b.x.toFixed(3));
-    node.setAttribute('y2', b.y.toFixed(3));
-  }
-
-  function chain(root, angle, firstLength, bend, secondLength) {
-    const joint = point(root, down(angle, firstLength));
-    const end = point(joint, down(angle+bend, secondLength));
-    return {joint, end, endAngle:angle+bend};
-  }
-
-  /* Two-bone IK: the ankle is the target, so the knee and shin always
-     solve to the same foot position instead of sliding independently. */
-  function solveLeg(hip, foot, kneeSide) {
-    const dx = foot.x-hip.x;
-    const dy = foot.y-hip.y;
-    const rawDistance = Math.hypot(dx,dy);
-    const min = Math.abs(BONE.thigh-BONE.shin)+.05;
-    const max = BONE.thigh+BONE.shin-.05;
-    const d = clamp(rawDistance,min,max);
-    const angleToFoot = Math.atan2(dx,dy);
-    const cosB = clamp(
-      (BONE.thigh*BONE.thigh+d*d-BONE.shin*BONE.shin)/(2*BONE.thigh*d),
-      -1,1
-    );
-    const cosC = clamp(
-      (BONE.thigh*BONE.thigh+BONE.shin*BONE.shin-d*d)/
-      (2*BONE.thigh*BONE.shin), -1,1
-    );
-    const B = Math.acos(cosB);
-    const C = Math.acos(cosC);
-    return {
-      angle:(angleToFoot-kneeSide*B)/RAD,
-      bend:kneeSide*(Math.PI-C)/RAD
-    };
-  }
-
-  /* Foot path is distance-based, not time-based. During stance its local
-     offset moves backward at exactly the same rate as the body advances:
-     the planted foot therefore remains still in screen space. */
-  function gaitFoot(distance, phaseOffset) {
-    const phi = (((distance/GAIT.stride)+phaseOffset)%1+1)%1;
-    const amplitude = GAIT.stride*GAIT.duty;
-    if (phi < GAIT.duty) {
-      const u = phi/GAIT.duty;
-      return {x:amplitude*.5-amplitude*u, y:GROUND, phi};
-    }
-    const u = (phi-GAIT.duty)/(1-GAIT.duty);
-    /* Hermite swing: horizontal foot velocity matches stance at lift-off
-       and touchdown; vertical velocity is zero at both contacts. */
-    const tangent = -amplitude*(1-GAIT.duty)/GAIT.duty;
-    const u2 = u*u;
-    const u3 = u2*u;
-    const h00 = 2*u3-3*u2+1;
-    const h10 = u3-2*u2+u;
-    const h01 = -2*u3+3*u2;
-    const h11 = u3-u2;
-    const relX = h00*(-amplitude*.5)+h10*tangent+
-      h01*(amplitude*.5)+h11*tangent;
-    const liftCurve = Math.pow(Math.sin(Math.PI*u),2);
-    return {
-      x:relX,
-      y:GROUND-GAIT.lift*liftCurve,
-      phi
-    };
-  }
-
-  function renderArm(shoulder, angle, bend, upperNode, foreNode) {
-    const arm = chain(shoulder, angle, BONE.upperArm, bend, BONE.foreArm);
-    setLine(upperNode, shoulder, arm.joint);
-    setLine(foreNode, arm.joint, arm.end);
-  }
-
-  function renderLeg(footTarget, side, thighNode, shinNode, footNode, hip) {
-    const ik = solveLeg(hip, footTarget, 1);
-    const leg = chain(hip, ik.angle, BONE.thigh, ik.bend, BONE.shin);
-    setLine(thighNode, hip, leg.joint);
-    setLine(shinNode, leg.joint, leg.end);
-    const toe = {x:leg.end.x+BONE.foot,y:leg.end.y+.22};
-    setLine(footNode, leg.end, toe);
-  }
+  const mix = (a,b,t) => a+(b-a)*t;
 
   function measure() {
-    const inner = header.querySelector('.topbar__in');
-    const menu = header.querySelector('.hero__menu-trigger');
-    if (!inner || !menu) return;
-    const innerRect = inner.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-    const boyWidth = boy.getBoundingClientRect().width || 22;
-    travel = Math.max(0, menuRect.left-innerRect.left-43-boyWidth);
-    cssScale = boyWidth/30;
+    const inner=header.querySelector('.topbar__in');
+    const menu=header.querySelector('.hero__menu-trigger');
+    if(!inner||!menu)return;
+    const innerRect=inner.getBoundingClientRect();
+    const menuRect=menu.getBoundingClientRect();
+    const width=boy.getBoundingClientRect().width||26;
+    travel=Math.max(0,menuRect.left-innerRect.left-43-width);
+    scale=width/40;
   }
 
   function update() {
-    const headerHeight = header.getBoundingClientRect().height;
-    const viewportTravel = Math.max(1, window.innerHeight-headerHeight);
-    const skillTop = skill.getBoundingClientRect().top + window.scrollY;
-    const startScroll = skillTop-window.innerHeight+viewportTravel*.48;
-    const root = document.documentElement;
-    const maxScroll = Math.max(0, Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
-    const progress = clamp((window.scrollY-startScroll)/Math.max(1,maxScroll-startScroll),0,1);
+    const headerHeight=header.getBoundingClientRect().height;
+    const viewportTravel=Math.max(1,window.innerHeight-headerHeight);
+    const skillTop=skill.getBoundingClientRect().top+window.scrollY;
+    const startScroll=skillTop-window.innerHeight+viewportTravel*.48;
+    const root=document.documentElement;
+    const maxScroll=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
+    const p=clamp((window.scrollY-startScroll)/Math.max(1,maxScroll-startScroll),0,1);
 
-    const distanceCss = travel*progress;
-    const distanceRig = distanceCss/Math.max(.1,cssScale);
-    const settle = smooth(.91,1,progress);
-    const gaitBlend = 1-settle;
-    const phase = distanceRig/GAIT.stride;
-    const strideWave = Math.sin(2*Math.PI*phase);
-    const bodyBob = GAIT.bounce*(.5-.5*Math.cos(4*Math.PI*phase))*gaitBlend;
-    const hip = {x:HIP.x,y:HIP.y-bodyBob};
+    const distance=travel*p;
+    const rigDistance=distance/Math.max(.1,scale);
+    const cycle=rigDistance/28;
+    const phase=cycle-Math.floor(cycle);
+    const wave=Math.sin(phase*Math.PI*2);
+    const settle=smooth(.91,1,p);
+    const walk=1-settle;
 
-    const backFoot = gaitFoot(distanceRig,.5);
-    const frontFoot = gaitFoot(distanceRig,0);
-    const backTarget = {
-      x:HIP.x+backFoot.x*gaitBlend-2.0*settle,
-      y:GROUND+(backFoot.y-GROUND)*gaitBlend
-    };
-    const frontTarget = {
-      x:HIP.x+frontFoot.x*gaitBlend+2.0*settle,
-      y:GROUND+(frontFoot.y-GROUND)*gaitBlend
-    };
+    /* Нога выносится вперёд, затем мягко сгибается и ставится на землю.
+       Сгиб колена направлен назад, а не выворачивается вперёд. */
+    const frontSwing=Math.max(0,wave);
+    const backSwing=Math.max(0,-wave);
+    const frontThigh=wave*20*walk;
+    const backThigh=-wave*20*walk;
+    const frontKnee=-Math.pow(frontSwing,1.15)*34*walk+2*walk;
+    const backKnee=-Math.pow(backSwing,1.15)*34*walk+2*walk;
 
-    const torsoTop = point(hip,up(2.0*gaitBlend,14.0));
-    const neckTop = point(torsoTop,up(0,3.1));
-    setLine(nodes.neck,torsoTop,neckTop);
-    $('header-boy-torso').setAttribute('d',
-      'M '+(torsoTop.x-3.7)+' '+torsoTop.y+
-      ' Q '+HIP.x+' '+(torsoTop.y-1.4)+' '+(torsoTop.x+3.7)+' '+torsoTop.y+
-      ' L '+(hip.x+3.0)+' '+hip.y+
-      ' Q '+hip.x+' '+(hip.y+1.2)+' '+(hip.x-3.0)+' '+hip.y+' Z'
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+backThigh.toFixed(2)+')');
+    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+backKnee.toFixed(2)+')');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+frontThigh.toFixed(2)+')');
+    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+frontKnee.toFixed(2)+')');
+
+    /* Руки идут в противофазе ногам, локти слегка согнуты. */
+    const armSwing=-wave*17*walk;
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+armSwing.toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+(12+wave*7*walk).toFixed(2)+')');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+(-armSwing+2).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+(12-wave*7*walk).toFixed(2)+')');
+
+    const bob=(.45+.55*Math.cos(phase*Math.PI*4))*walk;
+    parts.body.setAttribute('transform','translate(0 '+(-bob).toFixed(2)+')');
+    parts.head.setAttribute('transform',
+      'translate(19.5 9.5) rotate('+((wave*1.2*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate(-19.5 -9.5)'
     );
 
-    const headTurnLeft = smooth(.29,.40,progress);
-    const headTurnRight = smooth(.53,.65,progress);
-    const headScaleX = 1-2*headTurnLeft+2*headTurnRight;
-    const headTilt = strideWave*1.25*gaitBlend;
-    nodes.head.setAttribute('transform',
-      'translate(15 6.5) rotate('+headTilt.toFixed(3)+') '+
-      'scale('+headScaleX.toFixed(4)+' 1) translate(-15 -6.5)'
+    const raise=smooth(.91,1,p);
+    parts.frontArm.setAttribute('transform',
+      'translate(24.1 19.5) rotate('+mix(-armSwing+2,-142,raise).toFixed(2)+')'
     );
+    parts.backArm.setAttribute('transform',
+      'translate(15.8 19.5) rotate('+mix(armSwing,142,raise).toFixed(2)+')'
+    );
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(12-wave*7*walk,-18,raise).toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+mix(12+wave*7*walk,18,raise).toFixed(2)+')');
 
-    const armSwing = 25*strideWave*gaitBlend;
-    const raise = smooth(.91,1,progress);
-    const backShoulder = {x:13.1,y:torsoTop.y+1.2};
-    const frontShoulder = {x:16.9,y:torsoTop.y+1.2};
-    /* Arms counter-swing against the legs, as in a natural walk. */
-    const backAngle = armSwing-5*(1-gaitBlend)-150*raise;
-    const frontAngle = -armSwing+5*(1-gaitBlend)+150*raise;
-    renderArm(backShoulder,backAngle,10*(1-raise)+12*raise,nodes.backArmUpper,nodes.backArmFore);
-    renderArm(frontShoulder,frontAngle,-10*(1-raise)-12*raise,nodes.frontArmUpper,nodes.frontArmFore);
-
-    renderLeg(backTarget,-1,nodes.backThigh,nodes.backShin,nodes.backFoot,hip);
-    renderLeg(frontTarget,1,nodes.frontThigh,nodes.frontShin,nodes.frontFoot,hip);
-
-    boy.style.opacity = progress<=0 ? '0' : '1';
-    boy.style.visibility = progress<=0 ? 'hidden' : 'visible';
-    boy.style.transform = 'translate3d('+distanceCss.toFixed(2)+'px,-50%,0)';
-    frame = 0;
+    boy.style.opacity=p<=0?'0':'1';
+    boy.style.visibility=p<=0?'hidden':'visible';
+    boy.style.transform='translate3d('+distance.toFixed(2)+'px,-50%,0)';
+    frame=0;
   }
 
-  function schedule() {
-    if (frame) return;
-    frame = requestAnimationFrame(update);
-  }
-
+  function schedule(){if(frame)return;frame=requestAnimationFrame(update);}
   measure();
   update();
   window.addEventListener('scroll',schedule,{passive:true});
