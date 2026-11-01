@@ -6385,7 +6385,34 @@ html body #heroMenu .hero-menu__social-icon {
     hint.textContent='Удерживай, чтобы рассмотреть поближе';
     hero.append(lens,hint);
     let active=false,timer=null,startX=0,startY=0,lastX=0,lastY=0;
+    let savedScrollY=0,scrollLocked=false;
     const radius=82,zoom=1.65;
+    function lockPageScroll(){
+      if(scrollLocked)return;
+      scrollLocked=true;
+      savedScrollY=window.scrollY||window.pageYOffset||0;
+      document.documentElement.style.overflow='hidden';
+      document.body.style.position='fixed';
+      document.body.style.top=(-savedScrollY)+'px';
+      document.body.style.left='0';
+      document.body.style.right='0';
+      document.body.style.width='100%';
+    }
+    function unlockPageScroll(){
+      if(!scrollLocked)return;
+      scrollLocked=false;
+      document.documentElement.style.overflow='';
+      document.body.style.position='';
+      document.body.style.top='';
+      document.body.style.left='';
+      document.body.style.right='';
+      document.body.style.width='';
+      window.scrollTo(0,savedScrollY);
+    }
+    function preventPageTouchScroll(e){
+      if(active)e.preventDefault();
+    }
+    document.addEventListener('touchmove',preventPageTouchScroll,{passive:false});
     function place(x,y){
       const hr=hero.getBoundingClientRect(),sr=source.getBoundingClientRect();
       const px=x-hr.left,py=y-hr.top,sx=sr.left-hr.left,sy=sr.top-hr.top;
@@ -6396,10 +6423,16 @@ html body #heroMenu .hero-menu__social-icon {
       clone.style.transform='scale('+zoom+')';
     }
     function show(x,y){
-      active=true;hint.classList.add('is-used');place(x,y);lens.classList.add('is-active');
+      active=true;
+      lockPageScroll();
+      hero.style.touchAction='none';
+      hint.classList.add('is-used');place(x,y);lens.classList.add('is-active');
     }
     function hide(){
-      active=false;clearTimeout(timer);timer=null;lens.classList.remove('is-active');
+      active=false;clearTimeout(timer);timer=null;
+      lens.classList.remove('is-active');
+      hero.style.touchAction='';
+      unlockPageScroll();
     }
     hero.addEventListener('pointerdown',function(e){
       if(e.pointerType==='mouse'){e.preventDefault();show(e.clientX,e.clientY);return;}
