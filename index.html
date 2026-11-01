@@ -2378,7 +2378,7 @@ html{scroll-behavior:smooth}
   visibility: hidden;
   pointer-events: none;
   transform: translateY(8px);
-  transition: opacity .25s ease, visibility .25s ease, transform .25s ease;
+  transition: opacity .4s cubic-bezier(.22,1,.36,1), visibility .4s ease, transform .4s cubic-bezier(.22,1,.36,1);
 }
 .back-to-top.is-visible {
   opacity: 1;
@@ -4524,8 +4524,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     });
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2] > 0.42;
   };
+  const secondBlock = document.querySelector('#skill');
   const update = function() {
-    button.classList.toggle('is-visible', window.scrollY > 300);
+    const secondBlockTop = secondBlock ? secondBlock.getBoundingClientRect().top + window.scrollY : 300;
+    button.classList.toggle('is-visible', window.scrollY >= secondBlockTop - 24);
     const rect = button.getBoundingClientRect();
     // Five representative samples preserve contrast detection while avoiding
     // repeated style recalculation across nine points on every scroll frame.
