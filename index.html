@@ -6541,11 +6541,10 @@ html body #heroMenu .hero-menu__social-icon {
     const neckTop = point(torsoTop,up(0,3.1));
     setLine(nodes.neck,torsoTop,neckTop);
     $('header-boy-torso').setAttribute('d',
-      'M '+(torsoTop.x-3.7)+' '+(torsoTop.y+.3)+
-      ' Q '+(HIP.x)+' '+(torso.y=torsoTop.y-1.2)+
-      ' '+(HIP.x+3.7)+' '+(torsoTop.y+.3)+
-      ' L '+(HIP.x+3.0)+' '+(hip.y)+
-      ' Q '+HIP.x+' '+(hip.y+1.0)+' '+(HIP.x-3.0)+' '+(hip.y)+' Z'
+      'M '+(torsoTop.x-3.7)+' '+torsoTop.y+
+      ' Q '+HIP.x+' '+(torsoTop.y-1.4)+' '+(torsoTop.x+3.7)+' '+torsoTop.y+
+      ' L '+(hip.x+3.0)+' '+hip.y+
+      ' Q '+hip.x+' '+(hip.y+1.2)+' '+(hip.x-3.0)+' '+hip.y+' Z'
     );
 
     const headTurnLeft = smooth(.29,.40,progress);
@@ -6553,8 +6552,8 @@ html body #heroMenu .hero-menu__social-icon {
     const headScaleX = 1-2*headTurnLeft+2*headTurnRight;
     const headTilt = strideWave*1.25*gaitBlend;
     nodes.head.setAttribute('transform',
-      'translate(15 10.2) scale('+headScaleX.toFixed(4)+' 1) '+
-      'rotate('+headTilt.toFixed(3)+' 0 -3.7) translate(-15 -10.2)'
+      'translate(15 6.5) rotate('+headTilt.toFixed(3)+') '+
+      'scale('+headScaleX.toFixed(4)+' 1) translate(-15 -6.5)'
     );
 
     const armSwing = 25*strideWave*gaitBlend;
