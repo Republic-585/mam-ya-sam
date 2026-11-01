@@ -6524,8 +6524,8 @@ html body #heroMenu .hero-menu__social-icon {
     const travelled=Math.max(0,window.scrollY-heroTop);
     const t=smooth(clamp(travelled/115,0,1));
     const arc=Math.sin(Math.PI*t)*Math.min(34,window.innerHeight*.05);
-    const x=mix(startPoint.x,finishPoint.x,t)-38;
-    const y=mix(startPoint.y,finishPoint.y,t)-arc+26;
+    const x=mix(startPoint.x,finishPoint.x,t)-48;
+    const y=mix(startPoint.y,finishPoint.y,t)-arc+31;
 
     setPose(t);
     boy.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0)';
