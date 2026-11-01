@@ -3337,19 +3337,20 @@ html body .hero .hero__subtitle {
 
 
 <style id="header-walking-boy-style">
-/* Силуэт мальчика проходит внутри шапки по мере прокрутки. */
+/* Компактный чёрный силуэт; анимация суставов управляется прокруткой. */
 header.topbar .header-walking-boy {
   position:absolute;
   z-index:3;
   left:43px;
   top:50%;
-  width:19px;
-  height:34px;
-  color:#111;
+  width:22px;
+  height:36px;
+  color:#080808;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
   transform:translate3d(0,-50%,0);
+  transform-origin:50% 50%;
   will-change:transform,opacity;
 }
 header.topbar .header-walking-boy svg {
@@ -3382,20 +3383,25 @@ header.topbar .header-walking-boy svg {
     </div>
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="header-walking-boy" id="header-walking-boy" aria-hidden="true">
-      <svg viewBox="0 0 24 42" role="presentation">
-        <circle cx="12" cy="5.5" r="4.2" fill="currentColor"/>
-        <path d="M8.2 11.2 Q12 9.8 15.8 11.2 L17.2 23.5 Q12 26 6.8 23.5Z" fill="currentColor"/>
-        <g id="header-boy-left-arm" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
-          <path d="M8.2 13 L4.5 21.5"/>
-        </g>
-        <g id="header-boy-right-arm" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
-          <path d="M15.8 13 L19.5 21.5"/>
-        </g>
-        <g id="header-boy-left-leg" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
-          <path d="M9.2 23 L7 38"/>
-        </g>
-        <g id="header-boy-right-leg" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
-          <path d="M14.8 23 L17 38"/>
+      <svg viewBox="0 0 30 48" role="presentation" focusable="false">
+        <g id="header-boy-rig">
+          <g id="header-boy-back-arm" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+            <line id="header-boy-back-upper"/><line id="header-boy-back-fore"/>
+          </g>
+          <g id="header-boy-back-leg" fill="none" stroke="currentColor" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round">
+            <line id="header-boy-back-thigh"/><line id="header-boy-back-shin"/><line id="header-boy-back-foot" stroke-width="2.4"/>
+          </g>
+          <path id="header-boy-torso" fill="currentColor" d="M11.4 14.3 Q15 12.8 18.6 14.3 L18 29.1 Q15 30.1 12 29.1Z"/>
+          <line id="header-boy-neck" x1="15" y1="12.3" x2="15" y2="10.2" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+          <g id="header-boy-head-group">
+            <path id="header-boy-head" fill="currentColor" d="M15 1.8 C12.2 1.8 10.1 4 10.1 6.7 C10.1 8.8 11.2 10.2 13.1 11.1 L17.2 10.5 L18.5 8.1 L21.1 7.1 L18.5 5.9 C18.2 3.4 16.8 1.8 15 1.8Z"/>
+          </g>
+          <g id="header-boy-front-leg" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+            <line id="header-boy-front-thigh"/><line id="header-boy-front-shin"/><line id="header-boy-front-foot" stroke-width="2.5"/>
+          </g>
+          <g id="header-boy-front-arm" fill="none" stroke="currentColor" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round">
+            <line id="header-boy-front-upper"/><line id="header-boy-front-fore"/>
+          </g>
         </g>
       </svg>
     </div>
@@ -6377,14 +6383,119 @@ html body #heroMenu .hero-menu__social-icon {
   const skill = document.getElementById('skill');
   if (!header || !boy || !skill || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const parts = {
-    leftArm: boy.querySelector('#header-boy-left-arm'),
-    rightArm: boy.querySelector('#header-boy-right-arm'),
-    leftLeg: boy.querySelector('#header-boy-left-leg'),
-    rightLeg: boy.querySelector('#header-boy-right-leg')
+  const $ = id => boy.querySelector('#' + id);
+  const nodes = {
+    head: $('header-boy-head-group'),
+    torso: $('header-boy-torso'),
+    neck: $('header-boy-neck'),
+    backArmUpper: $('header-boy-back-upper'),
+    backArmFore: $('header-boy-back-fore'),
+    frontArmUpper: $('header-boy-front-upper'),
+    frontArmFore: $('header-boy-front-fore'),
+    backThigh: $('header-boy-back-thigh'),
+    backShin: $('header-boy-back-shin'),
+    backFoot: $('header-boy-back-foot'),
+    frontThigh: $('header-boy-front-thigh'),
+    frontShin: $('header-boy-front-shin'),
+    frontFoot: $('header-boy-front-foot')
   };
+
+  const BONE = { upperArm:6.4, foreArm:5.9, thigh:8.6, shin:8.6, foot:2.9 };
+  const HIP = { x:15, y:29.0 };
+  const GROUND = 45.0;
+  const GAIT = { stride:18, duty:.62, lift:2.35, bounce:.42 };
+  const RAD = Math.PI / 180;
   let frame = 0;
   let travel = 0;
+  let cssScale = 1;
+
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const smooth = (a, b, x) => {
+    const t = clamp((x-a)/(b-a), 0, 1);
+    return t*t*(3-2*t);
+  };
+  const down = (angle, length) => ({
+    x:length*Math.sin(angle*RAD),
+    y:length*Math.cos(angle*RAD)
+  });
+  const up = (angle, length) => ({
+    x:length*Math.sin(angle*RAD),
+    y:-length*Math.cos(angle*RAD)
+  });
+  const point = (origin, vector) => ({x:origin.x+vector.x,y:origin.y+vector.y});
+
+  function setLine(node, a, b) {
+    node.setAttribute('x1', a.x.toFixed(3));
+    node.setAttribute('y1', a.y.toFixed(3));
+    node.setAttribute('x2', b.x.toFixed(3));
+    node.setAttribute('y2', b.y.toFixed(3));
+  }
+
+  function chain(root, angle, firstLength, bend, secondLength) {
+    const joint = point(root, down(angle, firstLength));
+    const end = point(joint, down(angle+bend, secondLength));
+    return {joint, end, endAngle:angle+bend};
+  }
+
+  /* Two-bone IK: the ankle is the target, so the knee and shin always
+     solve to the same foot position instead of sliding independently. */
+  function solveLeg(hip, foot, kneeSide) {
+    const dx = foot.x-hip.x;
+    const dy = foot.y-hip.y;
+    const rawDistance = Math.hypot(dx,dy);
+    const min = Math.abs(BONE.thigh-BONE.shin)+.05;
+    const max = BONE.thigh+BONE.shin-.05;
+    const d = clamp(rawDistance,min,max);
+    const angleToFoot = Math.atan2(dx,dy);
+    const cosB = clamp(
+      (BONE.thigh*BONE.thigh+d*d-BONE.shin*BONE.shin)/(2*BONE.thigh*d),
+      -1,1
+    );
+    const cosC = clamp(
+      (BONE.thigh*BONE.thigh+BONE.shin*BONE.shin-d*d)/
+      (2*BONE.thigh*BONE.shin), -1,1
+    );
+    const B = Math.acos(cosB);
+    const C = Math.acos(cosC);
+    return {
+      angle:(angleToFoot-kneeSide*B)/RAD,
+      bend:kneeSide*(Math.PI-C)/RAD
+    };
+  }
+
+  /* Foot path is distance-based, not time-based. During stance its local
+     offset moves backward at exactly the same rate as the body advances:
+     the planted foot therefore remains still in screen space. */
+  function gaitFoot(distance, phaseOffset) {
+    const phi = (((distance/GAIT.stride)+phaseOffset)%1+1)%1;
+    const amplitude = GAIT.stride*GAIT.duty;
+    if (phi < GAIT.duty) {
+      const u = phi/GAIT.duty;
+      return {x:amplitude*.5-amplitude*u, y:GROUND, phi};
+    }
+    const u = (phi-GAIT.duty)/(1-GAIT.duty);
+    const eased = u*u*(3-2*u);
+    return {
+      x:-amplitude*.5+amplitude*eased,
+      y:GROUND-GAIT.lift*Math.sin(Math.PI*u),
+      phi
+    };
+  }
+
+  function renderArm(shoulder, angle, bend, upperNode, foreNode) {
+    const arm = chain(shoulder, angle, BONE.upperArm, bend, BONE.foreArm);
+    setLine(upperNode, shoulder, arm.joint);
+    setLine(foreNode, arm.joint, arm.end);
+  }
+
+  function renderLeg(footTarget, side, thighNode, shinNode, footNode, hip) {
+    const ik = solveLeg(hip, footTarget, 1);
+    const leg = chain(hip, ik.angle, BONE.thigh, ik.bend, BONE.shin);
+    setLine(thighNode, hip, leg.joint);
+    setLine(shinNode, leg.joint, leg.end);
+    const toe = {x:leg.end.x+side*BONE.foot,y:leg.end.y+.22};
+    setLine(footNode, leg.end, toe);
+  }
 
   function measure() {
     const inner = header.querySelector('.topbar__in');
@@ -6392,31 +6503,75 @@ html body #heroMenu .hero-menu__social-icon {
     if (!inner || !menu) return;
     const innerRect = inner.getBoundingClientRect();
     const menuRect = menu.getBoundingClientRect();
-    travel = Math.max(0, menuRect.left - innerRect.left - 62);
+    const boyWidth = boy.getBoundingClientRect().width || 22;
+    travel = Math.max(0, menuRect.left-innerRect.left-43-boyWidth);
+    cssScale = boyWidth/30;
   }
 
   function update() {
     const headerHeight = header.getBoundingClientRect().height;
-    const distance = Math.max(1, window.innerHeight - headerHeight);
-    const skillDocumentTop = skill.getBoundingClientRect().top + window.scrollY;
-    const startScroll = skillDocumentTop - window.innerHeight + distance * .48;
+    const viewportTravel = Math.max(1, window.innerHeight-headerHeight);
+    const skillTop = skill.getBoundingClientRect().top + window.scrollY;
+    const startScroll = skillTop-window.innerHeight+viewportTravel*.48;
     const root = document.documentElement;
-    const maxScroll = Math.max(0, Math.max(root.scrollHeight, document.body.scrollHeight) - window.innerHeight);
-    const progress = Math.min(1, Math.max(0, (window.scrollY - startScroll) / Math.max(1, maxScroll - startScroll)));
-    const x = travel * progress;
+    const maxScroll = Math.max(0, Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
+    const progress = clamp((window.scrollY-startScroll)/Math.max(1,maxScroll-startScroll),0,1);
 
-    boy.style.opacity = progress <= 0 ? '0' : '1';
-    boy.style.visibility = progress <= 0 ? 'hidden' : 'visible';
-    boy.style.transform = 'translate3d(' + x.toFixed(2) + 'px,-50%,0)';
+    const distanceCss = travel*progress;
+    const distanceRig = distanceCss/Math.max(.1,cssScale);
+    const settle = smooth(.91,1,progress);
+    const gaitBlend = 1-settle;
+    const phase = distanceRig/GAIT.stride;
+    const strideWave = Math.sin(2*Math.PI*phase);
+    const bodyBob = GAIT.bounce*(.5-.5*Math.cos(4*Math.PI*phase))*gaitBlend;
+    const hip = {x:HIP.x,y:HIP.y-bodyBob};
 
-    const stride = Math.sin(progress * Math.PI * 24) * (1 - Math.min(1, progress * 1.8));
-    const settle = Math.min(1, Math.max(0, (progress - .88) / .12));
-    const armAngle = stride * 20 * (1 - settle);
-    const legAngle = stride * 25 * (1 - settle);
-    parts.leftArm.setAttribute('transform', 'rotate(' + (-armAngle - settle * 112).toFixed(2) + ' 8.2 13)');
-    parts.rightArm.setAttribute('transform', 'rotate(' + (armAngle + settle * 112).toFixed(2) + ' 15.8 13)');
-    parts.leftLeg.setAttribute('transform', 'rotate(' + legAngle.toFixed(2) + ' 9.2 23)');
-    parts.rightLeg.setAttribute('transform', 'rotate(' + (-legAngle).toFixed(2) + ' 14.8 23)');
+    const backFoot = gaitFoot(distanceRig,.5);
+    const frontFoot = gaitFoot(distanceRig,0);
+    const backTarget = {
+      x:HIP.x+backFoot.x*gaitBlend-2.0*settle,
+      y:GROUND+(backFoot.y-GROUND)*gaitBlend
+    };
+    const frontTarget = {
+      x:HIP.x+frontFoot.x*gaitBlend+2.0*settle,
+      y:GROUND+(frontFoot.y-GROUND)*gaitBlend
+    };
+
+    const torsoTop = point(hip,up(2.0*gaitBlend,14.0));
+    const neckTop = point(torsoTop,up(0,3.1));
+    setLine(nodes.neck,torsoTop,neckTop);
+    $('header-boy-torso').setAttribute('d',
+      'M '+(torsoTop.x-3.7)+' '+(torsoTop.y+.3)+
+      ' Q '+(HIP.x)+' '+(torso.y=torsoTop.y-1.2)+
+      ' '+(HIP.x+3.7)+' '+(torsoTop.y+.3)+
+      ' L '+(HIP.x+3.0)+' '+(hip.y)+
+      ' Q '+HIP.x+' '+(hip.y+1.0)+' '+(HIP.x-3.0)+' '+(hip.y)+' Z'
+    );
+
+    const headTurnLeft = smooth(.29,.40,progress);
+    const headTurnRight = smooth(.53,.65,progress);
+    const headScaleX = 1-2*headTurnLeft+2*headTurnRight;
+    const headTilt = strideWave*1.25*gaitBlend;
+    nodes.head.setAttribute('transform',
+      'translate(15 10.2) scale('+headScaleX.toFixed(4)+' 1) '+
+      'rotate('+headTilt.toFixed(3)+' 0 -3.7) translate(-15 -10.2)'
+    );
+
+    const armSwing = 25*strideWave*gaitBlend;
+    const raise = smooth(.91,1,progress);
+    const backShoulder = {x:13.1,y:torsoTop.y+1.2};
+    const frontShoulder = {x:16.9,y:torsoTop.y+1.2};
+    const backAngle = -armSwing-5*(1-gaitBlend)-150*raise;
+    const frontAngle = armSwing+5*(1-gaitBlend)+150*raise;
+    renderArm(backShoulder,backAngle,10*(1-raise)+12*raise,nodes.backArmUpper,nodes.backArmFore);
+    renderArm(frontShoulder,frontAngle,-10*(1-raise)-12*raise,nodes.frontArmUpper,nodes.frontArmFore);
+
+    renderLeg(backTarget,-1,nodes.backThigh,nodes.backShin,nodes.backFoot,hip);
+    renderLeg(frontTarget,1,nodes.frontThigh,nodes.frontShin,nodes.frontFoot,hip);
+
+    boy.style.opacity = progress<=0 ? '0' : '1';
+    boy.style.visibility = progress<=0 ? 'hidden' : 'visible';
+    boy.style.transform = 'translate3d('+distanceCss.toFixed(2)+'px,-50%,0)';
     frame = 0;
   }
 
@@ -6427,10 +6582,10 @@ html body #heroMenu .hero-menu__social-icon {
 
   measure();
   update();
-  window.addEventListener('scroll', schedule, {passive:true});
-  window.addEventListener('resize', function () { measure(); schedule(); }, {passive:true});
-  window.addEventListener('orientationchange', function () { measure(); schedule(); }, {passive:true});
-  window.addEventListener('load', function () { measure(); schedule(); }, {once:true});
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('resize',function(){measure();schedule();},{passive:true});
+  window.addEventListener('orientationchange',function(){measure();schedule();},{passive:true});
+  window.addEventListener('load',function(){measure();schedule();},{once:true});
 })();
 </script>
 </body>
