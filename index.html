@@ -6444,7 +6444,7 @@ html body #heroMenu .hero-menu__social-icon {
     const p=clamp((window.scrollY-start)/Math.max(1,max-start),0,1);
     /* Сначала ребёнок выбирается из логотипа, затем начинает путь по шапке. */
     const emergence=smooth(0,.115,p);
-    const distance=travel*smooth(.105,1,p);
+    const distance=12*emergence+Math.max(0,travel-12)*smooth(.105,1,p);
     const rigDistance=distance/Math.max(.1,scale);
     const phase=((rigDistance/34)%1+1)%1;
     const wave=Math.sin(phase*Math.PI*2);
@@ -6490,7 +6490,7 @@ html body #heroMenu .hero-menu__social-icon {
     /* Корпус и голова выходят из проёма с небольшим наклоном, затем выпрямляются. */
     parts.body.setAttribute('transform','translate('+(mix(5,0,bodyReveal)).toFixed(2)+' '+(-bob).toFixed(2)+') rotate('+(mix(12,0,bodyReveal)).toFixed(2)+' 20 25)');
     parts.head.setAttribute('transform',
-      'translate(19.5 9.5) rotate('+(mix(24,0,headReveal)+(wave*.8*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate('+(mix(-3,0,headReveal)-19.5).toFixed(2)+' '+(mix(3,0,headReveal)-9.5).toFixed(2)+')'
+      'translate(19.5 9.5) rotate('+(mix(24,0,headReveal)+(wave*.8*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate('+(mix(3,0,headReveal)-19.5).toFixed(2)+' '+(mix(3,0,headReveal)-9.5).toFixed(2)+')'
     );
 
     const raise=smooth(.91,1,p);
