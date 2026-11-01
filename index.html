@@ -6474,10 +6474,21 @@ html body #heroMenu .hero-menu__social-icon {
       return {x:amplitude*.5-amplitude*u, y:GROUND, phi};
     }
     const u = (phi-GAIT.duty)/(1-GAIT.duty);
-    const eased = u*u*(3-2*u);
+    /* Hermite swing: horizontal foot velocity matches stance at lift-off
+       and touchdown; vertical velocity is zero at both contacts. */
+    const tangent = -amplitude*(1-GAIT.duty)/GAIT.duty;
+    const u2 = u*u;
+    const u3 = u2*u;
+    const h00 = 2*u3-3*u2+1;
+    const h10 = u3-2*u2+u;
+    const h01 = -2*u3+3*u2;
+    const h11 = u3-u2;
+    const relX = h00*(-amplitude*.5)+h10*tangent+
+      h01*(amplitude*.5)+h11*tangent;
+    const liftCurve = Math.pow(Math.sin(Math.PI*u),2);
     return {
-      x:-amplitude*.5+amplitude*eased,
-      y:GROUND-GAIT.lift*Math.sin(Math.PI*u),
+      x:relX,
+      y:GROUND-GAIT.lift*liftCurve,
       phi
     };
   }
@@ -6493,7 +6504,7 @@ html body #heroMenu .hero-menu__social-icon {
     const leg = chain(hip, ik.angle, BONE.thigh, ik.bend, BONE.shin);
     setLine(thighNode, hip, leg.joint);
     setLine(shinNode, leg.joint, leg.end);
-    const toe = {x:leg.end.x+side*BONE.foot,y:leg.end.y+.22};
+    const toe = {x:leg.end.x+BONE.foot,y:leg.end.y+.22};
     setLine(footNode, leg.end, toe);
   }
 
@@ -6560,8 +6571,9 @@ html body #heroMenu .hero-menu__social-icon {
     const raise = smooth(.91,1,progress);
     const backShoulder = {x:13.1,y:torsoTop.y+1.2};
     const frontShoulder = {x:16.9,y:torsoTop.y+1.2};
-    const backAngle = -armSwing-5*(1-gaitBlend)-150*raise;
-    const frontAngle = armSwing+5*(1-gaitBlend)+150*raise;
+    /* Arms counter-swing against the legs, as in a natural walk. */
+    const backAngle = armSwing-5*(1-gaitBlend)-150*raise;
+    const frontAngle = -armSwing+5*(1-gaitBlend)+150*raise;
     renderArm(backShoulder,backAngle,10*(1-raise)+12*raise,nodes.backArmUpper,nodes.backArmFore);
     renderArm(frontShoulder,frontAngle,-10*(1-raise)-12*raise,nodes.frontArmUpper,nodes.frontArmFore);
 
