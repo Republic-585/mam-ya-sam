@@ -6423,8 +6423,12 @@ html body #heroMenu .hero-menu__social-icon {
     const menu=header.querySelector('.hero__menu-trigger');
     if(!inner||!menu)return;
     const ir=inner.getBoundingClientRect(),mr=menu.getBoundingClientRect();
+    const logo=document.getElementById('easterEggLogo');
+    const lr=logo?logo.getBoundingClientRect():null;
     const width=boy.getBoundingClientRect().width||26;
-    travel=Math.max(0,mr.left-ir.left-43-width);
+    const startLeft=lr?lr.left-ir.left+(lr.width-width)/2:43;
+    boy.style.left=startLeft.toFixed(2)+'px';
+    travel=Math.max(0,mr.left-ir.left-startLeft-width);
     scale=width/40;
   }
 
@@ -6436,12 +6440,24 @@ html body #heroMenu .hero-menu__social-icon {
     const root=document.documentElement;
     const max=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
     const p=clamp((window.scrollY-start)/Math.max(1,max-start),0,1);
-    const distance=travel*p;
+    /* Сначала ребёнок выбирается из логотипа, затем начинает путь по шапке. */
+    const emergence=smooth(0,.115,p);
+    const distance=travel*smooth(.105,1,p);
     const rigDistance=distance/Math.max(.1,scale);
     const phase=((rigDistance/34)%1+1)%1;
     const wave=Math.sin(phase*Math.PI*2);
     const settle=smooth(.91,1,p);
     const walk=1-settle;
+    const handReveal=smooth(0,.025,p);
+    const headReveal=smooth(.018,.060,p);
+    const bodyReveal=smooth(.038,.082,p);
+    const legsReveal=smooth(.060,.112,p);
+    parts.backArm.style.opacity='0';
+    parts.frontArm.style.opacity=handReveal.toFixed(3);
+    parts.head.style.opacity=headReveal.toFixed(3);
+    parts.body.style.opacity=bodyReveal.toFixed(3);
+    parts.backLeg.style.opacity=legsReveal.toFixed(3);
+    parts.frontLeg.style.opacity=legsReveal.toFixed(3);
 
     /* Небольшой естественный шаг: бедро движется умеренно, колено лишь
        слегка смягчает ногу. Верх бедра заходит под корпус, не образуя щели. */
@@ -6449,30 +6465,32 @@ html body #heroMenu .hero-menu__social-icon {
     const backThigh=-wave*13*walk;
     const frontKnee=-Math.max(0,wave)*13*walk;
     const backKnee=-Math.max(0,-wave)*13*walk;
-    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+backThigh.toFixed(2)+')');
-    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+backKnee.toFixed(2)+')');
-    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+frontThigh.toFixed(2)+')');
-    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+frontKnee.toFixed(2)+')');
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+(mix(28,backThigh,legsReveal)).toFixed(2)+')');
+    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+(mix(-18,backKnee,legsReveal)).toFixed(2)+')');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+(mix(-24,frontThigh,legsReveal)).toFixed(2)+')');
+    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+(mix(16,frontKnee,legsReveal)).toFixed(2)+')');
 
     /* Более заметный маятник рук в противофазе ногам, с мягким сгибом локтя. */
     const armSwing=-wave*30*walk;
     const elbowBack=14+wave*9*walk;
     const elbowFront=14-wave*9*walk;
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+armSwing.toFixed(2)+')');
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+(armSwing).toFixed(2)+')');
     parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+elbowBack.toFixed(2)+')');
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+(-armSwing+2).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+elbowFront.toFixed(2)+')');
+    /* Первая рука вытягивается из кубика вперёд, затем мягко опускается в шаг. */
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+(mix(-88,-armSwing+2,handReveal)).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+(mix(-8,elbowFront,handReveal)).toFixed(2)+')');
 
     /* Корпус почти неподвижен относительно таза: так соединение с ногами
        остаётся цельным на каждом кадре. */
     const bob=Math.cos(phase*Math.PI*4)*.12*walk;
-    parts.body.setAttribute('transform','translate(0 '+(-bob).toFixed(2)+')');
+    /* Корпус и голова выходят из проёма с небольшим наклоном, затем выпрямляются. */
+    parts.body.setAttribute('transform','translate('+(mix(5,0,bodyReveal)).toFixed(2)+' '+(-bob).toFixed(2)+') rotate('+(mix(12,0,bodyReveal)).toFixed(2)+' 20 25)');
     parts.head.setAttribute('transform',
-      'translate(19.5 9.5) rotate('+((wave*.8*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate(-19.5 -9.5)'
+      'translate(19.5 9.5) rotate('+(mix(24,0,headReveal)+(wave*.8*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate('+(mix(-3,0,headReveal)-19.5).toFixed(2)+' '+(mix(3,0,headReveal)-9.5).toFixed(2)+')'
     );
 
     const raise=smooth(.91,1,p);
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(-armSwing+2,-142,raise).toFixed(2)+')');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(mix(-88,-armSwing+2,handReveal),-142,raise).toFixed(2)+')');
     parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing,142,raise).toFixed(2)+')');
     parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(elbowFront,-18,raise).toFixed(2)+')');
     parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+mix(elbowBack,18,raise).toFixed(2)+')');
