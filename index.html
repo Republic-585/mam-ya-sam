@@ -3372,6 +3372,25 @@ header.topbar .header-walking-boy svg #header-boy-rig {
   header.topbar .header-walking-boy { display:none!important; }
 }
 </style>
+
+<style id="hero-heading-boy-overlay">
+/* Мальчик располагается поверх первого экрана и движется относительно букв заголовка. */
+body .header-walking-boy {
+  position:fixed!important;
+  left:0!important;
+  top:0!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:26px!important;
+  height:42px!important;
+  z-index:30!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:none!important;
+  will-change:transform;
+}
+body .header-walking-boy svg { overflow:visible!important; }
+</style>
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -6405,146 +6424,116 @@ html body #heroMenu .hero-menu__social-icon {
 
 <script id="header-walking-boy-scroll-script">
 (function () {
-  const header=document.querySelector('header.topbar');
   const boy=document.getElementById('header-walking-boy');
-  const skill=document.getElementById('skill');
-  if(!header||!boy||!skill||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const hero=document.querySelector('.hero');
+  const content=document.querySelector('.hero__content');
+  const lines=document.querySelectorAll('.hero__lead-line');
+  if(!boy||!hero||!content||lines.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
+  /* Переносим тот же SVG из шапки в слой страницы: теперь мальчик живёт рядом с заголовком. */
+  document.body.appendChild(boy);
+  Object.assign(boy.style,{position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',zIndex:'30',width:'26px',height:'42px',opacity:'1',visibility:'visible',pointerEvents:'none',transform:'translate3d(0,0,0)',transition:'none'});
   const $=id=>boy.querySelector('#'+id);
   const parts={
-    rig:$('header-boy-rig'),clip:$('header-boy-emerge-window'),
-    head:$('header-boy-head-group'),body:$('header-boy-body'),
-    torso:$('header-boy-torso'),neck:$('header-boy-neck'),
+    rig:$('header-boy-rig'),head:$('header-boy-head-group'),body:$('header-boy-body'),
     backArm:$('header-boy-back-arm'),backArmFore:$('header-boy-back-fore'),
     frontArm:$('header-boy-front-arm'),frontArmFore:$('header-boy-front-fore'),
     backLeg:$('header-boy-back-leg'),backShin:$('header-boy-back-shin'),
     frontLeg:$('header-boy-front-leg'),frontShin:$('header-boy-front-shin'),
     backFoot:$('header-boy-back-foot'),frontFoot:$('header-boy-front-foot')
   };
-  let frame=0,travel=0,scale=1,lastY=window.scrollY,facing=1;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-  const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+  const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
   const mix=(a,b,t)=>a+(b-a)*t;
+  let frame=0, anchors=null, lastWidth=0;
 
-  function measure(){
-    const inner=header.querySelector('.topbar__in');
-    const menu=header.querySelector('.hero__menu-trigger');
-    if(!inner||!menu)return;
-    const ir=inner.getBoundingClientRect(),mr=menu.getBoundingClientRect();
-    const logo=document.getElementById('easterEggLogo');
-    const lr=logo?logo.getBoundingClientRect():null;
-    const width=boy.getBoundingClientRect().width||26;
-    const startLeft=lr?lr.left-ir.left+(lr.width-width)/2:43;
-    /* Стартуем немного за кубом, чтобы его передняя грань перекрывала мальчика. */
-    boy.style.left=(startLeft-width*.62).toFixed(2)+'px';
-    travel=Math.max(0,mr.left-ir.left-startLeft-width);
-    scale=width/40;
+  function firstGlyph(el){
+    const node=el.firstChild;
+    if(!node||node.nodeType!==3)return el.getBoundingClientRect();
+    const range=document.createRange();
+    range.setStart(node,0);range.setEnd(node,1);
+    return range.getBoundingClientRect();
   }
-
+  function measure(){
+    const first=firstGlyph(lines[0]),second=firstGlyph(lines[1]);
+    const w=boy.getBoundingClientRect().width||26;
+    const h=boy.getBoundingClientRect().height||42;
+    const edge=Math.max(7,Math.min(16,window.innerWidth*.035));
+    anchors={
+      w,h,
+      m:{x:first.left+first.width*.48-w*.48,y:first.top-h*.72},
+      kids:{x:second.left+second.width*.48-w*.48,y:second.top-h*.72},
+      left:{x:edge,y:Math.min(window.innerHeight*.48,second.top+second.height*.2)}
+    };
+    lastWidth=window.innerWidth;
+  }
+  function poseSit(){
+    parts.body.setAttribute('transform','rotate(-5 20 25) translate(0 1)');
+    parts.head.setAttribute('transform','translate(19.5 9.5) rotate(-7 0 0)');
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate(38)');
+    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate(-34)');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate(43)');
+    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate(-40)');
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate(72)');
+    parts.backShin.setAttribute('transform','translate(0 11.5) rotate(-105)');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate(84)');
+    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate(-112)');
+    parts.backFoot.setAttribute('transform','rotate(-8 0 8.5)');
+    parts.frontFoot.setAttribute('transform','rotate(-8 0 8.5)');
+  }
+  function poseSlide(t){
+    const sway=Math.sin(t*9)*2.5;
+    parts.body.setAttribute('transform','rotate('+(-8+sway*.25)+' 20 25)');
+    parts.head.setAttribute('transform','translate(19.5 9.5) rotate('+(-4+sway*.35)+' 0 0)');
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+(-42+sway*1.5)+')');
+    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate(24)');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+(35+sway*1.4)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate(-26)');
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate(42)');
+    parts.backShin.setAttribute('transform','translate(0 11.5) rotate(-62)');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate(56)');
+    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate(-76)');
+    parts.backFoot.setAttribute('transform','rotate(-10 0 8.5)');
+    parts.frontFoot.setAttribute('transform','rotate(-12 0 8.5)');
+  }
   function update(){
-    const currentY=window.scrollY;
-    const delta=currentY-lastY;
-    if(Math.abs(delta)>0.5) facing=delta>0?1:-1;
-    lastY=currentY;
+    if(!anchors||lastWidth!==window.innerWidth)measure();
+    const heroTop=hero.getBoundingClientRect().top+window.scrollY;
+    const heroHeight=hero.offsetHeight||window.innerHeight;
+    const p=clamp((window.scrollY-heroTop)/(heroHeight*.82),0,1);
+    const a=anchors.m,b=anchors.kids,c=anchors.left;
+    let x,y,rotation=0,slide=0;
 
-    const hh=header.getBoundingClientRect().height;
-    const vt=Math.max(1,window.innerHeight-hh);
-    const skillTop=skill.getBoundingClientRect().top+window.scrollY;
-    const start=skillTop-window.innerHeight+vt*.48;
-    const root=document.documentElement;
-    const max=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
-    const p=clamp((currentY-start)/Math.max(1,max-start),0,1);
-
-    /* На самом краю маршрута мальчик завершает шаг и разворачивается к обратному пути. */
-    if(p>.985)facing=-1;
-    const emerge=smooth(0,.16,p);
-    /* Первые пиксели — выход из-за правого ребра куба; затем начинается обычная ходьба. */
-    const exitDistance=(26*scale)*emerge;
-    const distance=exitDistance+Math.max(0,travel-exitDistance)*smooth(.16,1,p);
-    const rigDistance=distance/Math.max(.1,scale);
-    const phase=((rigDistance/34)%1+1)%1;
-    const wave=Math.sin(phase*Math.PI*2);
-    const wave2=Math.sin(phase*Math.PI*4+.65);
-    const wave3=Math.sin(phase*Math.PI*2-.85);
-    const turn=smooth(.91,.995,p);
-    const walking=1-smooth(.90,.985,p);
-    /* Силуэт не раскрывается маской: его постепенно открывает край самого куба. */
-    parts.clip.setAttribute('x','0');
-    parts.clip.setAttribute('width','40');
-
-    /* Сначала рука тянется наружу; корпус и ноги открываются одним движением из-за границы кубика. */
-    const handRelease=smooth(.025,.15,p);
-    const bodyLift=smooth(.045,.19,p);
-    const legRelease=smooth(.085,.22,p);
-    parts.head.style.opacity='1';
-    parts.body.style.opacity='1';
-    parts.torso.style.opacity='1';
-    parts.neck.style.opacity='1';
-    parts.backArm.style.opacity='1';
-    parts.frontArm.style.opacity='1';
-    parts.backLeg.style.opacity='1';
-    parts.frontLeg.style.opacity='1';
-
-    /* Перенос веса и сгибание коленей синхронизированы с движением таза. */
-    const stride=13*wave+2.2*wave2;
-    const frontThigh=stride*walking;
-    const backThigh=-stride*.92*walking;
-    const frontKnee=Math.max(0,wave)*17*walking;
-    const backKnee=Math.max(0,-wave)*16*walking;
-    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+mix(8,backThigh,legRelease).toFixed(2)+')');
-    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+mix(4,backKnee,legRelease).toFixed(2)+')');
-    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+mix(-8,frontThigh,legRelease).toFixed(2)+')');
-    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+mix(2,frontKnee,legRelease).toFixed(2)+')');
-
-    /* Стопы перекатываются, а не вращаются независимо от голени. */
-    const frontAnkle=(-Math.max(0,wave)*11+Math.max(0,-wave)*4+wave2*2)*walking;
-    const backAnkle=(Math.max(0,wave)*4-Math.max(0,-wave)*11-wave2*1.8)*walking;
-    parts.frontFoot.setAttribute('transform','rotate('+frontAnkle.toFixed(2)+' 0 8.5)');
-    parts.backFoot.setAttribute('transform','rotate('+backAnkle.toFixed(2)+' 0 8.5)');
-
-    /* Локти сгибаются мягко; предплечья перекрывают плечевые части, не образуя разрывов. */
-    const armSwing=-wave*23-wave2*3.5;
-    const elbowBack=5+Math.max(0,wave3)*8;
-    const elbowFront=5+Math.max(0,-wave3)*8;
-    const reaching=mix(-90,-armSwing+2,handRelease);
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+(armSwing*.86*walking).toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate('+(elbowBack*walking).toFixed(2)+')');
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+reaching.toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(-3,elbowFront*walking,handRelease).toFixed(2)+')');
-
-    /* Голова ведёт движение, корпус сначала выходит с наклоном, затем выпрямляется. */
-    const bob=(Math.cos(phase*Math.PI*4)*.25+Math.sin(phase*Math.PI*2+.4)*.1)*walking;
-    const sway=(wave2*.9+wave3*.3)*walking;
-    const lean=mix(17,0,bodyLift);
-    parts.body.setAttribute('transform','translate('+(mix(7,0,bodyLift)+sway*.16).toFixed(2)+' '+(-bob-mix(1.8,0,bodyLift)).toFixed(2)+') rotate('+(lean+sway*.18).toFixed(2)+' 20 25)');
-    parts.head.setAttribute('transform',
-      'translate(19.5 9.5) rotate('+(mix(29,0,bodyLift)+(wave*.55+wave2*.22)*walking-smooth(.34,.43,p)*3+smooth(.57,.67,p)*6).toFixed(2)+') translate('+(mix(3.5,0,bodyLift)-19.5).toFixed(2)+' '+(mix(3,0,bodyLift)-9.5).toFixed(2)+')'
-    );
-
-    /* На финише он переступает, разворачивает корпус и смотрит в сторону обратного пути. */
-    const settle=smooth(.88,.98,p);
-    const raise=smooth(.91,.97,p)*(1-turn);
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(reaching,-142,raise).toFixed(2)+')');
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing*.86*walking,142,raise).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(mix(-3,elbowFront*walking,handRelease),-16,raise).toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(elbowBack*walking,16,raise).toFixed(2)+')');
-    /* Перед разворотом мальчик переносит вес на опорную ногу и ведёт плечо за головой. */
-    const pivotLean=turn*7;
-    parts.body.setAttribute('transform','translate('+(mix(7,0,bodyLift)+sway*.16-turn*1.2).toFixed(2)+' '+(-bob-mix(1.8,0,bodyLift)+turn*.7).toFixed(2)+') rotate('+(lean+sway*.18+pivotLean).toFixed(2)+' 20 25)');
-
-    boy.style.opacity=p<=0?'0':'1';
-    boy.style.visibility=p<=0?'hidden':'visible';
-    boy.style.transform='translate3d('+distance.toFixed(2)+'px,-50%,0)';
-    /* Разворот вокруг вертикальной оси: без исчезновения и зеркального скачка. */
-    parts.rig.style.transform='perspective(110px) rotateY('+((facing<0)?180:0)+'deg)';
+    /* 0–18%: сидит на первой букве. 18–43%: спрыгивает на слово «дети». */
+    if(p<.18){
+      x=a.x;y=a.y;
+      poseSit();
+    }else if(p<.43){
+      const t=smooth((p-.18)/.25);
+      const arc=Math.sin(Math.PI*t)*Math.min(42,window.innerHeight*.055);
+      x=mix(a.x,b.x,t);y=mix(a.y,b.y,t)-arc;
+      poseSit();
+      rotation=mix(0,9,t);
+    }else if(p<.62){
+      const t=smooth((p-.43)/.19);
+      const arc=Math.sin(Math.PI*t)*Math.min(48,window.innerHeight*.065);
+      x=mix(b.x,c.x,t);y=mix(b.y,c.y,t)-arc;
+      poseSit();
+      rotation=mix(9,-8,t);
+    }else{
+      slide=(p-.62)/.38;
+      x=c.x+Math.sin(slide*8)*1.6;
+      y=c.y+slide*(window.innerHeight+anchors.h*.6);
+      poseSlide(slide);
+      rotation=-8+Math.sin(slide*7)*2;
+    }
+    boy.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0)';
+    parts.rig.style.transform='rotate('+rotation.toFixed(2)+'deg)';
     frame=0;
   }
-
   function schedule(){if(frame)return;frame=requestAnimationFrame(update);}
-  parts.rig.style.transformOrigin='center center';
   parts.rig.style.transformBox='fill-box';
-  parts.rig.style.transformStyle='preserve-3d';
-  parts.rig.style.transition='transform .52s cubic-bezier(.2,.72,.22,1)';
+  parts.rig.style.transformOrigin='center center';
   measure();update();
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',function(){measure();schedule();},{passive:true});
