@@ -3102,7 +3102,7 @@ html {
   width: 100%;
   min-height: 100%;
   -webkit-text-size-adjust: 100%;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
   overscroll-behavior-y:auto;
 }
 body {
@@ -3381,8 +3381,8 @@ body .header-walking-boy {
   top:0!important;
   right:auto!important;
   bottom:auto!important;
-  width:26px!important;
-  height:42px!important;
+  width:50px!important;
+  height:75px!important;
   z-index:30!important;
   opacity:1!important;
   visibility:visible!important;
@@ -6400,7 +6400,7 @@ html body #heroMenu .hero-menu__social-icon {
   if(!boy||!hero||lines.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
   document.body.appendChild(boy);
-  const width=38,height=57;
+  const width=50,height=75;
   Object.assign(boy.style,{
     position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',
     zIndex:'30',width:width+'px',height:height+'px',opacity:'1',
