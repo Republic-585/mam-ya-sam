@@ -6435,7 +6435,7 @@ html body #heroMenu .hero-menu__social-icon {
   Object.assign(boy.style,{position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',zIndex:'30',width:'26px',height:'42px',opacity:'1',visibility:'visible',pointerEvents:'none',transform:'translate3d(0,0,0)',transition:'none'});
   const $=id=>boy.querySelector('#'+id);
   const parts={
-    rig:$('header-boy-rig'),head:$('header-boy-head-group'),body:$('header-boy-body'),
+    rig:$('header-boy-rig'),clip:$('header-boy-emerge-window'),head:$('header-boy-head-group'),body:$('header-boy-body'),
     backArm:$('header-boy-back-arm'),backArmFore:$('header-boy-back-fore'),
     frontArm:$('header-boy-front-arm'),frontArmFore:$('header-boy-front-fore'),
     backLeg:$('header-boy-back-leg'),backShin:$('header-boy-back-shin'),
@@ -6461,8 +6461,8 @@ html body #heroMenu .hero-menu__social-icon {
     const edge=Math.max(7,Math.min(16,window.innerWidth*.035));
     anchors={
       w,h,
-      m:{x:first.left+first.width*.48-w*.48,y:first.top-h*.72},
-      kids:{x:second.left+second.width*.48-w*.48,y:second.top-h*.72},
+      m:{x:first.left+first.width*.48-w*.48,y:first.top-h+2},
+      kids:{x:second.left+second.width*.48-w*.48,y:second.top-h+2},
       left:{x:edge,y:Math.min(window.innerHeight*.48,second.top+second.height*.2)}
     };
     lastWidth=window.innerWidth;
@@ -6532,6 +6532,7 @@ html body #heroMenu .hero-menu__social-icon {
     frame=0;
   }
   function schedule(){if(frame)return;frame=requestAnimationFrame(update);}
+  parts.clip.setAttribute('x','0');parts.clip.setAttribute('width','40');
   parts.rig.style.transformBox='fill-box';
   parts.rig.style.transformOrigin='center center';
   measure();update();
