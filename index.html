@@ -6397,10 +6397,12 @@ html body #heroMenu .hero-menu__social-icon {
 
   function update() {
     const headerHeight = header.getBoundingClientRect().height;
-    const skillTop = skill.getBoundingClientRect().top;
     const distance = Math.max(1, window.innerHeight - headerHeight);
-    const pageProgress = Math.min(1, Math.max(0, (window.innerHeight - skillTop) / distance));
-    const progress = Math.min(1, Math.max(0, (pageProgress - .48) / .52));
+    const skillDocumentTop = skill.getBoundingClientRect().top + window.scrollY;
+    const startScroll = skillDocumentTop - window.innerHeight + distance * .48;
+    const root = document.documentElement;
+    const maxScroll = Math.max(0, Math.max(root.scrollHeight, document.body.scrollHeight) - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, (window.scrollY - startScroll) / Math.max(1, maxScroll - startScroll)));
     const x = travel * progress;
 
     boy.style.opacity = progress <= 0 ? '0' : '1';
