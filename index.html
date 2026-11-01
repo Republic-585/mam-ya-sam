@@ -3359,6 +3359,12 @@ header.topbar .header-walking-boy svg {
   height:100%;
   overflow:visible;
 }
+header.topbar .header-walking-boy svg #header-boy-rig {
+  transform-box:fill-box;
+  transform-origin:center;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+}
+
 @media(prefers-reduced-motion:reduce) {
   header.topbar .header-walking-boy { display:none!important; }
 }
@@ -3384,7 +3390,8 @@ header.topbar .header-walking-boy svg {
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="header-walking-boy" id="header-walking-boy" aria-hidden="true">
       <svg viewBox="0 0 40 60" role="presentation" focusable="false">
-        <g id="header-boy-rig">
+        <defs><clipPath id="header-boy-emerge-clip" clipPathUnits="userSpaceOnUse"><rect id="header-boy-emerge-window" x="40" y="0" width="0" height="60"/></clipPath></defs>
+        <g id="header-boy-rig" clip-path="url(#header-boy-emerge-clip)">
           <g id="header-boy-back-arm" fill="currentColor">
             <path id="header-boy-back-upper" d="M-.9 -.8 C-2.2 .2 -2.1 3.5 -.9 6.8 C-.1 9 1.4 9.5 2.4 8.2 C3.2 7.2 1.9 4.3 1.5 2.1 L1.1 -.5 C.4 -1 -.3 -1 -.9 -.8Z"/>
             <g id="header-boy-back-fore">
@@ -6402,6 +6409,7 @@ html body #heroMenu .hero-menu__social-icon {
 
   const $=id=>boy.querySelector('#'+id);
   const parts={
+    rig:$('header-boy-rig'),clip:$('header-boy-emerge-window'),
     head:$('header-boy-head-group'),body:$('header-boy-body'),
     torso:$('header-boy-torso'),neck:$('header-boy-neck'),
     backArm:$('header-boy-back-arm'),backArmFore:$('header-boy-back-fore'),
@@ -6410,7 +6418,7 @@ html body #heroMenu .hero-menu__social-icon {
     frontLeg:$('header-boy-front-leg'),frontShin:$('header-boy-front-shin'),
     backFoot:$('header-boy-back-foot'),frontFoot:$('header-boy-front-foot')
   };
-  let frame=0,travel=0,scale=1;
+  let frame=0,travel=0,scale=1,lastY=window.scrollY,facing=1;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
   const mix=(a,b,t)=>a+(b-a)*t;
@@ -6430,80 +6438,103 @@ html body #heroMenu .hero-menu__social-icon {
   }
 
   function update(){
+    const currentY=window.scrollY;
+    const delta=currentY-lastY;
+    if(Math.abs(delta)>0.5) facing=delta>0?1:-1;
+    lastY=currentY;
+
     const hh=header.getBoundingClientRect().height;
     const vt=Math.max(1,window.innerHeight-hh);
     const skillTop=skill.getBoundingClientRect().top+window.scrollY;
     const start=skillTop-window.innerHeight+vt*.48;
     const root=document.documentElement;
     const max=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
-    const p=clamp((window.scrollY-start)/Math.max(1,max-start),0,1);
-    const emergence=smooth(0,.115,p);
-    const distance=12*emergence+Math.max(0,travel-12)*smooth(.105,1,p);
+    const p=clamp((currentY-start)/Math.max(1,max-start),0,1);
+
+    /* На самом краю маршрута мальчик завершает шаг и разворачивается к обратному пути. */
+    if(p>.985)facing=-1;
+    const emerge=smooth(0,.13,p);
+    const distance=12*emerge+Math.max(0,travel-12)*smooth(.13,1,p);
     const rigDistance=distance/Math.max(.1,scale);
     const phase=((rigDistance/34)%1+1)%1;
     const wave=Math.sin(phase*Math.PI*2);
     const wave2=Math.sin(phase*Math.PI*4+.65);
     const wave3=Math.sin(phase*Math.PI*2-.85);
-    const settle=smooth(.91,1,p),walk=1-settle;
-    const handReveal=smooth(0,.025,p),headReveal=smooth(.018,.060,p);
-    const bodyReveal=smooth(.038,.082,p),legsReveal=smooth(.060,.112,p);
+    const turn=smooth(.965,.995,p);
+    const walking=1-smooth(.90,.985,p);
+    const revealWidth=40*emerge;
+    parts.clip.setAttribute('x',(40-revealWidth).toFixed(2));
+    parts.clip.setAttribute('width',revealWidth.toFixed(2));
 
-    parts.backArm.style.opacity='1';
-    parts.frontArm.style.opacity=smooth(0,.025,p).toFixed(3);
-    parts.head.style.opacity=headReveal.toFixed(3);
+    /* Сначала рука тянется наружу; корпус и ноги открываются одним движением из-за границы кубика. */
+    const handRelease=smooth(.025,.15,p);
+    const bodyLift=smooth(.045,.19,p);
+    const legRelease=smooth(.085,.22,p);
+    parts.head.style.opacity='1';
     parts.body.style.opacity='1';
-    parts.torso.style.opacity=bodyReveal.toFixed(3);
-    parts.neck.style.opacity=bodyReveal.toFixed(3);
-    parts.backLeg.style.opacity=legsReveal.toFixed(3);
-    parts.frontLeg.style.opacity=legsReveal.toFixed(3);
+    parts.torso.style.opacity='1';
+    parts.neck.style.opacity='1';
+    parts.backArm.style.opacity='1';
+    parts.frontArm.style.opacity='1';
+    parts.backLeg.style.opacity='1';
+    parts.frontLeg.style.opacity='1';
 
-    /* Бёдра работают попеременно, колени сгибаются вперёд, а не назад. */
+    /* Перенос веса и сгибание коленей синхронизированы с движением таза. */
     const stride=13*wave+2.2*wave2;
-    const frontThigh=stride*walk;
-    const backThigh=-stride*.92*walk;
-    const frontKnee=Math.max(0,wave)*19*walk;
-    const backKnee=Math.max(0,-wave)*18*walk;
-    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+mix(8,backThigh,legsReveal).toFixed(2)+')');
-    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+mix(4,backKnee,legsReveal).toFixed(2)+')');
-    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+mix(-8,frontThigh,legsReveal).toFixed(2)+')');
-    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+mix(2,frontKnee,legsReveal).toFixed(2)+')');
+    const frontThigh=stride*walking;
+    const backThigh=-stride*.92*walking;
+    const frontKnee=Math.max(0,wave)*17*walking;
+    const backKnee=Math.max(0,-wave)*16*walking;
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+mix(8,backThigh,legRelease).toFixed(2)+')');
+    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+mix(4,backKnee,legRelease).toFixed(2)+')');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+mix(-8,frontThigh,legRelease).toFixed(2)+')');
+    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+mix(2,frontKnee,legRelease).toFixed(2)+')');
 
-    /* Ступня мягко перекатывается с пятки на носок в каждом шаге. */
-    const frontAnkle=(-Math.max(0,wave)*13+Math.max(0,-wave)*5+wave2*2.5)*walk;
-    const backAnkle=(Math.max(0,wave)*5-Math.max(0,-wave)*13-wave2*2)*walk;
+    /* Стопы перекатываются, а не вращаются независимо от голени. */
+    const frontAnkle=(-Math.max(0,wave)*11+Math.max(0,-wave)*4+wave2*2)*walking;
+    const backAnkle=(Math.max(0,wave)*4-Math.max(0,-wave)*11-wave2*1.8)*walking;
     parts.frontFoot.setAttribute('transform','rotate('+frontAnkle.toFixed(2)+' 0 8.5)');
     parts.backFoot.setAttribute('transform','rotate('+backAnkle.toFixed(2)+' 0 8.5)');
 
-    /* Руки двигаются в противофазе, локти не фиксированы в одном угле. */
-    const armSwing=-wave*27-wave2*4.5;
-    const elbowBack=9+Math.max(0,wave3)*13;
-    const elbowFront=9+Math.max(0,-wave3)*13;
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+(armSwing*.9*walk).toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(0 7.1) rotate('+(elbowBack*walk).toFixed(2)+')');
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(-88,-armSwing+2,handReveal).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(-8,elbowFront*walk,handReveal).toFixed(2)+')');
+    /* Локти сгибаются мягко; предплечья перекрывают плечевые части, не образуя разрывов. */
+    const armSwing=-wave*23-wave2*3.5;
+    const elbowBack=5+Math.max(0,wave3)*8;
+    const elbowFront=5+Math.max(0,-wave3)*8;
+    const reaching=mix(-90,-armSwing+2,handRelease);
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+(armSwing*.86*walking).toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate('+(elbowBack*walking).toFixed(2)+')');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+reaching.toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(-3,elbowFront*walking,handRelease).toFixed(2)+')');
 
-    /* Небольшие смещения плеч, таза и головы разбивают механический ритм. */
-    const bob=(Math.cos(phase*Math.PI*4)*.28+Math.sin(phase*Math.PI*2+.4)*.12)*walk;
-    const sway=(wave2*1.05+wave3*.35)*walk;
-    parts.body.setAttribute('transform','translate('+(mix(5,0,bodyReveal)+sway*.18).toFixed(2)+' '+(-bob).toFixed(2)+') rotate('+(mix(12,0,bodyReveal)+sway*.22).toFixed(2)+' 20 25)');
+    /* Голова ведёт движение, корпус сначала выходит с наклоном, затем выпрямляется. */
+    const bob=(Math.cos(phase*Math.PI*4)*.25+Math.sin(phase*Math.PI*2+.4)*.1)*walking;
+    const sway=(wave2*.9+wave3*.3)*walking;
+    const lean=mix(17,0,bodyLift);
+    parts.body.setAttribute('transform','translate('+(mix(7,0,bodyLift)+sway*.16).toFixed(2)+' '+(-bob-mix(1.8,0,bodyLift)).toFixed(2)+') rotate('+(lean+sway*.18).toFixed(2)+' 20 25)');
     parts.head.setAttribute('transform',
-      'translate(19.5 9.5) rotate('+(mix(24,0,headReveal)+(wave*.65+wave2*.28)*walk-smooth(.34,.43,p)*4+smooth(.57,.67,p)*8).toFixed(2)+') translate('+(mix(3,0,headReveal)-19.5).toFixed(2)+' '+(mix(3,0,headReveal)-9.5).toFixed(2)+')'
+      'translate(19.5 9.5) rotate('+(mix(29,0,bodyLift)+(wave*.55+wave2*.22)*walking-smooth(.34,.43,p)*3+smooth(.57,.67,p)*6).toFixed(2)+') translate('+(mix(3.5,0,bodyLift)-19.5).toFixed(2)+' '+(mix(3,0,bodyLift)-9.5).toFixed(2)+')'
     );
 
-    const raise=smooth(.91,1,p);
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(mix(-88,-armSwing+2,handReveal),-142,raise).toFixed(2)+')');
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing*.9*walk,142,raise).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(mix(-8,elbowFront*walk,handReveal),-18,raise).toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(elbowBack*walk,18,raise).toFixed(2)+')');
+    /* На финише он переступает, разворачивает корпус и смотрит в сторону обратного пути. */
+    const settle=smooth(.91,.985,p);
+    const raise=smooth(.91,.97,p)*(1-turn);
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(reaching,-142,raise).toFixed(2)+')');
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing*.86*walking,142,raise).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(mix(-3,elbowFront*walking,handRelease),-16,raise).toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate('+mix(elbowBack*walking,16,raise).toFixed(2)+')');
+    parts.body.setAttribute('transform','translate('+(mix(7,0,bodyLift)+sway*.16).toFixed(2)+' '+(-bob-mix(1.8,0,bodyLift)).toFixed(2)+') rotate('+(lean+sway*.18+turn*2).toFixed(2)+' 20 25)');
 
     boy.style.opacity=p<=0?'0':'1';
     boy.style.visibility=p<=0?'hidden':'visible';
     boy.style.transform='translate3d('+distance.toFixed(2)+'px,-50%,0)';
+    parts.rig.style.transform='scaleX('+((facing<0)?-1:1)+')';
     frame=0;
   }
 
   function schedule(){if(frame)return;frame=requestAnimationFrame(update);}
+  parts.rig.style.transformOrigin='center';
+  parts.rig.style.transformBox='fill-box';
+  parts.rig.style.transition='transform .22s cubic-bezier(.2,.8,.2,1)';
   measure();update();
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',function(){measure();schedule();},{passive:true});
