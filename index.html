@@ -6429,22 +6429,18 @@ html body #heroMenu .hero-menu__social-icon {
   const lines=document.querySelectorAll('.hero__lead-line');
   if(!boy||!hero||lines.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
-  /* Персонаж остаётся в координатах экрана, а точки движения каждый кадр
-     считываются заново из текущего положения букв. */
   document.body.appendChild(boy);
-  const size=window.innerWidth<=640?34:36;
-  const height=size*1.5;
+  const width=38,height=57;
   Object.assign(boy.style,{
     position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',
-    zIndex:'30',width:size+'px',height:height+'px',opacity:'1',
+    zIndex:'30',width:width+'px',height:height+'px',opacity:'1',
     visibility:'visible',pointerEvents:'none',
     transform:'translate3d(0,0,0)',transition:'none'
   });
 
   const $=id=>boy.querySelector('#'+id);
   const parts={
-    rig:$('header-boy-rig'),clip:$('header-boy-emerge-window'),
-    head:$('header-boy-head-group'),body:$('header-boy-body'),
+    rig:$('header-boy-rig'),head:$('header-boy-head-group'),body:$('header-boy-body'),
     backArm:$('header-boy-back-arm'),backArmFore:$('header-boy-back-fore'),
     frontArm:$('header-boy-front-arm'),frontArmFore:$('header-boy-front-fore'),
     backLeg:$('header-boy-back-leg'),backShin:$('header-boy-back-shin'),
@@ -6456,12 +6452,12 @@ html body #heroMenu .hero-menu__social-icon {
   const mix=(a,b,t)=>a+(b-a)*t;
   let frame=0;
 
-  function firstGlyph(el){
+  function wordRect(el,length){
     const node=el.firstChild;
     if(!node||node.nodeType!==3)return el.getBoundingClientRect();
     const range=document.createRange();
     range.setStart(node,0);
-    range.setEnd(node,1);
+    range.setEnd(node,Math.min(length,node.length));
     return range.getBoundingClientRect();
   }
 
@@ -6480,73 +6476,29 @@ html body #heroMenu .hero-menu__social-icon {
     parts.frontFoot.setAttribute('transform','rotate(-8 0 8.5)');
   }
 
-  function poseSlide(t){
-    const blend=smooth(t*5);
-    const sway=Math.sin(t*7)*1.4*blend;
-    const angle=(from,to)=>mix(from,to,blend);
-    parts.body.setAttribute('transform','rotate('+angle(-5,-8+sway*.25)+' 20 25)');
-    parts.head.setAttribute('transform','translate(19.5 9.5) rotate('+angle(-7,-4+sway*.3)+' 0 0)');
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+angle(38,-42+sway)+')');
-    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate('+angle(-34,24)+')');
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+angle(43,35+sway)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate('+angle(-40,-26)+')');
-    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+angle(72,42)+')');
-    parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+angle(-105,-62)+')');
-    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+angle(84,56)+')');
-    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+angle(-112,-76)+')');
-    parts.backFoot.setAttribute('transform','rotate(-10 0 8.5)');
-    parts.frontFoot.setAttribute('transform','rotate(-12 0 8.5)');
-  }
-
   function update(){
-    const first=firstGlyph(lines[0]);
-    const second=firstGlyph(lines[1]);
-    const w=size,h=height;
-    const edge=Math.max(8,Math.min(13,window.innerWidth*.03));
-    const a={
-      x:first.left+first.width*.5-w*.5,
-      y:first.top-h+3
+    /* Координаты слов считываются заново: персонаж точно следует за текстом. */
+    const place=wordRect(lines[0],5);
+    const kids=wordRect(lines[1],4);
+    const start={
+      x:place.left+place.width*.5-width*.5,
+      y:place.top-height-7
     };
-    const b={
-      x:second.left+second.width*.5-w*.5,
-      y:second.top-h+3
+    const finish={
+      x:kids.left+kids.width*.5-width*.5,
+      y:kids.top-height+3
     };
-    const leftY=clamp(b.y+22,window.innerHeight*.24,window.innerHeight*.48);
-    const c={x:edge,y:leftY};
 
     const heroTop=hero.getBoundingClientRect().top+window.scrollY;
-    const heroHeight=hero.offsetHeight||window.innerHeight;
-    const p=clamp((window.scrollY-heroTop)/(heroHeight*.9),0,1);
-    let x,y,rotation=0;
+    const travelled=Math.max(0,window.scrollY-heroTop);
+    const t=smooth(clamp(travelled/115,0,1));
+    const arc=Math.sin(Math.PI*t)*Math.min(34,window.innerHeight*.05);
+    const x=mix(start.x,finish.x,t);
+    const y=mix(start.y,finish.y,t)-arc;
 
-    if(p<.24){
-      x=a.x;y=a.y;
-      poseSit();
-    }else if(p<.48){
-      const t=smooth((p-.24)/.24);
-      const arc=Math.sin(Math.PI*t)*Math.min(30,window.innerHeight*.045);
-      x=mix(a.x,b.x,t);
-      y=mix(a.y,b.y,t)-arc;
-      poseSit();
-      rotation=mix(0,5,t);
-    }else if(p<.70){
-      const t=smooth((p-.48)/.22);
-      const arc=Math.sin(Math.PI*t)*Math.min(34,window.innerHeight*.05);
-      x=mix(b.x,c.x,t);
-      y=mix(b.y,c.y,t)-arc;
-      poseSit();
-      rotation=mix(5,-7,t);
-    }else{
-      const t=clamp((p-.70)/.30,0,1);
-      const slide=smooth(t);
-      x=edge+Math.sin(t*8)*1.1;
-      y=mix(c.y,window.innerHeight-h-10,slide);
-      poseSlide(t);
-      rotation=-7+Math.sin(t*6)*1.2;
-    }
-
+    poseSit();
     boy.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0)';
-    parts.rig.style.transform='rotate('+rotation.toFixed(2)+'deg)';
+    parts.rig.style.transform='rotate('+mix(0,6,t).toFixed(2)+'deg)';
     frame=0;
   }
 
@@ -6555,7 +6507,7 @@ html body #heroMenu .hero-menu__social-icon {
     frame=requestAnimationFrame(update);
   }
 
-  /* Старое окно обрезки давало эффект пропадающего силуэта. */
+  /* Убираем старую маску, из-за которой силуэт частично исчезал. */
   parts.rig.style.clipPath='none';
   parts.rig.removeAttribute('clip-path');
   parts.rig.style.transformBox='fill-box';
