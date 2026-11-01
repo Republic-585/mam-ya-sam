@@ -3392,9 +3392,9 @@ header.topbar .header-walking-boy svg {
             </g>
           </g>
           <g id="header-boy-back-leg" fill="currentColor">
-            <path id="header-boy-back-thigh" d="M-2.4 0 C-3.2 3.2 -2.7 7.8 -1.5 11.7 C-.8 13.2 1.2 13.4 2.2 12.2 C2.8 8.2 2.4 3.2 1.8 0Z"/>
+            <path id="header-boy-back-thigh" d="M-2.8 -2.8 C-4.1 -.8 -3.6 6.8 -2.1 11.8 C-1.2 14.2 1.6 14.5 2.7 12.1 C3.3 7.2 2.9 .5 2.2 -2.8Z"/>
             <g id="header-boy-back-shin">
-              <path d="M-1.8 0 C-2.7 2.8 -2.3 6.4 -.9 9.2 C-.1 10.2 1.5 9.9 2 8.8 L1.5 0Z"/>
+              <path d="M-2.0 0 C-2.8 2.8 -2.3 6.4 -.9 9.2 C-.1 10.2 1.5 9.9 2 8.8 L1.5 0Z"/>
               <path id="header-boy-back-foot" d="M-.8 8.2 C.7 8.6 2.2 8.4 3.5 9.1 C4.3 9.6 4.1 10.5 3.1 10.6 L-.9 10.4 C-1.8 10.2 -1.7 9.1 -.8 8.2Z"/>
             </g>
           </g>
@@ -6395,99 +6395,87 @@ html body #heroMenu .hero-menu__social-icon {
 
 <script id="header-walking-boy-scroll-script">
 (function () {
-  const header = document.querySelector('header.topbar');
-  const boy = document.getElementById('header-walking-boy');
-  const skill = document.getElementById('skill');
-  if (!header || !boy || !skill || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const header=document.querySelector('header.topbar');
+  const boy=document.getElementById('header-walking-boy');
+  const skill=document.getElementById('skill');
+  if(!header||!boy||!skill||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
-  const $ = id => boy.querySelector('#' + id);
-  const parts = {
-    head: $('header-boy-head-group'),
-    body: $('header-boy-body'),
-    backArm: $('header-boy-back-arm'),
-    backArmFore: $('header-boy-back-fore'),
-    frontArm: $('header-boy-front-arm'),
-    frontArmFore: $('header-boy-front-fore'),
-    backLeg: $('header-boy-back-leg'),
-    backShin: $('header-boy-back-shin'),
-    frontLeg: $('header-boy-front-leg'),
-    frontShin: $('header-boy-front-shin')
+  const $=id=>boy.querySelector('#'+id);
+  const parts={
+    head:$('header-boy-head-group'),
+    body:$('header-boy-body'),
+    backArm:$('header-boy-back-arm'),
+    backArmFore:$('header-boy-back-fore'),
+    frontArm:$('header-boy-front-arm'),
+    frontArmFore:$('header-boy-front-fore'),
+    backLeg:$('header-boy-back-leg'),
+    backShin:$('header-boy-back-shin'),
+    frontLeg:$('header-boy-front-leg'),
+    frontShin:$('header-boy-front-shin')
   };
-  let frame = 0;
-  let travel = 0;
-  let scale = 1;
+  let frame=0,travel=0,scale=1;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+  const mix=(a,b,t)=>a+(b-a)*t;
 
-  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
-  const smooth = (a,b,x) => {
-    const t=clamp((x-a)/(b-a),0,1);
-    return t*t*(3-2*t);
-  };
-  const mix = (a,b,t) => a+(b-a)*t;
-
-  function measure() {
+  function measure(){
     const inner=header.querySelector('.topbar__in');
     const menu=header.querySelector('.hero__menu-trigger');
     if(!inner||!menu)return;
-    const innerRect=inner.getBoundingClientRect();
-    const menuRect=menu.getBoundingClientRect();
+    const ir=inner.getBoundingClientRect(),mr=menu.getBoundingClientRect();
     const width=boy.getBoundingClientRect().width||26;
-    travel=Math.max(0,menuRect.left-innerRect.left-43-width);
+    travel=Math.max(0,mr.left-ir.left-43-width);
     scale=width/40;
   }
 
-  function update() {
-    const headerHeight=header.getBoundingClientRect().height;
-    const viewportTravel=Math.max(1,window.innerHeight-headerHeight);
+  function update(){
+    const hh=header.getBoundingClientRect().height;
+    const vt=Math.max(1,window.innerHeight-hh);
     const skillTop=skill.getBoundingClientRect().top+window.scrollY;
-    const startScroll=skillTop-window.innerHeight+viewportTravel*.48;
+    const start=skillTop-window.innerHeight+vt*.48;
     const root=document.documentElement;
-    const maxScroll=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
-    const p=clamp((window.scrollY-startScroll)/Math.max(1,maxScroll-startScroll),0,1);
-
+    const max=Math.max(0,Math.max(root.scrollHeight,document.body.scrollHeight)-window.innerHeight);
+    const p=clamp((window.scrollY-start)/Math.max(1,max-start),0,1);
     const distance=travel*p;
     const rigDistance=distance/Math.max(.1,scale);
-    const cycle=rigDistance/28;
-    const phase=cycle-Math.floor(cycle);
+    const phase=((rigDistance/34)%1+1)%1;
     const wave=Math.sin(phase*Math.PI*2);
     const settle=smooth(.91,1,p);
     const walk=1-settle;
 
-    /* Нога выносится вперёд, затем мягко сгибается и ставится на землю.
-       Сгиб колена направлен назад, а не выворачивается вперёд. */
-    const frontSwing=Math.max(0,wave);
-    const backSwing=Math.max(0,-wave);
-    const frontThigh=wave*20*walk;
-    const backThigh=-wave*20*walk;
-    const frontKnee=-Math.pow(frontSwing,1.15)*34*walk+2*walk;
-    const backKnee=-Math.pow(backSwing,1.15)*34*walk+2*walk;
-
+    /* Небольшой естественный шаг: бедро движется умеренно, колено лишь
+       слегка смягчает ногу. Верх бедра заходит под корпус, не образуя щели. */
+    const frontThigh=wave*13*walk;
+    const backThigh=-wave*13*walk;
+    const frontKnee=-Math.max(0,wave)*13*walk;
+    const backKnee=-Math.max(0,-wave)*13*walk;
     parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+backThigh.toFixed(2)+')');
     parts.backShin.setAttribute('transform','translate(0 11.5) rotate('+backKnee.toFixed(2)+')');
     parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+frontThigh.toFixed(2)+')');
     parts.frontShin.setAttribute('transform','translate(0 11.5) rotate('+frontKnee.toFixed(2)+')');
 
-    /* Руки идут в противофазе ногам, локти слегка согнуты. */
-    const armSwing=-wave*17*walk;
+    /* Более заметный маятник рук в противофазе ногам, с мягким сгибом локтя. */
+    const armSwing=-wave*30*walk;
+    const elbowBack=14+wave*9*walk;
+    const elbowFront=14-wave*9*walk;
     parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+armSwing.toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+(12+wave*7*walk).toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+elbowBack.toFixed(2)+')');
     parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+(-armSwing+2).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+(12-wave*7*walk).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+elbowFront.toFixed(2)+')');
 
-    const bob=(.45+.55*Math.cos(phase*Math.PI*4))*walk;
+    /* Корпус почти неподвижен относительно таза: так соединение с ногами
+       остаётся цельным на каждом кадре. */
+    const bob=Math.cos(phase*Math.PI*4)*.12*walk;
     parts.body.setAttribute('transform','translate(0 '+(-bob).toFixed(2)+')');
     parts.head.setAttribute('transform',
-      'translate(19.5 9.5) rotate('+((wave*1.2*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate(-19.5 -9.5)'
+      'translate(19.5 9.5) rotate('+((wave*.8*walk)-smooth(.34,.43,p)*5+smooth(.57,.67,p)*10).toFixed(2)+') translate(-19.5 -9.5)'
     );
 
     const raise=smooth(.91,1,p);
-    parts.frontArm.setAttribute('transform',
-      'translate(24.1 19.5) rotate('+mix(-armSwing+2,-142,raise).toFixed(2)+')'
-    );
-    parts.backArm.setAttribute('transform',
-      'translate(15.8 19.5) rotate('+mix(armSwing,142,raise).toFixed(2)+')'
-    );
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(12-wave*7*walk,-18,raise).toFixed(2)+')');
-    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+mix(12+wave*7*walk,18,raise).toFixed(2)+')');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(-armSwing+2,-142,raise).toFixed(2)+')');
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing,142,raise).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(elbowFront,-18,raise).toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+mix(elbowBack,18,raise).toFixed(2)+')');
 
     boy.style.opacity=p<=0?'0':'1';
     boy.style.visibility=p<=0?'hidden':'visible';
@@ -6496,8 +6484,7 @@ html body #heroMenu .hero-menu__social-icon {
   }
 
   function schedule(){if(frame)return;frame=requestAnimationFrame(update);}
-  measure();
-  update();
+  measure();update();
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',function(){measure();schedule();},{passive:true});
   window.addEventListener('orientationchange',function(){measure();schedule();},{passive:true});
