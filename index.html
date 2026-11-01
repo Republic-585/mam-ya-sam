@@ -3391,15 +3391,6 @@ body .header-walking-boy {
 }
 body .header-walking-boy svg { overflow:visible!important; }
 </style>
-<style id="header-walking-boy-rive-preview">
-/* Rive-персонаж включается только после успешной загрузки; SVG остаётся резервным вариантом. */
-#header-walking-boy-rive { display:none; width:100%; height:100%; }
-#header-walking-boy.rive-loaded #header-walking-boy-rive {
-  display:block;
-  filter:grayscale(1) brightness(0);
-}
-#header-walking-boy.rive-loaded > svg { display:none!important; }
-</style>
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -3420,7 +3411,6 @@ body .header-walking-boy svg { overflow:visible!important; }
     </div>
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
     <div class="header-walking-boy" id="header-walking-boy" aria-hidden="true">
-      <canvas id="header-walking-boy-rive" aria-hidden="true"></canvas>
       <svg viewBox="0 0 40 60" role="presentation" focusable="false">
   <g id="header-boy-rig" fill="#080808">
     <g id="header-boy-back-arm"><path id="header-boy-back-upper" d="M-.8 -1.2 C-2.1 -.3 -2.2 2.7 -1.1 5.8 L1.4 11.1 C2.1 12.4 3.7 12.1 4.1 10.9 C4.3 10.2 3.2 7.1 2.3 4.8 L1.2 -.4 C.7 -1.2 0 -1.5 -.8 -1.2Z"/><g id="header-boy-back-fore"><path d="M-.7 -.8 C-1.8 .3 -1.4 3.2 -.1 6.2 L2.1 10.8 C2.8 12.1 4.4 11.7 4.6 10.5 C4.7 9.8 3.2 6.4 2.4 4.2 L1 -.3 C.4 -1 -.2 -1.2 -.7 -.8Z"/></g></g>
@@ -6518,36 +6508,6 @@ html body #heroMenu .hero-menu__social-icon {
   window.addEventListener('resize',schedule,{passive:true});
   window.addEventListener('orientationchange',schedule,{passive:true});
   window.addEventListener('load',schedule,{once:true});
-})();
-</script>
-<script src="https://unpkg.com/@rive-app/canvas@2.21.6"></script>
-<script id="header-walking-boy-rive-loader">
-(function(){
-  const canvas=document.getElementById('header-walking-boy-rive');
-  const holder=document.getElementById('header-walking-boy');
-  if(!canvas||!holder||!window.rive||!window.rive.Rive)return;
-  let character;
-  try{
-    character=new rive.Rive({
-      src:'https://public.rive.app/community/runtime-files/4848-9810-walking-boy.riv',
-      canvas:canvas,
-      autoplay:false,
-      onLoad:function(){
-        try{
-          character.resizeDrawingSurfaceToCanvas();
-          const animations=character.animationNames||[];
-          const machines=character.stateMachineNames||[];
-          if(animations.length) character.play(animations[0]);
-          else if(machines.length) character.play(machines[0]);
-          holder.classList.add('rive-loaded');
-        }catch(error){ console.warn('Rive boy preview could not start:',error); }
-      },
-      onLoadError:function(error){ console.warn('Rive boy preview could not load:',error); }
-    });
-    window.addEventListener('resize',function(){
-      if(character) character.resizeDrawingSurfaceToCanvas();
-    },{passive:true});
-  }catch(error){ console.warn('Rive boy preview initialization failed:',error); }
 })();
 </script>
 </body>
