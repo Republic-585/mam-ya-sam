@@ -6404,6 +6404,8 @@ html body #heroMenu .hero-menu__social-icon {
   const parts={
     head:$('header-boy-head-group'),
     body:$('header-boy-body'),
+    torso:$('header-boy-torso'),
+    neck:$('header-boy-neck'),
     backArm:$('header-boy-back-arm'),
     backArmFore:$('header-boy-back-fore'),
     frontArm:$('header-boy-front-arm'),
@@ -6455,7 +6457,9 @@ html body #heroMenu .hero-menu__social-icon {
     parts.backArm.style.opacity='0';
     parts.frontArm.style.opacity=handReveal.toFixed(3);
     parts.head.style.opacity=headReveal.toFixed(3);
-    parts.body.style.opacity=bodyReveal.toFixed(3);
+    parts.body.style.opacity='1';
+    parts.torso.style.opacity=bodyReveal.toFixed(3);
+    parts.neck.style.opacity=bodyReveal.toFixed(3);
     parts.backLeg.style.opacity=legsReveal.toFixed(3);
     parts.frontLeg.style.opacity=legsReveal.toFixed(3);
 
@@ -6492,7 +6496,7 @@ html body #heroMenu .hero-menu__social-icon {
     const raise=smooth(.91,1,p);
     parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+mix(mix(-88,-armSwing+2,handReveal),-142,raise).toFixed(2)+')');
     parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+mix(armSwing,142,raise).toFixed(2)+')');
-    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(elbowFront,-18,raise).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform','translate(0 7.1) rotate('+mix(mix(-8,elbowFront,handReveal),-18,raise).toFixed(2)+')');
     parts.backArmFore.setAttribute('transform','translate(1 7.1) rotate('+mix(elbowBack,18,raise).toFixed(2)+')');
 
     boy.style.opacity=p<=0?'0':'1';
