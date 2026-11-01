@@ -3420,21 +3420,23 @@ body .header-walking-boy svg { overflow:visible!important; }
   </defs>
   <g id="header-boy-rig" fill="#050505">
     <g id="header-boy-back-arm">
-      <path d="M-1 -1 C-2.7 .2 -2.3 3.2 -1.1 6.1 L1.2 11.1 C2 12.6 4 12.2 4.1 10.8 L2.2 4.1 1 -.6 C.5 -1.5 -.3 -1.6 -1 -1Z"/>
-      <g id="header-boy-back-fore"><path d="M-.8 -.8 C-2 .3 -1.4 3.5 .1 6.6 L2.2 11 C3 12.3 4.7 11.8 4.6 10.4 L2.4 4.2 1 -.3 C.4 -1.1 -.3 -1.3 -.8 -.8Z"/></g>
+      <g transform="scale(-1 1)">
+        <path d="M-1 -1 C-2.7 .2 -2.3 3.2 -1.1 6.1 L1.2 11.1 C2 12.6 4 12.2 4.1 10.8 L2.2 4.1 1 -.6 C.5 -1.5 -.3 -1.6 -1 -1Z"/>
+        <g id="header-boy-back-fore"><path d="M-.8 -.8 C-2 .3 -1.4 3.5 .1 6.6 L2.2 11 C3 12.3 4.7 11.8 4.6 10.4 L2.4 4.2 1 -.3 C.4 -1.1 -.3 -1.3 -.8 -.8Z"/></g>
+      </g>
     </g>
     <g id="header-boy-back-leg">
       <path d="M-3 -2 C-4.4 1 -3.2 8.3 -2.2 12.4 C-1.4 15.1 1.8 15.2 2.8 12.6 L2.1 -1.8 C.5 -3 -1.8 -3 -3 -2Z"/>
       <g id="header-boy-back-shin">
         <path d="M-.9 -.8 C-2.2 .6 -1.6 5.4 -.4 9 C.3 11 2.2 11 2.8 9.2 L1.2 -.2 C.5 -1 -.3 -1.2 -.9 -.8Z"/>
-        <path id="header-boy-back-foot" d="M-.8 8.3 C.5 7.6 1.5 8.3 2.5 9.1 C3.6 10 5.7 9 6.4 10.4 C7 11.7 5.3 12.2 4 12.2 L-.4 12 C-1.9 11.8 -2 9.3 -.8 8.3Z"/>
+        <path id="header-boy-back-foot" d="M.8 8.3 C-.5 7.6 -1.5 8.3 -2.5 9.1 C-3.6 10 -5.7 9 -6.4 10.4 C-7 11.7 -5.3 12.2 -4 12.2 L.4 12 C1.9 11.8 2 9.3 .8 8.3Z"/>
       </g>
     </g>
     <g id="header-boy-front-leg">
       <path d="M-2.8 -2 C-3.8 .8 -2.7 8.4 -1.5 12.6 C-.6 15 1.9 15.1 2.8 12.5 L1.8 -1.8 C.3 -2.9 -1.6 -2.8 -2.8 -2Z"/>
       <g id="header-boy-front-shin">
         <path d="M-.8 -.8 C-2 .5 -1.5 5.4 -.3 9 C.4 11 2.3 11 2.8 9.2 L1.2 -.2 C.5 -1 -.2 -1.2 -.8 -.8Z"/>
-        <path id="header-boy-front-foot" d="M-.8 8.3 C.5 7.6 1.5 8.3 2.5 9.1 C3.6 10 5.7 9 6.4 10.4 C7 11.7 5.3 12.2 4 12.2 L-.4 12 C-1.9 11.8 -2 9.3 -.8 8.3Z"/>
+        <path id="header-boy-front-foot" d="M.8 8.3 C-.5 7.6 -1.5 8.3 -2.5 9.1 C-3.6 10 -5.7 9 -6.4 10.4 C-7 11.7 -5.3 12.2 -4 12.2 L.4 12 C1.9 11.8 2 9.3 .8 8.3Z"/>
       </g>
     </g>
     <g id="header-boy-body">
@@ -3442,14 +3444,17 @@ body .header-walking-boy svg { overflow:visible!important; }
       <path id="header-boy-neck" d="M17.2 12.9 C18.2 12.1 21.8 12.1 22.8 13.1 L23 17.4 L17 17.4Z"/>
       <g id="header-boy-head-group">
         <path id="header-boy-head" d="M19.8 1.9 C16.1 1.9 13.1 4.5 12.4 8.1 C11.5 12.8 14.4 16.6 18.1 17.5 C22.4 18.5 26.5 15.8 27.5 11.8 C28.6 7.5 26.1 3.1 22.2 2.1 C21.4 1.9 20.6 1.8 19.8 1.9Z"/>
-        <path d="M12.8 9.2 C10.7 7.6 11.5 4.6 13.5 4.1 C13.5 1.8 16 1 17.4 2.6 C18.4 -.1 21.1 .1 21.9 2.1 C24.1 .8 26.2 2.6 25.7 4.7 C28.5 5.1 29 8.1 27.2 9.5 C25.4 8.9 24.1 7.8 23.2 6.5 C21.3 8.1 17.2 8.8 12.8 9.2Z"/>
-        <ellipse cx="16.8" cy="11.1" rx="1.05" ry="1.65" fill="#fff" filter="url(#limbo-eye-glow)"/>
-        <ellipse cx="22.7" cy="11.1" rx="1.05" ry="1.65" fill="#fff" filter="url(#limbo-eye-glow)"/>
+        <path d="M11.9 10.2 C10.4 8.8 10.8 6.1 12.7 4.8 C12.2 2.6 14.3 1.1 16.4 2.1 C17.6 -.2 20.7 -.1 22.1 2 C24.3 1.2 26.4 2.8 26.1 5 C28.4 5.8 28.7 8.2 27.2 9.8 C25.8 9.1 24.8 7.9 24.1 6.7 C23.3 8.3 21.8 9.4 19.6 9.8 C17.5 10.1 15.3 9.3 14 8 C13.7 9 12.9 9.8 11.9 10.2Z"/>
+        <path d="M13.2 8.5 C15.4 6.9 18.8 6.3 21.6 6.8 C23.6 7.1 25 8 26.1 9.2 C24.8 8.9 23.5 9.1 22.1 9.8 C19.1 11.2 16.1 10.5 13.2 8.5Z"/>
+        <ellipse cx="17.8" cy="11.2" rx="1.15" ry="1.65" fill="#fff" filter="url(#limbo-eye-glow)"/>
+        <ellipse cx="22.8" cy="11.2" rx=".58" ry="1.2" fill="#fff" opacity=".72" filter="url(#limbo-eye-glow)"/>
       </g>
     </g>
     <g id="header-boy-front-arm">
-      <path d="M-.9 -1.1 C-2.3 .1 -2.1 3.2 -.7 6.2 L1.8 11.5 C2.6 12.8 4.3 12.4 4.4 11 L2.3 4.7 1.1 -.5 C.5 -1.3 -.3 -1.5 -.9 -1.1Z"/>
-      <g id="header-boy-front-fore"><path d="M-.8 -.8 C-2 .3 -1.4 3.6 .1 6.7 L2.2 11.1 C3 12.4 4.7 11.9 4.6 10.5 L2.4 4.3 1 -.3 C.4 -1.1 -.3 -1.3 -.8 -.8Z"/></g>
+      <g transform="scale(-1 1)">
+        <path d="M-.9 -1.1 C-2.3 .1 -2.1 3.2 -.7 6.2 L1.8 11.5 C2.6 12.8 4.3 12.4 4.4 11 L2.3 4.7 1.1 -.5 C.5 -1.3 -.3 -1.5 -.9 -1.1Z"/>
+        <g id="header-boy-front-fore"><path d="M-.8 -.8 C-2 .3 -1.4 3.6 .1 6.7 L2.2 11.1 C3 12.4 4.7 11.9 4.6 10.5 L2.4 4.3 1 -.3 C.4 -1.1 -.3 -1.3 -.8 -.8Z"/></g>
+      </g>
     </g>
   </g>
 </svg>
@@ -6477,7 +6482,7 @@ html body #heroMenu .hero-menu__social-icon {
     parts.body.setAttribute('transform',
       'rotate('+bodyTilt.toFixed(2)+' 20 25) translate(0 '+mix(1,3,anticipation).toFixed(2)+')');
     parts.head.setAttribute('transform',
-      'rotate('+mix(-7, mix(5,-3,flight),takeoff).toFixed(2)+' 20 10)');
+      'rotate('+mix(-12, mix(-5,-9,flight),takeoff).toFixed(2)+' 20 10)');
 
     const backArmAngle=mix(38,-48,flight)*settle+38*landing;
     const frontArmAngle=mix(43,-62,flight)*settle+43*landing;
