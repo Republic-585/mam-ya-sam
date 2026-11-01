@@ -6461,30 +6461,53 @@ html body #heroMenu .hero-menu__social-icon {
     return range.getBoundingClientRect();
   }
 
-  function poseSit(){
-    parts.body.setAttribute('transform','rotate(-5 20 25) translate(0 1)');
-    parts.head.setAttribute('transform','translate(19.5 9.5) rotate(-7 0 0)');
-    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate(38)');
-    parts.backArmFore.setAttribute('transform','translate(0 5.9) rotate(-34)');
-    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate(43)');
-    parts.frontArmFore.setAttribute('transform','translate(0 5.9) rotate(-40)');
-    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate(72)');
-    parts.backShin.setAttribute('transform','translate(0 11.5) rotate(-105)');
-    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate(84)');
-    parts.frontShin.setAttribute('transform','translate(0 11.5) rotate(-112)');
-    parts.backFoot.setAttribute('transform','rotate(-8 0 8.5)');
-    parts.frontFoot.setAttribute('transform','rotate(-8 0 8.5)');
+  function setPose(t){
+    /* Складываем движение из фаз: приседание, толчок, полёт и приземление. */
+    const anticipation=smooth(t/.18);
+    const takeoff=smooth((t-.12)/.20);
+    const landing=smooth((t-.78)/.22);
+    const flight=Math.sin(Math.PI*clamp((t-.20)/.66,0,1));
+    const kick=Math.sin(clamp((t-.14)/.72,0,1)*Math.PI*3.2);
+    const settle=1-landing;
+
+    const bodyTilt=mix(-5, mix(-13,7,clamp((t-.2)/.6,0,1)), takeoff)*(1-landing*.8);
+    parts.body.setAttribute('transform',
+      'rotate('+bodyTilt.toFixed(2)+' 20 25) translate(0 '+mix(1,3,anticipation).toFixed(2)+')');
+    parts.head.setAttribute('transform',
+      'translate(19.5 9.5) rotate('+mix(-7, mix(5,-3,flight),takeoff).toFixed(2)+' 0 0)');
+
+    const backArmAngle=mix(38,-48,flight)*settle+38*landing;
+    const frontArmAngle=mix(43,-62,flight)*settle+43*landing;
+    parts.backArm.setAttribute('transform','translate(15.8 19.5) rotate('+backArmAngle.toFixed(2)+')');
+    parts.frontArm.setAttribute('transform','translate(24.1 19.5) rotate('+frontArmAngle.toFixed(2)+')');
+    parts.backArmFore.setAttribute('transform',
+      'translate(0 5.9) rotate('+mix(-34,-72,flight).toFixed(2)+')');
+    parts.frontArmFore.setAttribute('transform',
+      'translate(0 5.9) rotate('+mix(-40,-78,flight).toFixed(2)+')');
+
+    const backLegAngle=mix(72,72+kick*25,settle)+landing*8;
+    const frontLegAngle=mix(84,84-kick*32,settle)-landing*8;
+    parts.backLeg.setAttribute('transform','translate(17.1 33.2) rotate('+backLegAngle.toFixed(2)+')');
+    parts.frontLeg.setAttribute('transform','translate(21.7 33.2) rotate('+frontLegAngle.toFixed(2)+')');
+    parts.backShin.setAttribute('transform',
+      'translate(0 11.5) rotate('+mix(-105,-105-kick*28,settle).toFixed(2)+')');
+    parts.frontShin.setAttribute('transform',
+      'translate(0 11.5) rotate('+mix(-112,-112+kick*34,settle).toFixed(2)+')');
+    parts.backFoot.setAttribute('transform','rotate('+mix(-8,5,flight).toFixed(2)+' 0 8.5)');
+    parts.frontFoot.setAttribute('transform','rotate('+mix(-8,-15,flight).toFixed(2)+' 0 8.5)');
+
+    parts.rig.style.transform='rotate('+mix(0,6,flight).toFixed(2)+'deg) scale('+
+      mix(1,1.035,flight).toFixed(3)+')';
   }
 
   function update(){
-    /* Координаты слов считываются заново: персонаж точно следует за текстом. */
     const place=wordRect(lines[0],5);
     const kids=wordRect(lines[1],4);
-    const start={
+    const startPoint={
       x:place.left+place.width*.5-width*.5,
       y:place.top-height-7
     };
-    const finish={
+    const finishPoint={
       x:kids.left+kids.width*.5-width*.5,
       y:kids.top-height+3
     };
@@ -6493,12 +6516,11 @@ html body #heroMenu .hero-menu__social-icon {
     const travelled=Math.max(0,window.scrollY-heroTop);
     const t=smooth(clamp(travelled/115,0,1));
     const arc=Math.sin(Math.PI*t)*Math.min(34,window.innerHeight*.05);
-    const x=mix(start.x,finish.x,t);
-    const y=mix(start.y,finish.y,t)-arc;
+    const x=mix(startPoint.x,finishPoint.x,t);
+    const y=mix(startPoint.y,finishPoint.y,t)-arc;
 
-    poseSit();
+    setPose(t);
     boy.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0)';
-    parts.rig.style.transform='rotate('+mix(0,6,t).toFixed(2)+'deg)';
     frame=0;
   }
 
@@ -6507,7 +6529,6 @@ html body #heroMenu .hero-menu__social-icon {
     frame=requestAnimationFrame(update);
   }
 
-  /* Убираем старую маску, из-за которой силуэт частично исчезал. */
   parts.rig.style.clipPath='none';
   parts.rig.removeAttribute('clip-path');
   parts.rig.style.transformBox='fill-box';
