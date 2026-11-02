@@ -6567,9 +6567,9 @@ html body #heroMenu .hero-menu__social-icon {
   function schedule(){
     if(finished||started)return;
     const letter=firstLetterRect();
-    startX=Math.max(0,window.innerWidth-width-18);
+    startX=Math.max(0,window.innerWidth-width-26);
     targetX=Math.max(0,letter.left-width*.72);
-    targetY=letter.top+(letter.height-height)*.5+2;
+    targetY=letter.top+(letter.height-height)*.5+6;
     placeBoy(startX,targetY);
   }
 
