@@ -3334,33 +3334,7 @@ html body .hero .hero__subtitle {
 
 </style>
 
-<style id="hero-start-button-attention">
-/* Короткий мягкий импульс кнопки, один раз после загрузки. */
-html body .hero .hero-start-button.is-attention{
-  animation:heroButtonInvite  .72s cubic-bezier(.2,.75,.25,1) both!important;
-}
-@keyframes heroButtonInvite{
-  0%{scale:1}
-  42%{scale:1.085}
-  100%{scale:1}
-}
-@media(prefers-reduced-motion:reduce){
-  html body .hero .hero-start-button.is-attention{animation:none!important}
-}
-</style>
-<script id="hero-start-button-attention-trigger">
-(function(){
-  function showButtonAttention(){
-    window.setTimeout(function(){
-      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const button=document.querySelector('.hero .hero-start-button');
-      if(button) button.classList.add('is-attention');
-    },6000);
-  }
-  if(document.readyState==='complete') showButtonAttention();
-  else window.addEventListener('load',showButtonAttention,{once:true});
-})();
-</script>
+
 
 
 <style id="hero-math-note-style">
