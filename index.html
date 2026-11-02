@@ -3110,7 +3110,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: clip;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
   overscroll-behavior-y:auto;
 }
 header.topbar {
@@ -3119,14 +3119,14 @@ header.topbar {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
 }
 header.topbar > .topbar__in {
   padding-top: max(2px, env(safe-area-inset-top, 0px)) !important;
   background: rgba(255, 255, 255, .72) !important;
   -webkit-backdrop-filter: saturate(150%) blur(18px) !important;
   backdrop-filter: saturate(150%) blur(18px) !important;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
 }
 </style>
 
