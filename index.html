@@ -3373,8 +3373,9 @@ header.topbar .topbar__in .header-duck{
   pointer-events:none!important;
   right:68px!important;
   top:50%!important;
-  width:76px!important;
-  height:62px!important;
+  width:68px!important;
+  height:56px!important;
+  opacity:clamp(0, (var(--wordmark-scroll-progress, 0) - .48) / .08, 1)!important;
   align-items:center!important;
   justify-content:center!important;
   overflow:visible!important;
@@ -3397,10 +3398,10 @@ header.topbar .topbar__in .header-duck > svg{
   50%{translate:0 -3px;rotate:1deg}
 }
 @media(max-width:760px){
-  header.topbar .topbar__in .header-duck{right:60px!important;width:66px!important;height:56px!important}
+  header.topbar .topbar__in .header-duck{right:60px!important;width:60px!important;height:50px!important}
 }
 @media(max-width:380px){
-  header.topbar .topbar__in .header-duck{right:54px!important;width:58px!important;height:50px!important}
+  header.topbar .topbar__in .header-duck{right:54px!important;width:54px!important;height:46px!important}
 }
 @media(prefers-reduced-motion:reduce){
   header.topbar .topbar__in .header-duck > svg{animation:none}
