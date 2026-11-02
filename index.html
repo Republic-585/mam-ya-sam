@@ -3444,7 +3444,33 @@ html body .hero .hero__content{
   </section>
 
   <!-- Резервный пустой блок: проблема и решение будут добавлены позже. Не включён в меню. -->
-  <section class="problem-solution-placeholder" aria-hidden="true"></section>
+  <section class="problem-solution" id="problems" aria-labelledby="problem-solution-title">
+  <div class="wrap problem-solution__inner">
+    <div class="problem-solution__intro">
+      <p class="problem-solution__eyebrow">ПРОБЛЕМА · РЕШЕНИЕ · РЕЗУЛЬТАТ</p>
+      <h2 class="problem-solution__title" id="problem-solution-title">Самостоятельности хочется.<br>А уверенности в решениях пока не хватает.</h2>
+      <p class="problem-solution__lead">Карманные деньги заканчиваются быстрее, чем ожидалось. Скидка кажется выгодной, а математика из учебника не всегда помогает в настоящей покупке.</p>
+    </div>
+    <div class="problem-solution__steps">
+      <article class="problem-solution__step">
+        <span class="problem-solution__number">01</span>
+        <h3>Проблема</h3>
+        <p>Хочется купить сейчас. Но сложно понять, на что хватит денег и что действительно выгодно.</p>
+      </article>
+      <article class="problem-solution__step problem-solution__step--solution">
+        <span class="problem-solution__number">02</span>
+        <h3>Решение</h3>
+        <p>На курсе считаем покупки, сравниваем цены и скидки, решаем задачи из реальной жизни.</p>
+      </article>
+      <article class="problem-solution__step">
+        <span class="problem-solution__number">03</span>
+        <h3>Результат</h3>
+        <p>Ребёнок учится планировать траты, сравнивать варианты и самостоятельно объяснять свой выбор.</p>
+      </article>
+    </div>
+    <p class="problem-solution__closing">Меньше решений наугад. <span>Больше самостоятельности.</span></p>
+  </div>
+</section>
 
   <!-- SKILL -->
   <section class="skill" id="skill">
@@ -6476,3 +6502,123 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 
 
 
+
+
+<style id="problem-solution-section">
+/* Проблема, решение и результат сразу после Hero */
+.problem-solution{
+  background:#fff;
+  color:#171717;
+  padding:clamp(76px,10vw,132px) 0 clamp(78px,9vw,116px);
+}
+.problem-solution__inner{max-width:1120px}
+.problem-solution__intro{max-width:850px;margin:0 auto 64px;text-align:center}
+.problem-solution__eyebrow{
+  margin:0 0 22px;
+  color:#777;
+  font-size:11px;
+  line-height:1.4;
+  font-weight:650;
+  letter-spacing:.13em;
+}
+.problem-solution__title{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(30px,5vw,54px);
+  line-height:1.08;
+  letter-spacing:-.055em;
+  font-weight:650;
+  text-wrap:balance;
+}
+.problem-solution__lead{
+  max-width:660px;
+  margin:24px auto 0;
+  color:#666;
+  font-size:clamp(15px,1.6vw,18px);
+  line-height:1.55;
+  letter-spacing:-.015em;
+  text-wrap:balance;
+}
+.problem-solution__steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+}
+.problem-solution__step{
+  position:relative;
+  padding:28px 30px 32px 0;
+  min-width:0;
+}
+.problem-solution__step+.problem-solution__step{
+  border-left:1px solid #e8e8e8;
+  padding-left:30px;
+}
+.problem-solution__number{
+  display:block;
+  margin-bottom:30px;
+  color:#b5b5b5;
+  font-size:clamp(30px,3.4vw,42px);
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.06em;
+  font-variant-numeric:tabular-nums;
+}
+.problem-solution__step h3{
+  margin:0 0 12px;
+  color:#171717;
+  font-size:20px;
+  line-height:1.2;
+  font-weight:650;
+  letter-spacing:-.035em;
+}
+.problem-solution__step p{
+  margin:0;
+  max-width:310px;
+  color:#666;
+  font-size:15px;
+  line-height:1.55;
+  letter-spacing:-.012em;
+}
+.problem-solution__step--solution .problem-solution__number{color:#7CC4FF}
+.problem-solution__closing{
+  margin:34px 0 0;
+  text-align:center;
+  color:#171717;
+  font-size:clamp(21px,3vw,30px);
+  line-height:1.2;
+  font-weight:600;
+  letter-spacing:-.045em;
+}
+.problem-solution__closing span{color:#777}
+@media(max-width:700px){
+  .problem-solution{padding:68px 0 76px}
+  .problem-solution__intro{margin-bottom:42px;text-align:left}
+  .problem-solution__eyebrow{margin-bottom:18px;font-size:10px}
+  .problem-solution__title{font-size:clamp(29px,8vw,40px);line-height:1.08}
+  .problem-solution__title br{display:none}
+  .problem-solution__lead{margin:18px 0 0;font-size:15px;line-height:1.5}
+  .problem-solution__steps{grid-template-columns:1fr}
+  .problem-solution__step,
+  .problem-solution__step+.problem-solution__step{
+    display:grid;
+    grid-template-columns:52px minmax(0,1fr);
+    column-gap:14px;
+    padding:22px 0;
+    border-left:0;
+  }
+  .problem-solution__step+.problem-solution__step{border-top:1px solid #e8e8e8}
+  .problem-solution__number{
+    grid-column:1;
+    grid-row:1 / span 2;
+    margin:1px 0 0;
+    font-size:30px;
+  }
+  .problem-solution__step h3{grid-column:2;margin:0 0 7px;font-size:18px}
+  .problem-solution__step p{grid-column:2;max-width:none;font-size:14px;line-height:1.5}
+  .problem-solution__closing{margin-top:28px;text-align:left;font-size:23px;line-height:1.22}
+}
+@media(prefers-reduced-motion:no-preference){
+  .problem-solution__step{transition:background-color .2s ease}
+}
+</style>
