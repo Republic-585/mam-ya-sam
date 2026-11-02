@@ -6406,13 +6406,27 @@ html body #heroMenu.is-open .hero-menu__contact {
 
 
 <style id="site-typography-standardization-except-header-hero">
-/* Единая типографика основного сайта. Шапка, меню и Hero намеренно исключены. */
+/* Единая системная типографика Apple. Шапка, меню и Hero исключены. */
 body :not(header):not(header *):not(.hero):not(.hero *):not(.hero-menu):not(.hero-menu *) {
-  font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
   font-stretch:normal!important;
 }
+/* Заголовки: системный шрифт Apple, более плотное начертание. */
 body :is(h1,h2,h3,h4,h5,h6,.display):not(.hero *):not(.hero-menu *):not(header *) {
-  font-family:'Unbounded',-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
   font-stretch:normal!important;
+  letter-spacing:-.025em;
+}
+/* Основной текст и подписи: спокойное обычное начертание и комфортная высота строки. */
+body p:not(.hero *):not(.hero-menu *):not(header *),
+body li:not(.hero *):not(.hero-menu *):not(header *),
+body label:not(.hero *):not(.hero-menu *):not(header *),
+body input:not(.hero *):not(.hero-menu *):not(header *),
+body textarea:not(.hero *):not(.hero-menu *):not(header *),
+body select:not(.hero *):not(.hero-menu *):not(header *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+  line-height:1.5;
 }
 </style>
