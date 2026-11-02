@@ -6430,3 +6430,119 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
   line-height:1.5;
 }
 </style>
+
+
+<style id="scroll-compact-header-menu-morph">
+/* Нижняя плавающая шапка собирается в компактную горизонтальную капсулу при прокрутке. */
+@media(max-width:760px) {
+  html body header.topbar {
+    left:12px!important;
+    right:12px!important;
+    width:auto!important;
+    max-width:none!important;
+    border-radius:22px!important;
+    overflow:visible!important;
+    transform:none!important;
+    transition:
+      width .62s cubic-bezier(.22,1,.36,1),
+      left .62s cubic-bezier(.22,1,.36,1),
+      right .62s cubic-bezier(.22,1,.36,1),
+      border-radius .52s cubic-bezier(.22,1,.36,1),
+      background-color .35s ease,
+      box-shadow .35s ease!important;
+    will-change:width,left,right,border-radius;
+  }
+  html body header.topbar .topbar__in {
+    min-height:58px!important;
+    padding:9px 16px!important;
+    gap:18px!important;
+    transition:padding .52s cubic-bezier(.22,1,.36,1),min-height .52s cubic-bezier(.22,1,.36,1)!important;
+  }
+  html body header.topbar .logo {
+    gap:8px!important;
+    white-space:nowrap!important;
+    transition:gap .42s ease!important;
+  }
+  html body header.topbar .logo__dot {
+    transition:width .48s cubic-bezier(.22,1,.36,1),height .48s cubic-bezier(.22,1,.36,1),border-radius .48s ease,transform .48s ease!important;
+  }
+  html body header.topbar #heroMenuTrigger {
+    position:relative!important;
+    top:auto!important;
+    right:auto!important;
+    flex:0 0 42px!important;
+    width:42px!important;
+    height:42px!important;
+    margin:0!important;
+    padding:7px!important;
+    align-items:flex-end!important;
+  }
+  html body header.topbar.is-scroll-compact {
+    left:50%!important;
+    right:auto!important;
+    width:max-content!important;
+    max-width:calc(100vw - 24px)!important;
+    border-radius:999px!important;
+  }
+  html body header.topbar.is-scroll-compact .topbar__in {
+    min-height:52px!important;
+    padding:5px 12px 5px 14px!important;
+    gap:12px!important;
+  }
+  html body header.topbar.is-scroll-compact .logo__dot {
+    width:23px!important;
+    height:23px!important;
+  }
+  html body header.topbar.is-scroll-compact .logo__dot::after {
+    font-size:16px!important;
+  }
+  /* Открытие меню возвращает шапку к исходной ширине, образуя единую конструкцию с панелью. */
+  html body.hero-menu-open header.topbar,
+  html body header.topbar.is-scroll-compact:has(+ .hero-menu.is-open) {
+    left:12px!important;
+    right:12px!important;
+    width:auto!important;
+    max-width:none!important;
+    border-radius:22px 22px 0 0!important;
+  }
+  html body.hero-menu-open header.topbar .topbar__in {
+    min-height:58px!important;
+    padding:9px 16px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar,
+  html body header.topbar .topbar__in,
+  html body header.topbar .logo,
+  html body header.topbar .logo__dot {
+    transition:none!important;
+  }
+}
+</style>
+
+<script id="scroll-compact-header-menu-morph-script">
+(function () {
+  const header = document.querySelector('header.topbar');
+  if (!header) return;
+
+  let frame = 0;
+  const compactAfter = 90;
+
+  function updateHeaderState() {
+    frame = 0;
+    const menuIsOpen = document.body.classList.contains('hero-menu-open');
+    header.classList.toggle('is-scroll-compact', !menuIsOpen && window.scrollY > compactAfter);
+  }
+
+  function requestUpdate() {
+    if (frame) return;
+    frame = requestAnimationFrame(updateHeaderState);
+  }
+
+  window.addEventListener('scroll', requestUpdate, { passive:true });
+  window.addEventListener('resize', requestUpdate, { passive:true });
+  const menuObserver = new MutationObserver(requestUpdate);
+  menuObserver.observe(document.body, { attributes:true, attributeFilter:['class'] });
+  updateHeaderState();
+})();
+</script>
