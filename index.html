@@ -6434,8 +6434,10 @@ html body #heroMenu .hero-menu__social-icon {
   const header=document.querySelector('header.topbar');
   const duck=document.getElementById('headerDuck');
   if(!header||!duck)return;
+
   let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0,baseline=null;
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
+
   function animate(){
     currentX+=(targetX-currentX)*0.14;
     if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
@@ -6443,31 +6445,49 @@ html body #heroMenu .hero-menu__social-icon {
     if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
     else frame=0;
   }
+
   function onOrientation(event){
     if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
     if(baseline===null){baseline=event.gamma;return;}
-    const relativeTilt=event.gamma-baseline;
-    targetX=clamp(relativeTilt/28,-1,1)*34;
+    targetX=clamp((event.gamma-baseline)/22,-1,1)*34;
     if(!frame)frame=requestAnimationFrame(animate);
   }
+
   function start(){
     if(listening)return;
     listening=true;
     window.addEventListener('deviceorientation',onOrientation,true);
-    window.addEventListener('deviceorientationabsolute',onOrientation,true);
   }
-  function requestPermission(){
-    if(permissionAsked)return;
-    permissionAsked=true;
+
+  function requestPermission(event){
+    if(permissionAsked || (event && event.isTrusted===false))return;
     const API=window.DeviceOrientationEvent;
-    if(!API){start();return;}
+    if(!API){permissionAsked=true;return;}
     if(typeof API.requestPermission==='function'){
-      API.requestPermission().then(function(result){if(result==='granted')start();}).catch(function(){});
-    }else start();
+      // Must be called synchronously during this trusted user gesture.
+      let result;
+      try{result=API.requestPermission();}catch(error){return;}
+      permissionAsked=true;
+      result.then(function(state){
+        if(state==='granted')start();
+        else permissionAsked=false;
+      }).catch(function(){permissionAsked=false;});
+    }else{
+      permissionAsked=true;
+      start();
+    }
   }
-  // iOS requires permission to be requested synchronously from a user gesture.
-  header.addEventListener('pointerdown',requestPermission,{once:true,passive:true});
-  header.addEventListener('touchstart',requestPermission,{once:true,passive:true});
+
+  // Capture phase catches the gesture even if a child element stops propagation.
+  document.addEventListener('pointerdown',function(event){
+    if(header.contains(event.target))requestPermission(event);
+  },{capture:true,passive:true});
+  document.addEventListener('touchend',function(event){
+    if(header.contains(event.target))requestPermission(event);
+  },{capture:true,passive:true});
+  document.addEventListener('click',function(event){
+    if(header.contains(event.target))requestPermission(event);
+  },{capture:true,passive:true});
 })();
 </script>
 
