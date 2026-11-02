@@ -6534,12 +6534,70 @@ html body .logo__dot::after {
 }
 </style>
 
-<style id="hero-heading-bold-weight">
-/* Жирное начертание всего заголовка Hero, включая анимированное слово и «вместе». */
+<style id="restore-hero-and-menu-typography">
+/* Возвращаем прежнюю типографику только первому экрану и меню.
+   Единая типографика остальных разделов сайта остаётся без изменений. */
+
+/* Заголовок Hero: прежняя гарнитура и исходное жирное начертание. */
 html body .hero .hero__lead-three-lines,
 html body .hero .hero__lead-three-lines .hero__lead-line,
-html body .hero .hero__lead-three-lines .hero__word-pill,
 html body .hero .hero__lead-three-lines .hero__together-word {
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-weight:900!important;
+  font-stretch:condensed!important;
+  letter-spacing:-.045em!important;
+}
+html body .hero .hero__lead-three-lines .hero__word-pill {
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-weight:400!important;
+  font-stretch:condensed!important;
+  letter-spacing:inherit!important;
+}
+
+/* Подзаголовок Hero: прежний округлый системный шрифт и обычное начертание. */
+html body .hero .hero__content p.hero__subtitle,
+html body .hero .hero__subtitle .hero__subtitle-first,
+html body .hero .hero__subtitle .hero__subtitle-second,
+html body .hero .hero__subtitle-line-one,
+html body .hero .hero__subtitle-line-two {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:400!important;
+  font-stretch:normal!important;
+}
+
+/* Пункты меню: прежний шрифт и обычное начертание, регистр Title Case. */
+html body .hero-menu .hero-menu__links a,
+html body .hero-menu .hero-menu__links a span {
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-weight:400!important;
+  font-stretch:condensed!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+html body .hero-menu .hero-menu__contact,
+html body .hero-menu .hero-menu__contact span {
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-weight:400!important;
+  font-stretch:condensed!important;
+}
+
+/* Возвращаем исходную типографику нижней шапки и навигации. */
+html body header.topbar .logo,
+html body header.topbar .logo__name,
+html body header.topbar .topbar__nav {
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-stretch:condensed!important;
+}
+html body header.topbar .logo,
+html body header.topbar .logo__name {
+  font-weight:900!important;
+}
+html body header.topbar .topbar__nav {
+  font-size:.9rem!important;
   font-weight:700!important;
+  letter-spacing:normal!important;
+  line-height:normal!important;
+  text-transform:none!important;
 }
 </style>
