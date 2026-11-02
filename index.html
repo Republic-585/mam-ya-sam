@@ -3340,9 +3340,14 @@ html body .hero .hero__subtitle {
 
 
 <style id="hero-content-vertical-adjustment">
-/* Поднимаем весь текстовый блок Hero вместе с кнопкой на 80px. */
+/* Финально поднимаем весь текстовый блок Hero вместе с кнопкой ещё на 20px относительно прежнего положения. */
 html body .hero .hero__content{
-  transform:translateY(-80px);
+  transform:translateY(calc(-6vh - 20px))!important;
+}
+@media(max-width:640px){
+  html body .hero .hero__content{
+    transform:translateY(calc(-8vh - 20px))!important;
+  }
 }
 </style>
 
