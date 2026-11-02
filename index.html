@@ -6475,17 +6475,17 @@ html body #heroMenu .hero-menu__social-icon {
   }
 
   function walkPose(){
-    const cycle=gaitDistance/14*Math.PI*2;
+    const cycle=gaitDistance/24*Math.PI*2;
     /* Более выраженный шаг: бедро выносится вперёд, колено активно
        сгибается в фазе переноса ноги, стопа мягко следует за голенью. */
     const stride=Math.sin(cycle);
     const lift=Math.max(0,Math.cos(cycle));
-    const leg=stride*38;
-    const arm=-stride*22;
-    const kneeFront=lift*46+Math.max(0,-stride)*10;
-    const kneeBack=lift*46+Math.max(0,stride)*10;
-    const bob=lift*2.2;
-    parts.body.setAttribute('transform','translate(0 '+(-bob).toFixed(2)+') rotate('+(-7+Math.sin(cycle)*2.2).toFixed(2)+' 20 25)');
+    const leg=stride*30;
+    const arm=-stride*17;
+    const kneeFront=lift*34+Math.max(0,-stride)*8;
+    const kneeBack=lift*34+Math.max(0,stride)*8;
+    const bob=lift*1.15;
+    parts.body.setAttribute('transform','translate(0 '+(-bob).toFixed(2)+') rotate('+(-2+Math.sin(cycle)*1.5).toFixed(2)+' 20 25)');
     parts.head.setAttribute('transform','translate(0 .5) rotate('+(-17+Math.min(1,walkDistance/70)*17).toFixed(2)+' 20 10)');
     /* Вращаем каждую конечность вокруг реального сустава. Это не даёт ногам
        и рукам смещаться отдельно от корпуса при шаге. */
