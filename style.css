@@ -944,13 +944,16 @@ html{scroll-behavior:smooth}
   transform:translate3d(var(--duck-x,0px),-50%,0);
   will-change:transform;
 }
-.header-duck img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
+.header-duck > svg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  flex:0 0 100%;
+  overflow:visible;
   user-select:none;
-  -webkit-user-drag:none;
+  pointer-events:none;
   animation:headerDuckBob 3.8s ease-in-out infinite;
   transform-origin:50% 80%;
 }
@@ -965,5 +968,5 @@ html{scroll-behavior:smooth}
   .header-duck{right:56px;width:58px;height:52px}
 }
 @media(prefers-reduced-motion:reduce){
-  .header-duck img{animation:none}
+  .header-duck > svg{animation:none}
 }
