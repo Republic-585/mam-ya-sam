@@ -6558,7 +6558,7 @@ html body #heroMenu .hero-menu__social-icon {
     const started=performance.now();
     function tick(now){
       const raw=clamp((now-started)/jumpDuration,0,1);
-      const eased=raw<.22?0.5*smooth(raw/.22):raw>.86?mix(.5,1,smooth((raw-.86)/.14):mix(.5,1,smooth((raw-.22)/.64));
+      const eased=raw<.22?0.12*smooth(raw/.22):raw>.86?mix(.82,1,smooth((raw-.86)/.14)):mix(.12,.82,smooth((raw-.22)/.64));
       const point=wordRect(lines[0],5);
       const x=point.left+point.width*.5-width*.5-48;
       const y=point.top-height-7+31;
