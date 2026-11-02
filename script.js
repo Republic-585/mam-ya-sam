@@ -384,3 +384,63 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   }
 
 })();
+
+
+// ---------- Header duck: device orientation ---------- 
+(function(){
+  const header = document.querySelector('header.topbar');
+  const duck = document.getElementById('headerDuck');
+  if (!header || !duck) return;
+
+  let listening = false;
+  let permissionAsked = false;
+  let targetX = 0;
+  let currentX = 0;
+  let frame = 0;
+
+  function clamp(value,min,max){ return Math.min(max,Math.max(min,value)); }
+
+  function onOrientation(event){
+    if (typeof event.gamma !== 'number' || !Number.isFinite(event.gamma)) return;
+    // Gamma is the left/right tilt angle. Ignore small sensor noise around zero.
+    const gamma = Math.abs(event.gamma) < 2 ? 0 : event.gamma;
+    targetX = clamp(gamma / 35, -1, 1) * 34;
+  }
+
+  function animate(){
+    currentX += (targetX-currentX)*0.085;
+    if (Math.abs(targetX-currentX) < 0.08) currentX = targetX;
+    duck.style.setProperty('--duck-x', currentX.toFixed(2)+'px');
+    if (Math.abs(targetX-currentX) > 0.08) {
+      frame = requestAnimationFrame(animate);
+    } else {
+      frame = 0;
+    }
+  }
+
+  function startListening(){
+    if (listening) return;
+    listening = true;
+    window.addEventListener('deviceorientation', onOrientation, true);
+  }
+
+  function requestMotionPermission(){
+    if (permissionAsked) return;
+    permissionAsked = true;
+    const Orientation = window.DeviceOrientationEvent;
+    if (!Orientation) return;
+    if (typeof Orientation.requestPermission === 'function') {
+      // iOS Safari requires this call to happen directly inside a user gesture.
+      Orientation.requestPermission().then(function(state){
+        if (state === 'granted') startListening();
+      }).catch(function(){});
+    } else {
+      startListening();
+    }
+  }
+
+  header.addEventListener('pointerdown', requestMotionPermission, {once:true, passive:true});
+  window.addEventListener('deviceorientation', function(){
+    if (!frame && Math.abs(targetX-currentX) > 0.08) frame = requestAnimationFrame(animate);
+  }, {passive:true});
+})();
