@@ -4758,7 +4758,12 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     trigger.setAttribute('aria-expanded','true');
     trigger.setAttribute('aria-label','Закрыть меню');
     document.body.classList.add('hero-menu-open');
-    requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
+    document.body.classList.add('hero-menu-press');
+    requestAnimationFrame(()=>{
+      backdrop.classList.add('is-open');
+      menu.classList.add('is-open');
+      window.setTimeout(()=>document.body.classList.remove('hero-menu-press'),150);
+    });
   }
   function closeMenu(){
     backdrop.classList.remove('is-open');
@@ -6473,3 +6478,33 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 
 
 
+
+
+<style id="mobile-menu-soft-press-on-open">
+/* Короткое мягкое сжатие обеих частей в начале раскрытия; общая линия стыка остаётся на месте. */
+@media(max-width:760px) {
+  html body header.topbar {
+    scale:1!important;
+    transform-origin:center top!important;
+    transition:scale .22s cubic-bezier(.2,.8,.2,1)!important;
+  }
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    scale:1!important;
+    transform-origin:center bottom!important;
+    transition:clip-path .48s cubic-bezier(.22,1,.36,1),opacity .24s ease,visibility .48s,scale .22s cubic-bezier(.2,.8,.2,1)!important;
+  }
+  html body.hero-menu-press header.topbar,
+  html body.hero-menu-press #heroMenu.hero-menu,
+  html body.hero-menu-press #heroMenu.hero-menu.is-open {
+    scale:.985!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar,
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    transition:none!important;
+  }
+}
+</style>
