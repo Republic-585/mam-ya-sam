@@ -3415,44 +3415,38 @@ header.topbar .topbar__in .header-duck > svg{
 <header class="topbar">
   <div class="topbar__in">
     <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span><span class="logo__text"><span class="logo__name">МАМ, Я САМ!</span></span></a>
-    <div class="header-duck" id="headerDuck" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190">
+    <div class="header-duck" id="headerDuck" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190" role="presentation">
 <defs>
- <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff04a"/><stop offset=".42" stop-color="#ffd21c"/><stop offset="1" stop-color="#f2a900"/></linearGradient>
- <linearGradient id="head" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff34b"/><stop offset=".55" stop-color="#ffd21a"/><stop offset="1" stop-color="#f6ad00"/></linearGradient>
- <linearGradient id="beak" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#ff9a25"/><stop offset=".55" stop-color="#ff7412"/><stop offset="1" stop-color="#d94a00"/></linearGradient>
- <linearGradient id="hat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf4"/><stop offset=".55" stop-color="#eee8d9"/><stop offset="1" stop-color="#c9c1b3"/></linearGradient>
- <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#303744"/><stop offset=".45" stop-color="#101722"/><stop offset="1" stop-color="#05090f"/></linearGradient>
- <radialGradient id="shine"><stop stop-color="#fff" stop-opacity=".72"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
- <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+ <linearGradient id="duckBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff36a"/><stop offset=".55" stop-color="#ffd21c"/><stop offset="1" stop-color="#efa900"/></linearGradient>
+ <linearGradient id="duckHead" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff66a"/><stop offset=".6" stop-color="#ffd51c"/><stop offset="1" stop-color="#f2ad00"/></linearGradient>
+ <linearGradient id="duckBeak" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffad35"/><stop offset="1" stop-color="#ed650b"/></linearGradient>
+ <linearGradient id="duckHat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf5"/><stop offset=".65" stop-color="#e9e2d6"/><stop offset="1" stop-color="#c9c1b5"/></linearGradient>
+ <linearGradient id="duckLens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46505d"/><stop offset=".5" stop-color="#17202b"/><stop offset="1" stop-color="#080d14"/></linearGradient>
+ <filter id="duckShadow" x="-30%" y="-40%" width="160%" height="190%"><feGaussianBlur stdDeviation="4"/></filter>
 </defs>
-<ellipse cx="122" cy="174" rx="78" ry="8" fill="#8d6a13" opacity=".16" filter="url(#shadow)"/>
-<!-- body -->
-<path d="M42 132 C28 116 29 94 44 88 C54 84 64 98 74 104 C83 85 105 78 131 82 C172 87 204 111 207 143 C210 166 188 178 151 178 L91 178 C59 177 39 164 42 132Z" fill="url(#body)" stroke="#d99a00" stroke-opacity=".24" stroke-width="1.5"/>
-<path d="M44 111 C32 108 23 97 25 87 C27 77 36 81 45 90 C53 99 58 106 66 111" fill="#ffd51b" stroke="#e6aa00" stroke-width="1.4"/>
-<path d="M76 137 C83 121 105 118 119 132 C130 143 123 160 108 165 C91 171 72 156 76 137Z" fill="#ffdf35" opacity=".72"/>
-<!-- neck/head -->
-<path d="M64 111 C57 89 65 59 88 48 C107 37 146 42 165 61 C182 79 183 108 170 126 C157 144 126 149 97 137 C81 131 69 123 64 111Z" fill="url(#head)"/>
-<path d="M75 95 C73 73 91 55 110 51 C92 64 85 83 87 101" fill="#fff66a" opacity=".32"/>
+<ellipse cx="119" cy="176" rx="72" ry="7" fill="#8d6a13" opacity=".15" filter="url(#duckShadow)"/>
+<!-- body and tail -->
+<path d="M43 135C35 116 42 96 59 91c13-4 22 7 30 16 15-17 39-24 65-18 31 7 52 30 52 55 0 22-21 32-54 32H91c-29 0-44-14-48-41Z" fill="url(#duckBody)" stroke="#dfa500" stroke-opacity=".3" stroke-width="1.5"/>
+<path d="M48 111c-13-5-21-17-17-25 4-8 12 0 20 9l13 16" fill="#ffd927" stroke="#e5ac00" stroke-width="1.5"/>
+<!-- head, centered over body -->
+<path d="M65 111c-7-13-7-35 1-51 10-20 30-31 55-31 29 0 51 16 59 39 8 22 1 48-16 63-15 13-39 17-62 10-17-5-29-15-37-30Z" fill="url(#duckHead)"/>
 <!-- beak -->
-<path d="M145 103 C162 97 176 97 194 101 C209 104 216 111 211 119 C207 126 188 129 171 129 C161 136 143 136 130 129 C121 124 123 114 133 109Z" fill="url(#beak)" stroke="#d95608" stroke-width="1.4"/>
-<path d="M133 116 C151 122 176 120 202 111" fill="none" stroke="#ffbf70" stroke-width="3" stroke-linecap="round" opacity=".6"/>
-<!-- hat cap -->
-<path d="M66 70 C67 36 89 12 121 10 C154 8 180 29 183 62 C166 70 146 75 121 76 C99 77 80 75 66 70Z" fill="url(#hat)" stroke="#c9c1b3" stroke-width="1.5"/>
-<path d="M65 65 C92 76 151 77 184 61 L187 78 C155 91 95 92 67 78Z" fill="#e6dfd2" stroke="#bcb3a5" stroke-width="1.5"/>
-<g fill="none" stroke="#c5bdae" stroke-width="2" opacity=".72">
- <path d="M85 31 Q79 47 82 69"/><path d="M99 19 Q93 43 96 76"/><path d="M114 13 Q109 42 111 79"/><path d="M130 13 Q128 42 129 79"/><path d="M146 18 Q149 43 146 75"/><path d="M161 28 Q168 48 162 70"/>
+<path d="M158 98c15-6 30-7 45-3 12 3 18 9 15 16-3 8-18 12-37 12-10 8-25 9-37 3-8-4-8-13 0-19 4-4 8-7 14-9Z" fill="url(#duckBeak)" stroke="#d95d08" stroke-width="1.4"/>
+<path d="M146 113c18 5 43 2 64-6" fill="none" stroke="#ffd08a" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+<!-- cap: symmetric crown and straight knitted cuff -->
+<path d="M65 66C66 35 87 13 119 12c32-1 54 20 55 53-31 11-78 12-109 1Z" fill="url(#duckHat)" stroke="#c9c1b3" stroke-width="1.5"/>
+<path d="M64 62c33 11 78 11 112 0l2 15c-34 12-81 12-116 0Z" fill="#e8e1d5" stroke="#bdb5a9" stroke-width="1.4"/>
+<g fill="none" stroke="#c6beaf" stroke-width="1.8" opacity=".75" stroke-linecap="round">
+ <path d="M83 31c-4 11-5 22-3 36"/><path d="M98 21c-4 14-5 28-3 54"/><path d="M114 16c-2 17-2 34-1 60"/><path d="M130 16c2 17 2 34 1 60"/><path d="M146 22c5 15 5 28 2 51"/><path d="M160 33c6 12 7 22 5 33"/>
 </g>
-<path d="M72 67 Q122 82 179 63" fill="none" stroke="#fff" stroke-width="3" opacity=".65"/>
-<!-- sunglasses frame -->
-<path d="M67 81 Q89 68 119 72 L130 76 L140 72 Q162 66 184 75 L181 102 Q178 116 161 117 L145 116 Q132 114 128 99 L124 88 L120 99 Q115 115 99 117 L84 117 Q69 116 67 101Z" fill="#111821" stroke="#080d13" stroke-width="3" stroke-linejoin="round"/>
-<path d="M73 83 Q91 74 116 77 L119 96 Q117 109 101 111 L86 110 Q75 108 73 97Z" fill="url(#lens)"/>
-<path d="M136 77 Q158 71 178 80 L175 98 Q173 110 159 111 L146 109 Q136 106 135 94Z" fill="url(#lens)"/>
-<path d="M79 84 Q94 77 109 79" fill="none" stroke="#7e8a99" stroke-width="2" opacity=".55" stroke-linecap="round"/>
-<path d="M142 82 Q156 76 169 80" fill="none" stroke="#7e8a99" stroke-width="2" opacity=".5" stroke-linecap="round"/>
-<path d="M120 80 Q129 76 136 78" fill="none" stroke="#0a111a" stroke-width="5" stroke-linecap="round"/>
-<!-- soft highlights -->
-<ellipse cx="92" cy="125" rx="22" ry="10" fill="url(#shine)" opacity=".26"/>
-<ellipse cx="177" cy="144" rx="24" ry="13" fill="url(#shine)" opacity=".18"/>
+<!-- glasses: one level frame, matched lenses -->
+<g stroke-linejoin="round">
+ <path d="M66 81c16-7 36-8 54-4l8 5 8-5c18-4 38-3 53 4l-3 23c-2 12-12 17-25 17h-9c-14 0-22-8-25-20l-3-10-3 10c-3 12-11 20-25 20h-9c-13 0-23-5-25-17Z" fill="#111923" stroke="#080d13" stroke-width="3"/>
+ <path d="M72 84c14-5 31-6 45-3l3 17c1 9-7 16-17 16H91c-10 0-16-4-17-13Z" fill="url(#duckLens)"/>
+ <path d="M135 81c14-3 31-2 45 3l-2 17c-1 9-7 13-17 13h-12c-10 0-18-7-17-16Z" fill="url(#duckLens)"/>
+ <path d="M78 87c10-4 21-5 31-3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+ <path d="M142 84c10-2 21-1 31 3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+</g>
 </svg></div>
     
     <div class="topbar__right">
@@ -6440,10 +6434,10 @@ html body #heroMenu .hero-menu__social-icon {
   const header=document.querySelector('header.topbar');
   const duck=document.getElementById('headerDuck');
   if(!header||!duck)return;
-  let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0;
+  let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0,baseline=null;
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
   function animate(){
-    currentX+=(targetX-currentX)*0.12;
+    currentX+=(targetX-currentX)*0.14;
     if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
     if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
@@ -6451,25 +6445,29 @@ html body #heroMenu .hero-menu__social-icon {
   }
   function onOrientation(event){
     if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
-    const gamma=Math.abs(event.gamma)<2?0:event.gamma;
-    targetX=clamp(gamma/35,-1,1)*30;
+    if(baseline===null){baseline=event.gamma;return;}
+    const relativeTilt=event.gamma-baseline;
+    targetX=clamp(relativeTilt/28,-1,1)*34;
     if(!frame)frame=requestAnimationFrame(animate);
   }
   function start(){
     if(listening)return;
     listening=true;
     window.addEventListener('deviceorientation',onOrientation,true);
+    window.addEventListener('deviceorientationabsolute',onOrientation,true);
   }
   function requestPermission(){
     if(permissionAsked)return;
     permissionAsked=true;
     const API=window.DeviceOrientationEvent;
-    if(!API)return;
+    if(!API){start();return;}
     if(typeof API.requestPermission==='function'){
       API.requestPermission().then(function(result){if(result==='granted')start();}).catch(function(){});
     }else start();
   }
+  // iOS requires permission to be requested synchronously from a user gesture.
   header.addEventListener('pointerdown',requestPermission,{once:true,passive:true});
+  header.addEventListener('touchstart',requestPermission,{once:true,passive:true});
 })();
 </script>
 
