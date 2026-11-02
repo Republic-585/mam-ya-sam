@@ -6437,7 +6437,7 @@ html body #heroMenu .hero-menu__social-icon {
   const boy=document.getElementById('header-walking-boy');
   const hero=document.querySelector('.hero');
   const line=document.querySelector('.hero__lead-line');
-  if(!boy||!hero||!line)return;
+  if(!boy||!hero||!line||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 
   document.body.appendChild(boy);
   const width=50,height=75;
