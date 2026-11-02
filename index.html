@@ -3362,9 +3362,8 @@ html body .hero .hero__content{
 
 
 <style id="header-duck-visible-fix">
-/* Duck swims in the space between the logo mark and menu button. */
+/* Header duck: styles live in index.html because the page uses inline CSS. */
 header.topbar .topbar__in{position:relative!important;isolation:isolate}
-header.topbar .topbar__in .logo__text{display:none!important}
 header.topbar .topbar__in .header-duck{
   position:absolute!important;
   display:flex!important;
@@ -3372,16 +3371,14 @@ header.topbar .topbar__in .header-duck{
   opacity:1!important;
   z-index:8!important;
   pointer-events:none!important;
-  left:var(--duck-left,100px)!important;
-  right:auto!important;
+  right:68px!important;
   top:50%!important;
-  width:66px!important;
-  height:56px!important;
+  width:76px!important;
+  height:62px!important;
   align-items:center!important;
   justify-content:center!important;
   overflow:visible!important;
   transform:translate3d(var(--duck-x,0px),-50%,0)!important;
-  will-change:transform;
 }
 header.topbar .topbar__in .header-duck > svg{
   display:block!important;
@@ -3393,11 +3390,17 @@ header.topbar .topbar__in .header-duck > svg{
   max-height:none!important;
   overflow:visible!important;
   flex:none!important;
-  animation:headerDuckBob 5.5s ease-in-out infinite;
+  animation:headerDuckBob 3.8s ease-in-out infinite;
 }
 @keyframes headerDuckBob{
-  0%,100%{translate:0 0;rotate:-.5deg}
-  50%{translate:0 -2px;rotate:.5deg}
+  0%,100%{translate:0 0;rotate:-1deg}
+  50%{translate:0 -3px;rotate:1deg}
+}
+@media(max-width:760px){
+  header.topbar .topbar__in .header-duck{right:60px!important;width:66px!important;height:56px!important}
+}
+@media(max-width:380px){
+  header.topbar .topbar__in .header-duck{right:54px!important;width:58px!important;height:50px!important}
 }
 @media(prefers-reduced-motion:reduce){
   header.topbar .topbar__in .header-duck > svg{animation:none}
@@ -6429,54 +6432,31 @@ html body #heroMenu .hero-menu__social-icon {
 <script id="header-duck-gyro">
 (function(){
   const header=document.querySelector('header.topbar');
-  const inner=header&&header.querySelector('.topbar__in');
-  const logo=header&&header.querySelector('.logo');
-  const trigger=document.getElementById('heroMenuTrigger');
   const duck=document.getElementById('headerDuck');
-  if(!header||!inner||!logo||!trigger||!duck)return;
+  if(!header||!duck)return;
 
   let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0,baseline=null;
-  let travel=0;
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
 
-  function measureLane(){
-    const parent=inner.getBoundingClientRect();
-    const logoBox=logo.getBoundingClientRect();
-    const menuBox=trigger.getBoundingClientRect();
-    const duckWidth=duck.getBoundingClientRect().width;
-    const left=logoBox.right-parent.left+5;
-    const right=menuBox.left-parent.left-5-duckWidth;
-    travel=Math.max(0,right-left);
-    duck.style.setProperty('--duck-left',left.toFixed(1)+'px');
-    targetX=clamp(targetX,-travel/2,travel/2);
-    currentX=clamp(currentX,-travel/2,travel/2);
-    duck.style.setProperty('--duck-x',currentX.toFixed(1)+'px');
-  }
-
   function animate(){
-    // Gentle water-like movement; the duck follows the phone tilt with a soft delay.
-    currentX+=(targetX-currentX)*0.035;
-    if(Math.abs(targetX-currentX)<0.12)currentX=targetX;
+    currentX+=(targetX-currentX)*0.14;
+    if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
-    if(Math.abs(targetX-currentX)>0.12)frame=requestAnimationFrame(animate);
+    if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
     else frame=0;
   }
 
   function onOrientation(event){
     if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
     if(baseline===null){baseline=event.gamma;return;}
-    const normalized=clamp((event.gamma-baseline)/18,-1,1);
-    targetX=normalized*(travel/2);
+    targetX=clamp((event.gamma-baseline)/22,-1,1)*34;
     if(!frame)frame=requestAnimationFrame(animate);
   }
 
   function start(){
     if(listening)return;
     listening=true;
-    measureLane();
     window.addEventListener('deviceorientation',onOrientation,true);
-    window.addEventListener('resize',measureLane,{passive:true});
-    window.addEventListener('orientationchange',function(){setTimeout(measureLane,250);},{passive:true});
   }
 
   function requestPermission(event){
@@ -6484,6 +6464,7 @@ html body #heroMenu .hero-menu__social-icon {
     const API=window.DeviceOrientationEvent;
     if(!API){permissionAsked=true;return;}
     if(typeof API.requestPermission==='function'){
+      // Must be called synchronously during this trusted user gesture.
       let result;
       try{result=API.requestPermission();}catch(error){return;}
       permissionAsked=true;
@@ -6497,7 +6478,7 @@ html body #heroMenu .hero-menu__social-icon {
     }
   }
 
-  measureLane();
+  // Capture phase catches the gesture even if a child element stops propagation.
   document.addEventListener('pointerdown',function(event){
     if(header.contains(event.target))requestPermission(event);
   },{capture:true,passive:true});
