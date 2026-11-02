@@ -6446,3 +6446,98 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
   }
 }
 </style>
+
+<style id="unified-header-menu-shell-motion">
+/* Единая оболочка мобильной шапки и меню: один внешний контур без линии стыка. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    position:fixed!important;
+    top:auto!important;
+    left:12px!important;
+    right:12px!important;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 4px)!important;
+    width:auto!important;
+    height:min(calc(88dvh + var(--topbar-height,56px)), calc(100dvh - 20px))!important;
+    max-height:calc(100dvh - 20px)!important;
+    box-sizing:border-box!important;
+    margin:0!important;
+    padding:68px 24px calc(var(--topbar-height,56px) + 24px)!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    background:#fff!important;
+    color:var(--ink)!important;
+    border:1px solid rgba(20,20,20,.12)!important;
+    border-radius:26px!important;
+    box-shadow:0 12px 38px rgba(8,13,32,.08)!important;
+    z-index:1003!important;
+    transform:translateY(18px) scale(.985)!important;
+    transform-origin:center bottom!important;
+    clip-path:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    transition:
+      transform .46s cubic-bezier(.2,.85,.25,1),
+      opacity .28s ease,
+      visibility 0s linear .46s!important;
+    will-change:transform,opacity!important;
+  }
+  html body #heroMenu.hero-menu.is-open {
+    transform:translateY(0) scale(1)!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transition:
+      transform .46s cubic-bezier(.2,.85,.25,1),
+      opacity .28s ease,
+      visibility 0s!important;
+  }
+
+  /* Шапка становится нижней частью общей панели, а не отдельной карточкой. */
+  html body header.topbar,
+  html body.hero-menu-open header.topbar {
+    left:12px!important;
+    right:12px!important;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 4px)!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+    z-index:1004!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0 0 26px 26px!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    transform:translateY(0)!important;
+    transition:transform .46s cubic-bezier(.2,.85,.25,1),background-color .28s ease!important;
+  }
+  html body header.topbar > .topbar__in,
+  html body.hero-menu-open header.topbar > .topbar__in {
+    min-height:46px!important;
+    padding:4px 48px 4px 11px!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0 0 26px 26px!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+
+  /* Кнопка закрытия остаётся на одном месте, линии превращаются в крестик. */
+  html body.hero-menu-open header.topbar .hero__menu-trigger {
+    z-index:1006!important;
+  }
+  html body.hero-menu-open #heroMenu .hero-menu__links {
+    margin-top:18px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open,
+  html body header.topbar,
+  html body header.topbar > .topbar__in {
+    transition:none!important;
+  }
+}
+</style>
