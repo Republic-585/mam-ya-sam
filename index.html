@@ -3345,6 +3345,9 @@ html body .hero .hero__subtitle {
 /* Ненавязчивая подпись о математической основе курса в Hero. */
 .hero__math-note{
   display:inline-block;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .85s ease, visibility 0s linear .85s;
   margin-top:9px;
   padding:4px 10px 5px;
   border-radius:999px;
@@ -3359,7 +3362,27 @@ html body .hero .hero__subtitle {
 @media(max-width:600px){
   .hero__math-note{margin-top:8px;padding:4px 9px;font-size:.66em}
 }
+html.hero-math-note-visible .hero__math-note{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .85s ease;
+}
+@media(prefers-reduced-motion:reduce){
+  .hero__math-note,
+  html.hero-math-note-visible .hero__math-note{transition:none}
+}
 </style>
+<script>
+(function(){
+  function revealMathNote(){
+    setTimeout(function(){
+      document.documentElement.classList.add('hero-math-note-visible');
+    },3000);
+  }
+  if(document.readyState==='complete') revealMathNote();
+  else window.addEventListener('load',revealMathNote,{once:true});
+})();
+</script>
 
 </head>
 <body>
