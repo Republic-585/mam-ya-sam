@@ -6446,3 +6446,27 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
   }
 }
 </style>
+
+
+<style id="mobile-menu-continuous-outline">
+/* Единый внешний контур раскрытого меню и нижней шапки. */
+@media(max-width:760px) {
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    border:1px solid rgba(20,20,20,.18)!important;
+    border-bottom:0!important;
+    border-radius:24px 24px 0 0!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar {
+    border:1px solid rgba(20,20,20,.18)!important;
+    border-top:0!important;
+    border-radius:0 0 22px 22px!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar > .topbar__in {
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+</style>
