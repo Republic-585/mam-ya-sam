@@ -6411,7 +6411,7 @@ html body #heroMenu .hero-menu__social-icon {
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
 
   function animate(){
-    currentX+=(targetX-currentX)*0.14;
+    currentX+=(targetX-currentX)*0.035;
     if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
     if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
@@ -6421,7 +6421,7 @@ html body #heroMenu .hero-menu__social-icon {
   function onOrientation(event){
     if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
     if(baseline===null){baseline=event.gamma;return;}
-    targetX=clamp((event.gamma-baseline)/22,-1,1)*34;
+    targetX=clamp((event.gamma-baseline)/28,-1,1)*34;
     if(!frame)frame=requestAnimationFrame(animate);
   }
 
