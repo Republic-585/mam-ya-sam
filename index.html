@@ -6433,3 +6433,54 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 
 
 
+
+
+<style id="menu-header-smoother-transitions">
+/* Более плавное сопряжение шапки, кнопки и панели меню без изменения их размеров и положения. */
+html body header.topbar {
+  transition:
+    background-color .56s cubic-bezier(.22,1,.36,1),
+    border-color .56s cubic-bezier(.22,1,.36,1),
+    border-radius .56s cubic-bezier(.22,1,.36,1),
+    box-shadow .56s cubic-bezier(.22,1,.36,1),
+    backdrop-filter .56s cubic-bezier(.22,1,.36,1),
+    -webkit-backdrop-filter .56s cubic-bezier(.22,1,.36,1)!important;
+}
+html body header.topbar .hero__menu-trigger span {
+  transition:
+    width .46s cubic-bezier(.22,1,.36,1),
+    top .46s cubic-bezier(.22,1,.36,1),
+    transform .52s cubic-bezier(.22,1,.36,1),
+    opacity .28s ease!important;
+}
+html body #heroMenu.hero-menu,
+html body #heroMenu.hero-menu.is-open {
+  transition:
+    transform .62s cubic-bezier(.22,1,.36,1),
+    opacity .46s cubic-bezier(.22,1,.36,1),
+    visibility .62s,
+    clip-path .62s cubic-bezier(.22,1,.36,1),
+    border-radius .62s cubic-bezier(.22,1,.36,1),
+    background-color .46s ease!important;
+  will-change:transform,opacity,clip-path;
+}
+html body #heroMenu.hero-menu.is-open {
+  animation:none!important;
+}
+html body #heroMenu .hero-menu__links a,
+html body #heroMenu .hero-menu__theme-toggle svg,
+html body #heroMenu .hero-menu__close,
+html body #heroMenu .hero-menu__contact {
+  animation-duration:.56s!important;
+  animation-timing-function:cubic-bezier(.22,1,.36,1)!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar,
+  html body header.topbar .hero__menu-trigger span,
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    transition:none!important;
+    animation:none!important;
+  }
+}
+</style>
