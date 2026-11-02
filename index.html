@@ -3360,6 +3360,53 @@ html body .hero .hero__content{
 }
 </style>
 
+
+<style id="header-duck-visible-fix">
+/* Header duck: styles live in index.html because the page uses inline CSS. */
+header.topbar .topbar__in{position:relative!important;isolation:isolate}
+header.topbar .topbar__in .header-duck{
+  position:absolute!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  z-index:8!important;
+  pointer-events:none!important;
+  right:68px!important;
+  top:50%!important;
+  width:76px!important;
+  height:62px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  transform:translate3d(var(--duck-x,0px),-50%,0)!important;
+}
+header.topbar .topbar__in .header-duck > svg{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  overflow:visible!important;
+  flex:none!important;
+  animation:headerDuckBob 3.8s ease-in-out infinite;
+}
+@keyframes headerDuckBob{
+  0%,100%{translate:0 0;rotate:-1deg}
+  50%{translate:0 -3px;rotate:1deg}
+}
+@media(max-width:760px){
+  header.topbar .topbar__in .header-duck{right:60px!important;width:66px!important;height:56px!important}
+}
+@media(max-width:380px){
+  header.topbar .topbar__in .header-duck{right:54px!important;width:58px!important;height:50px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  header.topbar .topbar__in .header-duck > svg{animation:none}
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
