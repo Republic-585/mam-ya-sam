@@ -6448,6 +6448,7 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
       left .62s cubic-bezier(.22,1,.36,1),
       right .62s cubic-bezier(.22,1,.36,1),
       border-radius .52s cubic-bezier(.22,1,.36,1),
+      transform .62s cubic-bezier(.22,1,.36,1),
       background-color .35s ease,
       box-shadow .35s ease!important;
     will-change:width,left,right,border-radius;
@@ -6483,6 +6484,7 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
     width:max-content!important;
     max-width:calc(100vw - 24px)!important;
     border-radius:999px!important;
+    transform:translateX(-50%)!important;
   }
   html body header.topbar.is-scroll-compact .topbar__in {
     min-height:52px!important;
@@ -6504,6 +6506,7 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
     width:auto!important;
     max-width:none!important;
     border-radius:22px 22px 0 0!important;
+    transform:none!important;
   }
   html body.hero-menu-open header.topbar .topbar__in {
     min-height:58px!important;
