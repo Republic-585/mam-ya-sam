@@ -3362,7 +3362,7 @@ html body .hero .hero__content{
 
 
 <style id="header-duck-visible-fix">
-/* Header duck: styles live in index.html because the page uses inline CSS. */
+/* Compact duck stays fully inside the header. */
 header.topbar .topbar__in{position:relative!important;isolation:isolate}
 header.topbar .topbar__in .header-duck{
   position:absolute!important;
@@ -3373,11 +3373,11 @@ header.topbar .topbar__in .header-duck{
   pointer-events:none!important;
   right:68px!important;
   top:50%!important;
-  width:76px!important;
-  height:62px!important;
+  width:54px!important;
+  height:46px!important;
   align-items:center!important;
   justify-content:center!important;
-  overflow:visible!important;
+  overflow:hidden!important;
   transform:translate3d(var(--duck-x,0px),-50%,0)!important;
 }
 header.topbar .topbar__in .header-duck > svg{
@@ -3386,21 +3386,22 @@ header.topbar .topbar__in .header-duck > svg{
   opacity:1!important;
   width:100%!important;
   height:100%!important;
-  max-width:none!important;
-  max-height:none!important;
-  overflow:visible!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  overflow:hidden!important;
   flex:none!important;
-  animation:headerDuckBob 3.8s ease-in-out infinite;
+  object-fit:contain;
+  animation:headerDuckBob 4.8s ease-in-out infinite;
 }
 @keyframes headerDuckBob{
-  0%,100%{translate:0 0;rotate:-1deg}
-  50%{translate:0 -3px;rotate:1deg}
+  0%,100%{translate:0 0;rotate:-.3deg}
+  50%{translate:0 -1px;rotate:.3deg}
 }
 @media(max-width:760px){
-  header.topbar .topbar__in .header-duck{right:60px!important;width:66px!important;height:56px!important}
+  header.topbar .topbar__in .header-duck{right:60px!important;width:48px!important;height:40px!important}
 }
 @media(max-width:380px){
-  header.topbar .topbar__in .header-duck{right:54px!important;width:58px!important;height:50px!important}
+  header.topbar .topbar__in .header-duck{right:54px!important;width:44px!important;height:37px!important}
 }
 @media(prefers-reduced-motion:reduce){
   header.topbar .topbar__in .header-duck > svg{animation:none}
@@ -3415,37 +3416,36 @@ header.topbar .topbar__in .header-duck > svg{
 <header class="topbar">
   <div class="topbar__in">
     <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span><span class="logo__text"><span class="logo__name">МАМ, Я САМ!</span></span></a>
-    <div class="header-duck" id="headerDuck" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190" role="presentation">
+    <div class="header-duck" id="headerDuck" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 190" role="img" aria-label="Жёлтая утка в очках и вязаной шапке">
 <defs>
- <linearGradient id="duckBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff36a"/><stop offset=".55" stop-color="#ffd21c"/><stop offset="1" stop-color="#efa900"/></linearGradient>
- <linearGradient id="duckHead" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff66a"/><stop offset=".6" stop-color="#ffd51c"/><stop offset="1" stop-color="#f2ad00"/></linearGradient>
+ <linearGradient id="duckBody" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#fff36a"/><stop offset=".52" stop-color="#ffd21c"/><stop offset="1" stop-color="#efa900"/></linearGradient>
+ <linearGradient id="duckHead" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff66a"/><stop offset=".58" stop-color="#ffd51c"/><stop offset="1" stop-color="#f2ad00"/></linearGradient>
  <linearGradient id="duckBeak" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffad35"/><stop offset="1" stop-color="#ed650b"/></linearGradient>
  <linearGradient id="duckHat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf5"/><stop offset=".65" stop-color="#e9e2d6"/><stop offset="1" stop-color="#c9c1b5"/></linearGradient>
  <linearGradient id="duckLens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46505d"/><stop offset=".5" stop-color="#17202b"/><stop offset="1" stop-color="#080d14"/></linearGradient>
- <filter id="duckShadow" x="-30%" y="-40%" width="160%" height="190%"><feGaussianBlur stdDeviation="4"/></filter>
 </defs>
-<ellipse cx="119" cy="176" rx="72" ry="7" fill="#8d6a13" opacity=".15" filter="url(#duckShadow)"/>
-<!-- body and tail -->
-<path d="M43 135C35 116 42 96 59 91c13-4 22 7 30 16 15-17 39-24 65-18 31 7 52 30 52 55 0 22-21 32-54 32H91c-29 0-44-14-48-41Z" fill="url(#duckBody)" stroke="#dfa500" stroke-opacity=".3" stroke-width="1.5"/>
-<path d="M48 111c-13-5-21-17-17-25 4-8 12 0 20 9l13 16" fill="#ffd927" stroke="#e5ac00" stroke-width="1.5"/>
-<!-- head, centered over body -->
-<path d="M65 111c-7-13-7-35 1-51 10-20 30-31 55-31 29 0 51 16 59 39 8 22 1 48-16 63-15 13-39 17-62 10-17-5-29-15-37-30Z" fill="url(#duckHead)"/>
-<!-- beak -->
-<path d="M158 98c15-6 30-7 45-3 12 3 18 9 15 16-3 8-18 12-37 12-10 8-25 9-37 3-8-4-8-13 0-19 4-4 8-7 14-9Z" fill="url(#duckBeak)" stroke="#d95d08" stroke-width="1.4"/>
-<path d="M146 113c18 5 43 2 64-6" fill="none" stroke="#ffd08a" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
-<!-- cap: symmetric crown and straight knitted cuff -->
-<path d="M65 66C66 35 87 13 119 12c32-1 54 20 55 53-31 11-78 12-109 1Z" fill="url(#duckHat)" stroke="#c9c1b3" stroke-width="1.5"/>
-<path d="M64 62c33 11 78 11 112 0l2 15c-34 12-81 12-116 0Z" fill="#e8e1d5" stroke="#bdb5a9" stroke-width="1.4"/>
+<!-- Body -->
+<path d="M38 139c-7-21 1-43 20-49 13-4 23 7 31 16 16-17 40-23 66-17 31 7 51 30 51 54 0 21-21 31-53 31H86c-29 0-44-13-48-35Z" fill="url(#duckBody)" stroke="#dfa500" stroke-opacity=".32" stroke-width="1.5"/>
+<path d="M43 114c-13-5-21-17-17-25 4-8 12 0 20 9l13 16" fill="#ffd927" stroke="#e5ac00" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M71 139c7-14 25-17 37-7 9 8 6 20-4 25-14 7-34-2-33-18Z" fill="#ffdf35" opacity=".5"/>
+<!-- Head -->
+<path d="M58 116c-8-14-8-36 1-53 10-20 30-31 56-31 29 0 51 16 59 39 8 22 1 48-16 63-15 13-39 17-62 10-17-5-30-15-38-28Z" fill="url(#duckHead)"/>
+<!-- Beak, kept clear of the glasses -->
+<path d="M158 101c15-6 30-7 44-3 12 3 18 9 15 16-3 8-18 12-36 12-10 8-25 9-37 3-8-4-8-13 0-19 4-4 8-7 14-9Z" fill="url(#duckBeak)" stroke="#d95d08" stroke-width="1.4"/>
+<path d="M146 116c18 5 42 2 63-6" fill="none" stroke="#ffd08a" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+<!-- Knit cap -->
+<path d="M59 69c1-31 22-53 54-54 32-1 54 20 55 53-31 11-78 12-109 1Z" fill="url(#duckHat)" stroke="#c9c1b3" stroke-width="1.5"/>
+<path d="M58 65c33 11 78 11 112 0l2 15c-34 12-81 12-116 0Z" fill="#e8e1d5" stroke="#bdb5a9" stroke-width="1.4"/>
 <g fill="none" stroke="#c6beaf" stroke-width="1.8" opacity=".75" stroke-linecap="round">
- <path d="M83 31c-4 11-5 22-3 36"/><path d="M98 21c-4 14-5 28-3 54"/><path d="M114 16c-2 17-2 34-1 60"/><path d="M130 16c2 17 2 34 1 60"/><path d="M146 22c5 15 5 28 2 51"/><path d="M160 33c6 12 7 22 5 33"/>
+ <path d="M77 34c-4 11-5 22-3 36"/><path d="M92 24c-4 14-5 28-3 54"/><path d="M108 19c-2 17-2 34-1 60"/><path d="M124 19c2 17 2 34 1 60"/><path d="M140 25c5 15 5 28 2 51"/><path d="M154 36c6 12 7 22 5 33"/>
 </g>
-<!-- glasses: one level frame, matched lenses -->
+<!-- Balanced sunglasses -->
 <g stroke-linejoin="round">
- <path d="M66 81c16-7 36-8 54-4l8 5 8-5c18-4 38-3 53 4l-3 23c-2 12-12 17-25 17h-9c-14 0-22-8-25-20l-3-10-3 10c-3 12-11 20-25 20h-9c-13 0-23-5-25-17Z" fill="#111923" stroke="#080d13" stroke-width="3"/>
- <path d="M72 84c14-5 31-6 45-3l3 17c1 9-7 16-17 16H91c-10 0-16-4-17-13Z" fill="url(#duckLens)"/>
- <path d="M135 81c14-3 31-2 45 3l-2 17c-1 9-7 13-17 13h-12c-10 0-18-7-17-16Z" fill="url(#duckLens)"/>
- <path d="M78 87c10-4 21-5 31-3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
- <path d="M142 84c10-2 21-1 31 3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+ <path d="M60 84c16-7 36-8 54-4l8 5 8-5c18-4 38-3 53 4l-3 23c-2 12-12 17-25 17h-9c-14 0-22-8-25-20l-3-10-3 10c-3 12-11 20-25 20h-9c-13 0-23-5-25-17Z" fill="#111923" stroke="#080d13" stroke-width="3"/>
+ <path d="M66 87c14-5 31-6 45-3l3 17c1 9-7 16-17 16H85c-10 0-16-4-17-13Z" fill="url(#duckLens)"/>
+ <path d="M129 84c14-3 31-2 45 3l-2 17c-1 9-7 13-17 13h-12c-10 0-18-7-17-16Z" fill="url(#duckLens)"/>
+ <path d="M72 90c10-4 21-5 31-3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+ <path d="M136 87c10-2 21-1 31 3" fill="none" stroke="#8995a3" stroke-width="2" opacity=".55" stroke-linecap="round"/>
 </g>
 </svg></div>
     
