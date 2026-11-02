@@ -6451,7 +6451,7 @@ html body #heroMenu .hero-menu__social-icon {
   };
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   let touchY=null,started=false,finished=false;
-  let startX=0,targetX=0,targetY=0,currentX=0,walkDistance=0;
+  let startX=0,targetX=0,targetY=0,currentX=0,walkDistance=0,gaitDistance=0,lastGaitTime=0;
 
   function firstLetterRect(){
     const node=line.firstChild;
@@ -6475,7 +6475,7 @@ html body #heroMenu .hero-menu__social-icon {
   }
 
   function walkPose(){
-    const cycle=walkDistance/24*Math.PI*2;
+    const cycle=gaitDistance/24*Math.PI*2;
     /* Более выраженный шаг: бедро выносится вперёд, колено активно
        сгибается в фазе переноса ноги, стопа мягко следует за голенью. */
     const stride=Math.sin(cycle);
@@ -6521,10 +6521,15 @@ html body #heroMenu .hero-menu__social-icon {
 
   function moveByScroll(delta){
     if(finished||delta===0)return;
+    const now=performance.now();
+    const elapsed=lastGaitTime?clamp(now-lastGaitTime,0,50):16;
+    lastGaitTime=now;
+    const maxGaitAdvance=elapsed*.048; // Ограничиваем частоту шага независимо от скорости прокрутки.
     if(delta<0){
       if(!started)return;
       const reverse=Math.min(walkDistance,-delta*.62);
       walkDistance-=reverse;
+      gaitDistance=Math.max(0,gaitDistance-Math.min(reverse,maxGaitAdvance));
       currentX+=reverse;
       placeBoy(currentX,targetY);
       if(walkDistance<=0){started=false;walkDistance=0;placeBoy(startX,targetY);standPose();}
@@ -6536,6 +6541,7 @@ html body #heroMenu .hero-menu__social-icon {
     const remaining=currentX-targetX;
     const movement=Math.min(remaining,delta*.62);
     walkDistance+=movement;
+    gaitDistance+=Math.min(movement,maxGaitAdvance);
     const nextX=currentX-movement;
     placeBoy(nextX,targetY);
     if(movement>0)walkPose();
