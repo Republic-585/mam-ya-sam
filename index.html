@@ -6432,11 +6432,17 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 </style>
 
 <style id="mobile-menu-outline-match-header">
-/* Весь контур открытого меню использует тот же оттенок, что и линия шапки. */
+/* Убираем двойной шов: нижняя линия внутренней шапки не рисуется над открытым меню. */
 @media(max-width:760px) {
+  html body.hero-menu-open header.topbar > .topbar__in {
+    border-bottom:0!important;
+    box-shadow:none!important;
+  }
   html body.hero-menu-open #heroMenu.hero-menu,
   html body.hero-menu-open #heroMenu.hero-menu.is-open {
-    border-color:rgba(0,0,0,.025)!important;
+    border-top:0!important;
+    border-left-color:rgba(0,0,0,.025)!important;
+    border-right-color:rgba(0,0,0,.025)!important;
   }
 }
 </style>
