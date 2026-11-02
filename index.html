@@ -331,6 +331,14 @@ html body .hero-menu .hero-menu__links {
 
 /* ---------- HERO ---------- */
 .hero{padding:70px 0 90px;overflow:hidden}
+
+/* Пустое место под Hero для будущего блока «Проблема — решение». */
+.problem-solution-placeholder{
+  min-height:clamp(320px,55vh,560px);
+  padding:0;
+  background:#fff;
+}
+
 .hero__bg{
   position:absolute;inset:0;z-index:0;
   background:
@@ -3434,8 +3442,8 @@ html body .hero .hero__content{
     </div>
   </section>
 
-  <!-- PROBLEMS -->
-  
+  <!-- Резервный пустой блок: проблема и решение будут добавлены позже. Не включён в меню. -->
+  <section class="problem-solution-placeholder" aria-hidden="true"></section>
 
   <!-- SKILL -->
   <section class="skill" id="skill">
