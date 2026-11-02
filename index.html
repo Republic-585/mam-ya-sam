@@ -3337,48 +3337,7 @@ html body .hero .hero__subtitle {
 
 
 
-<style id="hero-math-note-style">
-/* Ненавязчивая подпись о математической основе курса в Hero. */
-.hero__math-note{
-  display:inline-block;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .85s ease, visibility 0s linear .85s;
-  margin-top:9px;
-  padding:4px 10px 5px;
-  border-radius:999px;
-  background:rgba(124,196,255,.10);
-  color:#52677d;
-  font-size:.68em;
-  font-weight:500;
-  line-height:1.25;
-  letter-spacing:.005em;
-  vertical-align:middle;
-}
-@media(max-width:600px){
-  .hero__math-note{margin-top:8px;padding:4px 9px;font-size:.66em}
-}
-html.hero-math-note-visible .hero__math-note{
-  opacity:1;
-  visibility:visible;
-  transition:opacity .85s ease;
-}
-@media(prefers-reduced-motion:reduce){
-  .hero__math-note,
-  html.hero-math-note-visible .hero__math-note{transition:none}
-}
-</style>
-<script>
-(function(){
-  function revealMathNote(){
-    setTimeout(function(){
-      document.documentElement.classList.add('hero-math-note-visible');
-    },4000);
-  }
-  if(document.readyState==='complete') revealMathNote();
-  else window.addEventListener('load',revealMathNote,{once:true});
-})();
-</script>
+
 
 <style id="hero-content-vertical-adjustment">
 /* Поднимаем весь текстовый блок Hero вместе с кнопкой на 80px. */
@@ -3463,7 +3422,7 @@ html body .hero .hero__content{
       
       <div class="hero__content">
         <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Тут</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> <span class="hero__together-word">вместе.</span></span></p>
-        <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Подружим ребенка</span><span class="hero__subtitle-line-two">с цифрами и деньгами.</span></span><span class="hero__subtitle-second">На курсе финансовой грамотности<br>для детей 5-8 классов.<br><span class="hero__math-note">на основе математики*</span></span></p>
+        <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Подружим ребенка</span><span class="hero__subtitle-line-two">с цифрами и деньгами.</span></span><span class="hero__subtitle-second">На курсе финансовой грамотности<br>для детей 5-8 классов на основе математики.</span></p>
         <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать бесплатно</span></a>
       </div>
 
