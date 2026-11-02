@@ -6431,7 +6431,13 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 }
 </style>
 
-
-
-
-
+<style id="mobile-menu-outline-match-header">
+/* Цвет боковой обводки открытого меню совпадает с линией шапки. */
+@media(max-width:760px) {
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    border-left-color:rgba(0,0,0,.025)!important;
+    border-right-color:rgba(0,0,0,.025)!important;
+  }
+}
+</style>
