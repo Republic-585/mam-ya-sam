@@ -6470,3 +6470,42 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
   }
 }
 </style>
+
+
+<style id="mobile-menu-interaction-response">
+/* Единый тактильный отклик шапки и раскрывающейся панели. */
+@media(max-width:760px) {
+  html body header.topbar {
+    transform:scale(1);
+    transform-origin:center center;
+    transition:transform .42s cubic-bezier(.2,.8,.2,1)!important;
+    will-change:transform;
+  }
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    transform:scale(1);
+    transform-origin:center bottom;
+    transition:
+      clip-path .48s cubic-bezier(.22,1,.36,1),
+      opacity .24s ease,
+      visibility .48s,
+      transform .42s cubic-bezier(.2,.8,.2,1)!important;
+    will-change:clip-path,opacity,transform;
+  }
+  html body.hero-menu-open header.topbar {
+    transform:scale(1.012)!important;
+  }
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    transform:scale(1.012)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar,
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    transition:none!important;
+    transform:none!important;
+  }
+}
+</style>
