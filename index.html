@@ -6434,6 +6434,45 @@ html body #heroMenu .hero-menu__social-icon {
 
 
 
+
+<script id="header-duck-gyro">
+(function(){
+  const header=document.querySelector('header.topbar');
+  const duck=document.getElementById('headerDuck');
+  if(!header||!duck)return;
+  let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0;
+  function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
+  function animate(){
+    currentX+=(targetX-currentX)*0.12;
+    if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
+    duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
+    if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
+    else frame=0;
+  }
+  function onOrientation(event){
+    if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
+    const gamma=Math.abs(event.gamma)<2?0:event.gamma;
+    targetX=clamp(gamma/35,-1,1)*30;
+    if(!frame)frame=requestAnimationFrame(animate);
+  }
+  function start(){
+    if(listening)return;
+    listening=true;
+    window.addEventListener('deviceorientation',onOrientation,true);
+  }
+  function requestPermission(){
+    if(permissionAsked)return;
+    permissionAsked=true;
+    const API=window.DeviceOrientationEvent;
+    if(!API)return;
+    if(typeof API.requestPermission==='function'){
+      API.requestPermission().then(function(result){if(result==='granted')start();}).catch(function(){});
+    }else start();
+  }
+  header.addEventListener('pointerdown',requestPermission,{once:true,passive:true});
+})();
+</script>
+
 </body>
 </html>
 
