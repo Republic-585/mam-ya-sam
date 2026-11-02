@@ -6539,6 +6539,59 @@ html body #heroMenu .hero-menu__social-icon {
     frame=requestAnimationFrame(update);
   }
 
+  /* Первый жест прокрутки запускает прыжок мальчика; накопленное движение страницы применяется после приземления. */
+  let jumpArmed=true,jumpRunning=false,pendingScroll=0,touchY=null;
+  const jumpDuration=760;
+  function finishJump(){
+    jumpRunning=false;
+    jumpArmed=false;
+    window.removeEventListener('wheel',onWheel,{passive:false});
+    window.removeEventListener('touchstart',onTouchStart,{passive:true});
+    window.removeEventListener('touchmove',onTouchMove,{passive:false});
+    if(pendingScroll)window.scrollBy({top:pendingScroll,left:0,behavior:'auto'});
+    pendingScroll=0;
+    schedule();
+  }
+  function runJump(){
+    if(!jumpArmed||jumpRunning)return;
+    jumpRunning=true;
+    const started=performance.now();
+    function tick(now){
+      const raw=clamp((now-started)/jumpDuration,0,1);
+      const eased=raw<.22?0.5*smooth(raw/.22):raw>.86?mix(.5,1,smooth((raw-.86)/.14):mix(.5,1,smooth((raw-.22)/.64));
+      const point=wordRect(lines[0],5);
+      const x=point.left+point.width*.5-width*.5-48;
+      const y=point.top-height-7+31;
+      setPose(eased);
+      boy.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,0)';
+      if(raw<1)requestAnimationFrame(tick);else finishJump();
+    }
+    requestAnimationFrame(tick);
+  }
+  function onWheel(event){
+    if(!jumpArmed)return;
+    if(Math.abs(event.deltaY)<1)return;
+    event.preventDefault();
+    pendingScroll+=event.deltaY;
+    runJump();
+  }
+  function onTouchStart(event){
+    if(jumpArmed&&event.touches.length)touchY=event.touches[0].clientY;
+  }
+  function onTouchMove(event){
+    if(!jumpArmed||!event.touches.length||touchY===null)return;
+    const nextY=event.touches[0].clientY;
+    const delta=touchY-nextY;
+    touchY=nextY;
+    if(Math.abs(delta)<1)return;
+    event.preventDefault();
+    pendingScroll+=delta;
+    runJump();
+  }
+  window.addEventListener('wheel',onWheel,{passive:false});
+  window.addEventListener('touchstart',onTouchStart,{passive:true});
+  window.addEventListener('touchmove',onTouchMove,{passive:false});
+
   parts.rig.style.clipPath='none';
   parts.rig.removeAttribute('clip-path');
   parts.rig.style.transformBox='fill-box';
