@@ -3425,11 +3425,53 @@ header.topbar .topbar__in .header-duck > svg{
 }
 </style>
 
+
+<style id="unified-header-menu-dock">
+/* Шапка и меню образуют единый нижний блок, раскрывающийся вверх. */
+.site-dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:1004;
+  display:flex;flex-direction:column;
+  isolation:isolate;
+}
+.site-dock .topbar{
+  position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:100%;z-index:2;
+  border-top:0!important;
+  border-bottom:var(--border);
+  background:rgba(255,255,255,.94);
+}
+.site-dock .hero-menu{
+  position:absolute!important;left:0!important;right:0!important;bottom:100%!important;top:auto!important;
+  width:100%!important;height:min(78dvh,720px)!important;max-height:calc(100dvh - 76px)!important;
+  padding:clamp(24px,5vw,44px) max(22px,calc((100vw - 720px)/2)) 30px!important;
+  overflow-y:auto!important;
+  border:0!important;border-top:var(--border)!important;border-radius:22px 22px 0 0!important;
+  box-shadow:none!important;
+  transform:translate3d(0,100%,0)!important;
+  opacity:1!important;visibility:hidden;
+  transition:transform .72s cubic-bezier(.22,.75,.25,1),visibility .72s!important;
+  z-index:1;
+}
+.site-dock .hero-menu.is-open{
+  transform:translate3d(0,0,0)!important;visibility:visible;
+}
+.site-dock .hero-menu__links{margin-top:24px!important}
+.site-dock .hero-menu__theme-toggle{align-self:flex-end}
+.site-dock .hero-menu__contact{max-width:100%}
+.site-dock .hero-menu-backdrop{z-index:1003}
+@media(max-width:640px){
+  .site-dock .hero-menu{height:min(78dvh,680px)!important;padding:24px 24px 28px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-dock .hero-menu{transition:none!important}
+}
+</style>
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
 
 <!-- TOP BAR -->
+<div class="site-dock" id="siteDock">
 <header class="topbar">
   <div class="topbar__in">
     <a href="#" class="logo" aria-label="Мам, я сам! – на главную"><span class="logo__dot" id="easterEggLogo"></span><span class="logo__text"><span class="logo__name">МАМ, Я САМ!</span></span></a>
@@ -3453,14 +3495,6 @@ header.topbar .topbar__in .header-duck > svg{
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
   </div>
 </header>
-
-
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
-    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <button class="hero-menu__theme-toggle" id="themeToggle" type="button" aria-label="Переключить светлую или тёмную тему" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -3504,6 +3538,17 @@ header.topbar .topbar__in .header-duck > svg{
         </span>
       </div>
     </nav>
+</div>
+
+
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
+    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
+
     <div class="wrap hero__in">
       
       <div class="hero__content">
@@ -4823,7 +4868,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const header=trigger.closest('header.topbar');
   /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
   document.body.appendChild(backdrop);
-  document.body.appendChild(menu);
   function openMenu(){
     if(header && typeof header.animate==='function'){
       header.animate([
