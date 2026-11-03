@@ -4827,6 +4827,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   if(!header || !header.contains(menu)) return;
   function openMenu(){
     backdrop.hidden=false;
+    menu.scrollTop=0;
     menu.inert=false;
     menu.setAttribute('aria-hidden','false');
     trigger.setAttribute('aria-expanded','true');
@@ -6855,6 +6856,124 @@ html body header.topbar > #heroMenu .hero-menu__theme-toggle{
 }
 @media(prefers-reduced-motion:reduce){
   html body header.topbar,
+  html body header.topbar > #heroMenu.hero-menu{transition:none!important}
+}
+</style>
+
+
+<style id="unified-menu-content-position-final">
+/* Финальная фиксация содержимого: пункты остаются в потоке меню и не сдвигаются при прокрутке страницы. */
+html body header.topbar{
+  height:auto!important;
+  max-height:calc(100dvh - 112px)!important;
+  overflow:hidden!important;
+  justify-content:flex-start!important;
+}
+html body header.topbar > .topbar__in{
+  position:relative!important;
+  z-index:2!important;
+  flex:0 0 auto!important;
+}
+html body header.topbar > #heroMenu.hero-menu,
+html body header.topbar > #heroMenu.hero-menu.is-open{
+  position:relative!important;
+  inset:auto!important;
+  display:flex!important;
+  flex:0 1 auto!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  align-self:stretch!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  transform:none!important;
+  clip-path:none!important;
+  scroll-behavior:auto!important;
+}
+html body header.topbar.is-expanded > #heroMenu.hero-menu,
+html body header.topbar > #heroMenu.hero-menu.is-open{
+  max-height:calc(100dvh - 190px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+  padding:16px 24px 20px!important;
+}
+html body header.topbar > #heroMenu .hero-menu__top{
+  position:relative!important;
+  display:flex!important;
+  flex:0 0 auto!important;
+  margin:0 0 8px!important;
+  min-height:0!important;
+  transform:none!important;
+}
+html body header.topbar > #heroMenu .hero-menu__links{
+  position:static!important;
+  display:flex!important;
+  flex:0 0 auto!important;
+  flex-direction:column!important;
+  gap:0!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:12px 0 0!important;
+  padding:0!important;
+  overflow:visible!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+html body header.topbar > #heroMenu .hero-menu__links a{
+  position:relative!important;
+  top:auto!important;
+  display:block!important;
+  flex:0 0 auto!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+html body header.topbar > #heroMenu .hero-menu__contact{
+  position:relative!important;
+  top:auto!important;
+  flex:0 0 auto!important;
+  margin:22px 0 0!important;
+  transform:none!important;
+}
+html body header.topbar > #heroMenu .hero-menu__social{
+  position:relative!important;
+  top:auto!important;
+  display:flex!important;
+  flex:0 0 auto!important;
+  margin:18px 0 0!important;
+  padding:8px 0 4px!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+html body header.topbar > #heroMenu .hero-menu__theme-toggle{
+  position:absolute!important;
+  top:0!important;
+  right:0!important;
+  margin:0!important;
+  transform:none!important;
+}
+@media(max-width:760px){
+  html body header.topbar{
+    max-height:calc(100dvh - 112px)!important;
+    bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;
+  }
+  html body header.topbar.is-expanded{
+    max-height:calc(100dvh - 112px)!important;
+  }
+  html body header.topbar.is-expanded > #heroMenu.hero-menu,
+  html body header.topbar > #heroMenu.hero-menu.is-open{
+    max-height:calc(100dvh - 184px)!important;
+    padding:14px 22px 18px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
   html body header.topbar > #heroMenu.hero-menu{transition:none!important}
 }
 </style>
