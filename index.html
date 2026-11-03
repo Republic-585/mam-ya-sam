@@ -6438,7 +6438,7 @@ html body #heroMenu .hero-menu__social-icon {
   window.addEventListener('resize',measureSwimArea,{passive:true});
 
   function animate(){
-    currentX+=(targetX-currentX)*0.035;
+    currentX+=(targetX-currentX)*0.022;
     if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
     if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
@@ -6448,8 +6448,12 @@ html body #heroMenu .hero-menu__social-icon {
   function onOrientation(event){
     if(typeof event.gamma!=='number'||!Number.isFinite(event.gamma))return;
     if(baseline===null){baseline=event.gamma;return;}
-    const tilt=clamp((event.gamma-baseline)/28,-1,1);
-    duck.style.setProperty('--duck-direction',tilt>0.04?'-1':'1');
+    const rawTilt=clamp((event.gamma-baseline)/28,-1,1);
+    // Мягкая стартовая зона: небольшие наклоны не разгоняют утку резко.
+    const deadZone=0.06;
+    const softenedMagnitude=Math.max(0,(Math.abs(rawTilt)-deadZone)/(1-deadZone));
+    const tilt=Math.sign(rawTilt)*Math.pow(softenedMagnitude,1.7);
+    duck.style.setProperty('--duck-direction',tilt>0.025?'-1':'1');
     targetX=minX+(tilt+1)*0.5*(maxX-minX);
     if(!frame)frame=requestAnimationFrame(animate);
   }
