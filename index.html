@@ -3928,7 +3928,7 @@ header.topbar .topbar__in .header-duck > svg{
       </div>
       <div class="faq__cta">
         <p>Всё понравилось? Запишите ребёнка бесплатно.</p>
-        <a class="btn btn--purple" href="#signup">Начать бесплатно</a>
+        <a class="hero__cta hero-start-button" href="#signup" aria-label="Начать бесплатно"><span>Начать бесплатно</span></a>
       </div>
     </div>
   </section>
@@ -7043,5 +7043,24 @@ html body .faq__list details[open] summary{
 /* Скрытые вопросы должны исчезать при фильтрации по категории и поиску. */
 html body .faq__list details[hidden]{
   display:none!important;
+}
+</style>
+
+
+<style id="faq-cta-match-hero">
+/* Кнопка FAQ повторяет кнопку Hero; убираем только её вертикальный отступ Hero. */
+html body .faq__cta .hero-start-button{
+  margin:20px auto 0!important;
+}
+/* Подпись CTA использует типографику ответов FAQ. */
+html body .faq__cta p{
+  margin:0!important;
+  color:var(--muted)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
 }
 </style>
