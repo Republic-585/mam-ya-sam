@@ -3405,9 +3405,8 @@ header.topbar .topbar__in .header-duck > svg{
   overflow:visible!important;
   flex:none!important;
   animation:headerDuckBob 3.8s ease-in-out infinite;
-  transform:rotateY(var(--duck-turn,0deg)) rotate(var(--duck-lean,0deg));
-  transform-style:preserve-3d;
-  transition:transform 1.15s cubic-bezier(.42,0,.22,1);
+  transform:scaleX(var(--duck-direction,1)) rotate(var(--duck-lean,0deg));
+  transition:transform .42s cubic-bezier(.2,.8,.2,1);
   pointer-events:visiblePainted!important;
   cursor:pointer!important;
 }
@@ -6429,10 +6428,8 @@ html body #heroMenu .hero-menu__social-icon {
   const duck=document.getElementById('headerDuck');
   if(!duck)return;
 
-  let listening=false,permissionGranted=false,frame=0,currentX=0,targetX=0,desiredX=0,velocityX=0,baseline=null,lastFrameTime=0;
+  let listening=false,permissionGranted=false,frame=0,currentX=0,targetX=0,velocityX=0,baseline=null,lastFrameTime=0;
   let minX=-34,maxX=34;
-  let facingDirection=1,pendingDirection=1,turning=false,turnStarted=0;
-  const turnDuration=1150;
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
 
   function measureSwimArea(){
@@ -6451,46 +6448,28 @@ html body #heroMenu .hero-menu__social-icon {
     currentX=clamp(currentX,minX,maxX);
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
   }
-  duck.style.setProperty('--duck-turn','0deg');
   measureSwimArea();
   window.addEventListener('resize',measureSwimArea,{passive:true});
 
   function animate(timestamp){
     const dt=lastFrameTime?Math.min((timestamp-lastFrameTime)/1000,0.032):0.016;
     lastFrameTime=timestamp;
-
-    // Перед разворотом утка сначала очень мягко останавливается.
-    if(!turning){
-      const stiffness=12;
-      const damping=7.2;
-      const acceleration=(targetX-currentX)*stiffness-velocityX*damping;
-      velocityX+=acceleration*dt;
-      currentX+=velocityX*dt;
-    }else{
-      velocityX*=Math.exp(-12*dt);
-      currentX+=velocityX*dt;
-      if(!turnStarted&&Math.abs(velocityX)<2.2){
-        velocityX=0;
-        turnStarted=timestamp;
-        facingDirection=pendingDirection;
-        duck.style.setProperty('--duck-turn',facingDirection<0?'180deg':'0deg');
-      }
-      if(turnStarted&&timestamp-turnStarted>=turnDuration){
-        turning=false;
-        turnStarted=0;
-        targetX=desiredX;
-      }
-    }
+    // Пружинная физика: утка мягко разгоняется, чуть перелетает цель и естественно успокаивается.
+    const stiffness=12;
+    const damping=7.2;
+    const acceleration=(targetX-currentX)*stiffness-velocityX*damping;
+    velocityX+=acceleration*dt;
+    currentX+=velocityX*dt;
 
     const distance=targetX-currentX;
-    if(!turning&&Math.abs(distance)<0.18&&Math.abs(velocityX)<1.2){
+    if(Math.abs(distance)<0.18&&Math.abs(velocityX)<1.2){
       currentX=targetX;
       velocityX=0;
     }
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
     duck.style.setProperty('--duck-lean',clamp(-velocityX*0.035,-3,3).toFixed(2)+'deg');
 
-    if(turning||Math.abs(targetX-currentX)>0.18||Math.abs(velocityX)>1.2){
+    if(Math.abs(targetX-currentX)>0.18||Math.abs(velocityX)>1.2){
       frame=requestAnimationFrame(animate);
     }else{
       frame=0;
@@ -6507,18 +6486,8 @@ html body #heroMenu .hero-menu__social-icon {
     const deadZone=0.06;
     const softenedMagnitude=Math.max(0,(Math.abs(rawTilt)-deadZone)/(1-deadZone));
     const tilt=Math.sign(rawTilt)*Math.pow(softenedMagnitude,1.7);
-    desiredX=minX+(tilt+1)*0.5*(maxX-minX);
-    const nextDirection=tilt>0.025?-1:1;
-    if(nextDirection!==facingDirection){
-      pendingDirection=nextDirection;
-      if(!turning){
-        turning=true;
-        turnStarted=0;
-        targetX=currentX;
-      }
-    }else if(!turning){
-      targetX=desiredX;
-    }
+    duck.style.setProperty('--duck-direction',tilt>0.025?'-1':'1');
+    targetX=minX+(tilt+1)*0.5*(maxX-minX);
     if(!frame)frame=requestAnimationFrame(animate);
   }
 
