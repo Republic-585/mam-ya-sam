@@ -7085,7 +7085,7 @@ html body .faq__list summary::after{
   content:""!important;
   position:absolute!important;
   right:7px!important;
-  top:50%!important;
+  top:calc(50% - 1px)!important;
   display:block!important;
   width:18px!important;
   height:2px!important;
@@ -7095,20 +7095,20 @@ html body .faq__list summary::after{
   border-radius:2px!important;
   background:var(--ink)!important;
   box-shadow:none!important;
-  transform-origin:center!important;
+  transform-origin:50% 50%!important;
   transition:transform .35s cubic-bezier(.16,1,.3,1)!important;
 }
 html body .faq__list summary::before{
-  transform:translateY(-50%) rotate(90deg)!important;
+  transform:rotate(90deg)!important;
 }
 html body .faq__list summary::after{
-  transform:translateY(-50%)!important;
+  transform:none!important;
 }
 html body .faq__list details[open] summary::before{
-  transform:translateY(-50%) rotate(45deg)!important;
+  transform:rotate(45deg)!important;
 }
 html body .faq__list details[open] summary::after{
-  transform:translateY(-50%) rotate(-45deg)!important;
+  transform:rotate(-45deg)!important;
 }
 html body .faq__list .faq__a{
   padding:0 42px 22px 2px!important;
