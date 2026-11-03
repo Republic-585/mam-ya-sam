@@ -7842,3 +7842,35 @@ html body section.pricing #pricingCarousel .pricing__grid > .price .price__amoun
   text-transform:none!important;
 }
 </style>
+
+
+<style id="pricing-card-titles-and-compact-green-tags">
+/* Названия тарифов по размеру совпадают с заголовком секции тарифов. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__title {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(1.8rem,5vw,3rem)!important;
+  font-weight:900!important;
+  line-height:1.05!important;
+  letter-spacing:-.035em!important;
+  text-transform:uppercase!important;
+  color:#141414!important;
+}
+
+/* Плашки в верхней части карточек ниже по высоте. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+  min-height:0!important;
+  padding:4px 12px!important;
+  line-height:1.15!important;
+}
+
+/* Рекомендуемый тариф: зелёная плашка, сама карточка остаётся белой. */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] .price__tag--hit {
+  background:#A8F0A0!important;
+  background-color:#A8F0A0!important;
+  color:#141414!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] {
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+}
+</style>
