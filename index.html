@@ -4905,7 +4905,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <style id="header-wordmark-skill-scroll-fade">
 /* Название уходит в кубик по той же плавной кривой, что и слово «вместе» в Hero. */
 .topbar .logo__text {
-  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .40) / .08, 1));
+  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .40) / .08, 1))!important;
   transform:translate3d(
     calc(var(--wordmark-into-x, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
     calc(var(--wordmark-into-y, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
@@ -4933,7 +4933,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     header.style.setProperty('--wordmark-scroll-progress', '0');
     const wordRect = wordmark.getBoundingClientRect();
     const cubeRect = cube.getBoundingClientRect();
-    /* Текст подходит слева направо и растворяется у правой внешней обводки кубика. */
+    /* Траектория текста заканчивается на кубике; невидимая надпись не занимает место. */
     header.style.setProperty('--wordmark-into-x', (cubeRect.right - wordRect.left).toFixed(2) + 'px');
     header.style.setProperty('--wordmark-into-y', (cubeRect.top + cubeRect.height / 2 - wordRect.top - wordRect.height / 2).toFixed(2) + 'px');
   }
@@ -6416,14 +6416,14 @@ html body #heroMenu .hero-menu__social-icon {
 
   function measureSwimArea(){
     const inner=duck.parentElement;
-    const logo=inner&&inner.querySelector('.logo');
+    const cube=inner&&inner.querySelector('.logo__dot');
     const menu=inner&&inner.querySelector('.hero__menu-trigger');
-    if(!inner||!logo||!menu)return;
+    if(!inner||!cube||!menu)return;
     const parentRect=inner.getBoundingClientRect();
-    const logoRect=logo.getBoundingClientRect();
+    const cubeRect=cube.getBoundingClientRect();
     const menuRect=menu.getBoundingClientRect();
     const baseLeft=duck.offsetLeft;
-    minX=logoRect.right-parentRect.left+5-baseLeft;
+    minX=cubeRect.right-parentRect.left+5-baseLeft;
     maxX=menuRect.left-parentRect.left-5-(baseLeft+duck.offsetWidth);
     if(maxX<minX){minX=maxX=0;}
     targetX=clamp(targetX,minX,maxX);
