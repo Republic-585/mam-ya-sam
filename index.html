@@ -4820,10 +4820,19 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const menu=document.getElementById('heroMenu');
   const backdrop=document.getElementById('heroMenuBackdrop');
   if(!trigger||!menu||!backdrop)return;
+  const header=trigger.closest('header.topbar');
   /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
   document.body.appendChild(backdrop);
   document.body.appendChild(menu);
   function openMenu(){
+    if(header && typeof header.animate==='function'){
+      header.animate([
+        {transform:'scale(1)'},
+        {transform:'scale(1.035)',offset:0.42},
+        {transform:'scale(0.995)',offset:0.72},
+        {transform:'scale(1)'}
+      ],{duration:360,easing:'cubic-bezier(.2,.8,.25,1)'});
+    }
     backdrop.hidden=false;
     menu.inert=false;
     menu.setAttribute('aria-hidden','false');
