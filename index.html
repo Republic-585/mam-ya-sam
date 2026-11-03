@@ -6876,6 +6876,31 @@ html body .footer .logo .logo__name {
   text-align:left!important;
 }
 </style>
+
+<style id="pricing-white-review-card-style">
+/* Белый фон тарифного раздела и поверхность карточек как в блоке отзывов. */
+html body .pricing {
+  background:#FFFFFF!important;
+}
+html body .pricing .price,
+html body .pricing .price.is-selected,
+html body .pricing .price--popular {
+  background:rgba(255,255,255,.82)!important;
+  border:1px solid rgba(17,24,39,.09)!important;
+  border-radius:24px!important;
+  box-shadow:0 18px 55px rgba(20,31,54,.07)!important;
+  padding:clamp(24px,5vw,38px)!important;
+  transform:none;
+}
+@media(max-width:600px) {
+  html body .pricing .price,
+  html body .pricing .price.is-selected,
+  html body .pricing .price--popular {
+    border-radius:20px!important;
+  }
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
