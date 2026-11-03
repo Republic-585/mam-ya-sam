@@ -4827,11 +4827,12 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   function openMenu(){
     if(header && typeof header.animate==='function'){
       header.animate([
-        {transform:'scale(1)'},
-        {transform:'scale(1.035)',offset:0.42},
-        {transform:'scale(0.995)',offset:0.72},
-        {transform:'scale(1)'}
-      ],{duration:360,easing:'cubic-bezier(.2,.8,.25,1)'});
+        {transform:'scale(1, 1)'},
+        {transform:'scale(1.028, 1.018)',offset:0.3},
+        {transform:'scale(0.994, 1.006)',offset:0.58},
+        {transform:'scale(1.006, 0.997)',offset:0.8},
+        {transform:'scale(1, 1)'}
+      ],{duration:680,easing:'cubic-bezier(.22,.75,.25,1)'});
     }
     backdrop.hidden=false;
     menu.inert=false;
