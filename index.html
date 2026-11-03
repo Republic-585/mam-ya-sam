@@ -6788,3 +6788,73 @@ html body header.topbar.is-expanded .topbar__progress{opacity:0!important;pointe
   }
 }
 </style>
+
+
+<style id="unified-menu-compact-and-scroll-stable">
+/* Исправление геометрии единого меню: высота по содержимому, без пустой полноэкранной области. */
+html body header.topbar > #heroMenu.hero-menu{
+  position:relative!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:0!important;
+  flex:0 1 auto!important;
+  overflow:hidden!important;
+  touch-action:pan-y!important;
+}
+html body header.topbar.is-expanded{
+  max-height:calc(100dvh - 96px)!important;
+  overflow:hidden!important;
+}
+html body header.topbar.is-expanded > #heroMenu.hero-menu,
+html body header.topbar > #heroMenu.hero-menu.is-open{
+  height:auto!important;
+  max-height:min(690px,calc(100dvh - 160px))!important;
+  overflow-y:auto!important;
+  padding:18px 24px 18px!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+html body header.topbar > #heroMenu .hero-menu__links{
+  margin-top:18px!important;
+}
+html body header.topbar > #heroMenu .hero-menu__social{
+  margin-top:22px!important;
+  padding:8px 0 4px!important;
+  flex:0 0 auto!important;
+}
+html body header.topbar > #heroMenu .hero-menu__theme-toggle{
+  position:absolute!important;
+  top:12px!important;
+  right:22px!important;
+  z-index:3!important;
+}
+@media(max-width:760px){
+  html body header.topbar{
+    bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;
+    transition:
+      border-radius .62s cubic-bezier(.22,1,.36,1),
+      max-height .62s cubic-bezier(.22,1,.36,1),
+      background-color .38s ease!important;
+  }
+  html body header.topbar.is-expanded{
+    bottom:16px!important;
+    max-height:calc(100dvh - 112px)!important;
+  }
+  html body header.topbar.is-expanded > #heroMenu.hero-menu,
+  html body header.topbar > #heroMenu.hero-menu.is-open{
+    max-height:min(690px,calc(100dvh - 176px))!important;
+    padding:18px 22px 16px!important;
+  }
+  html body header.topbar > #heroMenu .hero-menu__theme-toggle{
+    top:10px!important;
+    right:20px!important;
+  }
+  html body header.topbar > #heroMenu .hero-menu__links{
+    margin-top:18px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body header.topbar,
+  html body header.topbar > #heroMenu.hero-menu{transition:none!important}
+}
+</style>
