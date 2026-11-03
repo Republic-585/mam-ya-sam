@@ -3853,6 +3853,7 @@ header.topbar .topbar__in .header-duck > svg{
       <div class="faq__search-wrap">
         <svg class="faq__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
         <input class="faq__search" id="faqSearch" type="search" placeholder="Найти ответ..." autocomplete="off" aria-controls="faqList">
+        <button class="faq__search-clear" id="faqSearchClear" type="button" aria-label="Очистить поиск" title="Очистить поиск" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg></button>
       </div>
       <div class="faq__tabs" role="group" aria-label="Темы вопросов">
         <button class="faq__tab" type="button" data-faq-category="all" aria-pressed="true">Все вопросы</button>
@@ -3946,13 +3947,17 @@ header.topbar .topbar__in .header-duck > svg{
   <script id="faq-search">
   (function(){
     const input=document.getElementById('faqSearch');
+    const clearButton=document.getElementById('faqSearchClear');
     const list=document.getElementById('faqList');
     const empty=document.getElementById('faqEmpty');
     const tabs=Array.from(document.querySelectorAll('[data-faq-category]'));
-    if(!input||!list||!empty)return;
+    if(!input||!clearButton||!list||!empty)return;
     const items=Array.from(list.querySelectorAll('details'));
     let activeCategory='all';
     const normalize=value=>value.toLocaleLowerCase('ru').replace(/ё/g,'е').trim();
+    function syncClearButton(){
+      clearButton.hidden=input.value.length===0;
+    }
     function filterItems(){
       const query=normalize(input.value);
       let visible=0;
@@ -3964,8 +3969,15 @@ header.topbar .topbar__in .header-duck > svg{
         if(matches)visible++;
       });
       empty.hidden=visible!==0;
+      syncClearButton();
     }
     input.addEventListener('input',filterItems);
+    clearButton.addEventListener('click',()=>{
+      input.value='';
+      filterItems();
+      input.focus();
+    });
+    syncClearButton();
     tabs.forEach(tab=>tab.addEventListener('click',()=>{
       activeCategory=tab.dataset.faqCategory;
       tabs.forEach(item=>item.setAttribute('aria-pressed',String(item===tab)));
@@ -7195,6 +7207,64 @@ html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select
   letter-spacing:normal!important;
   text-transform:none!important;
   font-style:normal!important;
+}
+</style>
+
+
+<style id="faq-search-icon-placeholder-and-clear">
+/* Небольшое увеличение лупы, обычный placeholder и собственная кнопка очистки. */
+html body .faq__search-icon{
+  width:22px!important;
+  height:22px!important;
+}
+html body .faq__search{
+  padding-right:52px!important;
+  font-weight:400!important;
+  -webkit-appearance:none!important;
+  appearance:none!important;
+}
+html body .faq__search::placeholder{
+  font-weight:400!important;
+  opacity:1!important;
+}
+html body .faq__search::-webkit-search-cancel-button{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  display:none!important;
+}
+html body .faq__search-clear{
+  position:absolute!important;
+  z-index:2!important;
+  top:50%!important;
+  right:14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:30px!important;
+  height:30px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  color:#888!important;
+  cursor:pointer!important;
+  transform:translateY(-50%)!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+html body .faq__search-clear[hidden]{display:none!important}
+html body .faq__search-clear svg{
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2!important;
+  stroke-linecap:round!important;
+}
+html body .faq__search-clear:hover{color:#141414!important}
+html body .faq__search-clear:focus-visible{
+  outline:2px solid var(--blue)!important;
+  outline-offset:2px!important;
 }
 </style>
 
