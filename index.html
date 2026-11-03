@@ -4337,7 +4337,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     });
     if (heading) { heading.textContent = 'Начни с бесплатных 3 дней'; heading.hidden = false; }
     if (lead) { lead.textContent = 'Оставь заявку – мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.'; lead.hidden = false; }
-    if (submit) submit.textContent = item.button;
+    if (submit) submit.textContent = 'Отправить';
     if (selectedName) selectedName.textContent = item.name;
     if (selectedPrice) selectedPrice.textContent = item.price;
     if (scroll) {
@@ -4384,10 +4384,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     }
 
     const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn ? btn.textContent : 'Я с вами!';
     if (btn) {
       btn.disabled = true;
-      btn.textContent = 'Отправляем…';
     }
     status.textContent = '';
     status.removeAttribute('data-state');
@@ -4441,7 +4439,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       if (chosenPlan === TRIAL_PLAN_WIRE_ID && telegramUrl) {
         status.dataset.state = 'success';
         status.textContent = 'Заявка принята! Сейчас откроется Telegram-бот, чтобы активировать бесплатные 3 дня.';
-        if (btn) btn.textContent = 'Открываем Telegram…';
         form.reset();
         const hiddenPlan = document.getElementById('selectedPlan');
         if (hiddenPlan) hiddenPlan.value = chosenPlan;
@@ -4460,7 +4457,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
       const hiddenPlan = document.getElementById('selectedPlan');
       if (hiddenPlan) hiddenPlan.value = keepPlan;
       if (btn) {
-        btn.textContent = telegramUrl ? 'Открываем Telegram…' : originalText;
         btn.disabled = false;
       }
     } catch (error) {
@@ -4472,7 +4468,6 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
           : 'Не удалось отправить заявку. Попробуй ещё раз чуть позже.';
       if (btn) {
         btn.disabled = false;
-        btn.textContent = originalText;
       }
     } finally {
       clearTimeout(timeoutId);
