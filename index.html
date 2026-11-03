@@ -4142,15 +4142,6 @@ header.topbar .topbar__in .header-duck > svg{
     <a href="#" class="logo" aria-label="Мам, я сам! – наверх"><span class="logo__dot"></span>МАМ, Я САМ!</a>
     <div class="footer__legal">
       <small>© 2026 · Концепт-курс «Финансовая грамотность» на основе математики для школьников</small>
-      <div class="footer__details" aria-label="Реквизиты и контакты">
-        <small>Исполнитель: [указать]</small>
-        <small>Статус самозанятого: [указать]</small>
-        <small>ИНН: [указать]</small>
-        <small>ОГРН/ИП: [если применимо]</small>
-        <small>Реквизиты: [указать]</small>
-        <small>Email: [указать]</small>
-        <small>Телефон: [указать]</small>
-      </div>
       <nav class="footer__links" aria-label="Правовая информация">
         <a href="#privacy-policy" aria-haspopup="dialog" aria-controls="privacy-policy">Политика обработки данных</a>
         <a href="#public-offer" aria-haspopup="dialog" aria-controls="public-offer">Публичная оферта</a>
@@ -6788,6 +6779,35 @@ html body .footer .logo .logo__dot {
 }
 html body .footer .logo .logo__dot::after {
   font-size:19px!important;
+}
+</style>
+
+<style id="footer-typography-and-links-final">
+/* Подвал: типографика как у ответов FAQ; логотип не затрагивается. */
+html body .footer :is(small,.footer__links a) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+}
+/* Правовые ссылки расположены вертикальным списком с левым выравниванием. */
+html body .footer .footer__legal {
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+html body .footer .footer__links {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  text-align:left!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+}
+html body .footer .footer__links a {
+  text-align:left!important;
 }
 </style>
 </body>
