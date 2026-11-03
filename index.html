@@ -6629,6 +6629,54 @@ html body.hero-menu-open .hero-menu__contact {
 }
 </style>
 
+
+<style id="header-duck-appearance-jelly">
+/* Короткое мягкое желейное приветствие в момент появления утки. */
+header.topbar .topbar__in .header-duck.is-intro-jelly > svg {
+  animation:headerDuckBob 3.8s ease-in-out infinite,headerDuckJelly .92s cubic-bezier(.2,.85,.25,1) both;
+}
+@keyframes headerDuckJelly {
+  0% { scale:1; }
+  18% { scale:1.16 .86; }
+  36% { scale:.91 1.12; }
+  54% { scale:1.07 .95; }
+  72% { scale:.97 1.04; }
+  88%,100% { scale:1; }
+}
+@media(prefers-reduced-motion:reduce) {
+  header.topbar .topbar__in .header-duck.is-intro-jelly > svg {
+    animation:none!important;
+    scale:1!important;
+  }
+}
+</style>
+<script id="header-duck-appearance-jelly-trigger">
+(function(){
+  const duck=document.getElementById('headerDuck');
+  if(!duck)return;
+  let visible=false,frame=0;
+  function checkAppearance(){
+    frame=0;
+    const opacity=parseFloat(getComputedStyle(duck).opacity)||0;
+    const nowVisible=opacity>.12;
+    if(nowVisible&&!visible){
+      duck.classList.remove('is-intro-jelly');
+      void duck.offsetWidth;
+      duck.classList.add('is-intro-jelly');
+    }else if(!nowVisible&&visible){
+      duck.classList.remove('is-intro-jelly');
+    }
+    visible=nowVisible;
+  }
+  function onScroll(){
+    if(!frame)frame=requestAnimationFrame(checkAppearance);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  checkAppearance();
+})();
+</script>
+
 </body>
 </html>
 
