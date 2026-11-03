@@ -3382,6 +3382,18 @@ header.topbar .topbar__in .header-duck{
   overflow:visible!important;
   transform:translate3d(var(--duck-x,0px),-50%,0)!important;
 }
+/* Убираем прямоугольную подсветку фокуса и системный tap-highlight при нажатии. */
+header.topbar .topbar__in .header-duck,
+header.topbar .topbar__in .header-duck:focus,
+header.topbar .topbar__in .header-duck:focus-visible,
+header.topbar .topbar__in .header-duck > svg{
+  outline:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+
 header.topbar .topbar__in .header-duck > svg{
   display:block!important;
   visibility:visible!important;
