@@ -3452,15 +3452,6 @@ header.topbar .topbar__in .header-duck > svg{
     </div>
     <button class="hero__menu-trigger" id="heroMenuTrigger" type="button" aria-label="Открыть разделы сайта" aria-expanded="false" aria-controls="heroMenu"><span></span><span></span></button>
   </div>
-</header>
-
-
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
-    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
     <nav class="hero-menu" id="heroMenu" aria-label="Главные разделы сайта" aria-hidden="true" inert>
       <button class="hero-menu__theme-toggle" id="themeToggle" type="button" aria-label="Переключить светлую или тёмную тему" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -3504,6 +3495,16 @@ header.topbar .topbar__in .header-duck > svg{
         </span>
       </div>
     </nav>
+</header>
+
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__aura hero-kinetic" aria-hidden="true"><div class="hero-kinetic__thread"></div><span class="hero-kinetic__ball hero-kinetic__ball--1"></span><span class="hero-kinetic__ball hero-kinetic__ball--2"></span><span class="hero-kinetic__ball hero-kinetic__ball--3"></span><span class="hero-kinetic__ball hero-kinetic__ball--4"></span><span class="hero-kinetic__ball hero-kinetic__ball--5"></span><span class="hero-kinetic__ball hero-kinetic__ball--6"></span><span class="hero-kinetic__ball hero-kinetic__ball--7"></span></div>
+    <div class="hero-menu-backdrop" id="heroMenuBackdrop" hidden></div>
+
     <div class="wrap hero__in">
       
       <div class="hero__content">
@@ -4820,9 +4821,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   const menu=document.getElementById('heroMenu');
   const backdrop=document.getElementById('heroMenuBackdrop');
   if(!trigger||!menu||!backdrop)return;
-  /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
+  /* Меню остаётся внутри шапки: шапка и раскрытая область образуют один элемент. */
   document.body.appendChild(backdrop);
-  document.body.appendChild(menu);
+  const header=trigger.closest('header.topbar');
+  if(!header || !header.contains(menu)) return;
   function openMenu(){
     backdrop.hidden=false;
     menu.inert=false;
@@ -4830,6 +4832,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     trigger.setAttribute('aria-expanded','true');
     trigger.setAttribute('aria-label','Закрыть меню');
     document.body.classList.add('hero-menu-open');
+    header.classList.add('is-expanded');
     requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
   }
   function closeMenu(){
@@ -4840,7 +4843,8 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     trigger.setAttribute('aria-expanded','false');
     trigger.setAttribute('aria-label','Открыть разделы сайта');
     document.body.classList.remove('hero-menu-open');
-    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
+    header.classList.remove('is-expanded');
+    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},520);
   }
   trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
@@ -6674,10 +6678,113 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 </style>
 
 
-
-
-
-
-
-
-
+<style id="unified-header-menu-container">
+/* Единая конструкция: шапка и меню раскрываются как одна поверхность. */
+html body header.topbar{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  transition:
+    border-radius .62s cubic-bezier(.22,1,.36,1),
+    background-color .38s ease,
+    width .62s cubic-bezier(.22,1,.36,1),
+    max-width .62s cubic-bezier(.22,1,.36,1)!important;
+}
+html body header.topbar > .topbar__in{
+  flex:0 0 auto!important;
+  order:0!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+html body header.topbar > #heroMenu.hero-menu{
+  order:1!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0 24px!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  clip-path:none!important;
+  transform:none!important;
+  transition:
+    max-height .68s cubic-bezier(.22,1,.36,1),
+    padding .58s cubic-bezier(.22,1,.36,1),
+    opacity .24s ease,
+    visibility .24s ease!important;
+  will-change:max-height,padding,opacity!important;
+}
+html body header.topbar.is-expanded{
+  border-radius:26px!important;
+  background:#fff!important;
+}
+html body header.topbar.is-expanded > #heroMenu.hero-menu,
+html body header.topbar > #heroMenu.hero-menu.is-open{
+  max-height:min(88dvh,960px)!important;
+  padding:12px 24px max(22px,env(safe-area-inset-bottom,0px))!important;
+  opacity:1!important;
+  visibility:visible!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+}
+html body header.topbar > #heroMenu .hero-menu__top{margin-top:0!important}
+html body header.topbar > #heroMenu .hero-menu__links{margin-top:18px!important}
+html body header.topbar > #heroMenu .hero-menu__social{margin-top:8px!important}
+html body header.topbar.is-expanded .hero-menu__social{
+  opacity:1!important;visibility:visible!important;transform:none!important;
+}
+html body header.topbar.is-expanded .hero-menu__links a{
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+html body header.topbar.is-expanded .hero-menu__theme-toggle svg,
+html body header.topbar.is-expanded .hero-menu__contact{
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+html body header.topbar.is-expanded .hero__menu-trigger{
+  transform:none!important;
+}
+html body header.topbar.is-expanded .topbar__progress{opacity:0!important;pointer-events:none!important}
+@media(max-width:760px){
+  html body header.topbar{
+    left:12px!important;right:12px!important;
+    width:auto!important;max-width:none!important;
+    bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;
+    border-radius:24px!important;
+  }
+  html body header.topbar > .topbar__in{
+    min-height:48px!important;
+    padding:5px 54px 5px 13px!important;
+  }
+  html body header.topbar > #heroMenu.hero-menu{
+    padding-left:22px!important;padding-right:22px!important;
+  }
+  html body header.topbar.is-expanded > #heroMenu.hero-menu,
+  html body header.topbar > #heroMenu.hero-menu.is-open{
+    max-height:min(88dvh,960px)!important;
+    padding:12px 22px max(20px,env(safe-area-inset-bottom,0px))!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body header.topbar,
+  html body header.topbar > #heroMenu.hero-menu{
+    transition:none!important;
+  }
+}
+</style>
