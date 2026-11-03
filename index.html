@@ -3370,7 +3370,9 @@ header.topbar .topbar__in .header-duck{
   visibility:visible!important;
   opacity:1!important;
   z-index:8!important;
-  pointer-events:none!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  touch-action:manipulation;
   right:68px!important;
   top:calc(50% + 4.5px)!important;
   width:68px!important;
@@ -6410,11 +6412,10 @@ html body #heroMenu .hero-menu__social-icon {
 
 <script id="header-duck-gyro">
 (function(){
-  const header=document.querySelector('header.topbar');
   const duck=document.getElementById('headerDuck');
-  if(!header||!duck)return;
+  if(!duck)return;
 
-  let listening=false,permissionAsked=false,frame=0,currentX=0,targetX=0,baseline=null;
+  let listening=false,permissionGranted=false,frame=0,currentX=0,targetX=0,baseline=null;
   let minX=-34,maxX=34;
   function clamp(v,min,max){return Math.min(max,Math.max(min,v));}
 
@@ -6461,38 +6462,50 @@ html body #heroMenu .hero-menu__social-icon {
   function start(){
     if(listening)return;
     listening=true;
+    baseline=null;
     window.addEventListener('deviceorientation',onOrientation,true);
+    duck.setAttribute('aria-label','Остановить движение утки');
   }
 
-  function requestPermission(event){
-    if(permissionAsked || (event && event.isTrusted===false))return;
+  function stop(){
+    if(!listening)return;
+    listening=false;
+    window.removeEventListener('deviceorientation',onOrientation,true);
+    if(frame)cancelAnimationFrame(frame);
+    frame=0;
+    baseline=null;
+    duck.setAttribute('aria-label','Запустить движение утки');
+  }
+
+  function toggleMovement(event){
+    if(event&&event.isTrusted===false)return;
+    if(listening){stop();return;}
     const API=window.DeviceOrientationEvent;
-    if(!API){permissionAsked=true;return;}
+    if(!API){start();return;}
+    if(permissionGranted){start();return;}
     if(typeof API.requestPermission==='function'){
-      // Must be called synchronously during this trusted user gesture.
+      // iOS требует вызова запроса разрешения непосредственно из жеста пользователя.
       let result;
       try{result=API.requestPermission();}catch(error){return;}
-      permissionAsked=true;
       result.then(function(state){
-        if(state==='granted')start();
-        else permissionAsked=false;
-      }).catch(function(){permissionAsked=false;});
+        if(state==='granted'){permissionGranted=true;start();}
+      }).catch(function(){});
     }else{
-      permissionAsked=true;
+      permissionGranted=true;
       start();
     }
   }
 
-  // Capture phase catches the gesture even if a child element stops propagation.
-  document.addEventListener('pointerdown',function(event){
-    if(header.contains(event.target))requestPermission(event);
-  },{capture:true,passive:true});
-  document.addEventListener('touchend',function(event){
-    if(header.contains(event.target))requestPermission(event);
-  },{capture:true,passive:true});
-  document.addEventListener('click',function(event){
-    if(header.contains(event.target))requestPermission(event);
-  },{capture:true,passive:true});
+  duck.setAttribute('role','button');
+  duck.setAttribute('tabindex','0');
+  duck.setAttribute('aria-label','Запустить движение утки');
+  duck.addEventListener('pointerdown',toggleMovement);
+  duck.addEventListener('keydown',function(event){
+    if(event.key==='Enter'||event.key===' '){
+      event.preventDefault();
+      toggleMovement(event);
+    }
+  });
 })();
 </script>
 
