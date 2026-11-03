@@ -4812,7 +4812,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   document.body.appendChild(backdrop);
   const header=trigger.closest('header.topbar');
   if(!header || !header.contains(menu)) return;
+  let unlockTimer=0;
   function openMenu(){
+    window.clearTimeout(unlockTimer);
     backdrop.hidden=false;
     menu.scrollTop=0;
     menu.inert=false;
@@ -4830,9 +4832,16 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     menu.inert=true;
     trigger.setAttribute('aria-expanded','false');
     trigger.setAttribute('aria-label','Открыть разделы сайта');
-    document.body.classList.remove('hero-menu-open');
     header.classList.remove('is-expanded');
-    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},520);
+    /* Не снимаем блокировку прокрутки в начале схлопывания: iOS Safari иначе
+       пересчитывает нижнюю видимую область и на мгновение показывает белую полосу. */
+    window.clearTimeout(unlockTimer);
+    unlockTimer=window.setTimeout(()=>{
+      if(!menu.classList.contains('is-open')){
+        document.body.classList.remove('hero-menu-open');
+        backdrop.hidden=true;
+      }
+    },650);
   }
   trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
