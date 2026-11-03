@@ -6925,6 +6925,73 @@ html body .pricing .price * {
 }
 </style>
 
+
+<style id="pricing-carousel-no-side-limits-no-glow">
+/* Карусель занимает всю доступную ширину; убираем боковые маски и декоративные ограничители. */
+html body .pricing > .wrap {
+  width:100%!important;
+  max-width:none!important;
+  padding-left:clamp(16px,3vw,40px)!important;
+  padding-right:clamp(16px,3vw,40px)!important;
+}
+html body #pricingCarousel,
+html body #pricingCarousel .pricing__grid {
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  overflow-x:auto!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  filter:none!important;
+}
+html body #pricingCarousel::before,
+html body #pricingCarousel::after,
+html body #pricingCarousel .pricing__grid::before,
+html body #pricingCarousel .pricing__grid::after {
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+html body #pricingCarousel .pricing__grid {
+  padding-left:0!important;
+  padding-right:0!important;
+}
+/* У карточек тарифов нет падающей тени или градиентного свечения. */
+html body .pricing .price,
+html body .pricing .price.is-selected,
+html body .pricing .price--popular,
+html body .pricing .price::before,
+html body .pricing .price::after,
+html body .pricing .price.is-selected::before,
+html body .pricing .price.is-selected::after,
+html body .pricing .price--popular::before,
+html body .pricing .price--popular::after {
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+}
+/* Кнопки выбора тарифа без внутреннего и внешнего свечения во всех состояниях. */
+html body .pricing .price .btn,
+html body .pricing .price .btn:hover,
+html body .pricing .price .btn:focus,
+html body .pricing .price .btn:focus-visible,
+html body .pricing .price .btn:active,
+html body .pricing .price button,
+html body .pricing .price button:hover,
+html body .pricing .price button:focus,
+html body .pricing .price button:focus-visible,
+html body .pricing .price button:active {
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  -webkit-filter:none!important;
+  outline:0!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
