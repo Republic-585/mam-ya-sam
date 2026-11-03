@@ -6185,6 +6185,89 @@ html body #heroMenu .hero-menu__social-icon {
 })();
 </script>
 
+</body>
+</html>
+
+
+
+
+
+
+
+
+<style id="hero-menu-links-center-reveal">
+/* Сдержанное появление пунктов меню в духе системных переходов Apple. */
+html body #heroMenu.is-open .hero-menu__links a {
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+@keyframes hero-menu-apple-appear {
+  from {
+    opacity:0;
+    transform:translateY(5px) scale(.985);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__links a {
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+</style>
+
+<style id="hero-menu-unified-elements-motion">
+/* Основные элементы меню используют общую мягкую траекторию появления. Соцсети анимируются отдельно, как иконка инь-ян. */
+html body #heroMenu.is-open .hero-menu__theme-toggle svg,
+html body #heroMenu.is-open .hero-menu__close,
+html body #heroMenu.is-open .hero-menu__contact {
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+html body #heroMenu.is-open .hero-menu__contact {
+  animation-delay:.04s!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__theme-toggle svg,
+  html body #heroMenu.is-open .hero-menu__close,
+  html body #heroMenu.is-open .hero-menu__contact {
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+</style>
+
+
+
+<style id="site-typography-standardization-except-header-hero">
+/* Единая системная типографика Apple. Шапка, меню и Hero исключены. */
+body :not(header):not(header *):not(.hero):not(.hero *):not(.hero-menu):not(.hero-menu *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+}
+/* Заголовки: системный шрифт Apple, более плотное начертание. */
+body :is(h1,h2,h3,h4,h5,h6,.display):not(.hero *):not(.hero-menu *):not(header *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
+  font-stretch:normal!important;
+  letter-spacing:-.025em;
+}
+/* Основной текст и подписи: спокойное обычное начертание и комфортная высота строки. */
+body p:not(.hero *):not(.hero-menu *):not(header *),
+body li:not(.hero *):not(.hero-menu *):not(header *),
+body label:not(.hero *):not(.hero-menu *):not(header *),
+body input:not(.hero *):not(.hero-menu *):not(header *),
+body textarea:not(.hero *):not(.hero-menu *):not(header *),
+body select:not(.hero *):not(.hero-menu *):not(header *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+  line-height:1.5;
+}
+</style>
+
 <style id="single-header-menu-container">
 /* Одна фиксированная поверхность: шапка и меню являются частями одного контейнера. */
 html body header.topbar{
@@ -6309,86 +6392,3 @@ html body .hero-menu-backdrop.is-open{opacity:1!important;visibility:visible!imp
   html body header.topbar .hero__menu-trigger span{transition:none!important}
 }
 </style>
-</body>
-</html>
-
-
-
-
-
-
-
-
-<style id="hero-menu-links-center-reveal">
-/* Сдержанное появление пунктов меню в духе системных переходов Apple. */
-html body #heroMenu.is-open .hero-menu__links a {
-  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
-}
-@keyframes hero-menu-apple-appear {
-  from {
-    opacity:0;
-    transform:translateY(5px) scale(.985);
-  }
-  to {
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-@media(prefers-reduced-motion:reduce) {
-  html body #heroMenu.is-open .hero-menu__links a {
-    animation:none!important;
-    opacity:1!important;
-    transform:none!important;
-  }
-}
-</style>
-
-<style id="hero-menu-unified-elements-motion">
-/* Основные элементы меню используют общую мягкую траекторию появления. Соцсети анимируются отдельно, как иконка инь-ян. */
-html body #heroMenu.is-open .hero-menu__theme-toggle svg,
-html body #heroMenu.is-open .hero-menu__close,
-html body #heroMenu.is-open .hero-menu__contact {
-  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
-}
-html body #heroMenu.is-open .hero-menu__contact {
-  animation-delay:.04s!important;
-}
-@media(prefers-reduced-motion:reduce) {
-  html body #heroMenu.is-open .hero-menu__theme-toggle svg,
-  html body #heroMenu.is-open .hero-menu__close,
-  html body #heroMenu.is-open .hero-menu__contact {
-    animation:none!important;
-    opacity:1!important;
-    transform:none!important;
-  }
-}
-</style>
-
-
-
-<style id="site-typography-standardization-except-header-hero">
-/* Единая системная типографика Apple. Шапка, меню и Hero исключены. */
-body :not(header):not(header *):not(.hero):not(.hero *):not(.hero-menu):not(.hero-menu *) {
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-stretch:normal!important;
-}
-/* Заголовки: системный шрифт Apple, более плотное начертание. */
-body :is(h1,h2,h3,h4,h5,h6,.display):not(.hero *):not(.hero-menu *):not(header *) {
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-weight:700!important;
-  font-stretch:normal!important;
-  letter-spacing:-.025em;
-}
-/* Основной текст и подписи: спокойное обычное начертание и комфортная высота строки. */
-body p:not(.hero *):not(.hero-menu *):not(header *),
-body li:not(.hero *):not(.hero-menu *):not(header *),
-body label:not(.hero *):not(.hero-menu *):not(header *),
-body input:not(.hero *):not(.hero-menu *):not(header *),
-body textarea:not(.hero *):not(.hero-menu *):not(header *),
-body select:not(.hero *):not(.hero-menu *):not(header *) {
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-stretch:normal!important;
-  line-height:1.5;
-}
-</style>
-
