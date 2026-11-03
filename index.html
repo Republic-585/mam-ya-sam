@@ -7748,3 +7748,72 @@ html body #pricingCarousel .pricing__carousel-dot[aria-current="true"] {
 }
 </style>
 
+
+<style id="pricing-overrides-after-all-previous-styles">
+/* Финальные приоритетные стили карточек тарифов. */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+}
+
+/* Зелёные галочки рисуются CSS-линиями, а не зависят от символа шрифта. */
+html body section.pricing #pricingCarousel .pricing__grid > .price ul li {
+  display:flex!important;
+  align-items:flex-start!important;
+  list-style:none!important;
+  gap:10px!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price ul li::before {
+  content:""!important;
+  display:inline-block!important;
+  position:relative!important;
+  flex:0 0 9px!important;
+  width:9px!important;
+  height:16px!important;
+  min-width:9px!important;
+  margin:1px 5px 0 3px!important;
+  padding:0!important;
+  border:0!important;
+  border-right:3px solid #16A34A!important;
+  border-bottom:3px solid #16A34A!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  transform:rotate(45deg)!important;
+}
+
+/* Кнопка выбранного тарифа жёлтая, остальные кнопки светло-серые. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+  background:#F1F2F4!important;
+  background-color:#F1F2F4!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus-visible,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:active {
+  background:#FFD93D!important;
+  background-color:#FFD93D!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+</style>
