@@ -38,7 +38,7 @@
 
 <title>Курс финансовой грамотности для детей</title>
 <meta name="description" content="Финансовая грамотность для детей." />
-<meta name="theme-color" content="#080d20" />
+<meta name="theme-color" content="#FFFFFF" />
 <meta property="og:title" content="Курс финансовой грамотности для детей" />
 <meta property="og:description" content="Финансовая грамотность для детей." />
 <meta property="og:type" content="website" />
@@ -4812,7 +4812,10 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   document.body.appendChild(backdrop);
   const header=trigger.closest('header.topbar');
   if(!header || !header.contains(menu)) return;
+  let closeTimer=0;
   function openMenu(){
+    window.clearTimeout(closeTimer);
+    header.classList.remove('is-closing');
     backdrop.hidden=false;
     menu.scrollTop=0;
     menu.inert=false;
@@ -4823,6 +4826,9 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
   }
   function closeMenu(){
+    window.clearTimeout(closeTimer);
+    header.classList.add('is-closing');
+    closeTimer=window.setTimeout(()=>header.classList.remove('is-closing'),180);
     backdrop.classList.remove('is-open');
     menu.classList.remove('is-open');
     menu.setAttribute('aria-hidden','true');
@@ -6286,6 +6292,11 @@ html body header.topbar > #heroMenu.hero-menu{
   border:0!important;border-radius:0!important;background:transparent!important;color:var(--ink)!important;box-shadow:none!important;
   opacity:0!important;visibility:hidden!important;transform:none!important;clip-path:none!important;animation:none!important;
   transition:max-height .62s cubic-bezier(.22,1,.36,1),padding .48s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility .22s ease!important;
+}
+html body header.topbar.is-closing > #heroMenu.hero-menu{
+  max-height:0!important;padding-top:0!important;padding-bottom:0!important;overflow:hidden!important;
+  opacity:0!important;visibility:hidden!important;
+  transition:max-height .16s ease-out,padding .12s ease-out,opacity .10s ease-out,visibility .10s ease-out!important;
 }
 html body header.topbar.is-expanded > #heroMenu.hero-menu,
 html body header.topbar > #heroMenu.hero-menu.is-open{
