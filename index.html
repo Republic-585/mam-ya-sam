@@ -7238,3 +7238,10 @@ html body #signup :is(input,textarea)::placeholder {
   opacity:1;
 }
 </style>
+
+<style id="signup-submit-match-contact-font-size">
+/* Размер текста кнопки отправки совпадает с кнопкой «Связаться» в меню. */
+html body #signupForm button[type="submit"] {
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+}
+</style>
