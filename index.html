@@ -1059,6 +1059,13 @@ html body .hero-menu .hero-menu__links {
 .faq__search{display:block;width:min(100%,560px);height:54px;margin:0 auto 28px;padding:0 20px;border:1px solid rgba(20,20,20,.18);border-radius:16px;background:#fff;color:var(--ink);font:500 1rem -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;box-shadow:0 3px 14px rgba(20,20,20,.045);transition:border-color .2s ease,box-shadow .2s ease}
 .faq__search::placeholder{color:#888}
 .faq__search:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(124,196,255,.2)}
+.faq__tabs{width:min(100%,760px);margin:0 auto 20px;display:flex;align-items:center;justify-content:flex-start;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.faq__tabs::-webkit-scrollbar{display:none}
+.faq__tab{flex:0 0 auto;padding:10px 16px;border:1px solid rgba(20,20,20,.14);border-radius:999px;background:#fff;color:var(--ink);font:600 .88rem -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;white-space:nowrap;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease}
+.faq__tab:hover{border-color:var(--blue)}
+.faq__tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.faq__tab:active{transform:scale(.97)}
+.faq__tab:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .faq__empty{max-width:760px;margin:0 auto 12px;text-align:center;color:var(--muted);font-size:.95rem}
 .faq__list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .faq details{
@@ -3841,29 +3848,36 @@ header.topbar .topbar__in .header-duck > svg{
       <h2>Остались вопросы? Отвечаем.</h2>
       <label class="faq__search-label" for="faqSearch" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Поиск по вопросам</label>
       <input class="faq__search" id="faqSearch" type="search" placeholder="Найти ответ..." autocomplete="off" aria-controls="faqList">
+      <div class="faq__tabs" role="group" aria-label="Темы вопросов">
+        <button class="faq__tab" type="button" data-faq-category="all" aria-pressed="true">Все вопросы</button>
+        <button class="faq__tab" type="button" data-faq-category="access" aria-pressed="false">Доступ</button>
+        <button class="faq__tab" type="button" data-faq-category="learning" aria-pressed="false">Обучение</button>
+        <button class="faq__tab" type="button" data-faq-category="pricing" aria-pressed="false">Тарифы</button>
+        <button class="faq__tab" type="button" data-faq-category="community" aria-pressed="false">Общение и поддержка</button>
+      </div>
       <p class="faq__empty" id="faqEmpty" role="status" hidden>По вашему запросу ничего не найдено.</p>
       <div class="faq__list" id="faqList">
-        <details open>
+        <details open data-category="access">
           <summary>Как я получу доступ?</summary>
           <div class="faq__a">После отправки заявки мы свяжемся с родителем и пришлём инструкции. Автоматическая выдача доступа и онлайн-оплата пока не подключены.</div>
         </details>
-        <details>
+        <details data-category="learning">
           <summary>Где будет проходить?</summary>
           <div class="faq__a">Онлайн: Telegram-канал с видео и чат с единомышленниками.</div>
         </details>
-        <details>
+        <details data-category="learning">
           <summary>В каком формате?</summary>
           <div class="faq__a">Записанные видеоуроки, практические задания и челленджи, еженедельные групповые трансляции и регулярные встречи.</div>
         </details>
-        <details>
+        <details data-category="learning">
           <summary>Подойдёт ли новичку?</summary>
           <div class="faq__a">Да. Концепт-курс «Мам, я сам!» рассчитан на первый шаг – без опыта.</div>
         </details>
-        <details>
+        <details data-category="pricing">
           <summary>Как долго будет доступен материал?</summary>
           <div class="faq__a">На срок выбранного тарифа: 1, 3 или 12 месяцев. Пробный доступ рассчитан на 3 дня после его активации.</div>
         </details>
-        <details>
+        <details data-category="community">
           <summary>Есть чаты и поддержка?</summary>
           <div class="faq__a">Да – чат сообщества, челленджи, еженедельные трансляции и регулярные групповые встречи по расписанию.</div>
         </details>
@@ -3876,19 +3890,29 @@ header.topbar .topbar__in .header-duck > svg{
     const input=document.getElementById('faqSearch');
     const list=document.getElementById('faqList');
     const empty=document.getElementById('faqEmpty');
+    const tabs=Array.from(document.querySelectorAll('[data-faq-category]'));
     if(!input||!list||!empty)return;
     const items=Array.from(list.querySelectorAll('details'));
+    let activeCategory='all';
     const normalize=value=>value.toLocaleLowerCase('ru').replace(/ё/g,'е').trim();
-    input.addEventListener('input',function(){
+    function filterItems(){
       const query=normalize(input.value);
       let visible=0;
       items.forEach(item=>{
-        const matches=!query||normalize(item.textContent).includes(query);
+        const categoryMatch=activeCategory==='all'||item.dataset.category===activeCategory;
+        const textMatch=!query||normalize(item.textContent).includes(query);
+        const matches=categoryMatch&&textMatch;
         item.hidden=!matches;
         if(matches)visible++;
       });
       empty.hidden=visible!==0;
-    });
+    }
+    input.addEventListener('input',filterItems);
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{
+      activeCategory=tab.dataset.faqCategory;
+      tabs.forEach(item=>item.setAttribute('aria-pressed',String(item===tab)));
+      filterItems();
+    }));
   })();
   </script>
 
