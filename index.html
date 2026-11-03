@@ -6455,8 +6455,8 @@ html body #heroMenu .hero-menu__social-icon {
     const dt=lastFrameTime?Math.min((timestamp-lastFrameTime)/1000,0.032):0.016;
     lastFrameTime=timestamp;
     // Пружинная физика: утка мягко разгоняется, чуть перелетает цель и естественно успокаивается.
-    const stiffness=34;
-    const damping=9.2;
+    const stiffness=12;
+    const damping=7.2;
     const acceleration=(targetX-currentX)*stiffness-velocityX*damping;
     velocityX+=acceleration*dt;
     currentX+=velocityX*dt;
@@ -6467,7 +6467,7 @@ html body #heroMenu .hero-menu__social-icon {
       velocityX=0;
     }
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
-    duck.style.setProperty('--duck-lean',clamp(-velocityX*0.055,-5,5).toFixed(2)+'deg');
+    duck.style.setProperty('--duck-lean',clamp(-velocityX*0.035,-3,3).toFixed(2)+'deg');
 
     if(Math.abs(targetX-currentX)>0.18||Math.abs(velocityX)>1.2){
       frame=requestAnimationFrame(animate);
