@@ -7084,6 +7084,63 @@ html body #pricingCarousel .pricing__grid > .price {
 }
 </style>
 
+
+<style id="pricing-carousel-horizontal-only-and-controls-visible">
+html body section.pricing #pricingCarousel {
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  contain:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid {
+  display:flex!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:none!important;
+  touch-action:pan-x pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  align-items:stretch!important;
+  padding-top:8px!important;
+  padding-bottom:8px!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price {
+  flex-shrink:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  touch-action:pan-x pan-y!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-controls {
+  position:relative!important;
+  z-index:2!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  overflow:visible!important;
+  height:auto!important;
+  min-height:32px!important;
+  margin-top:12px!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-dots {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  min-height:28px!important;
+  padding:4px 8px!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-dot {
+  flex:0 0 9px!important;
+  width:9px!important;
+  height:9px!important;
+  min-width:9px!important;
+  min-height:9px!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
