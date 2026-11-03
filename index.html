@@ -6966,3 +6966,12 @@ html body .faq__list .faq__a{
   html body .faq__list summary::after{transition:none!important}
 }
 </style>
+
+<style id="faq-question-font-match">
+/* Шрифт вопросов совпадает с ответами; отличается только жирностью. */
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
+}
+</style>
