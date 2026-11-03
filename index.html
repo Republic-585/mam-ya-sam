@@ -6989,3 +6989,11 @@ html body .faq__list details[open] summary{
   text-transform:none!important;
 }
 </style>
+
+
+<style id="faq-filter-visibility-fix">
+/* Скрытые вопросы должны исчезать при фильтрации по категории и поиску. */
+html body .faq__list details[hidden]{
+  display:none!important;
+}
+</style>
