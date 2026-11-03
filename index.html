@@ -7141,6 +7141,27 @@ html body section.pricing #pricingCarousel .pricing__carousel-dot {
 }
 </style>
 
+
+<style id="pricing-card-colors-and-remove-tags">
+/* Карточки тарифов светло-серые, тариф на 3 месяца целиком нежно-фиолетовый. */
+html body section.pricing #pricingCarousel .pricing__grid > .price,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price--popular,
+html body section.pricing #pricingCarousel .pricing__grid > .price--vip {
+  background:#F1F2F4!important;
+  background-color:#F1F2F4!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#EDE5FF!important;
+  background-color:#EDE5FF!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+  display:none!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
