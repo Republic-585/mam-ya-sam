@@ -6901,6 +6901,30 @@ html body .pricing .price--popular {
 }
 </style>
 
+
+<style id="pricing-heading-black-remove-stars-faq-typography">
+/* Заголовок тарифов чёрный, фон без звёзд, типографика карточек как у ответов FAQ. */
+html body .pricing h2 {
+  color:#141414!important;
+}
+html body .pricing::before,
+html body .pricing::after {
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+  background:none!important;
+}
+html body .pricing .price,
+html body .pricing .price * {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
