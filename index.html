@@ -4812,16 +4812,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
   document.body.appendChild(backdrop);
   const header=trigger.closest('header.topbar');
   if(!header || !header.contains(menu)) return;
-  let unlockTimer=0;
   function openMenu(){
-    window.clearTimeout(unlockTimer);
     backdrop.hidden=false;
     menu.scrollTop=0;
     menu.inert=false;
     menu.setAttribute('aria-hidden','false');
     trigger.setAttribute('aria-expanded','true');
     trigger.setAttribute('aria-label','Закрыть меню');
-    document.body.classList.add('hero-menu-open');
     header.classList.add('is-expanded');
     requestAnimationFrame(()=>{backdrop.classList.add('is-open');menu.classList.add('is-open');});
   }
@@ -4833,16 +4830,13 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
     trigger.setAttribute('aria-expanded','false');
     trigger.setAttribute('aria-label','Открыть разделы сайта');
     header.classList.remove('is-expanded');
-    /* Не снимаем блокировку прокрутки в начале схлопывания: iOS Safari иначе
-       пересчитывает нижнюю видимую область и на мгновение показывает белую полосу. */
-    window.clearTimeout(unlockTimer);
-    unlockTimer=window.setTimeout(()=>{
-      if(!menu.classList.contains('is-open')){
-        document.body.classList.remove('hero-menu-open');
-        backdrop.hidden=true;
-      }
-    },650);
+    window.setTimeout(()=>{
+      if(!menu.classList.contains('is-open')) backdrop.hidden=true;
+    },320);
   }
+  /* Фоновая страница не прокручивается от жеста по затемнённой области.
+     Само меню остаётся прокручиваемым, без overflow-lock на body в iOS Safari. */
+  backdrop.addEventListener('touchmove',event=>event.preventDefault(),{passive:false});
   trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
   menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
@@ -6323,10 +6317,10 @@ html body header.topbar .hero__menu-trigger span{
 }
 html body header.topbar .hero__menu-trigger span:first-child{top:10px!important;width:19px!important}
 html body header.topbar .hero__menu-trigger span:last-child{top:22px!important;width:23px!important}
-html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child,
-html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child{top:16px!important;width:25px!important}
-html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child{transform:rotate(45deg)!important}
-html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child{transform:rotate(-45deg)!important}
+html body header.topbar.is-expanded .hero__menu-trigger span:first-child,
+html body header.topbar.is-expanded .hero__menu-trigger span:last-child{top:16px!important;width:25px!important}
+html body header.topbar.is-expanded .hero__menu-trigger span:first-child{transform:rotate(45deg)!important}
+html body header.topbar.is-expanded .hero__menu-trigger span:last-child{transform:rotate(-45deg)!important}
 html body header.topbar > #heroMenu.hero-menu{
   order:1!important;position:relative!important;inset:auto!important;z-index:1!important;
   display:flex!important;flex:0 1 auto!important;flex-direction:column!important;align-items:stretch!important;
@@ -6383,8 +6377,6 @@ html body header.topbar > #heroMenu .hero-menu__social-icon{
 html body header.topbar > #heroMenu .hero-menu__social-icon svg{
   display:block!important;width:28px!important;height:28px!important;max-width:28px!important;max-height:28px!important;margin:0!important;
 }
-html body.hero-menu-open{overflow:hidden!important}
-html body.hero-menu-open header.topbar{max-height:calc(100dvh - 32px)!important}
 html body.theme-dark header.topbar{background:var(--paper)!important;border-color:rgba(255,255,255,.16)!important}
 html body.theme-dark header.topbar > .topbar__in{background:transparent!important;border:0!important}
 html body.theme-dark header.topbar > #heroMenu{background:transparent!important;color:var(--ink)!important}
