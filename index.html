@@ -3379,7 +3379,7 @@ header.topbar .topbar__in .header-duck{
   align-items:center!important;
   justify-content:center!important;
   overflow:visible!important;
-  transform:translate3d(var(--duck-x,0px),calc(-50% + var(--duck-lift,0px)),0)!important;
+  transform:translate3d(var(--duck-x,0px),-50%,0)!important;
 }
 header.topbar .topbar__in .header-duck > svg{
   display:block!important;
@@ -6441,9 +6441,6 @@ html body #heroMenu .hero-menu__social-icon {
     currentX+=(targetX-currentX)*0.035;
     if(Math.abs(targetX-currentX)<0.08)currentX=targetX;
     duck.style.setProperty('--duck-x',currentX.toFixed(2)+'px');
-    const edgeDistance=Math.min(Math.abs(currentX-minX),Math.abs(maxX-currentX));
-    const bump=4*(1-clamp(edgeDistance/18,0,1));
-    duck.style.setProperty('--duck-lift',(-bump).toFixed(2)+'px');
     if(Math.abs(targetX-currentX)>0.08)frame=requestAnimationFrame(animate);
     else frame=0;
   }
