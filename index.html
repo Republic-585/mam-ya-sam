@@ -4032,7 +4032,6 @@ header.topbar .topbar__in .header-duck > svg{
     <div class="privacy-dialog__head">
       <div>
         <h2 class="privacy-dialog__title" id="offerHeading">Публичная оферта</h2>
-        <p class="privacy-dialog__meta">Редакция от 23 октября 2026 года</p>
       </div>
       <button class="privacy-dialog__close" type="button" data-close-offer aria-label="Закрыть оферту">×</button>
     </div>
@@ -4040,7 +4039,6 @@ header.topbar .topbar__in .header-duck > svg{
 
 
 <h1>Публичная оферта</h1>
-<p class="meta">Редакция от 23 октября 2026 года</p>
 <div class="notice">Рабочий проект документа. Перед подключением оплаты замените все поля в квадратных скобках реальными данными и проверьте условия с учётом фактической модели курса.</div>
 <p>Настоящий документ является предложением заключить договор на условиях, изложенных ниже, и адресован совершеннолетним физическим лицам, родителям и законным представителям несовершеннолетних. Исполнитель: <strong>[ФИО полностью, статус плательщика налога на профессиональный доход]</strong>, ИНН <strong>[указать ИНН]</strong>, город <strong>[указать город]</strong>, далее – «Исполнитель».</p>
 <h2>1. Термины и предмет договора</h2>
@@ -4101,7 +4099,6 @@ header.topbar .topbar__in .header-duck > svg{
     <div class="privacy-dialog__head">
       <div>
         <h2 class="privacy-dialog__title" id="privacyHeading">Политика обработки персональных данных</h2>
-        <p class="privacy-dialog__meta">Обновлено: 23 октября 2026 года</p>
       </div>
       <button class="privacy-dialog__close" type="button" data-close-privacy aria-label="Закрыть политику данных">×</button>
     </div>
@@ -7257,3 +7254,72 @@ html body #selectedPlanSummary :is(*,::before,::after) {
   color:#171717!important;
 }
 </style>
+
+<style id="legal-dialog-clean-white-faq-typography">
+/* Единое оформление окон политики и публичной оферты. */
+html body dialog.privacy-dialog,
+html body dialog#public-offer {
+  background:#fff!important;
+  color:#171717!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__head,
+html body dialog#public-offer .privacy-dialog__head {
+  background:#fff!important;
+  border:0!important;
+  border-bottom:0!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__body,
+html body dialog#public-offer .privacy-dialog__body,
+html body dialog.privacy-dialog .privacy-dialog__body :is(p,li,h1,h2,h3,strong),
+html body dialog#public-offer .privacy-dialog__body :is(p,li,h1,h2,h3,strong) {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:500!important;
+  line-height:1.65!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close,
+html body dialog#public-offer .privacy-dialog__close {
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 40px!important;
+  width:40px!important;
+  height:40px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#171717!important;
+  font-size:0!important;
+  cursor:pointer!important;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1)!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close::before,
+html body dialog.privacy-dialog .privacy-dialog__close::after,
+html body dialog#public-offer .privacy-dialog__close::before,
+html body dialog#public-offer .privacy-dialog__close::after {
+  content:""!important;
+  position:absolute!important;
+  width:24px!important;
+  height:4px!important;
+  border-radius:999px!important;
+  background:currentColor!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close::before,
+html body dialog#public-offer .privacy-dialog__close::before {transform:rotate(45deg)!important}
+html body dialog.privacy-dialog .privacy-dialog__close::after,
+html body dialog#public-offer .privacy-dialog__close::after {transform:rotate(-45deg)!important}
+html body dialog.privacy-dialog .privacy-dialog__close:hover,
+html body dialog#public-offer .privacy-dialog__close:hover {
+  background:transparent!important;
+  transform:rotate(90deg)!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close:focus-visible,
+html body dialog#public-offer .privacy-dialog__close:focus-visible {
+  outline:2px solid #171717!important;
+  outline-offset:3px!important;
+}
+</style>
+
