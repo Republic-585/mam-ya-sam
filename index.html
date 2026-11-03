@@ -3370,7 +3370,7 @@ header.topbar .topbar__in .header-duck{
   visibility:visible!important;
   opacity:1!important;
   z-index:8!important;
-  pointer-events:none!important;
+  pointer-events:auto!important;
   touch-action:manipulation;
   right:68px!important;
   top:calc(50% + 4.5px)!important;
@@ -3407,7 +3407,7 @@ header.topbar .topbar__in .header-duck > svg{
   animation:headerDuckBob 3.8s ease-in-out infinite;
   transform:scaleX(var(--duck-direction,1)) rotate(var(--duck-lean,0deg));
   transition:transform .42s cubic-bezier(.2,.8,.2,1);
-  pointer-events:visiblePainted!important;
+  pointer-events:auto!important;
   cursor:pointer!important;
 }
 @keyframes headerDuckBob{
@@ -6531,7 +6531,7 @@ html body #heroMenu .hero-menu__social-icon {
   duck.setAttribute('role','button');
   duck.setAttribute('tabindex','0');
   duck.setAttribute('aria-label','Запустить движение утки');
-  duck.addEventListener('pointerdown',toggleMovement);
+  duck.addEventListener('click',toggleMovement);
   duck.addEventListener('keydown',function(event){
     if(event.key==='Enter'||event.key===' '){
       event.preventDefault();
