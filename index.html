@@ -983,7 +983,8 @@ html body .hero-menu .hero-menu__links {
   box-shadow:none;
   color:var(--ink);text-align:center;
 }
-.selected-plan-summary__label{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#51400b}
+.selected-plan-summary__label{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#51400b}
+.selected-plan-summary__check{display:block;width:17px;height:17px;flex:0 0 17px;fill:none;stroke:#16a34a;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .selected-plan-summary strong{font-family:'SF Pro Condensed',sans-serif;font-size:1rem;color:var(--ink)}
 .selected-plan-summary span:last-child{font-weight:600;font-size:.92rem;color:#30270c}
 @media(max-width:640px){.selected-plan-summary{padding:16px}.price.is-selected{transform:none}}
@@ -3978,7 +3979,7 @@ header.topbar .topbar__in .header-duck > svg{
     <div class="wrap">
 
       <div class="selected-plan-summary" id="selectedPlanSummary" role="status" aria-live="polite">
-        <span class="selected-plan-summary__label">Твой выбор</span>
+        <span class="selected-plan-summary__label"><svg class="selected-plan-summary__check" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.2 8 14l8-8" /></svg><span>Ваш выбор</span></span>
         <strong id="selectedPlanName">Пробный доступ – 3 дня бесплатно</strong>
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
