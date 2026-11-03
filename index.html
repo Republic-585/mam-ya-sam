@@ -7143,22 +7143,38 @@ html body section.pricing #pricingCarousel .pricing__carousel-dot {
 
 
 <style id="pricing-card-colors-and-remove-tags">
-/* Карточки тарифов светло-серые, тариф на 3 месяца целиком нежно-фиолетовый. */
+/* Карточки без обводки, кнопки чёрные с белым текстом, тариф на 3 месяца голубой. */
 html body section.pricing #pricingCarousel .pricing__grid > .price,
 html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
 html body section.pricing #pricingCarousel .pricing__grid > .price--popular,
 html body section.pricing #pricingCarousel .pricing__grid > .price--vip {
   background:#F1F2F4!important;
   background-color:#F1F2F4!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
 }
 html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
 html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
 html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
-  background:#EDE5FF!important;
-  background-color:#EDE5FF!important;
+  background:#DDF1FF!important;
+  background-color:#DDF1FF!important;
 }
 html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
   display:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+  background:#000000!important;
+  color:#FFFFFF!important;
+  border-color:#000000!important;
+  box-shadow:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible {
+  outline:2px solid #000000!important;
+  outline-offset:3px!important;
 }
 </style>
 
