@@ -7099,3 +7099,29 @@ html body .faq__cta a.hero-start-button:active{
   background:#EBC52D!important;transform:scale(.97)!important;
 }
 </style>
+
+
+<style id="faq-normal-weight-and-hero-button-size">
+/* Вопросы FAQ и текст CTA используют обычное начертание. */
+html body .faq__list summary,
+html body .faq__list details[open] summary {
+  font-weight:400!important;
+}
+/* Кнопка под FAQ повторяет размер и геометрию кнопки Hero. */
+html body .faq__cta a.hero-start-button,
+html body .faq__cta a.hero-start-button:link,
+html body .faq__cta a.hero-start-button:visited {
+  width:100%!important;
+  max-width:310px!important;
+  height:48px!important;
+  min-height:48px!important;
+  border-radius:14px!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:400!important;
+  letter-spacing:-.035em!important;
+  line-height:1.12!important;
+}
+html body .faq__cta a.hero-start-button span {
+  font-weight:400!important;
+}
+</style>
