@@ -6885,3 +6885,84 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 
 
 
+
+
+<style id="faq-minimal-row-design">
+/* Минималистичные строки FAQ: только вопрос, тонкий разделитель и плюс справа. */
+html body .faq__list{
+  max-width:760px!important;
+  gap:0!important;
+}
+html body .faq__list details,
+html body .faq__list details:hover,
+html body .faq__list details[open]{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  border:0!important;
+  border-bottom:1px solid rgba(20,20,20,.18)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:18px!important;
+  min-height:72px!important;
+  padding:20px 2px!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:clamp(1.35rem,6.4vw,4.1rem)!important;
+  font-weight:900!important;
+  line-height:.94!important;
+  letter-spacing:-.045em!important;
+  text-transform:uppercase!important;
+  list-style:none!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
+html body .faq__list summary::after{
+  content:'+'!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 28px!important;
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  box-shadow:none!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:26px!important;
+  font-weight:300!important;
+  line-height:1!important;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)!important;
+}
+html body .faq__list details[open] summary::after{
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+}
+html body .faq__list .faq__a{
+  padding:0 42px 22px 2px!important;
+  background:transparent!important;
+  color:var(--muted)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+}
+@media(prefers-reduced-motion:reduce){
+  html body .faq__list summary::after{transition:none!important}
+}
+</style>
