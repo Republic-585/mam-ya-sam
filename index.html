@@ -3932,7 +3932,11 @@ header.topbar .topbar__in .header-duck > svg{
         </details>
       </div>
       <div class="faq__cta">
-        <p>Всё понравилось? Запишите ребёнка.</p>
+        <p>Всё понравилось? Запишите ребёнка
+          <svg class="faq__cta-arrow" viewBox="0 0 42 46" aria-hidden="true" focusable="false">
+            <path d="M4 3 C4 19 10 25 25 25 L25 39 M17 31 L25 40 L33 31" />
+          </svg>
+        </p>
         <a class="hero__cta hero-start-button" href="#signup" aria-label="Начать бесплатно"><span>Начать бесплатно</span></a>
       </div>
     </div>
@@ -7191,6 +7195,21 @@ html body .faq__cta a.hero-start-button span{
 }
 html body .faq__cta a.hero-start-button:active{
   background:#EBC52D!important;transform:scale(.97)!important;
+}
+
+html body .faq__cta p{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:10px!important;
+}
+html body .faq__cta .faq__cta-arrow{
+  display:block!important;flex:0 0 34px!important;width:34px!important;height:40px!important;
+  overflow:visible!important;fill:none!important;stroke:currentColor!important;
+  stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+  opacity:.82!important;
+}
+@media(max-width:420px){
+  html body .faq__cta p{gap:7px!important}
+  html body .faq__cta .faq__cta-arrow{flex-basis:29px!important;width:29px!important;height:36px!important}
 }
 </style>
 
