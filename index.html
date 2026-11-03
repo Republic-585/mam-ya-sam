@@ -5306,7 +5306,7 @@ html body.theme-dark .footer a,html body.theme-dark .footer p,html body.theme-da
     button.setAttribute('aria-pressed',String(dark));
     button.setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
     const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',dark?'#101522':'#080d20');
+    if(meta)meta.setAttribute('content',dark?'#101522':'#FFFFFF');
   }
   button.addEventListener('click',function(){
     dark=!dark;applyTheme();
@@ -6232,7 +6232,7 @@ body select:not(.hero *):not(.hero-menu *):not(header *) {
 html body header.topbar{
   position:fixed!important;
   top:auto!important;
-  bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 16px)!important;
   left:14px!important;right:14px!important;
   width:auto!important;max-width:720px!important;
   height:auto!important;max-height:calc(100dvh - 32px)!important;
@@ -6344,7 +6344,7 @@ html body .hero-menu-backdrop{
 }
 html body .hero-menu-backdrop.is-open{opacity:1!important;visibility:visible!important}
 @media(max-width:760px){
-  html body header.topbar{left:12px!important;right:12px!important;bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;max-width:none!important}
+  html body header.topbar{left:12px!important;right:12px!important;bottom:calc(env(safe-area-inset-bottom,0px) + 16px)!important;max-width:none!important}
   html body header.topbar > .topbar__in{min-height:46px!important;padding:4px 48px 4px 11px!important}
   html body header.topbar .logo__dot{width:28px!important;height:28px!important}
   html body header.topbar .hero__menu-trigger{right:7px!important}
