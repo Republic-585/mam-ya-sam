@@ -3466,6 +3466,55 @@ header.topbar .topbar__in .header-duck > svg{
   .site-dock .hero-menu{transition:none!important}
 }
 </style>
+
+<style id="unified-dock-seam-correction">
+/* Финальное позиционирование меню относительно общей оболочки шапки. */
+html body .site-dock #heroMenu.hero-menu,
+html body .site-dock #heroMenu.hero-menu.is-open{
+  position:absolute!important;
+  top:auto!important;
+  left:0!important;
+  right:0!important;
+  bottom:100%!important;
+  width:100%!important;
+  max-width:none!important;
+  height:min(78dvh,720px)!important;
+  max-height:calc(100dvh - var(--topbar-height,60px))!important;
+  margin:0!important;
+  border-radius:24px 24px 0 0!important;
+  border-bottom:0!important;
+  transform:translate3d(0,100%,0)!important;
+  clip-path:inset(0 round 24px 24px 0 0)!important;
+  z-index:1!important;
+}
+html body .site-dock #heroMenu.hero-menu.is-open{
+  transform:translate3d(0,0,0)!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+html body .site-dock header.topbar{
+  position:relative!important;
+  top:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  right:auto!important;
+  width:100%!important;
+  margin:0!important;
+  z-index:2!important;
+}
+html body.hero-menu-open .site-dock header.topbar{
+  border-radius:0 0 22px 22px!important;
+  border-top:0!important;
+}
+@media(max-width:760px){
+  html body .site-dock #heroMenu.hero-menu,
+  html body .site-dock #heroMenu.hero-menu.is-open{
+    height:min(88dvh,960px)!important;
+    max-height:calc(100dvh - var(--topbar-height,60px))!important;
+    padding:24px 24px 28px!important;
+  }
+}
+</style>
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
