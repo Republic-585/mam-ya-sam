@@ -1055,7 +1055,11 @@ html body .hero-menu .hero-menu__links {
 @media(prefers-reduced-motion:reduce){.pricing__grid{scroll-behavior:auto}.pricing__carousel-btn{transition:none}}
 
 /* ---------- FAQ ---------- */
-.faq h2{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;letter-spacing:.005em;text-transform:none;text-align:left;margin-bottom:36px}
+.faq h2{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(1.8rem,4.5vw,2.7rem);font-weight:800;letter-spacing:-.035em;text-transform:none;text-align:center;margin:0 0 28px}
+.faq__search{display:block;width:min(100%,560px);height:54px;margin:0 auto 28px;padding:0 20px;border:1px solid rgba(20,20,20,.18);border-radius:16px;background:#fff;color:var(--ink);font:500 1rem -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;box-shadow:0 3px 14px rgba(20,20,20,.045);transition:border-color .2s ease,box-shadow .2s ease}
+.faq__search::placeholder{color:#888}
+.faq__search:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(124,196,255,.2)}
+.faq__empty{max-width:760px;margin:0 auto 12px;text-align:center;color:var(--muted);font-size:.95rem}
 .faq__list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .faq details{
   background:#fff;
@@ -3834,8 +3838,11 @@ header.topbar .topbar__in .header-duck > svg{
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="wrap">
-      <h2>Вопросы и ответы</h2>
-      <div class="faq__list">
+      <h2>Остались вопросы? Отвечаем.</h2>
+      <label class="faq__search-label" for="faqSearch" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Поиск по вопросам</label>
+      <input class="faq__search" id="faqSearch" type="search" placeholder="Найти ответ..." autocomplete="off" aria-controls="faqList">
+      <p class="faq__empty" id="faqEmpty" role="status" hidden>По вашему запросу ничего не найдено.</p>
+      <div class="faq__list" id="faqList">
         <details open>
           <summary>Как я получу доступ?</summary>
           <div class="faq__a">После отправки заявки мы свяжемся с родителем и пришлём инструкции. Автоматическая выдача доступа и онлайн-оплата пока не подключены.</div>
@@ -3863,6 +3870,27 @@ header.topbar .topbar__in .header-duck > svg{
       </div>
     </div>
   </section>
+
+  <script id="faq-search">
+  (function(){
+    const input=document.getElementById('faqSearch');
+    const list=document.getElementById('faqList');
+    const empty=document.getElementById('faqEmpty');
+    if(!input||!list||!empty)return;
+    const items=Array.from(list.querySelectorAll('details'));
+    const normalize=value=>value.toLocaleLowerCase('ru').replace(/ё/g,'е').trim();
+    input.addEventListener('input',function(){
+      const query=normalize(input.value);
+      let visible=0;
+      items.forEach(item=>{
+        const matches=!query||normalize(item.textContent).includes(query);
+        item.hidden=!matches;
+        if(matches)visible++;
+      });
+      empty.hidden=visible!==0;
+    });
+  })();
+  </script>
 
   <!-- SIGNUP -->
   <section class="signup" id="signup">
