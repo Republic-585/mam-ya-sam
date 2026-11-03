@@ -4039,7 +4039,7 @@ header.topbar .topbar__in .header-duck > svg{
 
 
 <h1>Публичная оферта</h1>
-<div class="notice">Рабочий проект документа. Перед подключением оплаты замените все поля в квадратных скобках реальными данными и проверьте условия с учётом фактической модели курса.</div>
+
 <p>Настоящий документ является предложением заключить договор на условиях, изложенных ниже, и адресован совершеннолетним физическим лицам, родителям и законным представителям несовершеннолетних. Исполнитель: <strong>[ФИО полностью, статус плательщика налога на профессиональный доход]</strong>, ИНН <strong>[указать ИНН]</strong>, город <strong>[указать город]</strong>, далее – «Исполнитель».</p>
 <h2>1. Термины и предмет договора</h2>
 <p>1.1. «Сайт» – сайт проекта «Мам, я сам!» по адресу https://republic-585.github.io/mam-ya-sam/.</p>
@@ -7340,6 +7340,28 @@ html body dialog#privacy-policy .privacy-dialog__close {
 }
 html body dialog#privacy-policy .privacy-dialog__close:focus,
 html body dialog#privacy-policy .privacy-dialog__close:focus-visible {
+  outline:0!important;
+  box-shadow:none!important;
+}
+</style>
+
+<style id="public-offer-faq-answer-typography-final">
+/* Текст политики: точное совпадение с ответами FAQ, обычное начертание. */
+html body dialog#public-offer .privacy-dialog__body,
+html body dialog#public-offer .privacy-dialog__body :is(p,li,h3,a,strong) {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:.92rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+html body dialog#public-offer .privacy-dialog__close {
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+html body dialog#public-offer .privacy-dialog__close:focus,
+html body dialog#public-offer .privacy-dialog__close:focus-visible {
   outline:0!important;
   box-shadow:none!important;
 }
