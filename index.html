@@ -38,7 +38,7 @@
 
 <title>Курс финансовой грамотности для детей</title>
 <meta name="description" content="Финансовая грамотность для детей." />
-<meta name="theme-color" content="#FFFFFF" />
+<meta name="theme-color" content="#101522" />
 <meta property="og:title" content="Курс финансовой грамотности для детей" />
 <meta property="og:description" content="Финансовая грамотность для детей." />
 <meta property="og:type" content="website" />
@@ -5311,8 +5311,7 @@ html body.theme-dark .footer a,html body.theme-dark .footer p,html body.theme-da
     document.body.classList.toggle('theme-dark',dark);
     button.setAttribute('aria-pressed',String(dark));
     button.setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
-    const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',dark?'#101522':'#FFFFFF');
+    /* Цвет интерфейса Safari фиксирован и не мигает при смене темы сайта. */
   }
   button.addEventListener('click',function(){
     dark=!dark;applyTheme();
@@ -6293,10 +6292,15 @@ html body header.topbar > #heroMenu.hero-menu{
   opacity:0!important;visibility:hidden!important;transform:none!important;clip-path:none!important;animation:none!important;
   transition:max-height .62s cubic-bezier(.22,1,.36,1),padding .48s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility .22s ease!important;
 }
+html body header.topbar.is-closing{
+  max-height:64px!important;min-height:0!important;height:auto!important;
+  background:var(--paper)!important;
+  transition:none!important;
+}
 html body header.topbar.is-closing > #heroMenu.hero-menu{
-  max-height:0!important;padding-top:0!important;padding-bottom:0!important;overflow:hidden!important;
-  opacity:0!important;visibility:hidden!important;
-  transition:max-height .16s ease-out,padding .12s ease-out,opacity .10s ease-out,visibility .10s ease-out!important;
+  display:none!important;max-height:0!important;height:0!important;min-height:0!important;
+  margin:0!important;padding:0!important;border:0!important;overflow:hidden!important;
+  opacity:0!important;visibility:hidden!important;transition:none!important;
 }
 html body header.topbar.is-expanded > #heroMenu.hero-menu,
 html body header.topbar > #heroMenu.hero-menu.is-open{
