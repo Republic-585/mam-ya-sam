@@ -6992,6 +6992,85 @@ html body .pricing .price button:active {
 }
 </style>
 
+
+<style id="pricing-cards-final-layout-type-and-controls">
+/* Карточки тарифов не прокручиваются по вертикали внутри себя. */
+html body #pricingCarousel .pricing__grid {
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+}
+html body #pricingCarousel .pricing__grid > .price {
+  height:auto!important;
+  max-height:none!important;
+  min-height:0!important;
+  overflow:visible!important;
+  overscroll-behavior:contain!important;
+}
+/* Все карточки тарифов белые, включая тариф на 3 месяца. */
+html body .pricing .pricing__grid > .price,
+html body .pricing .pricing__grid > .price.is-selected,
+html body .pricing .pricing__grid > .price--popular,
+html body .pricing .pricing__grid > .price--vip {
+  background:#FFFFFF!important;
+}
+/* Названия тарифов повторяют шрифт и начертание главного заголовка Hero. */
+html body .pricing .price .price__title {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(2.15rem,9.2vw,5rem)!important;
+  font-weight:900!important;
+  line-height:.98!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+/* Галочки в списках: зелёные, такого же размера и цвета, как в плашке «Ваш выбор». */
+html body .pricing .price li {
+  align-items:flex-start!important;
+}
+html body .pricing .price li::before {
+  content:"✓"!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 23px!important;
+  width:23px!important;
+  height:23px!important;
+  margin:0!important;
+  color:#16A34A!important;
+  font-family:Arial,sans-serif!important;
+  font-size:23px!important;
+  font-weight:700!important;
+  line-height:1!important;
+}
+/* Неактивные кнопки светло-серые, выбранный тариф — фирменный жёлтый. */
+html body .pricing .price .plan-select,
+html body .pricing .price .plan-select:hover,
+html body .pricing .price .plan-select:focus,
+html body .pricing .price .plan-select:focus-visible,
+html body .pricing .price .plan-select:active {
+  background:#F1F2F4!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+html body .pricing .price.is-selected .plan-select,
+html body .pricing .price.is-selected .plan-select:hover,
+html body .pricing .price.is-selected .plan-select:focus,
+html body .pricing .price.is-selected .plan-select:focus-visible,
+html body .pricing .price.is-selected .plan-select:active {
+  background:#FFD93D!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
