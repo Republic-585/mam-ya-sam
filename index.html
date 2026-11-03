@@ -6506,6 +6506,15 @@ html body #heroMenu .hero-menu__social-icon {
       toggleMovement(event);
     }
   });
+
+  // Автозапуск в браузерах, где датчик не требует отдельного разрешения.
+  // На iOS оставляем запуск по нажатию, чтобы запрос разрешения был вызван
+  // непосредственно пользовательским действием.
+  const API=window.DeviceOrientationEvent;
+  if(API && typeof API.requestPermission!=='function'){
+    permissionGranted=true;
+    start();
+  }
 })();
 </script>
 
