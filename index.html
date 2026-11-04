@@ -703,9 +703,9 @@ html body .hero-menu .hero-menu__links {
 .video__brand{position:absolute;top:22px;left:24px;z-index:3;display:flex;align-items:center}
 .video__logo-mark{position:relative;display:inline-flex;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;border:2px solid #171717;border-radius:9px;background:#FFD93D;transform:rotate(-8deg);box-shadow:0 2px 10px rgba(0,0,0,.12)}
 .video__logo-mark::after{content:"М";color:#171717;font-family:"SF Pro Condensed","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:21px;font-weight:900;line-height:1;transform:translate(-.25px,0)}
-.video__play{position:relative;z-index:2;display:grid;place-items:center;width:76px;height:76px;padding:0;border:1px solid rgba(255,255,255,.22);border-radius:24px;background:rgba(20,20,20,.68);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:transform .22s ease,background .22s ease,opacity .22s ease}
-.video__play svg{width:27px;height:27px}
-.video__play:hover{transform:scale(1.06);background:rgba(20,20,20,.88)}
+.video__play{position:relative;z-index:2;display:grid;place-items:center;width:76px;height:76px;padding:0;border:0;border-radius:0;background:transparent;color:#fff;cursor:pointer;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3));transition:transform .22s ease,opacity .22s ease;-webkit-tap-highlight-color:transparent}
+.video__play svg{width:48px;height:48px}
+.video__play:hover{transform:scale(1.06)}
 .video__player.is-playing .video__play{opacity:0;pointer-events:none}
 .video__controls{position:absolute;right:0;bottom:0;left:0;z-index:3;display:flex;align-items:center;gap:11px;padding:42px 20px 17px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.68));opacity:1;transition:opacity .25s ease}
 .video__player.is-playing:not(:hover):not(:focus-within) .video__controls{opacity:0}
@@ -724,7 +724,7 @@ html body .hero-menu .hero-menu__links {
 @media(max-width:640px){
 .video{padding:58px 0}.video h2{margin-bottom:22px}.video__player{border-radius:18px}
 .video__brand{top:14px;left:15px}.video__logo-mark{flex-basis:26px;width:26px;height:26px;border-radius:8px}.video__logo-mark::after{font-size:18px}
-.video__play{width:62px;height:62px;border-radius:20px}.video__controls{gap:7px;padding:32px 10px 11px}
+.video__play{width:62px;height:62px;border-radius:0}.video__play svg{width:48px;height:48px}.video__controls{gap:7px;padding:32px 10px 11px}
 .video__icon-button{flex-basis:30px;width:30px;height:30px;border-radius:11px}.video__icon-button svg{width:17px;height:17px}
 .video__time{font-size:9px}
 }
