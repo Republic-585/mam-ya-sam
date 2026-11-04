@@ -3436,6 +3436,41 @@ header.topbar .topbar__in .header-duck > svg{
   }
 </style>
 
+
+<style id="program-all-video-typography">
+  html body .program-all h2{
+    max-width:900px!important;
+    margin:0 0 12px!important;
+    color:#171717!important;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+    font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+    font-weight:800!important;
+    line-height:1.12!important;
+    letter-spacing:-.035em!important;
+    text-align:left!important;
+    text-transform:none!important;
+  }
+  html body .program-all h2 mark{
+    color:inherit!important;
+    background:none!important;
+    padding:0!important;
+  }
+  html body .program-all .program-all__subtitle{
+    max-width:850px!important;
+    margin:0 0 26px!important;
+    color:#5C5C5C!important;
+    font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+    font-size:.96rem!important;
+    font-weight:400!important;
+    line-height:1.5!important;
+    text-align:left!important;
+  }
+  @media(max-width:640px){
+    html body .program-all h2{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+    html body .program-all .program-all__subtitle{margin-bottom:20px!important}
+  }
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -3603,7 +3638,8 @@ header.topbar .topbar__in .header-duck > svg{
   <!-- ВСЯ ПРОГРАММА -->
   <section class="program-all" id="program-all" aria-labelledby="program-all-heading">
     <div class="wrap">
-      <h2 id="program-all-heading"><mark>Программа курса</mark></h2>
+      <h2 id="program-all-heading">Программа, после которой ваш ребёнок скажет: “Я сам!”</h2>
+      <p class="program-all__subtitle">Каждый модуль - маленький шаг: посмотрели, обсудили, применили в жизни.</p>
     </div>
     <div class="program-all__carousel" aria-label="Карточки программы. Прокручивайте по горизонтали">
       <div class="program-all__card" aria-label="Карточка программы 1"><div class="program-all__card-content"><strong>СТАРТ</strong><span>ВВЕДЕНИЕ</span><h3><mark>5 признаков взрослого</mark></h3><p>Разберём, из чего складывается самостоятельность: ответственность за решения, планирование, забота о себе и умение доводить дела до конца. Первый шаг – понять, какие навыки уже есть и что стоит развивать.</p><span>НАВЫКИ САМОСТОЯТЕЛЬНОСТИ</span></div></div>
