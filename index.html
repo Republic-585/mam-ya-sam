@@ -3531,7 +3531,8 @@ header.topbar .topbar__in .header-duck > svg{
           <span class="video__logo-mark" aria-hidden="true"></span>
         </div>
         <button class="video__play" type="button" aria-label="Воспроизвести видео">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+          <svg class="video__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+          <svg class="video__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11M16 6.5v11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
         </button>
         <span class="video__preview-duration" aria-hidden="true">00:11</span>
         <div class="video__controls">
@@ -7630,6 +7631,14 @@ html body .faq__search-clear:focus-visible{
 @media(prefers-reduced-motion:reduce){#videoPlayer .video__seek-feedback.is-visible{animation:none;opacity:1;transform:translate(-50%,-50%)}}
 </style>
 
+
+<style id="video-center-play-pause-sync">
+  #videoPlayer .video__play .video__icon-play{display:block}
+  #videoPlayer .video__play .video__icon-pause{display:none}
+  #videoPlayer.is-playing .video__play .video__icon-play{display:none}
+  #videoPlayer.is-playing .video__play .video__icon-pause{display:block}
+  #videoPlayer.is-playing .video__play{opacity:1;pointer-events:auto}
+</style>
 </body>
 
 <script id="header-duck-click-jelly">
