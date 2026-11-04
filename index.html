@@ -7667,15 +7667,19 @@ html body .faq__search-clear:focus-visible{
 #videoPlayer{position:relative}
 #videoPlayer .video__seek-feedback{
   position:absolute;z-index:4;top:50%;left:25%;transform:translate(-50%,-50%) scale(.82);
-  width:104px;height:104px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  color:#fff;background:rgba(0,0,0,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  color:#fff;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
   opacity:0;pointer-events:none;
 }
 #videoPlayer .video__seek-feedback--right{left:75%}
 #videoPlayer .video__seek-feedback.is-visible{animation:videoSeekFeedback .65s ease-out both}
-#videoPlayer .video__seek-feedback-icon{display:flex;width:42px;height:42px;align-items:center;justify-content:center}
-#videoPlayer .video__seek-feedback-icon svg{width:42px;height:42px}
-#videoPlayer .video__seek-feedback-label{font:600 14px/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:.01em}
+#videoPlayer .video__seek-feedback-icon{display:flex;width:48px;height:48px;align-items:center;justify-content:center}
+#videoPlayer .video__seek-feedback-icon svg{width:48px;height:48px}
+#videoPlayer .video__seek-feedback-label{
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.76rem!important;font-weight:400!important;line-height:1!important;
+  font-variant-numeric:tabular-nums;letter-spacing:normal;
+}
 @keyframes videoSeekFeedback{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.78)}
   18%{opacity:1;transform:translate(-50%,-50%) scale(1)}
