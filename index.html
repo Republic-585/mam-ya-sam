@@ -7416,9 +7416,16 @@ html body .faq__search-clear:focus-visible{
 
 <style id="video-player-quality-gear-and-layout">
 /* Единый размер, положение и оформление всех иконок панели управления. */
+/* У одной кнопки Play строго одно видимое состояние: Play или Pause. */
+#videoPlayer .video__controls .video__toggle .video__icon-play{display:block!important}
+#videoPlayer .video__controls .video__toggle .video__icon-pause{display:none!important}
+#videoPlayer.is-playing .video__controls .video__toggle .video__icon-play{display:none!important}
+#videoPlayer.is-playing .video__controls .video__toggle .video__icon-pause{display:block!important}
+
 #videoPlayer .video__controls{
   grid-template-columns:34px 34px auto minmax(30px,1fr) auto 34px 34px!important;
   align-items:center!important;
+  padding-bottom:7px!important;
 }
 #videoPlayer .video__controls .video__icon-button,
 #videoPlayer .video__controls .video__quality{
@@ -7438,7 +7445,7 @@ html body .faq__search-clear:focus-visible{
   box-shadow:none!important;
   background-color:transparent!important;
   color:#fff!important;
-  transform:translateY(2px)!important;
+  transform:translateY(6px)!important;
   -webkit-tap-highlight-color:transparent!important;
 }
 #videoPlayer .video__controls .video__icon-button svg{
@@ -7464,6 +7471,7 @@ html body .faq__search-clear:focus-visible{
   #videoPlayer .video__controls{
     grid-template-columns:30px 30px auto minmax(16px,1fr) auto 30px 30px!important;
     column-gap:6px!important;
+    padding-bottom:3px!important;
   }
   #videoPlayer .video__controls .video__icon-button,
   #videoPlayer .video__controls .video__quality{
