@@ -3642,7 +3642,6 @@ header.topbar .topbar__in .header-duck > svg{
       userMode=true;
       video.loop=false;
       video.muted=userMuted;
-      if(video.currentTime>=PREVIEW_START&&video.currentTime<=PREVIEW_END)video.currentTime=0;
       video.play().catch(()=>{userMode=false;updatePlay();});
       updatePlay();
     }
