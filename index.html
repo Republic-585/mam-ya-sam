@@ -8093,6 +8093,52 @@ html body #about .about-achievements__card p{
 }
 </style>
 
+
+<style id="about-missions-white-program-card-effect">
+/* Белый фон секции миссий: без градиентов, звёзд и декоративных эффектов. */
+html body #about .about-v2__missions-shell{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+html body #about .about-v2__missions-shell::before,
+html body #about .about-v2__missions-shell::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  animation:none!important;
+  opacity:0!important;
+  box-shadow:none!important;
+}
+/* Карточки миссий: белые, с той же мягкой нейтральной тенью, что у карточек программы. */
+html body #about .about-v2__missions-track>.about-v2__game,
+html body #about .about-v2__missions-track>.about-v2__game:hover,
+html body #about .about-v2__missions-track>.about-v2__game:focus-within{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  color:#171717!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+html body #about .about-v2__missions-track>.about-v2__game::before,
+html body .about-v2__missions-track>.about-v2__game::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+}
+@media(max-width:640px){
+  html body #about .about-v2__missions-track>.about-v2__game{
+    box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  }
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
