@@ -698,8 +698,8 @@ html body .hero-menu .hero-menu__links {
 .video>.wrap{position:relative;z-index:1}
 .video h2{max-width:900px;margin:0 0 30px;color:#171717;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.04em;text-transform:none}
 .video h2 span{padding:0;color:inherit;background:none;border-radius:0;box-decoration-break:initial;-webkit-box-decoration-break:initial}
-.video__player{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;border:1px solid rgba(23,23,23,.07);border-radius:24px;background:#111;box-shadow:0 18px 55px rgba(0,0,0,.07)}
-.video__media{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:contain;background:#111}
+.video__player{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;border:1px solid rgba(23,23,23,.07);border-radius:24px;clip-path:inset(0 round 24px);-webkit-mask-image:-webkit-radial-gradient(white,black);background:#111;box-shadow:0 18px 55px rgba(0,0,0,.07)}
+.video__media{position:absolute;inset:0;z-index:0;width:100%;height:100%;border-radius:inherit;object-fit:contain;background:#111}
 .video__brand{position:absolute;top:22px;left:24px;z-index:3;display:flex;align-items:center}
 .video__logo-mark{position:relative;display:inline-flex;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;border:2px solid #171717;border-radius:9px;background:#FFD93D;transform:rotate(-8deg);box-shadow:0 2px 10px rgba(0,0,0,.12)}
 .video__logo-mark::after{content:"М";color:#171717;font-family:"SF Pro Condensed","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:21px;font-weight:900;line-height:1;transform:translate(-.25px,0)}
@@ -720,10 +720,10 @@ html body .hero-menu .hero-menu__links {
 .video__seek{flex:1;min-width:30px;height:4px;margin:0;appearance:none;-webkit-appearance:none;border:0;border-radius:99px;background:linear-gradient(to right,#fff 0%,#fff var(--seek-progress,0%),rgba(255,255,255,.35) var(--seek-progress,0%),rgba(255,255,255,.35) 100%);cursor:pointer}
 .video__seek::-webkit-slider-thumb{width:10px;height:10px;appearance:none;-webkit-appearance:none;border:2px solid #fff;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
 .video__seek::-moz-range-thumb{width:8px;height:8px;border:2px solid #fff;border-radius:50%;background:#fff}
-.video__player:fullscreen{width:100%;height:100%;max-width:none;aspect-ratio:auto;border:0;border-radius:0;background:#000}
+.video__player:fullscreen{width:100%;height:100%;max-width:none;aspect-ratio:auto;border:0;border-radius:0;clip-path:none;-webkit-mask-image:none;background:#000}
 .video__player:fullscreen .video__media{object-fit:contain}
 @media(max-width:640px){
-.video{padding:58px 0}.video h2{margin-bottom:22px}.video__player{border-radius:18px}
+.video{padding:58px 0}.video h2{margin-bottom:22px}.video__player{border-radius:18px;clip-path:inset(0 round 18px)}
 .video__brand{top:14px;left:15px}.video__logo-mark{flex-basis:26px;width:26px;height:26px;border-radius:8px}.video__logo-mark::after{font-size:18px}
 .video__play{width:62px;height:62px;border-radius:0}.video__play svg{width:48px;height:48px}.video__controls{gap:7px;padding:32px 10px 11px}
 .video__icon-button{flex-basis:30px;width:30px;height:30px;border-radius:11px}.video__icon-button svg{width:17px;height:17px}
