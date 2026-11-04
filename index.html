@@ -3400,6 +3400,42 @@ header.topbar .topbar__in .header-duck > svg{
 }
 </style>
 
+
+<style id="program-all-white-floating-cards">
+  /* Светлый фон программы без декоративных звёзд. */
+  html body .program-all{
+    background:#FFFFFF!important;
+    color:#171717!important;
+  }
+  html body .program-all::before,
+  html body .program-all::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+    background:none!important;
+  }
+  html body .program-all h2,
+  html body .program-all h2 mark{
+    color:#171717!important;
+  }
+  html body .program-all__carousel{
+    padding-top:22px!important;
+    padding-bottom:38px!important;
+    scrollbar-color:#7CC4FF #FFFFFF!important;
+  }
+  html body .program-all__carousel::-webkit-scrollbar-track{
+    background:#FFFFFF!important;
+  }
+  html body .program-all__card{
+    background:#FFFFFF!important;
+    box-shadow:
+      0 18px 42px rgba(25,45,70,.13),
+      0 6px 16px rgba(25,45,70,.07),
+      0 1px 3px rgba(25,45,70,.04)!important;
+    border:1px solid rgba(30,55,85,.045)!important;
+  }
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
