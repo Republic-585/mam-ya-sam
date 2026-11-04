@@ -694,198 +694,41 @@ html body .hero-menu .hero-menu__links {
 @media(max-width:640px){.important__inner{flex-direction:column;padding:26px}}
 
 /* ---------- VIDEO PLAYER ---------- */
-.video{
-  position:relative;
-  padding:76px 0;
-  overflow:hidden;
-  background:#fff;
-  color:#171717;
-}
-.video > .wrap{position:relative;z-index:1}
-.video h2{
-  max-width:900px;
-  margin:0 0 30px;
-  color:#171717;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(1.8rem,5vw,3rem);
-  font-weight:800;
-  line-height:1.08;
-  letter-spacing:-.04em;
-  text-transform:none;
-}
-.video h2 span{
-  padding:0;
-  color:inherit;
-  background:none;
-  border-radius:0;
-  box-decoration-break:initial;
-  -webkit-box-decoration-break:initial;
-}
-.video__player{
-  position:relative;
-  display:grid;
-  place-items:center;
-  width:100%;
-  aspect-ratio:16/9;
-  overflow:hidden;
-  isolation:isolate;
-  border:1px solid rgba(23,23,23,.07);
-  border-radius:24px;
-  background:#F5F5F7;
-  box-shadow:0 18px 55px rgba(0,0,0,.07);
-}
-.video__media{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  background:#111;
-}
-.video__brand{
-  position:absolute;
-  top:22px;
-  left:24px;
-  z-index:2;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  color:#171717;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:14px;
-  font-weight:600;
-  letter-spacing:-.02em;
-}
-.video__logo-mark{
-  position:relative;
-  display:inline-flex;
-  flex:0 0 26px;
-  align-items:center;
-  justify-content:center;
-  width:26px;
-  height:26px;
-  border:2px solid #171717;
-  border-radius:8px;
-  background:#FFD93D;
-  transform:rotate(-8deg);
-}
-.video__logo-mark::after{
-  content:"М";
-  color:#171717;
-  font-family:"SF Pro Condensed","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-  font-size:19px;
-  font-weight:900;
-  line-height:1;
-  transform:translate(-.25px,0);
-}
-.video__play{
-  position:relative;
-  z-index:2;
-  display:grid;
-  place-items:center;
-  width:72px;
-  height:72px;
-  padding:0;
-  border:0;
-  border-radius:50%;
-  background:rgba(23,23,23,.88);
-  color:#fff;
-  cursor:not-allowed;
-  opacity:.72;
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
-}
-.video__play::after{
-  content:"";
-  display:block;
-  width:0;
-  height:0;
-  margin-left:5px;
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;
-  border-left:15px solid currentColor;
-}
-.video__controls{
-  position:absolute;
-  right:0;
-  bottom:0;
-  left:0;
-  z-index:2;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:34px 22px 18px;
-  color:#fff;
-  background:linear-gradient(transparent,rgba(0,0,0,.48));
-}
-.video__control-play{
-  display:grid;
-  flex:0 0 22px;
-  place-items:center;
-  width:22px;
-  height:22px;
-  padding:0;
-  border:0;
-  background:transparent;
-  color:inherit;
-  opacity:.75;
-}
-.video__control-play::after{
-  content:"";
-  width:0;
-  height:0;
-  margin-left:2px;
-  border-top:6px solid transparent;
-  border-bottom:6px solid transparent;
-  border-left:9px solid currentColor;
-}
-.video__timeline{
-  flex:1;
-  height:3px;
-  overflow:hidden;
-  border-radius:99px;
-  background:rgba(255,255,255,.38);
-}
-.video__timeline-fill{
-  width:0;
-  height:100%;
-  border-radius:inherit;
-  background:#fff;
-}
-.video__time{
-  color:rgba(255,255,255,.86);
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:12px;
-  font-variant-numeric:tabular-nums;
-  white-space:nowrap;
-}
-.video__status{
-  position:absolute;
-  right:24px;
-  top:25px;
-  z-index:2;
-  color:rgba(23,23,23,.48);
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:12px;
-  font-weight:500;
-}
+.video{position:relative;padding:76px 0;overflow:hidden;background:#fff;color:#171717}
+.video>.wrap{position:relative;z-index:1}
+.video h2{max-width:900px;margin:0 0 30px;color:#171717;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.04em;text-transform:none}
+.video h2 span{padding:0;color:inherit;background:none;border-radius:0;box-decoration-break:initial;-webkit-box-decoration-break:initial}
+.video__player{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;border:1px solid rgba(23,23,23,.07);border-radius:24px;background:#111;box-shadow:0 18px 55px rgba(0,0,0,.07)}
+.video__media{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:contain;background:#111}
+.video__brand{position:absolute;top:22px;left:24px;z-index:3;display:flex;align-items:center}
+.video__logo-mark{position:relative;display:inline-flex;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;border:2px solid #171717;border-radius:9px;background:#FFD93D;transform:rotate(-8deg);box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.video__logo-mark::after{content:"М";color:#171717;font-family:"SF Pro Condensed","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:21px;font-weight:900;line-height:1;transform:translate(-.25px,0)}
+.video__play{position:relative;z-index:2;display:grid;place-items:center;width:76px;height:76px;padding:0;border:1px solid rgba(255,255,255,.22);border-radius:24px;background:rgba(20,20,20,.68);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:transform .22s ease,background .22s ease,opacity .22s ease}
+.video__play svg{width:27px;height:27px}
+.video__play:hover{transform:scale(1.06);background:rgba(20,20,20,.88)}
+.video__player.is-playing .video__play{opacity:0;pointer-events:none}
+.video__controls{position:absolute;right:0;bottom:0;left:0;z-index:3;display:flex;align-items:center;gap:11px;padding:42px 20px 17px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.68));opacity:1;transition:opacity .25s ease}
+.video__player.is-playing:not(:hover):not(:focus-within) .video__controls{opacity:0}
+.video__icon-button{display:grid;flex:0 0 34px;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.13);color:#fff;cursor:pointer;transition:background .18s ease,transform .18s ease}
+.video__icon-button:hover{background:rgba(255,255,255,.25);transform:scale(1.04)}
+.video__icon-button svg{width:19px;height:19px}
+.video__icon-pause{display:none}
+.video__player.is-playing .video__icon-play{display:none}
+.video__player.is-playing .video__icon-pause{display:block}
+.video__time{color:rgba(255,255,255,.9);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.video__seek{flex:1;min-width:30px;height:4px;margin:0;appearance:none;-webkit-appearance:none;border:0;border-radius:99px;background:linear-gradient(to right,#fff 0%,#fff var(--seek-progress,0%),rgba(255,255,255,.35) var(--seek-progress,0%),rgba(255,255,255,.35) 100%);cursor:pointer}
+.video__seek::-webkit-slider-thumb{width:12px;height:12px;appearance:none;-webkit-appearance:none;border:2px solid #fff;border-radius:5px;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
+.video__seek::-moz-range-thumb{width:9px;height:9px;border:2px solid #fff;border-radius:5px;background:#fff}
+.video__player:fullscreen{width:100%;height:100%;max-width:none;aspect-ratio:auto;border:0;border-radius:0;background:#000}
+.video__player:fullscreen .video__media{object-fit:contain}
 @media(max-width:640px){
-  .video{padding:58px 0}
-  .video h2{margin-bottom:22px}
-  .video__player{border-radius:18px}
-  .video__brand{top:14px;left:15px;font-size:12px}
-  .video__logo-mark{flex-basis:23px;width:23px;height:23px;border-radius:7px}
-  .video__logo-mark::after{font-size:17px}
-  .video__play{width:58px;height:58px}
-  .video__controls{gap:9px;padding:26px 13px 12px}
-  .video__time{font-size:10px}
-  .video__status{top:17px;right:15px;font-size:10px}
+.video{padding:58px 0}.video h2{margin-bottom:22px}.video__player{border-radius:18px}
+.video__brand{top:14px;left:15px}.video__logo-mark{flex-basis:26px;width:26px;height:26px;border-radius:8px}.video__logo-mark::after{font-size:18px}
+.video__play{width:62px;height:62px;border-radius:20px}.video__controls{gap:7px;padding:32px 10px 11px}
+.video__icon-button{flex-basis:30px;width:30px;height:30px;border-radius:11px}.video__icon-button svg{width:17px;height:17px}
+.video__time{font-size:9px}
 }
-@media(prefers-reduced-motion:reduce){
-  .video__play{transition:none}
-}
-
+@media(prefers-reduced-motion:reduce){.video__play,.video__controls,.video__icon-button{transition:none}}
 /* ---------- ABOUT ---------- */
 .about__inner{display:grid;grid-template-columns: 400px minmax(0, 1fr);gap:50px;align-items:start}
 .about__photo{
@@ -3680,21 +3523,90 @@ header.topbar .topbar__in .header-duck > svg{
       <h2>А вот один из практикумов. Посмотри, как это работает.</h2>
 
       <div class="video__player" id="videoPlayer" role="region" aria-label="Видеоплеер практикума">
-        <video class="video__media" id="practiceVideo" preload="none" playsinline></video>
-        <div class="video__brand" aria-label="Мам, я сам!">
+        <video class="video__media" id="practiceVideo" preload="none" playsinline poster="https://images.pexels.com/videos/11330076/pexels-photo-11330076.jpeg?auto=compress&dpr=1&h=750&w=1260">
+          <source src="https://videos.pexels.com/video-files/11330076/11330076-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+        <div class="video__brand" aria-label="Логотип проекта">
           <span class="video__logo-mark" aria-hidden="true"></span>
-          <span>Мам, я сам!</span>
         </div>
-        <span class="video__status">Видео скоро появится</span>
-        <button class="video__play" type="button" aria-label="Воспроизведение станет доступно после подключения видео" disabled></button>
-        <div class="video__controls" aria-hidden="true">
-          <span class="video__control-play"></span>
-          <div class="video__timeline"><div class="video__timeline-fill"></div></div>
-          <span class="video__time">00:00</span>
+        <button class="video__play" type="button" aria-label="Воспроизвести видео">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="video__controls">
+          <button class="video__icon-button video__toggle" type="button" aria-label="Воспроизвести">
+            <svg class="video__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+            <svg class="video__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11M16 6.5v11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </button>
+          <span class="video__time video__current-time">00:00</span>
+          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
+          <span class="video__time video__duration">00:11</span>
+          <button class="video__icon-button video__mute" type="button" aria-label="Выключить звук">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10v4h3.2l4.3 3.5v-11l-4.3 3.5zM15 9.2a4 4 0 0 1 0 5.6M17.5 6.8a7.5 7.5 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="video__icon-button video__fullscreen" type="button" aria-label="На весь экран">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5h-4v4M15.5 4.5h4v4M19.5 15.5v4h-4M4.5 15.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
     </div>
   </section>
+
+  <script id="custom-video-player">
+  (function(){
+    const player=document.getElementById('videoPlayer');
+    const video=document.getElementById('practiceVideo');
+    if(!player||!video)return;
+    const play=player.querySelector('.video__play');
+    const toggle=player.querySelector('.video__toggle');
+    const seek=player.querySelector('.video__seek');
+    const current=player.querySelector('.video__current-time');
+    const duration=player.querySelector('.video__duration');
+    const mute=player.querySelector('.video__mute');
+    const fullscreen=player.querySelector('.video__fullscreen');
+    const pad=n=>String(Math.floor(n||0)).padStart(2,'0');
+    const time=t=>pad(t/60)+':'+pad(t%60);
+    function updatePlay(){
+      const playing=!video.paused;
+      player.classList.toggle('is-playing',playing);
+      toggle.setAttribute('aria-label',playing?'Пауза':'Воспроизвести');
+      play.setAttribute('aria-label',playing?'Пауза':'Воспроизвести видео');
+    }
+    function togglePlay(){
+      if(video.paused)video.play().catch(()=>{});
+      else video.pause();
+    }
+    play.addEventListener('click',togglePlay);
+    toggle.addEventListener('click',togglePlay);
+    video.addEventListener('click',togglePlay);
+    video.addEventListener('play',updatePlay);
+    video.addEventListener('pause',updatePlay);
+    video.addEventListener('ended',updatePlay);
+    video.addEventListener('loadedmetadata',function(){
+      duration.textContent=time(video.duration);
+      seek.max=1000;
+    });
+    video.addEventListener('timeupdate',function(){
+      current.textContent=time(video.currentTime);
+      const p=video.duration?video.currentTime/video.duration:0;
+      seek.value=Math.round(p*1000);
+      seek.style.setProperty('--seek-progress',(p*100)+'%');
+    });
+    seek.addEventListener('input',function(){
+      if(video.duration)video.currentTime=(Number(seek.value)/1000)*video.duration;
+    });
+    mute.addEventListener('click',function(){
+      video.muted=!video.muted;
+      mute.setAttribute('aria-label',video.muted?'Включить звук':'Выключить звук');
+      mute.style.opacity=video.muted?'.55':'1';
+    });
+    fullscreen.addEventListener('click',function(){
+      if(document.fullscreenElement)document.exitFullscreen?.();
+      else if(player.requestFullscreen)player.requestFullscreen();
+      else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
+    });
+    updatePlay();
+  })();
+  </script>
 
   <!-- ABOUT -->
   <section class="about" id="about">
