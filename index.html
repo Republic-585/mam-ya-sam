@@ -717,8 +717,8 @@ html body .hero-menu .hero-menu__links {
 .video__player.is-playing .video__icon-pause{display:block}
 .video__time{color:rgba(255,255,255,.9);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .video__seek{flex:1;min-width:30px;height:4px;margin:0;appearance:none;-webkit-appearance:none;border:0;border-radius:99px;background:linear-gradient(to right,#fff 0%,#fff var(--seek-progress,0%),rgba(255,255,255,.35) var(--seek-progress,0%),rgba(255,255,255,.35) 100%);cursor:pointer}
-.video__seek::-webkit-slider-thumb{width:12px;height:12px;appearance:none;-webkit-appearance:none;border:2px solid #fff;border-radius:5px;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
-.video__seek::-moz-range-thumb{width:9px;height:9px;border:2px solid #fff;border-radius:5px;background:#fff}
+.video__seek::-webkit-slider-thumb{width:10px;height:10px;appearance:none;-webkit-appearance:none;border:2px solid #fff;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
+.video__seek::-moz-range-thumb{width:8px;height:8px;border:2px solid #fff;border-radius:50%;background:#fff}
 .video__player:fullscreen{width:100%;height:100%;max-width:none;aspect-ratio:auto;border:0;border-radius:0;background:#000}
 .video__player:fullscreen .video__media{object-fit:contain}
 @media(max-width:640px){
@@ -3580,6 +3580,28 @@ header.topbar .topbar__in .header-duck > svg{
     let previewing=false;
     let userMode=false;
     let userMuted=false;
+    let seekFrame=0;
+    let isSeeking=false;
+
+    function renderSeek(){
+      if(video.duration&&!isSeeking){
+        const p=Math.max(0,Math.min(1,video.currentTime/video.duration));
+        seek.value=Math.round(p*1000);
+        seek.style.setProperty('--seek-progress',(p*100)+'%');
+      }
+      if(!video.paused&&!video.ended){
+        seekFrame=requestAnimationFrame(renderSeek);
+      }else{
+        seekFrame=0;
+      }
+    }
+    function startSeekAnimation(){
+      if(!seekFrame)seekFrame=requestAnimationFrame(renderSeek);
+    }
+    function stopSeekAnimation(){
+      if(seekFrame){cancelAnimationFrame(seekFrame);seekFrame=0;}
+      renderSeek();
+    }
     const pad=n=>String(Math.floor(n||0)).padStart(2,'0');
     const time=t=>pad(t/60)+':'+pad(t%60);
 
@@ -3626,8 +3648,8 @@ header.topbar .topbar__in .header-duck > svg{
     play.addEventListener('click',togglePlay);
     toggle.addEventListener('click',togglePlay);
     video.addEventListener('click',togglePlay);
-    video.addEventListener('play',updatePlay);
-    video.addEventListener('pause',updatePlay);
+    video.addEventListener('play',function(){updatePlay();startSeekAnimation();});
+    video.addEventListener('pause',function(){updatePlay();stopSeekAnimation();});
     video.addEventListener('ended',function(){
       if(userMode){userMode=false;updatePlay();}
     });
@@ -3643,16 +3665,23 @@ header.topbar .topbar__in .header-duck > svg{
         if(video.paused)video.play().catch(()=>{});
       }
       current.textContent=time(video.currentTime);
-      const p=video.duration?video.currentTime/video.duration:0;
-      seek.value=Math.round(p*1000);
+      if(video.paused&&!isSeeking)renderSeek();
+    });
+    seek.addEventListener('pointerdown',function(){isSeeking=true;});
+    seek.addEventListener('pointerup',function(){isSeeking=false;});
+    seek.addEventListener('pointercancel',function(){isSeeking=false;});
+    seek.addEventListener('input',function(){
+      const p=Number(seek.value)/1000;
       seek.style.setProperty('--seek-progress',(p*100)+'%');
     });
-    seek.addEventListener('input',function(){
+    seek.addEventListener('change',function(){
       if(video.duration){
         stopPreview(false);
         userMode=true;
         video.currentTime=(Number(seek.value)/1000)*video.duration;
+        isSeeking=false;
         updatePlay();
+        if(!video.paused)startSeekAnimation();
       }
     });
     mute.addEventListener('click',function(){
