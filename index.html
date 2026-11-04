@@ -3631,11 +3631,22 @@ header.topbar .topbar__in .header-duck > svg{
         try{video.currentTime=0;}catch(e){}
       }
     }
+    let controlsHideTimer=null;
+    function showControls(){
+      player.classList.remove('is-controls-hidden');
+      if(controlsHideTimer){clearTimeout(controlsHideTimer);controlsHideTimer=null;}
+      if(userMode&&!video.paused){
+        controlsHideTimer=setTimeout(function(){
+          if(userMode&&!video.paused)player.classList.add('is-controls-hidden');
+        },2600);
+      }
+    }
     function togglePlay(){
       if(userMode&&!video.paused){
         video.pause();
         userMode=true;
         previewing=false;
+        showControls();
         updatePlay();
         return;
       }
@@ -3643,11 +3654,18 @@ header.topbar .topbar__in .header-duck > svg{
       userMode=true;
       video.loop=false;
       video.muted=userMuted;
-      video.play().catch(()=>{userMode=false;updatePlay();});
+      video.play().catch(()=>{userMode=false;showControls();updatePlay();});
       updatePlay();
+      showControls();
     }
     play.addEventListener('click',togglePlay);
     toggle.addEventListener('click',togglePlay);
+    player.addEventListener('pointermove',function(){
+      if(userMode&&!video.paused)showControls();
+    });
+    player.addEventListener('pointerdown',function(event){
+      if(event.target.closest('.video__controls'))showControls();
+    });
     let videoClickTimer=null;
     let seekFeedbackTimer=null;
     const seekFeedback=document.createElement('div');
@@ -3688,12 +3706,16 @@ header.topbar .topbar__in .header-duck > svg{
       }else{
         videoClickTimer=setTimeout(function(){
           videoClickTimer=null;
-          togglePlay();
+          if(player.classList.contains('is-controls-hidden')){
+            showControls();
+          }else{
+            togglePlay();
+          }
         },280);
       }
     });
-    video.addEventListener('play',function(){updatePlay();startSeekAnimation();});
-    video.addEventListener('pause',function(){updatePlay();stopSeekAnimation();});
+    video.addEventListener('play',function(){updatePlay();startSeekAnimation();showControls();});
+    video.addEventListener('pause',function(){showControls();updatePlay();stopSeekAnimation();});
     video.addEventListener('ended',function(){
       if(userMode){userMode=false;updatePlay();}
     });
@@ -7638,6 +7660,10 @@ html body .faq__search-clear:focus-visible{
   #videoPlayer.is-playing .video__play .video__icon-play{display:none}
   #videoPlayer.is-playing .video__play .video__icon-pause{display:block}
   #videoPlayer.is-playing .video__play{opacity:1;pointer-events:auto}
+  #videoPlayer.is-controls-hidden .video__play,
+  #videoPlayer.is-controls-hidden .video__controls{opacity:0!important;pointer-events:none!important}
+  #videoPlayer .video__play,
+  #videoPlayer .video__controls{transition:opacity .3s ease}
 </style>
 </body>
 
