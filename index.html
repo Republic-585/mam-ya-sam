@@ -3521,19 +3521,116 @@ header.topbar .topbar__in .header-duck > svg{
   <section class="video">
     <div class="wrap">
       <h2>А вот один из практикумов. Посмотри, как это работает.</h2>
-      <div class="video__player video__player--youtube" id="videoPlayer" role="region" aria-label="Видео: японский сад и звуки природы">
-        <iframe
-          class="video__embed"
-          src="https://www.youtube-nocookie.com/embed/Kgac57stckE?rel=0&playsinline=1&controls=1&modestbranding=1"
-          title="Японский сад: ручей, птицы и звуки весенней природы в 4K"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+
+      <div class="video__player" id="videoPlayer" role="region" aria-label="Видеоплеер практикума">
+        <video class="video__media" id="practiceVideo" preload="none" playsinline poster="https://images.pexels.com/videos/11330076/pexels-photo-11330076.jpeg?auto=compress&dpr=1&h=750&w=1260">
+          <source src="https://videos.pexels.com/video-files/11330076/11330076-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+        <div class="video__brand" aria-label="Логотип проекта">
+          <span class="video__logo-mark" aria-hidden="true"></span>
+        </div>
+        <button class="video__play" type="button" aria-label="Воспроизвести видео">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="video__controls">
+          <button class="video__icon-button video__toggle" type="button" aria-label="Воспроизвести">
+            <svg class="video__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
+            <svg class="video__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11M16 6.5v11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </button>
+          <span class="video__time video__current-time">00:00</span>
+          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
+          <span class="video__time video__duration">00:11</span>
+          <button class="video__icon-button video__mute" type="button" aria-label="Выключить звук">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10v4h3.2l4.3 3.5v-11l-4.3 3.5zM15 9.2a4 4 0 0 1 0 5.6M17.5 6.8a7.5 7.5 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="video__icon-button video__fullscreen" type="button" aria-label="На весь экран">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5h-4v4M15.5 4.5h4v4M19.5 15.5v4h-4M4.5 15.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <select class="video__quality" aria-label="Качество видео">
+            <option value="1080">1080p</option><option value="720">720p</option>
+            <option value="540">540p</option><option value="360">360p</option>
+          </select>
+        </div>
       </div>
     </div>
   </section>
+
+  <script id="custom-video-player">
+  (function(){
+    const player=document.getElementById('videoPlayer');
+    const video=document.getElementById('practiceVideo');
+    if(!player||!video)return;
+    const play=player.querySelector('.video__play');
+    const toggle=player.querySelector('.video__toggle');
+    const seek=player.querySelector('.video__seek');
+    const current=player.querySelector('.video__current-time');
+    const duration=player.querySelector('.video__duration');
+    const mute=player.querySelector('.video__mute');
+    const fullscreen=player.querySelector('.video__fullscreen');
+    const quality=player.querySelector('.video__quality');
+    const qualitySources={
+      '1080':'https://videos.pexels.com/video-files/11330076/11330076-hd_1920_1080_30fps.mp4',
+      '720':'https://videos.pexels.com/video-files/11330076/11330076-hd_1280_720_30fps.mp4',
+      '540':'https://videos.pexels.com/video-files/11330076/11330076-sd_960_540_30fps.mp4',
+      '360':'https://videos.pexels.com/video-files/11330076/11330076-sd_640_360_30fps.mp4'
+    };
+    const pad=n=>String(Math.floor(n||0)).padStart(2,'0');
+    const time=t=>pad(t/60)+':'+pad(t%60);
+    function updatePlay(){
+      const playing=!video.paused;
+      player.classList.toggle('is-playing',playing);
+      toggle.setAttribute('aria-label',playing?'Пауза':'Воспроизвести');
+      play.setAttribute('aria-label',playing?'Пауза':'Воспроизвести видео');
+    }
+    function togglePlay(){
+      if(video.paused)video.play().catch(()=>{});
+      else video.pause();
+    }
+    play.addEventListener('click',togglePlay);
+    toggle.addEventListener('click',togglePlay);
+    video.addEventListener('click',togglePlay);
+    video.addEventListener('play',updatePlay);
+    video.addEventListener('pause',updatePlay);
+    video.addEventListener('ended',updatePlay);
+    video.addEventListener('loadedmetadata',function(){
+      duration.textContent=time(video.duration);
+      seek.max=1000;
+    });
+    video.addEventListener('timeupdate',function(){
+      current.textContent=time(video.currentTime);
+      const p=video.duration?video.currentTime/video.duration:0;
+      seek.value=Math.round(p*1000);
+      seek.style.setProperty('--seek-progress',(p*100)+'%');
+    });
+    seek.addEventListener('input',function(){
+      if(video.duration)video.currentTime=(Number(seek.value)/1000)*video.duration;
+    });
+    mute.addEventListener('click',function(){
+      video.muted=!video.muted;
+      mute.setAttribute('aria-label',video.muted?'Включить звук':'Выключить звук');
+      mute.style.opacity=video.muted?'.55':'1';
+    });
+    fullscreen.addEventListener('click',function(){
+      if(document.fullscreenElement)document.exitFullscreen?.();
+      else if(player.requestFullscreen)player.requestFullscreen();
+      else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
+    });
+
+    quality.addEventListener('change',function(){
+      const wasPlaying=!video.paused;
+      const position=video.currentTime||0;
+      video.pause();
+      video.src=qualitySources[quality.value];
+      video.load();
+      video.addEventListener('loadedmetadata',function restore(){
+        video.removeEventListener('loadedmetadata',restore);
+        video.currentTime=Math.min(position,video.duration||position);
+        if(wasPlaying)video.play().catch(()=>{});
+      });
+    });
+    updatePlay();
+  })();
+  </script>
 
   <!-- ABOUT -->
   <section class="about" id="about">
@@ -7216,33 +7313,6 @@ html body .faq__search-clear:focus-visible{
 .video__quality{height:34px;min-width:62px;padding:0 7px;border-radius:10px;background:rgba(255,255,255,.13);color:#fff;font:500 11px -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;text-align:center;appearance:none;-webkit-appearance:none}
 .video__quality option{background:#171717;color:#fff}
 @media(max-width:640px){.video__controls{grid-template-columns:30px auto minmax(20px,1fr) auto 30px 30px!important;column-gap:6px!important}.video__quality{grid-column:1/-1;justify-self:end;height:24px;min-width:56px;margin-top:-27px;font-size:10px}}
-</style>
-
-<style id="japanese-garden-video-player">
-.video__player--youtube{
-  position:relative!important;
-  display:block!important;
-  width:100%!important;
-  aspect-ratio:16/9!important;
-  overflow:hidden!important;
-  border:0!important;
-  outline:0!important;
-  border-radius:24px!important;
-  background:#111!important;
-  box-shadow:none!important;
-}
-.video__player--youtube .video__embed{
-  position:absolute!important;
-  inset:0!important;
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  border:0!important;
-  outline:0!important;
-}
-@media(max-width:640px){
-  .video__player--youtube{border-radius:18px!important}
-}
 </style>
 </body>
 
