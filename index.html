@@ -1026,6 +1026,15 @@ html body .hero-menu .hero-menu__links {
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details[open] summary{background:var(--yellow)}
 .faq .faq__a{padding:0 24px 22px;font-weight:500;color:var(--muted);font-size:.96rem}
+
+/* Шрифт времени видеоплеера как у ответов в FAQ. */
+#videoPlayer .video__time{
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  font-variant-numeric:tabular-nums;
+}
+
 /* FAQ: native disclosure behavior, no external focus glow */
 .faq details{-webkit-tap-highlight-color:transparent}
 .faq summary{outline:none!important;box-shadow:none!important;-webkit-tap-highlight-color:transparent;transition:background-color .22s ease}
