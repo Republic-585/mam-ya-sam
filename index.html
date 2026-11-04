@@ -7415,24 +7415,45 @@ html body .faq__search-clear:focus-visible{
 </style>
 
 <style id="video-player-quality-gear-and-layout">
+/* Единый размер, положение и оформление всех иконок панели управления. */
 #videoPlayer .video__controls{
   grid-template-columns:34px 34px auto minmax(30px,1fr) auto 34px 34px!important;
+  align-items:center!important;
 }
-#videoPlayer .video__quality{
-  grid-column:auto!important;
-  justify-self:center!important;
+#videoPlayer .video__controls .video__icon-button,
+#videoPlayer .video__controls .video__quality{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:center!important;
   width:34px!important;
   min-width:34px!important;
   height:34px!important;
+  margin:0!important;
   padding:0!important;
   border:0!important;
   border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background-color:transparent!important;
+  color:#fff!important;
+  transform:translateY(2px)!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+#videoPlayer .video__controls .video__icon-button svg{
+  display:block!important;
+  flex:0 0 26px!important;
+  width:26px!important;
+  height:26px!important;
+  margin:0!important;
+}
+#videoPlayer .video__quality{
   appearance:none!important;
   -webkit-appearance:none!important;
   color:transparent!important;
   font-size:0!important;
-  background-color:transparent!important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3h-.2a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z'/%3E%3C/svg%3E")!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3.5'/%3E%3Cpath d='m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3h-.2a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z'/%3E%3C/svg%3E")!important;
   background-repeat:no-repeat!important;
   background-position:center!important;
   background-size:26px 26px!important;
@@ -7440,8 +7461,22 @@ html body .faq__search-clear:focus-visible{
 }
 #videoPlayer .video__quality option{color:#fff!important;font-size:14px!important;background:#171717!important}
 @media(max-width:640px){
-  #videoPlayer .video__controls{grid-template-columns:30px 30px auto minmax(16px,1fr) auto 30px 30px!important;column-gap:6px!important}
-  #videoPlayer .video__quality{width:30px!important;min-width:30px!important;height:30px!important;background-size:24px 24px!important}
+  #videoPlayer .video__controls{
+    grid-template-columns:30px 30px auto minmax(16px,1fr) auto 30px 30px!important;
+    column-gap:6px!important;
+  }
+  #videoPlayer .video__controls .video__icon-button,
+  #videoPlayer .video__controls .video__quality{
+    width:30px!important;
+    min-width:30px!important;
+    height:30px!important;
+  }
+  #videoPlayer .video__controls .video__icon-button svg{
+    flex-basis:24px!important;
+    width:24px!important;
+    height:24px!important;
+  }
+  #videoPlayer .video__quality{background-size:24px 24px!important}
 }
 </style>
 </body>
