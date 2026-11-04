@@ -3853,12 +3853,10 @@ header.topbar .topbar__in .header-duck > svg{
   <section class="about" id="about">
     <div class="wrap about__inner about-v2">
       <div class="about__content about-v2__intro">
-        <span class="about-v2__eyebrow">АВТОР И ПРОЕКТ</span>
-        <h2>Взрослая жизнь начинается <mark>с решений.</mark></h2>
-        <p class="about__lead">«Мам, я сам!» – практический курс финансовой грамотности и самостоятельности для подростков.</p>
-        <p class="about__text">Мы помогаем разобраться в деньгах, применять математику в реальной жизни и увереннее принимать собственные решения.</p>
-        <p class="about__text">Здесь важно не просто запомнить правило, а понять, как оно работает: рассчитать бюджет, сравнить варианты, спланировать цель и оценить последствия выбора.</p>
+        <h2 class="about-project-heading">«Мам, я сам!» – практический курс финансовой грамотности и самостоятельности для школьников 5-8 классов на основе математики.</h2>
+        <p class="about-project-subtitle">Мы помогаем разобраться в деньгах, применять математику в реальной жизни и увереннее принимать собственные решения. Здесь важно не просто запомнить правило, а понять, как оно работает: рассчитать бюджет, сравнить варианты, спланировать цель и оценить последствия выбора.</p>
         <div class="about__mission"><p><b>Наша миссия:</b> помогать подросткам становиться самостоятельнее через практические знания, осознанный выбор и ответственность.</p></div>
+        <blockquote class="about-project-quote">«Взрослая жизнь начинается с решений».</blockquote>
       </div>
 
       <div class="about-v2__skills" aria-label="Чему учится подросток">
@@ -7773,6 +7771,46 @@ html body .faq__search-clear:focus-visible{
 </style>
 
 
+
+<style id="about-project-copy-refresh">
+#about .about-project-heading{
+  max-width:900px!important;
+  margin:0 0 12px!important;
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+#about .about-project-subtitle{
+  max-width:850px!important;
+  margin:0 0 26px!important;
+  color:#5C5C5C!important;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+}
+#about .about-project-quote{
+  max-width:850px;
+  margin:30px 0 0;
+  padding:18px 22px;
+  border-left:4px solid #7CC4FF;
+  border-radius:0 12px 12px 0;
+  background:#F5FAFF;
+  color:#171717;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-size:clamp(1.1rem,2.4vw,1.35rem);
+  font-weight:600;
+  line-height:1.45;
+}
+@media(max-width:640px){
+  #about .about-project-heading{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+  #about .about-project-subtitle{margin-bottom:20px!important}
+}
+</style>
 </body>
 
 <script id="header-duck-click-jelly">
