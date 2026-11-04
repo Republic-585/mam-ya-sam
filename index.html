@@ -3662,37 +3662,10 @@ header.topbar .topbar__in .header-duck > svg{
       mute.setAttribute('aria-label',userMuted?'Включить звук':'Выключить звук');
       mute.style.opacity=userMuted?'.55':'1';
     });
-    let customFullscreen=false;
-    function exitCustomFullscreen(){
-      if(!customFullscreen)return;
-      customFullscreen=false;
-      player.classList.remove('is-custom-fullscreen');
-      document.body.style.overflow='';
-      fullscreen.setAttribute('aria-label','На весь экран');
-    }
     fullscreen.addEventListener('click',function(){
-      if(document.fullscreenElement){document.exitFullscreen?.();return;}
-      if(customFullscreen){exitCustomFullscreen();return;}
-      if(player.requestFullscreen){
-        player.requestFullscreen().catch(()=>{
-          customFullscreen=true;
-          player.classList.add('is-custom-fullscreen');
-          document.body.style.overflow='hidden';
-          fullscreen.setAttribute('aria-label','Выйти из полноэкранного режима');
-        });
-      }else{
-        customFullscreen=true;
-        player.classList.add('is-custom-fullscreen');
-        document.body.style.overflow='hidden';
-        fullscreen.setAttribute('aria-label','Выйти из полноэкранного режима');
-      }
-    });
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape'&&customFullscreen)exitCustomFullscreen();
-    });
-    document.addEventListener('fullscreenchange',function(){
-      const active=document.fullscreenElement===player;
-      fullscreen.setAttribute('aria-label',active?'Выйти из полноэкранного режима':'На весь экран');
+      if(document.fullscreenElement)document.exitFullscreen?.();
+      else if(player.requestFullscreen)player.requestFullscreen();
+      else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
     });
     quality.addEventListener('change',function(){
       const wasPlaying=!video.paused;
@@ -7439,98 +7412,6 @@ html body .faq__search-clear:focus-visible{
 }
 #videoPlayer.is-previewing .video__preview-duration {
   display:block;
-}
-</style>
-
-<style id="video-controls-minimal-icons">
-/* Минималистичные элементы управления: без плашек, с размером иконок как у логотипа. */
-#videoPlayer .video__icon-button {
-  flex:0 0 30px!important;
-  width:30px!important;
-  height:30px!important;
-  padding:0!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  color:#fff!important;
-}
-#videoPlayer .video__icon-button:hover,
-#videoPlayer .video__icon-button:focus-visible {
-  background:transparent!important;
-  transform:scale(1.08);
-}
-#videoPlayer .video__icon-button svg {
-  width:26px!important;
-  height:26px!important;
-}
-#videoPlayer .video__controls {
-  padding:42px 20px 7px!important;
-}
-#videoPlayer .video__quality {
-  grid-column:auto!important;
-  justify-self:center!important;
-  flex:0 0 30px!important;
-  width:30px!important;
-  min-width:30px!important;
-  height:30px!important;
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
-  border-radius:0!important;
-  appearance:none!important;
-  -webkit-appearance:none!important;
-  color:transparent!important;
-  font-size:0!important;
-  background-color:transparent!important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z'/%3E%3Cpath d='m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3h-.2a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z'/%3E%3C/svg%3E")!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:26px 26px!important;
-  cursor:pointer!important;
-}
-#videoPlayer .video__quality option {
-  color:#fff!important;
-  font-size:14px!important;
-  background:#171717!important;
-}
-#videoPlayer.is-custom-fullscreen {
-  position:fixed!important;
-  inset:0!important;
-  z-index:2147483000!important;
-  width:100vw!important;
-  height:100vh!important;
-  height:100dvh!important;
-  max-width:none!important;
-  aspect-ratio:auto!important;
-  border:0!important;
-  border-radius:0!important;
-  background:#000!important;
-}
-#videoPlayer.is-custom-fullscreen .video__media {
-  object-fit:contain!important;
-}
-@media(max-width:640px){
-  #videoPlayer .video__controls {
-    padding:32px 10px 4px!important;
-    gap:6px!important;
-  }
-  #videoPlayer .video__icon-button {
-    flex-basis:26px!important;
-    width:26px!important;
-    height:26px!important;
-  }
-  #videoPlayer .video__icon-button svg {
-    width:24px!important;
-    height:24px!important;
-  }
-  #videoPlayer .video__quality {
-    flex-basis:26px!important;
-    width:26px!important;
-    min-width:26px!important;
-    height:26px!important;
-    background-size:24px 24px!important;
-  }
 }
 </style>
 </body>
