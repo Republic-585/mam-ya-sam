@@ -3532,6 +3532,7 @@ header.topbar .topbar__in .header-duck > svg{
         <button class="video__play" type="button" aria-label="Воспроизвести видео">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
         </button>
+        <span class="video__preview-duration" aria-hidden="true">00:11</span>
         <div class="video__controls">
           <button class="video__icon-button video__toggle" type="button" aria-label="Воспроизвести">
             <svg class="video__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
@@ -3592,14 +3593,16 @@ header.topbar .topbar__in .header-duck > svg{
     function startPreview(){
       if(!inView||userMode||!video.paused||!video.readyState)return;
       previewing=true;
+      player.classList.add('is-previewing');
       video.loop=false;
       video.muted=true;
       video.currentTime=PREVIEW_START;
-      video.play().catch(()=>{previewing=false;});
+      video.play().catch(()=>{previewing=false;player.classList.remove('is-previewing');});
     }
     function stopPreview(reset){
       if(!previewing)return;
       previewing=false;
+      player.classList.remove('is-previewing');
       video.pause();
       if(reset&&video.readyState>=1){
         try{video.currentTime=0;}catch(e){}
@@ -3631,6 +3634,7 @@ header.topbar .topbar__in .header-duck > svg{
     });
     video.addEventListener('loadedmetadata',function(){
       duration.textContent=time(video.duration);
+      player.querySelector('.video__preview-duration').textContent=time(video.duration);
       seek.max=1000;
       if(inView&&!userMode)startPreview();
     });
@@ -3668,6 +3672,7 @@ header.topbar .topbar__in .header-duck > svg{
       const wasPreview=previewing;
       const position=video.currentTime||0;
       previewing=false;
+      player.classList.remove('is-previewing');
       video.pause();
       video.src=qualitySources[quality.value];
       video.load();
@@ -7381,6 +7386,33 @@ html body .faq__search-clear:focus-visible{
 .video__quality{height:34px;min-width:62px;padding:0 7px;border-radius:10px;background:rgba(255,255,255,.13);color:#fff;font:500 11px -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;text-align:center;appearance:none;-webkit-appearance:none}
 .video__quality option{background:#171717;color:#fff}
 @media(max-width:640px){.video__controls{grid-template-columns:30px auto minmax(20px,1fr) auto 30px 30px!important;column-gap:6px!important}.video__quality{grid-column:1/-1;justify-self:end;height:24px;min-width:56px;margin-top:-27px;font-size:10px}}
+</style>
+
+<style id="video-preview-minimal-ui">
+/* Во время автоматического превью оставляем только центральный Play и длительность. */
+#videoPlayer.is-previewing .video__controls,
+#videoPlayer.is-previewing .video__brand {
+  display:none!important;
+}
+#videoPlayer .video__preview-duration {
+  display:none;
+  position:absolute;
+  top:calc(50% + 49px);
+  left:50%;
+  z-index:3;
+  transform:translateX(-50%);
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;
+  text-shadow:0 1px 8px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+#videoPlayer.is-previewing .video__preview-duration {
+  display:block;
+}
 </style>
 </body>
 
