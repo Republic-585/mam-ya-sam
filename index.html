@@ -3538,18 +3538,18 @@ header.topbar .topbar__in .header-duck > svg{
             <svg class="video__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
             <svg class="video__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11M16 6.5v11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
           </button>
-          <span class="video__time video__current-time">00:00</span>
-          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
-          <span class="video__time video__duration">00:11</span>
           <button class="video__icon-button video__mute" type="button" aria-label="Выключить звук">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10v4h3.2l4.3 3.5v-11l-4.3 3.5zM15 9.2a4 4 0 0 1 0 5.6M17.5 6.8a7.5 7.5 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
+          <span class="video__time video__current-time">00:00</span>
+          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
+          <span class="video__time video__duration">00:11</span>
           <button class="video__icon-button video__fullscreen" type="button" aria-label="На весь экран">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5h-4v4M15.5 4.5h4v4M19.5 15.5v4h-4M4.5 15.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <select class="video__quality" aria-label="Качество видео">
             <option value="1080">1080p</option><option value="720">720p</option>
-            <option value="540">540p</option><option value="360">360p</option>
+            <option value="480">480p</option>
           </select>
         </div>
       </div>
@@ -3572,8 +3572,7 @@ header.topbar .topbar__in .header-duck > svg{
     const qualitySources={
       '1080':'https://videos.pexels.com/video-files/11330076/11330076-hd_1920_1080_30fps.mp4',
       '720':'https://videos.pexels.com/video-files/11330076/11330076-hd_1280_720_30fps.mp4',
-      '540':'https://videos.pexels.com/video-files/11330076/11330076-sd_960_540_30fps.mp4',
-      '360':'https://videos.pexels.com/video-files/11330076/11330076-sd_640_360_30fps.mp4'
+      '480':'https://videos.pexels.com/video-files/11330076/11330076-sd_960_540_30fps.mp4'
     };
     const PREVIEW_START=1.5;
     const PREVIEW_END=7;
@@ -7412,6 +7411,37 @@ html body .faq__search-clear:focus-visible{
 }
 #videoPlayer.is-previewing .video__preview-duration {
   display:block;
+}
+</style>
+
+<style id="video-player-quality-gear-and-layout">
+#videoPlayer .video__controls{
+  grid-template-columns:34px 34px auto minmax(30px,1fr) auto 34px 34px!important;
+}
+#videoPlayer .video__quality{
+  grid-column:auto!important;
+  justify-self:center!important;
+  width:34px!important;
+  min-width:34px!important;
+  height:34px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  color:transparent!important;
+  font-size:0!important;
+  background-color:transparent!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3h-.2a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:26px 26px!important;
+  cursor:pointer!important;
+}
+#videoPlayer .video__quality option{color:#fff!important;font-size:14px!important;background:#171717!important}
+@media(max-width:640px){
+  #videoPlayer .video__controls{grid-template-columns:30px 30px auto minmax(16px,1fr) auto 30px 30px!important;column-gap:6px!important}
+  #videoPlayer .video__quality{width:30px!important;min-width:30px!important;height:30px!important;background-size:24px 24px!important}
 }
 </style>
 </body>
