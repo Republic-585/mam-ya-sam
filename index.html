@@ -1030,10 +1030,15 @@ html body .hero-menu .hero-menu__links {
 /* Шрифт времени видеоплеера как у ответов в FAQ. */
 #videoPlayer .video__time{
   font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
-  font-size:.96rem!important;
+  font-size:.76rem!important;
   font-weight:400!important;
   font-variant-numeric:tabular-nums;
 }
+#videoPlayer .video__duration::before{content:" / ";white-space:pre}
+#videoPlayer .video__seek::-webkit-slider-thumb{transition:transform .16s ease;transform-origin:center}
+#videoPlayer .video__seek:active::-webkit-slider-thumb{transform:scale(1.65)}
+#videoPlayer .video__seek::-moz-range-thumb{transition:transform .16s ease}
+#videoPlayer .video__seek:active::-moz-range-thumb{transform:scale(1.65)}
 
 /* FAQ: native disclosure behavior, no external focus glow */
 .faq details{-webkit-tap-highlight-color:transparent}
@@ -3553,8 +3558,8 @@ header.topbar .topbar__in .header-duck > svg{
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10v4h3.2l4.3 3.5v-11l-4.3 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><g class="video__sound-waves" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.5 6.8a7.5 7.5 0 0 1 0 10.4"/></g><path class="video__sound-cross" d="m15 9 5 6m0-6-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           </button>
           <span class="video__time video__current-time">00:00</span>
-          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
           <span class="video__time video__duration">00:11</span>
+          <input class="video__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Перемотка видео">
           <button class="video__icon-button video__fullscreen" type="button" aria-label="На весь экран">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5h-4v4M15.5 4.5h4v4M19.5 15.5v4h-4M4.5 15.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -3744,22 +3749,38 @@ header.topbar .topbar__in .header-duck > svg{
       current.textContent=time(video.currentTime);
       if(video.paused&&!isSeeking)renderSeek();
     });
-    seek.addEventListener('pointerdown',function(){isSeeking=true;});
-    seek.addEventListener('pointerup',function(){isSeeking=false;});
-    seek.addEventListener('pointercancel',function(){isSeeking=false;});
+    seek.addEventListener('pointerdown',function(){
+      isSeeking=true;
+      stopPreview(false);
+      userMode=true;
+      player.classList.add('is-seeking');
+      video.muted=userMuted;
+      showControls();
+    });
+    function finishSeeking(){
+      isSeeking=false;
+      player.classList.remove('is-seeking');
+      renderSeek();
+      updatePlay();
+      if(!video.paused)startSeekAnimation();
+    }
+    seek.addEventListener('pointerup',finishSeeking);
+    seek.addEventListener('pointercancel',finishSeeking);
     seek.addEventListener('input',function(){
       const p=Number(seek.value)/1000;
       seek.style.setProperty('--seek-progress',(p*100)+'%');
+      if(video.duration){
+        video.currentTime=p*video.duration;
+        current.textContent=time(video.currentTime);
+      }
     });
     seek.addEventListener('change',function(){
       if(video.duration){
         stopPreview(false);
         userMode=true;
         video.currentTime=(Number(seek.value)/1000)*video.duration;
-        isSeeking=false;
-        updatePlay();
-        if(!video.paused)startSeekAnimation();
       }
+      finishSeeking();
     });
     mute.addEventListener('click',function(){
       userMuted=!video.muted;
