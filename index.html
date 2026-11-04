@@ -8227,6 +8227,23 @@ html body .about-v2__missions-track>.about-v2__game::after{
   }
 </style>
 
+
+<style id="pricing-carousel-cards-no-side-insets">
+/* Убираем боковые ограничители именно у карточек карусели, не сдвигая заголовок тарифов. */
+html body section.pricing #pricingCarousel {
+  width:calc(100% + clamp(16px,3vw,40px) + clamp(16px,3vw,40px))!important;
+  max-width:none!important;
+  margin-left:calc(0px - clamp(16px,3vw,40px))!important;
+  margin-right:calc(0px - clamp(16px,3vw,40px))!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid {
+  width:100%!important;
+  max-width:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
