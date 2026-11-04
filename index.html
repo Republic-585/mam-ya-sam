@@ -3648,7 +3648,50 @@ header.topbar .topbar__in .header-duck > svg{
     }
     play.addEventListener('click',togglePlay);
     toggle.addEventListener('click',togglePlay);
-    video.addEventListener('click',togglePlay);
+    let videoClickTimer=null;
+    let seekFeedbackTimer=null;
+    const seekFeedback=document.createElement('div');
+    seekFeedback.className='video__seek-feedback';
+    seekFeedback.setAttribute('aria-hidden','true');
+    seekFeedback.innerHTML='<span class="video__seek-feedback-icon"><svg viewBox="0 0 48 48"><path d="M20 14 9 24l11 10M10 24h18a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="m22 17-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="video__seek-feedback-label">−10 сек</span>';
+    const seekFeedbackRight=document.createElement('div');
+    seekFeedbackRight.className='video__seek-feedback video__seek-feedback--right';
+    seekFeedbackRight.setAttribute('aria-hidden','true');
+    seekFeedbackRight.innerHTML='<span class="video__seek-feedback-icon"><svg viewBox="0 0 48 48"><path d="m28 14 11 10-11 10M38 24H20a10 10 0 0 0-10 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="m26 17 7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="video__seek-feedback-label">+10 сек</span>';
+    player.append(seekFeedback,seekFeedbackRight);
+    function seekBy(seconds){
+      if(!Number.isFinite(video.duration)||!video.duration)return;
+      stopPreview(false);
+      userMode=true;
+      video.muted=userMuted;
+      video.currentTime=Math.max(0,Math.min(video.duration,video.currentTime+seconds));
+      updatePlay();
+      if(!video.paused)startSeekAnimation();
+      const feedback=seconds<0?seekFeedback:seekFeedbackRight;
+      seekFeedback.classList.remove('is-visible');
+      seekFeedbackRight.classList.remove('is-visible');
+      feedback.classList.remove('is-visible');
+      void feedback.offsetWidth;
+      feedback.classList.add('is-visible');
+      if(seekFeedbackTimer)clearTimeout(seekFeedbackTimer);
+      seekFeedbackTimer=setTimeout(()=>{
+        seekFeedback.classList.remove('is-visible');
+        seekFeedbackRight.classList.remove('is-visible');
+      },650);
+    }
+    video.addEventListener('click',function(event){
+      if(videoClickTimer){
+        clearTimeout(videoClickTimer);
+        videoClickTimer=null;
+        const rect=video.getBoundingClientRect();
+        seekBy(event.clientX<rect.left+rect.width/2?-10:10);
+      }else{
+        videoClickTimer=setTimeout(function(){
+          videoClickTimer=null;
+          togglePlay();
+        },280);
+      }
+    });
     video.addEventListener('play',function(){updatePlay();startSeekAnimation();});
     video.addEventListener('pause',function(){updatePlay();stopSeekAnimation();});
     video.addEventListener('ended',function(){
@@ -7566,6 +7609,28 @@ html body .faq__search-clear:focus-visible{
 #videoPlayer .video__controls .video__fullscreen{order:7!important}
 
 </style>
+<style id="video-player-double-tap-seek">
+#videoPlayer{position:relative}
+#videoPlayer .video__seek-feedback{
+  position:absolute;z-index:4;top:50%;left:25%;transform:translate(-50%,-50%) scale(.82);
+  width:104px;height:104px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  color:#fff;background:rgba(0,0,0,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;
+}
+#videoPlayer .video__seek-feedback--right{left:75%}
+#videoPlayer .video__seek-feedback.is-visible{animation:videoSeekFeedback .65s ease-out both}
+#videoPlayer .video__seek-feedback-icon{display:flex;width:42px;height:42px;align-items:center;justify-content:center}
+#videoPlayer .video__seek-feedback-icon svg{width:42px;height:42px}
+#videoPlayer .video__seek-feedback-label{font:600 14px/1 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;letter-spacing:.01em}
+@keyframes videoSeekFeedback{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.78)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  72%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.96)}
+}
+@media(prefers-reduced-motion:reduce){#videoPlayer .video__seek-feedback.is-visible{animation:none;opacity:1;transform:translate(-50%,-50%)}}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
