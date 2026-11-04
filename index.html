@@ -7724,6 +7724,33 @@ html body .faq__search-clear:focus-visible{
 }
 </style>
 
+
+<style id="video-player-unified-control-icon-size">
+/* Все пиктограммы панели управления имеют одинаковый квадратный размер. */
+#videoPlayer .video__controls .video__icon-button svg {
+  display:block!important;
+  flex:0 0 24px!important;
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+}
+#videoPlayer .video__controls .video__quality {
+  background-size:24px 24px!important;
+  background-position:center center!important;
+}
+@media(max-width:640px) {
+  #videoPlayer .video__controls .video__icon-button svg {
+    flex-basis:24px!important;
+    width:24px!important;
+    height:24px!important;
+  }
+  #videoPlayer .video__controls .video__quality {
+    background-size:24px 24px!important;
+  }
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
