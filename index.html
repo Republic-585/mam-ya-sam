@@ -3523,7 +3523,7 @@ header.topbar .topbar__in .header-duck > svg{
       <h2>А вот один из практикумов. Посмотри, как это работает.</h2>
 
       <div class="video__player" id="videoPlayer" role="region" aria-label="Видеоплеер практикума">
-        <video class="video__media" id="practiceVideo" preload="none" playsinline poster="https://images.pexels.com/videos/11330076/pexels-photo-11330076.jpeg?auto=compress&dpr=1&h=750&w=1260">
+        <video class="video__media" id="practiceVideo" preload="metadata" playsinline poster="https://images.pexels.com/videos/11330076/pexels-photo-11330076.jpeg?auto=compress&dpr=1&h=750&w=1260">
           <source src="https://videos.pexels.com/video-files/11330076/11330076-hd_1920_1080_30fps.mp4" type="video/mp4">
         </video>
         <div class="video__brand" aria-label="Логотип проекта">
@@ -3574,60 +3574,128 @@ header.topbar .topbar__in .header-duck > svg{
       '540':'https://videos.pexels.com/video-files/11330076/11330076-sd_960_540_30fps.mp4',
       '360':'https://videos.pexels.com/video-files/11330076/11330076-sd_640_360_30fps.mp4'
     };
+    const PREVIEW_START=1.5;
+    const PREVIEW_END=7;
+    let inView=false;
+    let previewing=false;
+    let userMode=false;
+    let userMuted=false;
     const pad=n=>String(Math.floor(n||0)).padStart(2,'0');
     const time=t=>pad(t/60)+':'+pad(t%60);
+
     function updatePlay(){
-      const playing=!video.paused;
-      player.classList.toggle('is-playing',playing);
+      player.classList.toggle('is-playing',userMode&&!video.paused);
+      const playing=userMode&&!video.paused;
       toggle.setAttribute('aria-label',playing?'Пауза':'Воспроизвести');
       play.setAttribute('aria-label',playing?'Пауза':'Воспроизвести видео');
     }
+    function startPreview(){
+      if(!inView||userMode||!video.paused||!video.readyState)return;
+      previewing=true;
+      video.loop=false;
+      video.muted=true;
+      video.currentTime=PREVIEW_START;
+      video.play().catch(()=>{previewing=false;});
+    }
+    function stopPreview(reset){
+      if(!previewing)return;
+      previewing=false;
+      video.pause();
+      if(reset&&video.readyState>=1){
+        try{video.currentTime=0;}catch(e){}
+      }
+    }
     function togglePlay(){
-      if(video.paused)video.play().catch(()=>{});
-      else video.pause();
+      if(userMode&&!video.paused){
+        video.pause();
+        userMode=true;
+        previewing=false;
+        updatePlay();
+        return;
+      }
+      stopPreview(false);
+      userMode=true;
+      video.loop=false;
+      video.muted=userMuted;
+      if(video.currentTime>=PREVIEW_START&&video.currentTime<=PREVIEW_END)video.currentTime=0;
+      video.play().catch(()=>{userMode=false;updatePlay();});
+      updatePlay();
     }
     play.addEventListener('click',togglePlay);
     toggle.addEventListener('click',togglePlay);
     video.addEventListener('click',togglePlay);
     video.addEventListener('play',updatePlay);
     video.addEventListener('pause',updatePlay);
-    video.addEventListener('ended',updatePlay);
+    video.addEventListener('ended',function(){
+      if(userMode){userMode=false;updatePlay();}
+    });
     video.addEventListener('loadedmetadata',function(){
       duration.textContent=time(video.duration);
       seek.max=1000;
+      if(inView&&!userMode)startPreview();
     });
     video.addEventListener('timeupdate',function(){
+      if(previewing&&video.currentTime>=PREVIEW_END){
+        video.currentTime=PREVIEW_START;
+        if(video.paused)video.play().catch(()=>{});
+      }
       current.textContent=time(video.currentTime);
       const p=video.duration?video.currentTime/video.duration:0;
       seek.value=Math.round(p*1000);
       seek.style.setProperty('--seek-progress',(p*100)+'%');
     });
     seek.addEventListener('input',function(){
-      if(video.duration)video.currentTime=(Number(seek.value)/1000)*video.duration;
+      if(video.duration){
+        stopPreview(false);
+        userMode=true;
+        video.currentTime=(Number(seek.value)/1000)*video.duration;
+        updatePlay();
+      }
     });
     mute.addEventListener('click',function(){
-      video.muted=!video.muted;
-      mute.setAttribute('aria-label',video.muted?'Включить звук':'Выключить звук');
-      mute.style.opacity=video.muted?'.55':'1';
+      userMuted=!video.muted;
+      video.muted=userMuted;
+      mute.setAttribute('aria-label',userMuted?'Включить звук':'Выключить звук');
+      mute.style.opacity=userMuted?'.55':'1';
     });
     fullscreen.addEventListener('click',function(){
       if(document.fullscreenElement)document.exitFullscreen?.();
       else if(player.requestFullscreen)player.requestFullscreen();
       else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
     });
-
     quality.addEventListener('change',function(){
       const wasPlaying=!video.paused;
+      const wasPreview=previewing;
       const position=video.currentTime||0;
+      previewing=false;
       video.pause();
       video.src=qualitySources[quality.value];
       video.load();
       video.addEventListener('loadedmetadata',function restore(){
         video.removeEventListener('loadedmetadata',restore);
+        if(wasPreview&&!userMode){startPreview();return;}
         video.currentTime=Math.min(position,video.duration||position);
         if(wasPlaying)video.play().catch(()=>{});
       });
     });
+
+    if('IntersectionObserver' in window){
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          inView=entry.isIntersecting&&entry.intersectionRatio>=0.35;
+          if(inView){
+            if(!userMode)startPreview();
+          }else{
+            stopPreview(true);
+            if(userMode&&video.paused)userMode=false;
+          }
+        });
+      },{threshold:[0,0.35,0.6]});
+      observer.observe(player);
+    }else{
+      inView=true;
+      video.addEventListener('loadeddata',startPreview,{once:true});
+    }
     updatePlay();
   })();
   </script>
