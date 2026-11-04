@@ -3427,10 +3427,17 @@ header.topbar .topbar__in .header-duck > svg{
   html body .program-all__carousel{
     padding-top:22px!important;
     padding-bottom:38px!important;
-    scrollbar-color:#7CC4FF #FFFFFF!important;
+    scrollbar-width:none!important;
+    scrollbar-color:transparent transparent!important;
   }
-  html body .program-all__carousel::-webkit-scrollbar-track{
-    background:#FFFFFF!important;
+  html body .program-all__carousel::-webkit-scrollbar{
+    display:none!important;
+    width:0!important;
+    height:0!important;
+  }
+  html body .program-all__carousel::-webkit-scrollbar-track,
+  html body .program-all__carousel::-webkit-scrollbar-thumb{
+    background:transparent!important;
   }
   html body .program-all__card{
     background:#FFFFFF!important;
@@ -3438,7 +3445,8 @@ header.topbar .topbar__in .header-duck > svg{
       0 18px 42px rgba(0,0,0,.10),
       0 6px 16px rgba(0,0,0,.05),
       0 1px 3px rgba(0,0,0,.03)!important;
-    border:1px solid rgba(0,0,0,.045)!important;
+    border:0!important;
+    outline:0!important;
   }
 </style>
 
