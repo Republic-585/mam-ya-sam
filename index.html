@@ -7698,6 +7698,32 @@ html body .faq__search-clear:focus-visible{
   #videoPlayer .video__play,
   #videoPlayer .video__controls{transition:opacity .3s ease}
 </style>
+
+<style id="video-player-final-micro-adjustments">
+/* Точечная настройка панели видеоплеера. */
+#videoPlayer .video__controls .video__quality {
+  transform:translateY(1px)!important;
+}
+#videoPlayer .video__controls .video__duration {
+  margin-left:-6px!important;
+}
+#videoPlayer .video__controls .video__duration::before {
+  content:"/"!important;
+  margin:0 4px!important;
+  white-space:normal!important;
+}
+#videoPlayer .video__play {
+  transition:transform .18s cubic-bezier(.2,.7,.2,1),opacity .22s ease!important;
+  transform:scale(1);
+}
+#videoPlayer .video__play:active {
+  transform:scale(.9)!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  #videoPlayer .video__play {transition:none!important}
+}
+</style>
+
 </body>
 
 <script id="header-duck-click-jelly">
