@@ -3590,6 +3590,22 @@ html body #signupForm button[type="submit"]:disabled {
 }
 </style>
 
+
+<style id="header-duck-bendy-style">
+/* Упругая реакция утки повторяет механику Hero-кнопки, не меняя её позиционирование. */
+header.topbar .topbar__in .header-duck{
+  transform:translate3d(calc(var(--duck-x,0px) + var(--duck-bendy-x,0px)),calc(-50% + var(--duck-bendy-y,0px)),0) rotate(var(--duck-bendy-rotate,0deg)) scale(var(--duck-bendy-sx,1),var(--duck-bendy-sy,1))!important;
+  transition:transform .52s cubic-bezier(.2,1.65,.4,1)!important;
+  transform-origin:center;
+}
+@media(prefers-reduced-motion:reduce){
+  header.topbar .topbar__in .header-duck{
+    transition:none!important;
+    transform:translate3d(var(--duck-x,0px),-50%,0)!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -8508,6 +8524,66 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
 </script>
 
 </body>
+
+
+<script id="header-duck-bendy-script">
+(function(){
+  const duck=document.getElementById('headerDuck');
+  if(!duck||duck.dataset.bendyReady)return;
+  duck.dataset.bendyReady='1';
+  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced)return;
+  let leaveTimer=0;
+  const set=(name,value)=>duck.style.setProperty(name,value);
+  function reset(){
+    duck.classList.remove('is-bendy-active');
+    set('--duck-bendy-x','0px');
+    set('--duck-bendy-y','0px');
+    set('--duck-bendy-rotate','0deg');
+    set('--duck-bendy-sx','1');
+    set('--duck-bendy-sy','1');
+  }
+  duck.addEventListener('pointerenter',()=>{
+    duck.classList.add('is-bendy-active');
+  });
+  duck.addEventListener('pointermove',(event)=>{
+    if(event.pointerType==='touch')return;
+    const rect=duck.getBoundingClientRect();
+    const nx=(event.clientX-(rect.left+rect.width/2))/(rect.width/2);
+    const ny=(event.clientY-(rect.top+rect.height/2))/(rect.height/2);
+    const x=Math.max(-1,Math.min(1,nx)),y=Math.max(-1,Math.min(1,ny));
+    set('--duck-bendy-x',(x*2.8).toFixed(2)+'px');
+    set('--duck-bendy-y',(y*2.2).toFixed(2)+'px');
+    set('--duck-bendy-rotate',(x*2.5).toFixed(2)+'deg');
+    set('--duck-bendy-sx',(1+Math.abs(x)*.075).toFixed(3));
+    set('--duck-bendy-sy',(1+Math.abs(y)*.09).toFixed(3));
+  });
+  duck.addEventListener('pointerleave',()=>{clearTimeout(leaveTimer);reset();});
+  duck.addEventListener('pointerdown',()=>{
+    clearTimeout(leaveTimer);
+    duck.classList.add('is-bendy-active');
+    set('--duck-bendy-sx','1.12');
+    set('--duck-bendy-sy','.82');
+    set('--duck-bendy-y','1px');
+  });
+  duck.addEventListener('pointerup',()=>{
+    set('--duck-bendy-sx','.94');
+    set('--duck-bendy-sy','1.12');
+    set('--duck-bendy-y','-1px');
+    leaveTimer=setTimeout(()=>{
+      if(!duck.matches(':hover'))reset();
+      else{
+        set('--duck-bendy-sx','1');
+        set('--duck-bendy-sy','1');
+        set('--duck-bendy-y','0px');
+      }
+    },180);
+  });
+  duck.addEventListener('pointercancel',reset);
+  duck.addEventListener('blur',reset);
+  reset();
+})();
+</script>
 
 <script id="header-duck-click-jelly">
 (function(){
