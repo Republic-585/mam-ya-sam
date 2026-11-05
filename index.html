@@ -3776,15 +3776,28 @@ html body .program-all__card-topline > strong {
   letter-spacing:.015em!important;
 }
 /* Навигация, табы, кнопки и элементы управления. */
-html body a,
+html body a {
+  font-size:inherit!important;
+  line-height:inherit;
+  letter-spacing:inherit;
+}
 html body button,
 html body input,
 html body textarea,
 html body select,
-html body summary {
-  font-size:.9375rem;
-  line-height:1.35;
-  letter-spacing:-.01em;
+html body summary,
+html body .hero-menu__links a,
+html body .program-module-switcher__button,
+html body .faq__tab,
+html body .skill__tab {
+  font-size:.9375rem!important;
+  line-height:1.35!important;
+  letter-spacing:-.01em!important;
+}
+html body .form__row label {
+  font-size:.9375rem!important;
+  line-height:1.4!important;
+  letter-spacing:-.01em!important;
 }
 html body button,
 html body .btn,
