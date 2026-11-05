@@ -3578,6 +3578,18 @@ html body .hero .hero-start-button.bendy-hero-button:focus-visible{outline:2px s
 }
 </style>
 
+
+<style id="signup-submit-no-shadow">
+/* Убираем тень только у кнопки отправки заявки во всех состояниях. */
+html body #signupForm button[type="submit"],
+html body #signupForm button[type="submit"]:hover,
+html body #signupForm button[type="submit"]:active,
+html body #signupForm button[type="submit"]:focus,
+html body #signupForm button[type="submit"]:disabled {
+  box-shadow:none!important;
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
