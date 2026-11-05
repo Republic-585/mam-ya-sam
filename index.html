@@ -3619,6 +3619,78 @@ html body .program-all__card-content > span{
   font-weight:700!important;
 }
 </style>
+<style id="program-all-apple-card-typography">
+/* Типографическая иерархия карточек по шкале Apple SF Pro для веба. */
+html body #program-all .program-all__card-content,
+html body #program-all .program-all__card-content :is(strong,span,h3,p,a){
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-kerning:normal;
+  font-optical-sizing:auto;
+  font-stretch:normal!important;
+  font-style:normal;
+  text-transform:none;
+}
+/* Модуль: Caption 2 — компактная служебная подпись. */
+html body #program-all .program-all__card-topline > strong{
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:16px!important;
+  letter-spacing:-.01em!important;
+}
+/* Контекст темы: Footnote. */
+html body #program-all .program-all__card-content > span:not(:last-child){
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:20px!important;
+  letter-spacing:-.016em!important;
+  color:#6e737b!important;
+}
+/* Название карточки: Title 3, адаптированный для узкой карточки. */
+html body #program-all .program-all__card-content > h3{
+  margin:0!important;
+  font-size:24px!important;
+  font-weight:600!important;
+  line-height:28px!important;
+  letter-spacing:.007em!important;
+  color:var(--ink)!important;
+}
+html body #program-all .program-all__card-content > h3 mark{
+  font:inherit!important;
+  letter-spacing:inherit!important;
+}
+/* Описание: Body — 17/25, регулярное начертание и фирменный tracking SF Pro. */
+html body #program-all .program-all__card-content > p{
+  margin:0!important;
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
+  color:var(--ink)!important;
+}
+/* Математическая тема внизу карточки: Footnote с усиленным весом. */
+html body #program-all .program-all__card-content > span:last-of-type{
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:20px!important;
+  letter-spacing:-.016em!important;
+  color:var(--ink)!important;
+}
+/* Ссылка в последней карточке использует тот же стиль Body. */
+html body #program-all .program-all__card-content > .program-all__continuation-link{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
+}
+@media(max-width:640px){
+  html body #program-all .program-all__card-content > h3{
+    font-size:21px!important;
+    line-height:25px!important;
+    letter-spacing:.011em!important;
+  }
+}
+</style>
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
