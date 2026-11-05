@@ -8537,7 +8537,7 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
   function applyModule(module){
     cards.forEach(function(card){
       const cardModule=card.dataset.programModule;
-      card.hidden=cardModule!=='intro'&&cardModule!=='continuation'&&cardModule!==module;
+      card.hidden=cardModule==='intro'?module!=='1':cardModule!=='continuation'&&cardModule!==module;
     });
     switcher.querySelectorAll('[data-module]').forEach(function(button){
       const active=button.dataset.module===module;
