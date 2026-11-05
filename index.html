@@ -3695,7 +3695,7 @@ html body #signupForm button[type="submit"]:disabled {
       <p class="video__subtitle">2 минуты, чтобы увидеть формат: математика + реальные финансовые ситуации. Считаем, сравниваем, выбираем и объясняем.</p>
 
       <div class="video__player" id="videoPlayer" role="region" aria-label="Видеоплеер практикума">
-        <video class="video__media" id="practiceVideo" preload="metadata" playsinline poster="https://images.pexels.com/videos/7749296/pexels-photo-7749296.jpeg?auto=compress&dpr=1&h=750&w=1260">
+        <video class="video__media" id="practiceVideo" preload="none" playsinline poster="https://images.pexels.com/videos/7749296/pexels-photo-7749296.jpeg?auto=compress&dpr=1&h=750&w=1260">
           <source src="https://videos.pexels.com/video-files/7749296/7749296-hd_1920_1080_30fps.mp4" type="video/mp4">
         </video>
         <div class="video__brand" aria-label="Логотип проекта">
@@ -3784,6 +3784,21 @@ html body #signupForm button[type="submit"]:disabled {
     let userMuted=false;
     let seekFrame=0;
     let isSeeking=false;
+
+    /* Начинаем загрузку заранее, пока плеер ещё находится ниже видимой области. */
+    if('IntersectionObserver' in window){
+      const preloadObserver=new IntersectionObserver(entries=>{
+        if(entries.some(entry=>entry.isIntersecting)){
+          video.preload='auto';
+          video.load();
+          preloadObserver.disconnect();
+        }
+      },{rootMargin:'1800px 0px',threshold:0});
+      preloadObserver.observe(player);
+    }else{
+      video.preload='auto';
+      video.load();
+    }
 
     function renderSeek(){
       if(video.duration&&!isSeeking){
@@ -3925,6 +3940,10 @@ html body #signupForm button[type="submit"]:disabled {
       duration.textContent=time(video.duration);
       player.querySelector('.video__preview-duration').textContent=time(video.duration);
       seek.max=1000;
+      if(inView&&!userMode)startPreview();
+    });
+    /* Запускаем превью сразу после готовности кадров, а не ждём повторного пересечения блока. */
+    video.addEventListener('canplay',function(){
       if(inView&&!userMode)startPreview();
     });
     video.addEventListener('timeupdate',function(){
