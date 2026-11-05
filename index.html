@@ -8355,6 +8355,33 @@ html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-car
 }
 </style>
 
+
+<style id="pricing-cards-match-faq-search-final">
+/* Каждая карточка равна по ширине полю поиска в FAQ (560px максимум). */
+html body section.pricing #pricingCarousel{
+  display:block!important;
+  width:min(100%,560px)!important;
+  max-width:560px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid{
+  display:flex!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price{
+  flex:0 0 100%!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+</style>
 </body>
 
 <script id="header-duck-click-jelly">
