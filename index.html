@@ -3556,88 +3556,7 @@ html body #signupForm button[type="submit"]:disabled {
 
 
 
-<style id="hero-cta-apple-refinement">
-/* Hero CTA: четыре чётких состояния, фирменный жёлтый и сдержанная обратная связь. */
-html body .hero .hero-start-button,
-html body .hero .hero-start-button:link,
-html body .hero .hero-start-button:visited {
-  position:relative!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:10px!important;
-  min-height:48px!important;
-  padding:0 22px!important;
-  border:0!important;
-  border-radius:999px!important;
-  background:#FFD93D!important;
-  color:#171717!important;
-  -webkit-text-fill-color:#171717!important;
-  box-shadow:none!important;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-size:16px!important;
-  font-weight:600!important;
-  line-height:1.2!important;
-  letter-spacing:-.015em!important;
-  text-decoration:none!important;
-  -webkit-tap-highlight-color:transparent!important;
-  transform:translateY(0) scale(1)!important;
-  transition:transform .2s cubic-bezier(.2,.8,.2,1),background-color .2s ease,outline-offset .2s ease!important;
-}
-html body .hero .hero-start-button span {
-  color:inherit!important;
-  -webkit-text-fill-color:inherit!important;
-  font:inherit!important;
-}
-html body .hero .hero-start-button__icon {
-  display:block!important;
-  flex:0 0 18px!important;
-  width:18px!important;
-  height:18px!important;
-  fill:none!important;
-  stroke:currentColor!important;
-  stroke-width:1.8!important;
-  stroke-linecap:round!important;
-  stroke-linejoin:round!important;
-  transition:transform .2s cubic-bezier(.2,.8,.2,1)!important;
-}
-/* 1. Наведение — небольшое поднятие и движение стрелки. */
-@media (hover:hover) and (pointer:fine) {
-  html body .hero .hero-start-button:hover {
-    background:#FFD93D!important;
-    box-shadow:none!important;
-    transform:translateY(-2px)!important;
-  }
-  html body .hero .hero-start-button:hover .hero-start-button__icon {
-    transform:translateX(3px)!important;
-  }
-}
-/* 2. Нажатие — короткий тактильный отклик без тяжёлой тени. */
-html body .hero .hero-start-button:active {
-  background:#FFD93D!important;
-  box-shadow:none!important;
-  transform:scale(.97)!important;
-}
-html body .hero .hero-start-button:active .hero-start-button__icon {
-  transform:translateX(1px)!important;
-}
-/* 3. Клавиатурный фокус — хорошо заметный контрастный контур. */
-html body .hero .hero-start-button:focus-visible {
-  outline:3px solid #171717!important;
-  outline-offset:4px!important;
-  box-shadow:none!important;
-}
-/* 4. Базовое состояние — спокойное, без постоянной анимации. */
-html body .hero .hero-start-button:not(:hover):not(:active):not(:focus-visible) {
-  outline-offset:2px;
-}
-@media (prefers-reduced-motion:reduce) {
-  html body .hero .hero-start-button,
-  html body .hero .hero-start-button__icon {
-    transition:none!important;
-  }
-}
-</style>
+
 
 </head>
 <body>
@@ -3723,7 +3642,7 @@ html body .hero .hero-start-button:not(:hover):not(:active):not(:focus-visible) 
       <div class="hero__content">
         <p class="hero__lead hero__lead-three-lines"><span class="hero__lead-line">Тут</span><span class="hero__lead-line">дети и взрослые</span><span class="hero__lead-line hero__lead-final-line"><span class="hero__word-pill" id="hero-rotating-verb-pill" aria-label="Думают">Думают</span> <span class="hero__together-word">вместе.</span></span></p>
         <p class="hero__subtitle"><span class="hero__subtitle-first"><span class="hero__subtitle-line-one">Подружим ребенка</span><span class="hero__subtitle-line-two">с цифрами и деньгами.</span></span><span class="hero__subtitle-second">На стыке финансовой грамотности<br>и математики.</span></p>
-        <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать бесплатно — перейти к тарифам" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}" ><span>Начать бесплатно</span><svg class="hero-start-button__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3.5 10h12M10 4.5l5.5 5.5-5.5 5.5"/></svg></a>
+        <a class="hero__cta hero-start-button" href="#pricing" aria-label="Начать сейчас" onclick="event.preventDefault(); const target=document.getElementById('pricing'); if(target){window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY,behavior:'smooth'});}"><span>Начать бесплатно</span></a>
       </div>
 
     </div>
