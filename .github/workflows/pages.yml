@@ -20,18 +20,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check site and required assets
+        run: node scripts/check-site.mjs
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
       - name: Prepare site files
         run: |
-          test -s index.html
           mkdir -p _site
-          cp index.html _site/index.html
-          if [ -d admin ]; then cp -R admin _site/admin; fi
+          cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
   deploy:
     environment:
       name: github-pages
