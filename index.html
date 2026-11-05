@@ -3776,8 +3776,7 @@ html body #signupForm button[type="submit"]:disabled {
       '720':'https://videos.pexels.com/video-files/7749296/7749296-hd_1280_720_30fps.mp4',
       '480':'https://videos.pexels.com/video-files/7749296/7749296-sd_960_540_30fps.mp4'
     };
-    const PREVIEW_START=1.5;
-    const PREVIEW_END=7;
+    /* Нативный loop браузера повторяет весь короткий ролик без ручной перемотки. */
     let inView=false;
     let previewing=false;
     let userMode=false;
@@ -3832,9 +3831,9 @@ html body #signupForm button[type="submit"]:disabled {
       if(userMode||previewing||!video.paused||!video.readyState)return;
       previewing=true;
       player.classList.add('is-previewing');
-      video.loop=false;
+      video.loop=true;
       video.muted=true;
-      video.currentTime=PREVIEW_START;
+      video.currentTime=0;
       video.play().catch(()=>{previewing=false;player.classList.remove('is-previewing');});
     }
     function stopPreview(reset){
@@ -3955,10 +3954,6 @@ html body #signupForm button[type="submit"]:disabled {
       if(inView&&!userMode)startPreview();
     });
     video.addEventListener('timeupdate',function(){
-      if(previewing&&video.currentTime>=PREVIEW_END){
-        video.currentTime=PREVIEW_START;
-        if(video.paused)video.play().catch(()=>{});
-      }
       current.textContent=time(video.currentTime);
       if(video.paused&&!isSeeking)renderSeek();
     });
