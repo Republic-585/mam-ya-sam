@@ -3829,7 +3829,7 @@ html body #signupForm button[type="submit"]:disabled {
       play.setAttribute('aria-label',playing?'Пауза':'Воспроизвести видео');
     }
     function startPreview(){
-      if(!inView||userMode||!video.paused||!video.readyState)return;
+      if(userMode||previewing||!video.paused||!video.readyState)return;
       previewing=true;
       player.classList.add('is-previewing');
       video.loop=false;
@@ -3931,8 +3931,16 @@ html body #signupForm button[type="submit"]:disabled {
         },280);
       }
     });
-    video.addEventListener('play',function(){updatePlay();startSeekAnimation();showControls();});
-    video.addEventListener('pause',function(){showControls();updatePlay();stopSeekAnimation();});
+    video.addEventListener('play',function(){
+      updatePlay();
+      startSeekAnimation();
+      if(userMode)showControls();
+    });
+    video.addEventListener('pause',function(){
+      if(userMode)showControls();
+      updatePlay();
+      stopSeekAnimation();
+    });
     video.addEventListener('ended',function(){
       if(userMode){userMode=false;updatePlay();}
     });
@@ -4020,12 +4028,8 @@ html body #signupForm button[type="submit"]:disabled {
       const observer=new IntersectionObserver(entries=>{
         entries.forEach(entry=>{
           inView=entry.isIntersecting&&entry.intersectionRatio>=0.35;
-          if(inView){
-            if(!userMode)startPreview();
-          }else{
-            stopPreview(true);
-            if(userMode&&video.paused)userMode=false;
-          }
+          /* Видимость запускает превью один раз; прокрутка больше не останавливает его. */
+          if(inView&&!userMode)startPreview();
         });
       },{threshold:[0,0.35,0.6]});
       observer.observe(player);
