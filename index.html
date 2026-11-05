@@ -3542,6 +3542,42 @@ html body .program-all__card :is(h1,h2,h3,h4,h5,h6,p,span,strong,em,a,li,small,l
     box-sizing:border-box!important;
   }
 </style>
+
+<style id="bendy-hero-button">
+/* Bendy interaction: elastic surface is separate from the label. */
+html body .hero .hero-start-button.bendy-hero-button{
+  position:relative!important;isolation:isolate!important;overflow:visible!important;
+  background:transparent!important;box-shadow:none!important;
+  transform:translate3d(var(--bendy-x,0px),var(--bendy-y,0px),0) rotate(var(--bendy-rotate,0deg))!important;
+  transition:transform .42s cubic-bezier(.2,1.65,.4,1),color .2s ease!important;
+  will-change:transform;
+}
+html body .hero .hero-start-button.bendy-hero-button::before{
+  content:"";position:absolute;z-index:-1;inset:0;border-radius:
+    var(--bendy-tl,22px) var(--bendy-tr,22px) var(--bendy-br,22px) var(--bendy-bl,22px);
+  background:#FFD93D;transform:scale(var(--bendy-sx,1),var(--bendy-sy,1));
+  box-shadow:0 0 0 rgba(23,23,23,0);
+  transition:border-radius .22s ease,transform .42s cubic-bezier(.2,1.65,.4,1),box-shadow .28s ease,background-color .2s ease;
+  will-change:transform,border-radius;
+}
+html body .hero .hero-start-button.bendy-hero-button:hover::before,
+html body .hero .hero-start-button.bendy-hero-button.is-bendy-active::before{
+  box-shadow:0 7px 18px rgba(23,23,23,.12);
+}
+html body .hero .hero-start-button.bendy-hero-button:active{
+  transform:translate3d(var(--bendy-x,0px),var(--bendy-y,0px),0) scale(.98)!important;
+}
+html body .hero .hero-start-button.bendy-hero-button span{position:relative;z-index:1}
+html body .hero .hero-start-button.bendy-hero-button:focus-visible{outline:2px solid #171717!important;outline-offset:5px!important}
+@media(hover:none){
+  html body .hero .hero-start-button.bendy-hero-button{transition:transform .5s cubic-bezier(.2,1.65,.4,1)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body .hero .hero-start-button.bendy-hero-button,
+  html body .hero .hero-start-button.bendy-hero-button::before{transition:none!important;transform:none!important}
+}
+</style>
+
 </head>
 <body>
 <script>if (window.location.hash === "#about") { history.replaceState(null, "", window.location.pathname + window.location.search); window.scrollTo(0, 0); }</script>
@@ -8402,6 +8438,62 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
   color:#141414!important;
 }
 </style>
+
+
+<script id="bendy-hero-button-script">
+(function(){
+  const button=document.querySelector('.hero .hero-start-button[href="#pricing"]');
+  if(!button || button.dataset.bendyReady) return;
+  button.dataset.bendyReady='1';
+  button.classList.add('bendy-hero-button');
+  const reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced) return;
+  let rect=null,leaveTimer=0;
+  const set=(name,value)=>button.style.setProperty(name,value);
+  function reset(){
+    button.classList.remove('is-bendy-active');
+    ['--bendy-x','--bendy-y','--bendy-rotate'].forEach((p)=>set(p,'0px'));
+    ['--bendy-sx','--bendy-sy'].forEach((p)=>set(p,'1'));
+    ['--bendy-tl','--bendy-tr','--bendy-br','--bendy-bl'].forEach((p)=>set(p,'22px'));
+  }
+  button.addEventListener('pointerenter',()=>{rect=button.getBoundingClientRect();button.classList.add('is-bendy-active');});
+  button.addEventListener('pointermove',(event)=>{
+    if(event.pointerType==='touch') return;
+    rect=button.getBoundingClientRect();
+    const nx=(event.clientX-(rect.left+rect.width/2))/(rect.width/2);
+    const ny=(event.clientY-(rect.top+rect.height/2))/(rect.height/2);
+    const x=Math.max(-1,Math.min(1,nx)),y=Math.max(-1,Math.min(1,ny));
+    set('--bendy-x',(x*5.5).toFixed(2)+'px');
+    set('--bendy-y',(y*3.5).toFixed(2)+'px');
+    set('--bendy-rotate',(x*2.1).toFixed(2)+'deg');
+    set('--bendy-sx',(1+Math.abs(x)*.035).toFixed(3));
+    set('--bendy-sy',(1+Math.abs(y)*.045).toFixed(3));
+    const base=22,dx=x*7,dy=y*5;
+    set('--bendy-tl',(base+dy-dx*.35).toFixed(1)+'px');
+    set('--bendy-tr',(base+dy+dx*.35).toFixed(1)+'px');
+    set('--bendy-br',(base-dy+dx*.35).toFixed(1)+'px');
+    set('--bendy-bl',(base-dy-dx*.35).toFixed(1)+'px');
+  });
+  button.addEventListener('pointerleave',()=>{clearTimeout(leaveTimer);reset();});
+  button.addEventListener('pointerdown',()=>{
+    clearTimeout(leaveTimer);button.classList.add('is-bendy-active');
+    set('--bendy-sx','1.045');set('--bendy-sy','.91');
+    set('--bendy-y','2px');
+  });
+  button.addEventListener('pointerup',()=>{
+    set('--bendy-sx','1.035');set('--bendy-sy','1.055');
+    set('--bendy-y','-1px');
+    leaveTimer=setTimeout(()=>{if(!button.matches(':hover'))reset();else{
+      set('--bendy-sx','1');set('--bendy-sy','1');set('--bendy-y','0px');
+    }},180);
+  });
+  button.addEventListener('pointercancel',reset);
+  button.addEventListener('blur',reset);
+  button.addEventListener('focus',()=>button.classList.add('is-bendy-active'));
+  button.addEventListener('click',()=>{button.classList.add('is-bendy-active');set('--bendy-sx','1.035');set('--bendy-sy','1.045');setTimeout(()=>{if(!button.matches(':hover,:focus-visible'))reset();},220);});
+  reset();
+})();
+</script>
 
 </body>
 
