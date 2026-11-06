@@ -8846,12 +8846,19 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     if(closest)setActive(moduleForCard(closest));
   }
   let scrollFrame=0;
+  let programmaticScroll=false;
+  let settleTimer=0;
   function scheduleUpdate(){
-    if(scrollFrame)return;
+    if(programmaticScroll||scrollFrame)return;
     scrollFrame=requestAnimationFrame(function(){
       scrollFrame=0;
-      updateFromScroll();
+      if(!programmaticScroll)updateFromScroll();
     });
+  }
+  function finishProgrammaticScroll(){
+    if(!programmaticScroll)return;
+    programmaticScroll=false;
+    if(settleTimer)window.clearTimeout(settleTimer);
   }
   buttons.forEach(function(button){
     button.addEventListener('click',function(){
@@ -8861,16 +8868,23 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
         : cards.find(card=>card.dataset.programModule===module);
       if(!target)return;
       const left=target.getBoundingClientRect().left-carousel.getBoundingClientRect().left+carousel.scrollLeft;
-      carousel.scrollTo({
-        left:left,
-        behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'
-      });
+      const smooth=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      programmaticScroll=smooth;
+      if(settleTimer)window.clearTimeout(settleTimer);
+      carousel.scrollTo({left:left,behavior:smooth?'smooth':'auto'});
       setActive(module);
+      if(!smooth)programmaticScroll=false;
     });
   });
   carousel.addEventListener('scroll',function(){
+    if(programmaticScroll){
+      if(settleTimer)window.clearTimeout(settleTimer);
+      settleTimer=window.setTimeout(finishProgrammaticScroll,220);
+      return;
+    }
     scheduleUpdate();
   },{passive:true});
+  carousel.addEventListener('scrollend',finishProgrammaticScroll,{passive:true});
   window.addEventListener('resize',function(){
     scheduleUpdate();
   },{passive:true});
