@@ -937,3 +937,10 @@ html body :is(*, #apple-font-family-lock#apple-font-family-lock)::after {
 .hero-menu__social-icon[aria-label="YouTube"] svg { width:32px!important; height:32px!important; }
 .faq__search-label { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
 #ambient-audio { display:none!important; }
+
+/* Source block: hero-word-pill-after-semantic-h1 */
+/* Сохраняем мягкую форму и обычное начертание плашки после перехода заголовка на h1. */
+html body .hero .hero__lead-three-lines .hero__word-pill {
+  border-radius:9999px!important;
+  font-weight:400!important;
+}
