@@ -9162,8 +9162,9 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     const key=normalise(original);
     if(current==="en" && translations[key]){
       const leading=(original.match(/^\s*/)||[""])[0], trailing=(original.match(/\s*$/)||[""])[0];
-      node.nodeValue=leading+translations[key]+trailing;
-    }else if(current==="ru"){node.nodeValue=original;}
+      const translated=leading+translations[key]+trailing;
+      if(node.nodeValue!==translated)node.nodeValue=translated;
+    }else if(current==="ru"&&node.nodeValue!==original){node.nodeValue=original;}
   }
   function translateAttributes(root){
     const attrs=["placeholder","aria-label","title"];
