@@ -1,0 +1,939 @@
+/* Source block: hero-menu-links-center-reveal */
+/* Сдержанное появление пунктов меню в духе системных переходов Apple. */
+html body #heroMenu.is-open .hero-menu__links a {
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+@keyframes hero-menu-apple-appear {
+  from {
+    opacity:0;
+    transform:translateY(5px) scale(.985);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__links a {
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* Source block: hero-menu-unified-elements-motion */
+/* Основные элементы меню используют общую мягкую траекторию появления. Соцсети анимируются отдельно, как иконка инь-ян. */
+html body #heroMenu.is-open .hero-menu__theme-toggle svg,
+html body #heroMenu.is-open .hero-menu__close,
+html body #heroMenu.is-open .hero-menu__contact {
+  animation:hero-menu-apple-appear .45s cubic-bezier(.2,.8,.2,1) both!important;
+}
+html body #heroMenu.is-open .hero-menu__contact {
+  animation-delay:.04s!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  html body #heroMenu.is-open .hero-menu__theme-toggle svg,
+  html body #heroMenu.is-open .hero-menu__close,
+  html body #heroMenu.is-open .hero-menu__contact {
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* Source block: site-typography-standardization-except-header-hero */
+/* Единая системная типографика Apple. Шапка, меню и Hero исключены. */
+body :not(header):not(header *):not(.hero):not(.hero *):not(.hero-menu):not(.hero-menu *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+}
+/* Заголовки: системный шрифт Apple, более плотное начертание. */
+body :is(h1,h2,h3,h4,h5,h6,.display):not(.hero *):not(.hero-menu *):not(header *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
+  font-stretch:normal!important;
+  letter-spacing:-.025em;
+}
+/* Основной текст и подписи: спокойное обычное начертание и комфортная высота строки. */
+body p:not(.hero *):not(.hero-menu *):not(header *),
+body li:not(.hero *):not(.hero-menu *):not(header *),
+body label:not(.hero *):not(.hero-menu *):not(header *),
+body input:not(.hero *):not(.hero-menu *):not(header *),
+body textarea:not(.hero *):not(.hero-menu *):not(header *),
+body select:not(.hero *):not(.hero-menu *):not(header *) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+  line-height:1.5;
+}
+
+/* Source block: mobile-menu-outline-match-header */
+/* Убираем двойной шов: нижняя линия внутренней шапки не рисуется над открытым меню. */
+@media(max-width:760px) {
+  html body.hero-menu-open header.topbar > .topbar__in {
+    border-bottom:0!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    border-top:0!important;
+    border-left-color:rgba(0,0,0,.025)!important;
+    border-right-color:rgba(0,0,0,.025)!important;
+  }
+}
+
+/* Source block: mobile-menu-continuous-outline */
+/* Единый внешний контур раскрытого меню и нижней шапки. */
+@media(max-width:760px) {
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    border:1px solid rgba(20,20,20,.18)!important;
+    border-bottom:0!important;
+    border-radius:24px 24px 0 0!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar {
+    border:1px solid rgba(20,20,20,.18)!important;
+    border-top:0!important;
+    border-radius:0 0 22px 22px!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar > .topbar__in {
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+
+/* Source block: faq-minimal-row-design */
+/* Минималистичные строки FAQ: только вопрос, тонкий разделитель и плюс справа. */
+html body .faq__list{
+  max-width:760px!important;
+  gap:0!important;
+}
+html body .faq__list details,
+html body .faq__list details:hover,
+html body .faq__list details[open]{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  border:0!important;
+  border-bottom:1px solid rgba(20,20,20,.18)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:18px!important;
+  min-height:72px!important;
+  padding:20px 2px!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:clamp(1.35rem,6.4vw,4.1rem)!important;
+  font-weight:900!important;
+  line-height:.94!important;
+  letter-spacing:-.045em!important;
+  text-transform:uppercase!important;
+  list-style:none!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  position:relative!important;
+  padding-right:42px!important;
+}
+html body .faq__list summary::before{
+  content:none!important;
+  display:none!important;
+}
+html body .faq__list summary::after{
+  content:""!important;
+  position:absolute!important;
+  right:7px!important;
+  top:calc(50% - 9px)!important;
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background-color:transparent!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M1 9H17 M9 1V17' fill='none' stroke='%23191919' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")!important;
+  background-position:center!important;
+  background-size:18px 18px!important;
+  background-repeat:no-repeat!important;
+  box-shadow:none!important;
+  transform:rotate(0deg)!important;
+  transform-origin:center!important;
+  transition:transform .35s cubic-bezier(.16,1,.3,1)!important;
+}
+html body .faq__list details[open] summary::after{
+  transform:rotate(45deg)!important;
+}
+html body .faq__list .faq__a{
+  padding:0 42px 22px 2px!important;
+  background:transparent!important;
+  color:var(--muted)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+}
+@media(prefers-reduced-motion:reduce){
+  html body .faq__list summary::after{transition:none!important}
+}
+
+/* Source block: faq-question-font-match */
+/* Шрифт вопросов совпадает с ответами; отличается только жирностью. */
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
+}
+
+/* Source block: faq-question-exact-answer-typography */
+/* Вопросы повторяют типографику ответов, меняется только жирность. */
+html body .faq__list summary,
+html body .faq__list details[open] summary{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:700!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+
+/* Source block: faq-filter-visibility-fix */
+/* Скрытые вопросы должны исчезать при фильтрации по категории и поиску. */
+html body .faq__list details[hidden]{
+  display:none!important;
+}
+
+/* Source block: faq-cta-match-hero */
+/* Кнопка FAQ повторяет кнопку Hero; убираем только её вертикальный отступ Hero. */
+html body .faq__cta .hero-start-button{
+  margin:20px auto 0!important;
+}
+/* Подпись CTA использует типографику ответов FAQ. */
+html body .faq__cta p{
+  margin:0!important;
+  color:var(--muted)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+
+/* Source block: faq-cta-final-style */
+html body .faq__cta{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;width:100%!important;margin:32px auto 0!important;
+  text-align:center!important;
+}
+html body .faq__cta p{
+  width:100%!important;margin:0!important;color:var(--ink)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;font-weight:700!important;line-height:1.6!important;
+  letter-spacing:normal!important;text-align:center!important;text-transform:none!important;
+}
+html body .faq__cta a.hero-start-button,
+html body .faq__cta a.hero-start-button:link,
+html body .faq__cta a.hero-start-button:visited{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:calc(100% - 32px)!important;max-width:280px!important;height:44px!important;
+  min-height:44px!important;margin:20px auto 0!important;padding:0 18px!important;
+  border:0!important;border-radius:22px!important;background:#FFD93D!important;
+  color:#171717!important;opacity:1!important;visibility:visible!important;
+  filter:none!important;box-shadow:none!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;font-weight:600!important;line-height:1.2!important;
+  text-align:center!important;text-decoration:none!important;transform:none!important;
+}
+html body .faq__cta a.hero-start-button span{
+  display:block!important;color:#171717!important;font:inherit!important;
+  text-align:center!important;opacity:1!important;visibility:visible!important;
+}
+html body .faq__cta a.hero-start-button:active{
+  background:#EBC52D!important;transform:scale(.97)!important;
+}
+
+html body .faq__cta p{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:10px!important;
+}
+html body .faq__cta .faq__cta-arrow{
+  display:block!important;flex:0 0 34px!important;width:34px!important;height:30px!important;
+  overflow:visible!important;fill:none!important;stroke:#171717!important;
+  stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+  transform:translateY(4px)!important;opacity:1!important;
+}
+@media(max-width:420px){
+  html body .faq__cta p{gap:7px!important}
+  html body .faq__cta .faq__cta-arrow{flex-basis:29px!important;width:29px!important;height:27px!important}
+}
+
+/* Source block: faq-normal-weight-and-hero-button-size */
+/* Вопросы FAQ и текст CTA используют обычное начертание. */
+html body .faq__list summary,
+html body .faq__list details[open] summary {
+  font-weight:400!important;
+}
+/* Кнопка под FAQ повторяет размер и геометрию кнопки Hero. */
+html body .faq__cta a.hero-start-button,
+html body .faq__cta a.hero-start-button:link,
+html body .faq__cta a.hero-start-button:visited {
+  width:100%!important;
+  max-width:310px!important;
+  height:48px!important;
+  min-height:48px!important;
+  border-radius:14px!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:400!important;
+  letter-spacing:-.035em!important;
+  line-height:1.12!important;
+}
+html body .faq__cta a.hero-start-button span {
+  font-weight:400!important;
+}
+
+/* Source block: faq-cta-match-menu-contact-exact */
+/* Кнопка FAQ полностью повторяет актуальное оформление кнопки «Связаться» в меню. */
+html body .faq__cta a.hero-start-button,
+html body .faq__cta a.hero-start-button:link,
+html body .faq__cta a.hero-start-button:visited {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  max-width:280px!important;
+  height:44px!important;
+  min-height:44px!important;
+  margin:20px auto 0!important;
+  padding:0 18px!important;
+  border:0!important;
+  border-radius:22px!important;
+  background:#FFD93D!important;
+  color:#171717!important;
+  box-shadow:none!important;
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:400!important;
+  letter-spacing:-.035em!important;
+  line-height:1.12!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  opacity:1!important;
+  transform:none!important;
+  animation:none!important;
+  transition:transform .22s cubic-bezier(.2,.75,.2,1),background-color .22s ease,box-shadow .22s ease!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+html body .faq__cta a.hero-start-button span {
+  color:inherit!important;
+  font:inherit!important;
+  font-weight:400!important;
+  text-transform:none!important;
+}
+html body .faq__cta a.hero-start-button:hover {
+  background:#F5CE32!important;
+  box-shadow:0 5px 14px rgba(23,23,23,.13)!important;
+  filter:none!important;
+  transform:translateY(-2px)!important;
+}
+html body .faq__cta a.hero-start-button:active {
+  background:#EBC52D!important;
+  box-shadow:0 1px 4px rgba(23,23,23,.12)!important;
+  transform:translateY(0) scale(.97)!important;
+}
+html body .faq__cta a.hero-start-button:focus-visible {
+  outline:2px solid #171717!important;
+  outline-offset:3px!important;
+}
+@media(max-width:640px) {
+  html body .faq__cta a.hero-start-button,
+  html body .faq__cta a.hero-start-button:link,
+  html body .faq__cta a.hero-start-button:visited {
+    width:calc(100% - 32px)!important;
+    max-width:280px!important;
+    height:44px!important;
+    min-height:44px!important;
+    border-radius:22px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .faq__cta a.hero-start-button {transition:none!important}
+}
+
+/* Source block: signup-submit-match-faq-answer-and-menu-button */
+/* Кнопка отправки: типографика ответов FAQ и высота кнопки «Связаться» в меню. */
+html body #signupForm button[type="submit"] {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  height:44px!important;
+  min-height:44px!important;
+  padding:0 18px!important;
+  border:0!important;
+  border-radius:22px!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+
+/* Source block: signup-unified-menu-font-faq-size */
+/* Единая типографика всех текстов формы заявки. */
+html body #signup :is(h1,h2,h3,p,label,span,strong,a,button,input,select,textarea) {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+html body #signup :is(input,textarea)::placeholder {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  opacity:1;
+}
+
+/* Source block: signup-submit-match-contact-font-size */
+/* Размер текста кнопки отправки совпадает с кнопкой «Связаться» в меню. */
+html body #signupForm button[type="submit"] {
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+}
+
+/* Source block: signup-selected-plan-white-black */
+/* Плашка выбранного тарифа: белый фон и чёрный текст. */
+html body #selectedPlanSummary {
+  background:#FFFFFF!important;
+  color:#171717!important;
+}
+html body #selectedPlanSummary :is(*,::before,::after) {
+  color:#171717!important;
+}
+
+/* Source block: legal-dialog-clean-white-faq-typography */
+/* Единое оформление окон политики и публичной оферты. */
+html body dialog.privacy-dialog,
+html body dialog#public-offer {
+  background:#fff!important;
+  color:#171717!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__head,
+html body dialog#public-offer .privacy-dialog__head {
+  background:#fff!important;
+  border:0!important;
+  border-bottom:0!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__body,
+html body dialog#public-offer .privacy-dialog__body,
+html body dialog.privacy-dialog .privacy-dialog__body :is(p,li,h1,h2,h3,strong),
+html body dialog#public-offer .privacy-dialog__body :is(p,li,h1,h2,h3,strong) {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:500!important;
+  line-height:1.65!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close,
+html body dialog#public-offer .privacy-dialog__close {
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 40px!important;
+  width:40px!important;
+  height:40px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#171717!important;
+  font-size:0!important;
+  cursor:pointer!important;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1)!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close::before,
+html body dialog.privacy-dialog .privacy-dialog__close::after,
+html body dialog#public-offer .privacy-dialog__close::before,
+html body dialog#public-offer .privacy-dialog__close::after {
+  content:""!important;
+  position:absolute!important;
+  width:24px!important;
+  height:4px!important;
+  border-radius:999px!important;
+  background:currentColor!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close::before,
+html body dialog#public-offer .privacy-dialog__close::before {transform:rotate(45deg)!important}
+html body dialog.privacy-dialog .privacy-dialog__close::after,
+html body dialog#public-offer .privacy-dialog__close::after {transform:rotate(-45deg)!important}
+html body dialog.privacy-dialog .privacy-dialog__close:hover,
+html body dialog#public-offer .privacy-dialog__close:hover {
+  background:transparent!important;
+  transform:rotate(90deg)!important;
+}
+html body dialog.privacy-dialog .privacy-dialog__close:focus-visible,
+html body dialog#public-offer .privacy-dialog__close:focus-visible {
+  outline:2px solid #171717!important;
+  outline-offset:3px!important;
+}
+
+/* Source block: privacy-dialog-faq-answer-typography-final */
+/* Текст политики: точное совпадение с ответами FAQ, обычное начертание. */
+html body dialog#privacy-policy .privacy-dialog__body,
+html body dialog#privacy-policy .privacy-dialog__body :is(p,li,h3,a,strong) {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:.92rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+html body dialog#privacy-policy .privacy-dialog__close {
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+html body dialog#privacy-policy .privacy-dialog__close:focus,
+html body dialog#privacy-policy .privacy-dialog__close:focus-visible {
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* Source block: public-offer-faq-answer-typography-final */
+/* Текст политики: точное совпадение с ответами FAQ, обычное начертание. */
+html body dialog#public-offer .privacy-dialog__body,
+html body dialog#public-offer .privacy-dialog__body :is(p,li,h3,a,strong) {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:.92rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+html body dialog#public-offer .privacy-dialog__close {
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+html body dialog#public-offer .privacy-dialog__close:focus,
+html body dialog#public-offer .privacy-dialog__close:focus-visible {
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* Source block: pricing-carousel-arrows-desktop-only */
+/* Стрелки карусели тарифов отображаются только на компьютерных экранах. */
+@media(max-width:759px) {
+  html body #pricingCarousel .pricing__carousel-btn {
+    display:none!important;
+  }
+}
+
+/* Source block: quarterly-plan-blue-highlight */
+/* Выделяем только карточку тарифа на 3 месяца. */
+html body .pricing .pricing__grid > .price[data-plan-card="quarterly"] {
+  background:#EAF6FF!important;
+  outline:0!important;
+  outline-offset:0!important;
+}
+
+/* Source block: pricing-heading-match-faq */
+/* Заголовок тарифов оформлен в точности по типографике заголовка FAQ. */
+html body .pricing h2 {
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-weight:800!important;
+  letter-spacing:-.035em!important;
+  text-align:center!important;
+  text-transform:none!important;
+  color:#FFFFFF!important;
+}
+
+/* Source block: pricing-heading-carousel-final-refinement */
+/* Финальные цвета заголовка и точек, карусель без боковых ограничений. */
+html body .pricing h2 {
+  color:#141414!important;
+}
+html body #pricingCarousel {
+  width:100%!important;
+  max-width:none!important;
+}
+html body #pricingCarousel .pricing__grid {
+  width:100%!important;
+  max-width:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+html body #pricingCarousel .pricing__carousel-dot {
+  background:#D1D5DB!important;
+  opacity:1!important;
+}
+html body #pricingCarousel .pricing__carousel-dot[aria-current="true"] {
+  background:#141414!important;
+  transform:scale(1.25)!important;
+}
+
+/* Source block: pricing-overrides-after-all-previous-styles */
+/* Финальные приоритетные стили карточек тарифов. */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+}
+
+/* Зелёные галочки рисуются CSS-линиями, а не зависят от символа шрифта. */
+html body section.pricing #pricingCarousel .pricing__grid > .price ul li {
+  display:flex!important;
+  align-items:flex-start!important;
+  list-style:none!important;
+  gap:10px!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price ul li::before {
+  content:""!important;
+  display:inline-block!important;
+  position:relative!important;
+  flex:0 0 9px!important;
+  width:9px!important;
+  height:16px!important;
+  min-width:9px!important;
+  margin:1px 5px 0 3px!important;
+  padding:0!important;
+  border:0!important;
+  border-right:3px solid #16A34A!important;
+  border-bottom:3px solid #16A34A!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  transform:rotate(45deg)!important;
+}
+
+/* Кнопка выбранного тарифа жёлтая, остальные кнопки светло-серые. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+  background:#F1F2F4!important;
+  background-color:#F1F2F4!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus-visible,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:active {
+  background:#FFD93D!important;
+  background-color:#FFD93D!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+
+/* Source block: pricing-amount-hero-typography */
+/* Стоимость тарифа: крупный заголовочный SF Pro Condensed, как в Hero. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__amount {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(3rem,8vw,4.5rem)!important;
+  font-weight:900!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  color:#141414!important;
+  text-transform:uppercase!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__amount small {
+  display:block!important;
+  margin-top:7px!important;
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:.85rem!important;
+  font-weight:600!important;
+  line-height:1.2!important;
+  letter-spacing:normal!important;
+  color:#141414!important;
+  text-transform:none!important;
+}
+
+/* Source block: pricing-card-titles-and-compact-green-tags */
+/* Названия тарифов по размеру совпадают с заголовком секции тарифов. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__title {
+  font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(1.8rem,5vw,3rem)!important;
+  font-weight:900!important;
+  line-height:1.05!important;
+  letter-spacing:-.035em!important;
+  text-transform:uppercase!important;
+  color:#141414!important;
+}
+
+/* Плашки в верхней части карточек ниже по высоте. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+  min-height:0!important;
+  padding:4px 12px!important;
+  line-height:1.15!important;
+}
+
+/* Рекомендуемый тариф: зелёная плашка, сама карточка остаётся белой. */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] .price__tag--hit {
+  background:#A8F0A0!important;
+  background-color:#A8F0A0!important;
+  color:#141414!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] {
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+}
+
+/* Source block: pricing-buttons-solid-black-final */
+/* Финальное переопределение всех состояний кнопок тарифов. */
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:active {
+  background:#000000!important;
+  background-image:none!important;
+  color:#FFFFFF!important;
+  -webkit-text-fill-color:#FFFFFF!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select::before,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select::after {
+  background:none!important;
+  box-shadow:none!important;
+}
+
+/* Source block: pricing-quarterly-blue-and-selected-yellow-final */
+/* Финальные цвета: карточка «3 месяца» голубая, кнопка выбранного тарифа фирменно-жёлтая. */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#DDF1FF!important;
+  background-color:#DDF1FF!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active {
+  background:#000000!important;
+  background-color:#000000!important;
+  background-image:none!important;
+  color:#FFFFFF!important;
+  -webkit-text-fill-color:#FFFFFF!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:link,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:visited,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:active,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:focus,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:focus-visible {
+  background:#FFD93D!important;
+  background-color:#FFD93D!important;
+  background-image:none!important;
+  color:#141414!important;
+  -webkit-text-fill-color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+/* Source block: pricing-card-title-natural-case */
+/* Естественный регистр названий тарифов: без автоматического перевода в верхний. */
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__title {
+  text-transform:none!important;
+}
+
+/* Source block: site-wide-apple-system-typography */
+/* Единый системный шрифт сайта: San Francisco на платформах Apple,
+   системный sans-serif fallback на остальных платформах. */
+html body,
+html body * {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+  font-kerning:normal;
+  font-optical-sizing:auto;
+}
+
+/* Source block: about-project-apple-typography */
+/* Типографическая иерархия заголовка и подзаголовка проекта по принципам Apple HIG. */
+html body section.about .about-project-heading {
+  max-width:900px!important;
+  margin:0 auto 16px!important;
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(2rem,4.2vw,3.25rem)!important;
+  font-weight:650!important;
+  line-height:1.12!important;
+  letter-spacing:-.04em!important;
+  font-kerning:normal!important;
+  text-wrap:balance;
+  text-transform:none!important;
+}
+html body section.about .about-project-subtitle {
+  max-width:760px!important;
+  margin:0 auto 28px!important;
+  color:#5C5C5C!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(1.0625rem,1.55vw,1.25rem)!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.018em!important;
+  font-kerning:normal!important;
+  text-wrap:pretty;
+}
+@media(max-width:640px){
+  html body section.about .about-project-heading {
+    font-size:clamp(1.9rem,8vw,2.25rem)!important;
+    line-height:1.14!important;
+    letter-spacing:-.035em!important;
+    margin-bottom:12px!important;
+  }
+  html body section.about .about-project-subtitle {
+    font-size:1.0625rem!important;
+    line-height:1.5!important;
+    margin-bottom:22px!important;
+  }
+}
+
+/* Source block: author-achievements-carousel-match-program-final */
+/* Карусель автора повторяет ширину, шаг и боковой preview карусели программы. */
+html body #about .about-achievements__carousel{
+  position:relative!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:stretch!important;
+  gap:20px!important;
+  width:100vw!important;
+  max-width:100vw!important;
+  margin:0!important;
+  padding:8px max(24px,calc((100vw - 1180px)/2)) 76px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:max(24px,calc((100vw - 1180px)/2))!important;
+  scrollbar-width:none!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior-x:contain!important;
+}
+html body #about .about-achievements__carousel::-webkit-scrollbar{
+  display:none!important;width:0!important;height:0!important;
+}
+html body #about .about-achievements__card{
+  flex:0 0 clamp(240px,28vw,320px)!important;
+  width:auto!important;min-width:0!important;
+  scroll-snap-align:start!important;
+}
+html body #about .about-achievements .pricing__carousel-controls,
+html body #about .about-achievements .pricing__carousel-dots,
+html body #about .about-achievements__controls{
+  display:none!important;
+}
+@media(max-width:640px){
+  html body #about .about-achievements__carousel{
+    gap:14px!important;
+    padding:8px 20px 76px!important;
+    scroll-padding-inline:20px!important;
+  }
+  html body #about .about-achievements__card{
+    flex-basis:78vw!important;
+  }
+}
+
+/* Source block: hero-menu-apple-typography-final */
+/* Меню использует ту же гарнитуру и типографическую систему, что и карточки блока «Программа». */
+html body #heroMenu,
+html body #heroMenu :is(a,span,strong,button) {
+  font-family:"SF Pro Text"!important;
+  font-kerning:normal!important;
+  font-optical-sizing:auto!important;
+  font-stretch:normal!important;
+  font-style:normal!important;
+  text-transform:none!important;
+}
+/* Пункты меню: системный Body, как основной текст карточек программы. */
+html body #heroMenu .hero-menu__links a {
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
+  color:#171717!important;
+  padding:12px 0!important;
+}
+html body #heroMenu .hero-menu__links a:hover {
+  color:#6A5410!important;
+  letter-spacing:-.022em!important;
+}
+/* Кнопка связи: тот же SF Pro Text, акцентное начертание Semibold. */
+html body #heroMenu .hero-menu__contact,
+html body #heroMenu .hero-menu__contact span {
+  font-family:"SF Pro Text"!important;
+  font-size:17px!important;
+  font-weight:600!important;
+  line-height:22px!important;
+  letter-spacing:-.022em!important;
+}
+@media(max-width:640px) {
+  html body #heroMenu .hero-menu__links a {
+    font-size:17px!important;
+    line-height:25px!important;
+    padding:11px 0!important;
+  }
+  html body #heroMenu .hero-menu__contact,
+  html body #heroMenu .hero-menu__contact span {
+    font-size:17px!important;
+    line-height:22px!important;
+  }
+}
+
+/* Source block: site-final-apple-sf-pro-typography */
+/* Единая гарнитура всего сайта. Эталон — системный Apple-стек карточек «Вся программа».
+   Иерархия размеров, весов, интервалов и начертаний остаётся заданной существующими стилями. */
+html body,
+html body :is(*, #apple-font-family-lock#apple-font-family-lock),
+html body :is(*, #apple-font-family-lock#apple-font-family-lock)::before,
+html body :is(*, #apple-font-family-lock#apple-font-family-lock)::after {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif!important;
+  font-stretch:normal!important;
+  font-kerning:normal!important;
+  font-optical-sizing:auto!important;
+}
+
+/* Static presentation rules moved out of index.html. */
+.hero-menu__social-icon[aria-label="YouTube"] svg { width:32px!important; height:32px!important; }
+.faq__search-label { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+#ambient-audio { display:none!important; }
