@@ -309,7 +309,29 @@ html body .hero-menu__theme-toggle svg {
 }
 
 /* Тёмная палитра страницы; цветные акценты и изображения сохраняются. */
-html body.theme-dark { --ink:#f3f4f6;--paper:#101522;--muted:#aab2c0;--border:1px solid rgba(255,255,255,.16);background:#101522!important;color:#f3f4f6!important;color-scheme:dark; }
+html body.theme-dark {
+  /* Design system: dark theme semantic tokens. Existing theme styling is retained during staged migration. */
+  --ds-bg: #000000;
+  --ds-surface: #1C1C1E;
+  --ds-surface-secondary: #2C2C2E;
+  --ds-text: #F5F5F7;
+  --ds-text-secondary: #AEAEB2;
+  --ds-border: #38383A;
+  --ds-brand: #FFD93D;
+  --ds-success: #30D158;
+  --ds-warning: #FF9F0A;
+  --ds-danger: #FF453A;
+  --ds-info: #0A84FF;
+  --ds-hero-blue: #0A84FF;
+  --ds-hero-green: #30D158;
+  --ds-hero-orange: #FF9F0A;
+  --ds-hero-purple: #BF5AF2;
+  --ds-hero-pink: #FF375F;
+  --ds-hero-yellow: #FFD60A;
+  --ds-shadow-card: 0 8px 28px rgba(0, 0, 0, 0.22);
+  --ds-shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.3);
+  --ink:#f3f4f6;--paper:#101522;--muted:#aab2c0;--border:1px solid rgba(255,255,255,.16);background:#101522!important;color:#f3f4f6!important;color-scheme:dark;
+}
 html body.theme-dark .hero,html body.theme-dark .problems,html body.theme-dark .program-all,
 html body.theme-dark .skill,html body.theme-dark .about,html body.theme-dark .pricing,
 html body.theme-dark .faq,html body.theme-dark .signup,html body.theme-dark .footer,
