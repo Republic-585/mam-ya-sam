@@ -979,7 +979,7 @@ html body.theme-dark :is(
   background-color:var(--ds-surface,#1C1C1E)!important;
   background-image:none!important;
   color:var(--ds-text,#F5F5F7)!important;
-  border-color:var(--ds-border,#38383A)!important;
+  border:1px solid var(--ds-border,#38383A)!important;
   box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.16))!important;
 }
 html body.theme-dark :is(
@@ -1090,4 +1090,38 @@ html body.theme-dark dialog#public-offer :is(h1,h2,h3,p,li,strong) {
 }
 html body.theme-dark .footer :is(a,p,span,small) {
   color:var(--ds-text-secondary,#AEAEB2)!important;
+}
+/* ID-специфичные блоки автора и программы: перекрывают прежние !important-правила. */
+html body.theme-dark #program-all .program-all__card {
+  background:var(--ds-surface,#1C1C1E)!important;
+  background-image:none!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border:1px solid var(--ds-border,#38383A)!important;
+  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.16))!important;
+}
+html body.theme-dark #program-all .program-all__card :is(h1,h2,h3,h4,h5,h6,p,li,small,strong,a) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark #about .about-v2__author,
+html body.theme-dark #about .about-achievements__card,
+html body.theme-dark #about .about__mission {
+  background:var(--ds-surface,#1C1C1E)!important;
+  background-image:none!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border:1px solid var(--ds-border,#38383A)!important;
+  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.16))!important;
+}
+html body.theme-dark #about .about-v2__author-copy :is(h1,h2,h3,h4,h5,h6,p,li,small,strong,b,span) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark #about .about-achievements__card :is(h1,h2,h3,h4,h5,h6,p,li,small,strong,span) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark #about .about-achievements__card h4 mark {
+  background:var(--ds-brand,#FFD93D)!important;
+  color:#171717!important;
+  -webkit-text-fill-color:#171717!important;
 }
