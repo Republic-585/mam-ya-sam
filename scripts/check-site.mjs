@@ -37,7 +37,7 @@ for (const href of stylesheetLinks) {
 }
 
 check(
-  /cp\s+\.\/*.css\s+_site\//.test(workflow),
+  workflow.includes('cp ./*.css _site/'),
   'GitHub Pages workflow не копирует CSS-файлы в публикуемый каталог _site'
 );
 
