@@ -9164,6 +9164,27 @@ html body #about .about-achievements__card h4 mark{
 }
 </style>
 
+
+
+<style id="program-card-bottom-labels-alignment">
+/* Нижние тематические подписи всех карточек программы выровнены по одной нижней линии. */
+html body #program-all .program-all__card {
+  display:flex!important;
+}
+html body #program-all .program-all__card-content {
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  width:100%!important;
+}
+html body #program-all .program-all__card:not(.program-all__card--continuation) .program-all__card-content > span:last-of-type {
+  margin-top:auto!important;
+}
+html body #program-all .program-all__card--continuation .program-all__card-content > .program-all__continuation-link {
+  margin-top:auto!important;
+}
+</style>
+
 </body>
 
 
