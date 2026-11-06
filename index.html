@@ -890,63 +890,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 <script>
 </script>
 <script src="js/page-interactions.js"></script>
-<script>
-// ---------- Интерактивная задача внутри блока «О проекте» ----------
-(function(){
-  const game = document.getElementById('aboutGame');
-  if (!game) return;
-  const choices = Array.from(game.querySelectorAll('[data-game-choice]'));
-  const feedback = document.getElementById('aboutGameFeedback');
-  const restart = document.getElementById('aboutGameRestart');
-  const messages = {
-    a: {ok:false, text:'Почти! 1 000 − 870 = 130 ₽. Ты оплатил всё из списка, но до цели в 250 ₽ не хватает 120 ₽. Попробуй расставить приоритеты.'},
-    b: {ok:true, text:'Миссия выполнена! 180 + 220 + 350 = 750 ₽. Из 1 000 ₽ остаётся 250 ₽ ровно на твою цель. Ты сохранил важные расходы и отказался только от необязательной покупки. Отличный план!'},
-    c: {ok:false, text:'Деньги остались, но книгу ты отложил, а это одна из важных покупок в задаче. Подумай, можно ли сохранить проезд, обед и книгу, отказавшись от чего-то менее важного.'}
-  };
-  choices.forEach(function(button){
-    button.addEventListener('click',function(){
-      const result = messages[button.dataset.gameChoice];
-      choices.forEach(function(item){item.disabled=true;});
-      button.classList.add(result.ok?'is-correct':'is-wrong');
-      if(!result.ok){
-        const correct = game.querySelector('[data-game-choice="b"]');
-        if(correct) correct.classList.add('is-correct');
-      }
-      feedback.textContent=result.text;
-      feedback.dataset.state=result.ok?'success':'try';
-      restart.hidden=false;
-      const status=game.querySelector('.about-v2__game-status');
-      if(status) status.innerHTML=result.ok?'<span aria-hidden="true">●</span> МИССИЯ ПРОЙДЕНА':'<span aria-hidden="true">●</span> ЕСТЬ ЕЩЁ ПОПЫТКА';
-    });
-  });
-  restart.addEventListener('click',function(){
-    choices.forEach(function(item){item.disabled=false;item.classList.remove('is-correct','is-wrong');});
-    feedback.textContent='Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.';
-    feedback.textContent='Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.';
-    feedback.removeAttribute('data-state');
-    restart.hidden=true;
-    const status=game.querySelector('.about-v2__game-status');
-    if(status) status.textContent='ТВОЙ ХОД';
-  });
-})();
-
-
-
-/* Карусель достижений автора */
-(function(){
-  const track=document.getElementById('authorAchievements');
-  if(!track)return;
-  const cards=Array.from(track.children);
-  const dots=Array.from(document.querySelectorAll('[data-achievement-dot]'));
-  function index(){const center=track.scrollLeft+track.clientWidth/2;let best=0,dist=Infinity;cards.forEach((card,i)=>{const d=Math.abs(card.offsetLeft+card.offsetWidth/2-center);if(d<dist){dist=d;best=i;}});return best;}
-  function goTo(i){i=Math.max(0,Math.min(cards.length-1,i));track.scrollTo({left:cards[i].offsetLeft-track.offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});dots.forEach((d,n)=>d.setAttribute('aria-current',String(n===i)));}
-  document.querySelectorAll('[data-achievement-move]').forEach(b=>b.addEventListener('click',()=>goTo(index()+Number(b.dataset.achievementMove))));
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
-  let frame;
-  track.addEventListener('scroll',()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const i=index();dots.forEach((d,n)=>d.setAttribute('aria-current',String(n===i)));});},{passive:true});
-})();
-
-</script>
+<script src="js/about-interactions.js"></script>
 
 
 
