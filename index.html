@@ -4815,6 +4815,7 @@ html body .skill__number {
     <div class="privacy-dialog__head">
       <div>
         <h2 class="privacy-dialog__title" id="offerHeading">Публичная оферта</h2>
+        <p class="legal-translation-note">This English translation is provided for convenience only. The Russian-language version governs the agreement and its interpretation.</p>
       </div>
       <button class="privacy-dialog__close" type="button" data-close-offer aria-label="Закрыть оферту">×</button>
     </div>
@@ -4882,6 +4883,7 @@ html body .skill__number {
     <div class="privacy-dialog__head">
       <div>
         <h2 class="privacy-dialog__title" id="privacyHeading">Политика обработки персональных данных</h2>
+        <p class="legal-translation-note">This English translation is provided for convenience only. The Russian-language version governs the agreement and its interpretation.</p>
       </div>
       <button class="privacy-dialog__close" type="button" data-close-privacy aria-label="Закрыть политику данных">×</button>
     </div>
@@ -8890,6 +8892,10 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
 .site-language__option:focus-visible{outline:2px solid #06c;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.site-language__option{transition:none}}
 </style>
+<style id="legal-translation-note-style">
+.legal-translation-note{display:none;margin:12px 0 0;color:#6e737b;font-size:13px;line-height:1.45}
+html[lang="en"] .legal-translation-note{display:block}
+</style>
 <script id="site-language-localization">
 (function(){
   const translations = {
@@ -9149,7 +9155,7 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     "ИНН:":"INN:","Город:":"City:","[указать рабочий email]":"[insert business email]","Телефон:":"Phone:",
     "[указать номер телефона]":"[insert phone number]","ОГРНИП:":"OGRNIP:",
     "[указать, если применимо; для плательщика НПД без статуса ИП не указывается]":"[insert if applicable; not used by self-employed individuals who are not registered as individual entrepreneurs]",
-    "Вы можете запросить уточнение, удаление или прекращение обработки данных, а также отозвать согласие. Для этого напишите в бот проекта:":"You may request correction or deletion of your information, ask us to stop processing it or withdraw your consent. To do so, message the project bot:",
+    "Закрыть оферту":"Close the public offer","Закрыть политику данных":"Close the privacy policy","Закрыть поиск":"Clear search","Переключение тарифов":"Plan navigation","Твой бюджет":"Your budget","Цена и скидка":"Price and discount","План накоплений":"Savings plan","Варианты плана":"Plan options","Ответы на миссию 2":"Answers for challenge 2","Ответы на миссию 3":"Answers for challenge 3","Прокрутка миссий":"Browse challenges","Предыдущая миссия":"Previous challenge","Следующая миссия":"Next challenge","Следующая карточка":"Next card","Вы можете запросить уточнение, удаление или прекращение обработки данных, а также отозвать согласие. Для этого напишите в бот проекта:":"You may request correction or deletion of your information, ask us to stop processing it or withdraw your consent. To do so, message the project bot:",
     "@mam_ya_sam_bot":"@mam_ya_sam_bot",". Мы обработаем запрос в разумный срок.":". We will handle your request within a reasonable period."
 ,
     "Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.":"Hint: subtract the expenses from RUB 1,000 and check how much is left for your goal.",
