@@ -8902,6 +8902,104 @@ html body #program-all .program-all__card--continuation .program-all__card-conte
   margin-top:auto!important;
 }
 </style>
+
+<style id="author-achievements-match-program-cards">
+/* Заголовок и карточки «Опыт и программы» повторяют геометрию карточек программы курса. */
+html body .about-achievements__heading {
+  text-align:center!important;
+  text-transform:none!important;
+  margin:0 0 18px!important;
+}
+html body .about-achievements__carousel {
+  display:flex!important;
+  align-items:stretch!important;
+  gap:20px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:8px max(24px,calc((100vw - 1180px)/2)) 76px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:max(24px,calc((100vw - 1180px)/2))!important;
+  scrollbar-width:none!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+html body .about-achievements__carousel::-webkit-scrollbar {
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+html body .about-achievements__card {
+  flex:0 0 clamp(240px,28vw,320px)!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:300px!important;
+  height:auto!important;
+  box-sizing:border-box!important;
+  padding:24px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:10px!important;
+  scroll-snap-align:start!important;
+  border:0!important;
+  border-radius:var(--radius)!important;
+  background:#FFFFFF!important;
+  color:#141414!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  transition:box-shadow .2s ease,transform .2s ease!important;
+}
+html body .about-achievements__tag {
+  display:block!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#6e737b!important;
+  font-size:.875rem!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+  letter-spacing:-.01em!important;
+  text-align:left!important;
+}
+html body .about-achievements__card h4 {
+  width:100%!important;
+  margin:0!important;
+  color:#141414!important;
+  font-size:clamp(1.3125rem,2vw,1.5rem)!important;
+  font-weight:600!important;
+  line-height:1.18!important;
+  letter-spacing:-.03em!important;
+  text-align:left!important;
+  overflow-wrap:anywhere!important;
+}
+html body .about-achievements__card p {
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  color:#141414!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.012em!important;
+  text-align:left!important;
+}
+@media(max-width:640px) {
+  html body .about-achievements__carousel {
+    gap:14px!important;
+    padding:8px 20px 76px!important;
+    scroll-padding-inline:20px!important;
+  }
+  html body .about-achievements__card {
+    flex-basis:78vw!important;
+    min-height:250px!important;
+    padding:22px!important;
+  }
+}
+</style>
+
 </body>
 
 
