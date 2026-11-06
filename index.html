@@ -3,13 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<script>
-/* Не показываем промежуточное состояние страницы до разбора актуальной разметки. */
-document.documentElement.classList.add('page-loading');
-document.addEventListener('DOMContentLoaded', function () {
-  document.documentElement.classList.remove('page-loading');
-}, { once: true });
-</script>
+<script id="page-loading-script" src="js/page-loading.js"></script>
 <link rel="stylesheet" href="styles-critical.css" />
 <script>
 /* Первое открытие начинается с первого экрана; перезагрузка сохраняет позицию прокрутки. */
