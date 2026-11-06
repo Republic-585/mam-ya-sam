@@ -10147,44 +10147,48 @@ html body #about .about-achievements__controls{
 </style>
 
 <style id="hero-menu-apple-typography-final">
-/* Типографика меню и кнопки связи по принципам Apple: системный шрифт,
-   естественный регистр, ясная иерархия и спокойные интервалы. */
-html body #heroMenu .hero-menu__links a {
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
-  font-size:clamp(1.0625rem,2.1vw,1.1875rem)!important;
-  font-weight:500!important;
-  line-height:1.35!important;
-  letter-spacing:-.018em!important;
-  text-transform:none!important;
+/* Меню использует ту же гарнитуру и типографическую систему, что и карточки блока «Программа». */
+html body #heroMenu,
+html body #heroMenu :is(a,span,strong,button) {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif!important;
   font-kerning:normal!important;
+  font-optical-sizing:auto!important;
   font-stretch:normal!important;
+  font-style:normal!important;
+  text-transform:none!important;
+}
+/* Пункты меню: системный Body, как основной текст карточек программы. */
+html body #heroMenu .hero-menu__links a {
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
   color:#171717!important;
-  padding:13px 0!important;
+  padding:12px 0!important;
 }
 html body #heroMenu .hero-menu__links a:hover {
   color:#6A5410!important;
-  letter-spacing:-.018em!important;
+  letter-spacing:-.022em!important;
 }
+/* Кнопка связи: тот же SF Pro Text, акцентное начертание Semibold. */
 html body #heroMenu .hero-menu__contact,
 html body #heroMenu .hero-menu__contact span {
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
-  font-size:1rem!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif!important;
+  font-size:17px!important;
   font-weight:600!important;
-  line-height:1.2!important;
-  letter-spacing:-.012em!important;
-  text-transform:none!important;
-  font-kerning:normal!important;
-  font-stretch:normal!important;
+  line-height:22px!important;
+  letter-spacing:-.022em!important;
 }
 @media(max-width:640px) {
   html body #heroMenu .hero-menu__links a {
-    font-size:1.0625rem!important;
-    line-height:1.35!important;
-    padding:12px 0!important;
+    font-size:17px!important;
+    line-height:25px!important;
+    padding:11px 0!important;
   }
   html body #heroMenu .hero-menu__contact,
   html body #heroMenu .hero-menu__contact span {
-    font-size:1rem!important;
+    font-size:17px!important;
+    line-height:22px!important;
   }
 }
 </style>
