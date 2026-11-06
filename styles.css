@@ -1235,8 +1235,8 @@ html body .hero-menu .hero-menu__links {
   min-height:300px;
   background:var(--paper);
   border:0;
-  border-radius:var(--radius);
-  box-shadow:none;
+  border-radius:var(--ds-radius-card);
+  box-shadow:var(--ds-shadow-card);
   scroll-snap-align:start;
 }
 .program-all__card-content{
