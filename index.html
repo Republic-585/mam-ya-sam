@@ -9235,6 +9235,73 @@ html[lang="en"] .legal-translation-note{display:block}
   for(let cardNumber=1;cardNumber<=17;cardNumber++){
     translations["Карточка программы "+cardNumber]="Programme card "+cardNumber;
   }
+  Object.assign(translations,{
+    "Мам, я сам! – на главную":"Mum, I Can Do It Myself! – Home",
+    "Основная навигация":"Main navigation",
+    "Открыть разделы сайта":"Open site sections",
+    "Главные разделы сайта":"Main site sections",
+    "Переключить светлую или тёмную тему":"Switch between light and dark mode",
+    "Выбор языка":"Choose language",
+    "Связаться с автором в Telegram":"Contact the creator on Telegram",
+    "Социальные сети":"Social media",
+    "Telegram, канал Мам, я сам":"Mum, I Can Do It Myself! Telegram channel",
+    "Думают":"Think",
+    "Начать сейчас":"Start now",
+    "Навыки самостоятельности":"Independence skills",
+    "Видеоплеер практикума":"Workshop video player",
+    "Логотип проекта":"Project logo",
+    "Воспроизвести видео":"Play video",
+    "Воспроизвести":"Play",
+    "Пауза":"Pause",
+    "Пауза видео":"Pause video",
+    "Выключить звук":"Mute",
+    "Включить звук":"Unmute",
+    "Перемотка видео":"Seek through video",
+    "На весь экран":"Full screen",
+    "Качество видео":"Video quality",
+    "Выбор модуля программы":"Choose a programme module",
+    "Карточки программы. Прокручивайте по горизонтали":"Programme cards. Scroll horizontally",
+    "Продолжение программы и новые модули":"More of the programme and new modules",
+    "Вера Романова, автор проекта":"Vera Romanova, creator of the programme",
+    "Достижения и программы автора":"Creator's experience and programmes",
+    "Переключение опыта и программ":"Browse experience and programmes",
+    "Предыдущая карточка":"Previous card",
+    "Следующая карточка":"Next card",
+    "Опыт и программы":"Experience and programmes",
+    "Международный опыт":"International experience",
+    "Твой бюджет":"Your budget",
+    "Варианты плана":"Plan options",
+    "Цена и скидка":"Price and discount",
+    "Ответы на миссию 2":"Mission 2 answers",
+    "План накоплений":"Savings plan",
+    "Ответы на миссию 3":"Mission 3 answers",
+    "Прокрутка миссий":"Browse missions",
+    "Предыдущая миссия":"Previous mission",
+    "Миссия 1":"Mission 1",
+    "Миссия 2":"Mission 2",
+    "Миссия 3":"Mission 3",
+    "Следующая миссия":"Next mission",
+    "Найти ответ...":"Search for an answer...",
+    "Очистить поиск":"Clear search",
+    "Темы вопросов":"Question topics",
+    "Записать":"Sign up",
+    "Переключение тарифов":"Browse plans",
+    "Предыдущий тариф":"Previous plan",
+    "Тарифы":"Plans",
+    "Пробный доступ":"Free trial",
+    "1 месяц":"1 month",
+    "3 месяца":"3 months",
+    "12 месяцев":"12 months",
+    "Следующий тариф":"Next plan",
+    "Как к вам обращаться?":"What should we call you?",
+    "Как зовут будущего ученика?":"What is the student's name?",
+    "Что хотите узнать или о чём нам важно знать?":"What would you like to know, or is there anything else we should know?",
+    "Закрыть оферту":"Close terms and conditions",
+    "Закрыть политику данных":"Close privacy policy",
+    "Мам, я сам! – наверх":"Mum, I Can Do It Myself! – Back to top",
+    "Правовая информация":"Legal information",
+    "Вернуться к первому экрану":"Back to the top of the page"
+  });
   const originalTexts = new WeakMap();
   const originalAttrs = new WeakMap();
   let current = "ru";
@@ -9251,7 +9318,7 @@ html[lang="en"] .legal-translation-note{display:block}
     }else if(current==="ru"&&node.nodeValue!==original){node.nodeValue=original;}
   }
   function translateAttributes(root){
-    const attrs=["placeholder","aria-label","title"];
+    const attrs=["placeholder","aria-label","title","alt"];
     const elements=[root,...(root.querySelectorAll?root.querySelectorAll("*"):[])];
     elements.forEach(el=>attrs.forEach(attr=>{
       if(!el.hasAttribute||!el.hasAttribute(attr))return;
@@ -9293,6 +9360,7 @@ html[lang="en"] .legal-translation-note{display:block}
   });
   const observer=new MutationObserver(records=>records.forEach(record=>{
     if(record.type==="characterData"){translateNode(record.target);return;}
+    if(record.type==="attributes"){translateAttributes(record.target);return;}
     record.addedNodes.forEach(node=>{
       if(node.nodeType===Node.TEXT_NODE)translateNode(node);
       else if(node.nodeType===Node.ELEMENT_NODE){
@@ -9306,7 +9374,7 @@ html[lang="en"] .legal-translation-note{display:block}
     let preferred="ru";
     try{preferred=new URLSearchParams(location.search).get("lang")||localStorage.getItem("mamYaSamLanguage")||"ru";}catch(_){}
     applyLanguage(preferred);
-    observer.observe(document.body,{childList:true,subtree:true,characterData:true});
+    observer.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["placeholder","aria-label","title","alt"]});
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
