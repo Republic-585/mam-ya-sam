@@ -48,7 +48,7 @@ for (const asset of ['favicon.svg', 'audio.mp3', 'IMG_3511.jpeg']) {
 
 check(/<html[^>]*\blang=["']ru["']/i.test(html), 'Не указан язык страницы lang="ru"');
 check(/<meta[^>]+name=["']viewport["']/i.test(html), 'Отсутствует meta viewport');
-check(/rel=["']icon["'][^>]+href=["']favicon\.svg["']/i.test(html), 'Не подключён favicon.svg');
+check(/rel=["']icon["'][^>]+href=["']favicon\.svg(?:[?#][^"']*)?["']/i.test(html), 'Не подключён favicon.svg');
 check(/<audio\b[^>]*\bsrc=["']audio\.mp3["']/i.test(html), 'Не подключён локальный audio.mp3');
 check(/<img\b[^>]*\bsrc=["']IMG_3511\.jpeg["']/i.test(html), 'Не подключено локальное фото автора');
 
