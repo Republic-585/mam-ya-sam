@@ -70,10 +70,25 @@ for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)) {
 }
 
 let inlineScriptCount = 0;
-for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+let externalScriptCount = 0;
+for (const match of html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script>/gi)) {
   const attributes = match[1];
-  if (/\bsrc\s*=/i.test(attributes)) continue;
-  const type = attributes.match(/\btype=["']([^"']+)["']/i)?.[1]?.toLowerCase();
+  const src = attributes.match(/\\bsrc=["']([^"']+)["']/i)?.[1];
+  if (src) {
+    if (/^(?:https?:|data:|\\/\\/)/i.test(src)) continue;
+    const relative = src.split(/[?#]/)[0];
+    if (!relative.toLowerCase().endsWith('.js')) continue;
+    const source = read(relative);
+    externalScriptCount += 1;
+    try {
+      new vm.Script(source, { filename: relative });
+    } catch (error) {
+      failures.push(`Ошибка синтаксиса во внешнем JavaScript-файле ${relative}: ${error.message}`);
+    }
+    checks += 1;
+    continue;
+  }
+  const type = attributes.match(/\\btype=["']([^"']+)["']/i)?.[1]?.toLowerCase();
   if (type && !['text/javascript', 'application/javascript'].includes(type)) continue;
   inlineScriptCount += 1;
   try {
@@ -83,7 +98,7 @@ for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
   }
   checks += 1;
 }
-check(inlineScriptCount > 0, 'Не найдены встроенные JavaScript-блоки');
+check(inlineScriptCount + externalScriptCount > 0, 'Не найдены JavaScript-блоки или внешние JavaScript-файлы');
 
 for (const [asset, target] of [
   ['index.html', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/'],
