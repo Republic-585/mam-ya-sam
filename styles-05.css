@@ -310,7 +310,7 @@ html body .hero-menu__theme-toggle svg {
 
 /* Тёмная палитра страницы; цветные акценты и изображения сохраняются. */
 html body.theme-dark {
-  /* Design system: dark theme semantic tokens. Existing theme styling is retained during staged migration. */
+  /* Design system: neutral graphite surfaces, independent from the light theme. */
   --ds-bg: #000000;
   --ds-surface: #1C1C1E;
   --ds-surface-secondary: #2C2C2E;
@@ -328,21 +328,35 @@ html body.theme-dark {
   --ds-hero-purple: #BF5AF2;
   --ds-hero-pink: #FF375F;
   --ds-hero-yellow: #FFD60A;
-  --ds-shadow-card: 0 8px 28px rgba(0, 0, 0, 0.22);
-  --ds-shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.3);
-  --ink:#f3f4f6;--paper:#101522;--muted:#aab2c0;--border:1px solid rgba(255,255,255,.16);background:#101522!important;color:#f3f4f6!important;color-scheme:dark;
+  --ds-shadow-card: 0 8px 28px rgba(0, 0, 0, 0.16);
+  --ds-shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.22);
+  --ink: var(--ds-text);
+  --paper: var(--ds-surface);
+  --muted: var(--ds-text-secondary);
+  --border: 1px solid var(--ds-border);
+  background: var(--ds-bg) !important;
+  color: var(--ds-text) !important;
+  color-scheme: dark;
 }
 html body.theme-dark .hero,html body.theme-dark .problems,html body.theme-dark .program-all,
 html body.theme-dark .skill,html body.theme-dark .about,html body.theme-dark .pricing,
 html body.theme-dark .faq,html body.theme-dark .signup,html body.theme-dark .footer,
-html body.theme-dark section:not(.adult) { background-color:#101522!important;color:#f3f4f6!important; }
+html body.theme-dark section:not(.adult) {
+  background-color: var(--ds-bg) !important;
+  color: var(--ds-text) !important;
+}
 html body.theme-dark .hero__content,html body.theme-dark .hero__content h1,
-html body.theme-dark .hero__lead,html body.theme-dark .hero__sub { background-color:transparent!important;color:#f3f4f6!important; }
+html body.theme-dark .hero__lead,html body.theme-dark .hero__sub {
+  background-color: transparent !important;
+  color: var(--ds-text) !important;
+}
 html body.theme-dark .card,html body.theme-dark .problems__recs,
 html body.theme-dark .skill__item,html body.theme-dark .program-all__card,
 html body.theme-dark .pricing__card,html body.theme-dark .faq details,
 html body.theme-dark .signup__form,html body.theme-dark .about__card {
-  background-color:#1a2232!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.16)!important;
+  background-color: var(--ds-surface) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
 }
 html body.theme-dark .topbar > .topbar__in { background:rgba(16,21,34,.88)!important;border-color:rgba(255,255,255,.1)!important; }
 html body.theme-dark .topbar,html body.theme-dark .topbar__progress-text { color:#f3f4f6!important; }
