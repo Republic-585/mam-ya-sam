@@ -21,6 +21,26 @@ function read(path) {
 const html = read('index.html');
 const workflow = read('.github/workflows/pages.yml');
 
+const stylesheetLinks = [...html.matchAll(/<link\\b[^>]*>/gi)]
+  .map(([tag]) => tag)
+  .filter((tag) => /\\brel=["']stylesheet["']/i.test(tag))
+  .map((tag) => tag.match(/\\bhref=["']([^"']+)["']/i)?.[1])
+  .filter(Boolean);
+
+check(stylesheetLinks.length > 0, 'Не найдены подключения CSS-таблиц стилей');
+
+for (const href of stylesheetLinks) {
+  if (/^(?:https?:|data:|\\/\\/)/i.test(href)) continue;
+  const relative = href.split(/[?#]/)[0];
+  check(relative.toLowerCase().endsWith('.css'), `Подключённый stylesheet не является CSS-файлом: ${href}`);
+  check(existsSync(resolve(root, relative)), `Не найден подключённый CSS-файл: ${href}`);
+}
+
+check(
+  /cp\\s+\\.\\/\\*\\.css\\s+_site\\//.test(workflow),
+  'GitHub Pages workflow не копирует CSS-файлы в публикуемый каталог _site'
+);
+
 for (const asset of ['favicon.svg', 'audio.mp3', 'IMG_3511.jpeg']) {
   const fullPath = join(root, asset);
   check(existsSync(fullPath) && statSync(fullPath).size > 0, `Отсутствует или пустой ресурс: ${asset}`);
