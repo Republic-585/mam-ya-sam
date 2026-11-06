@@ -1,0 +1,1148 @@
+/* Source block: footer-logo-match-header-size */
+/* Логотип в подвале повторяет размер логотипа в шапке. */
+html body .footer .logo {
+  font-size:1.05rem!important;
+}
+html body .footer .logo .logo__dot {
+  width:26px!important;
+  height:26px!important;
+  flex:0 0 26px!important;
+}
+html body .footer .logo .logo__dot::after {
+  font-size:19px!important;
+}
+
+/* Source block: footer-typography-and-links-final */
+/* Подвал: типографика как у ответов FAQ; логотип не затрагивается. */
+html body .footer :is(small,.footer__links a) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+}
+/* Правовые ссылки расположены вертикальным списком с левым выравниванием. */
+html body .footer .footer__legal {
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+html body .footer .footer__links {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  text-align:left!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+}
+html body .footer .footer__links a {
+  text-align:left!important;
+}
+
+/* Source block: footer-logo-exact-header-white */
+/* Логотип подвала повторяет структуру и типографику логотипа шапки; надпись белая. */
+html body .footer .logo {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-weight:900!important;
+  font-size:1.05rem!important;
+  gap:10px!important;
+}
+html body .footer .logo .logo__text {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:1px!important;
+  line-height:1.15!important;
+  text-align:left!important;
+}
+html body .footer .logo .logo__name {
+  color:#FFFFFF!important;
+  font-family:inherit!important;
+  font-size:inherit!important;
+  font-weight:900!important;
+  line-height:inherit!important;
+  letter-spacing:normal!important;
+  text-align:left!important;
+}
+
+/* Source block: pricing-white-review-card-style */
+/* Белый фон тарифного раздела и поверхность карточек как в блоке отзывов. */
+html body .pricing {
+  background:#FFFFFF!important;
+}
+html body .pricing .price,
+html body .pricing .price.is-selected,
+html body .pricing .price--popular {
+  background:rgba(255,255,255,.82)!important;
+  border:1px solid rgba(17,24,39,.09)!important;
+  border-radius:24px!important;
+  box-shadow:0 18px 55px rgba(20,31,54,.07)!important;
+  padding:clamp(24px,5vw,38px)!important;
+  transform:none;
+}
+@media(max-width:600px) {
+  html body .pricing .price,
+  html body .pricing .price.is-selected,
+  html body .pricing .price--popular {
+    border-radius:20px!important;
+  }
+}
+
+/* Source block: pricing-heading-black-remove-stars-faq-typography */
+/* Заголовок тарифов чёрный, фон без звёзд, типографика карточек как у ответов FAQ. */
+html body .pricing h2 {
+  color:#141414!important;
+}
+html body .pricing::before,
+html body .pricing::after {
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+  background:none!important;
+}
+html body .pricing .price,
+html body .pricing .price * {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+}
+
+/* Source block: pricing-carousel-no-side-limits-no-glow */
+/* Карусель занимает всю доступную ширину; убираем боковые маски и декоративные ограничители. */
+html body .pricing > .wrap {
+  width:100%!important;
+  max-width:none!important;
+  padding-left:clamp(16px,3vw,40px)!important;
+  padding-right:clamp(16px,3vw,40px)!important;
+}
+html body #pricingCarousel,
+html body #pricingCarousel .pricing__grid {
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  overflow-x:auto!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  filter:none!important;
+}
+html body #pricingCarousel::before,
+html body #pricingCarousel::after,
+html body #pricingCarousel .pricing__grid::before,
+html body #pricingCarousel .pricing__grid::after {
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+html body #pricingCarousel .pricing__grid {
+  padding-left:0!important;
+  padding-right:0!important;
+}
+/* У карточек тарифов нет падающей тени или градиентного свечения. */
+html body .pricing .price,
+html body .pricing .price.is-selected,
+html body .pricing .price--popular,
+html body .pricing .price::before,
+html body .pricing .price::after,
+html body .pricing .price.is-selected::before,
+html body .pricing .price.is-selected::after,
+html body .pricing .price--popular::before,
+html body .pricing .price--popular::after {
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+}
+/* Кнопки выбора тарифа без внутреннего и внешнего свечения во всех состояниях. */
+html body .pricing .price .btn,
+html body .pricing .price .btn:hover,
+html body .pricing .price .btn:focus,
+html body .pricing .price .btn:focus-visible,
+html body .pricing .price .btn:active,
+html body .pricing .price button,
+html body .pricing .price button:hover,
+html body .pricing .price button:focus,
+html body .pricing .price button:focus-visible,
+html body .pricing .price button:active {
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  -webkit-filter:none!important;
+  outline:0!important;
+}
+
+/* Source block: pricing-cards-final-layout-type-and-controls */
+/* Карточки тарифов не прокручиваются по вертикали внутри себя. */
+html body #pricingCarousel .pricing__grid {
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+}
+html body #pricingCarousel .pricing__grid > .price {
+  height:auto!important;
+  max-height:none!important;
+  min-height:0!important;
+  overflow:visible!important;
+  overscroll-behavior:contain!important;
+}
+/* Все карточки тарифов белые, включая тариф на 3 месяца. */
+html body .pricing .pricing__grid > .price,
+html body .pricing .pricing__grid > .price.is-selected,
+html body .pricing .pricing__grid > .price--popular,
+html body .pricing .pricing__grid > .price--vip {
+  background:#FFFFFF!important;
+}
+/* Названия тарифов повторяют шрифт и начертание главного заголовка Hero. */
+html body .pricing .price .price__title {
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(2.15rem,9.2vw,5rem)!important;
+  font-weight:900!important;
+  line-height:.98!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+/* Галочки в списках: зелёные, такого же размера и цвета, как в плашке «Ваш выбор». */
+html body .pricing .price li {
+  align-items:flex-start!important;
+}
+html body .pricing .price li::before {
+  content:"✓"!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 23px!important;
+  width:23px!important;
+  height:23px!important;
+  margin:0!important;
+  color:#16A34A!important;
+  font-family:Arial,sans-serif!important;
+  font-size:23px!important;
+  font-weight:700!important;
+  line-height:1!important;
+}
+/* Неактивные кнопки светло-серые, выбранный тариф — фирменный жёлтый. */
+html body .pricing .price .plan-select,
+html body .pricing .price .plan-select:hover,
+html body .pricing .price .plan-select:focus,
+html body .pricing .price .plan-select:focus-visible,
+html body .pricing .price .plan-select:active {
+  background:#F1F2F4!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+html body .pricing .price.is-selected .plan-select,
+html body .pricing .price.is-selected .plan-select:hover,
+html body .pricing .price.is-selected .plan-select:focus,
+html body .pricing .price.is-selected .plan-select:focus-visible,
+html body .pricing .price.is-selected .plan-select:active {
+  background:#FFD93D!important;
+  color:#141414!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  outline:0!important;
+}
+
+/* Source block: pricing-carousel-vertical-scroll-fix */
+/* Вертикальный жест передаётся странице, горизонтальный остаётся у карусели. */
+html body #pricingCarousel .pricing__grid {
+  touch-action:pan-x pan-y!important;
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:auto!important;
+}
+html body #pricingCarousel .pricing__grid > .price {
+  overscroll-behavior: auto!important;
+}
+
+/* Source block: pricing-carousel-horizontal-only-and-controls-visible */
+html body section.pricing #pricingCarousel {
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  contain:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid {
+  display:flex!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:none!important;
+  touch-action:pan-x pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  align-items:stretch!important;
+  padding-top:8px!important;
+  padding-bottom:8px!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price {
+  flex-shrink:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  touch-action:pan-x pan-y!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-controls {
+  position:relative!important;
+  z-index:2!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  overflow:visible!important;
+  height:auto!important;
+  min-height:32px!important;
+  margin-top:12px!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-dots {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  min-height:28px!important;
+  padding:4px 8px!important;
+}
+html body section.pricing #pricingCarousel .pricing__carousel-dot {
+  flex:0 0 9px!important;
+  width:9px!important;
+  height:9px!important;
+  min-width:9px!important;
+  min-height:9px!important;
+}
+
+/* Source block: pricing-card-colors-and-remove-tags */
+/* Карточки без обводки, кнопки чёрные с белым текстом, тариф на 3 месяца голубой. */
+html body section.pricing #pricingCarousel .pricing__grid > .price,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price--popular,
+html body section.pricing #pricingCarousel .pricing__grid > .price--vip {
+  background:#F1F2F4!important;
+  background-color:#F1F2F4!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#DDF1FF!important;
+  background-color:#DDF1FF!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+  display:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+  background:#000000!important;
+  color:#FFFFFF!important;
+  border-color:#000000!important;
+  box-shadow:none!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible {
+  outline:2px solid #000000!important;
+  outline-offset:3px!important;
+}
+
+/* Source block: pricing-buttons-match-faq-answer-typography */
+/* Кнопки тарифов повторяют типографику ответов FAQ без изменения их цветов и размеров. */
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select span {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+  text-transform:none!important;
+  font-style:normal!important;
+}
+
+/* Source block: faq-search-icon-placeholder-and-clear */
+/* Небольшое увеличение лупы, обычный placeholder и собственная кнопка очистки. */
+html body .faq__search-icon{
+  width:22px!important;
+  height:22px!important;
+}
+html body .faq__search{
+  padding-right:52px!important;
+  font-weight:400!important;
+  -webkit-appearance:none!important;
+  appearance:none!important;
+}
+html body .faq__search::placeholder{
+  font-weight:400!important;
+  opacity:1!important;
+}
+html body .faq__search::-webkit-search-cancel-button{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  display:none!important;
+}
+html body .faq__search-clear{
+  position:absolute!important;
+  z-index:2!important;
+  top:50%!important;
+  right:14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:30px!important;
+  height:30px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  color:#888!important;
+  cursor:pointer!important;
+  transform:translateY(-50%)!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+html body .faq__search-clear[hidden]{display:none!important}
+html body .faq__search-clear svg{
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2!important;
+  stroke-linecap:round!important;
+}
+html body .faq__search-clear:hover{color:#141414!important}
+html body .faq__search-clear:focus-visible{
+  outline:2px solid var(--blue)!important;
+  outline-offset:2px!important;
+}
+
+/* Source block: video-player-controls-refinement */
+.video__player{border:0!important;box-shadow:none!important;outline:0!important}
+.video__play,.video__icon-button,.video__quality{border:0!important;outline:0!important;box-shadow:none!important}
+.video__play:focus-visible,.video__icon-button:focus-visible,.video__quality:focus-visible{outline:0!important;box-shadow:none!important}
+.video__controls{display:grid!important;grid-template-columns:34px auto minmax(30px,1fr) auto 34px 34px auto!important;align-items:center!important;justify-items:center!important;column-gap:10px!important}
+.video__seek{width:100%;min-width:0;align-self:center}
+.video__quality{height:34px;min-width:62px;padding:0 7px;border-radius:10px;background:rgba(255,255,255,.13);color:#fff;font:500 11px -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;text-align:center;appearance:none;-webkit-appearance:none}
+.video__quality option{background:#171717;color:#fff}
+@media(max-width:640px){.video__controls{grid-template-columns:30px auto minmax(20px,1fr) auto 30px 30px!important;column-gap:6px!important}.video__quality{grid-column:1/-1;justify-self:end;height:24px;min-width:56px;margin-top:-27px;font-size:10px}}
+
+/* Source block: video-preview-minimal-ui */
+/* Во время автоматического превью оставляем только центральный Play и длительность. */
+#videoPlayer.is-previewing .video__controls,
+#videoPlayer.is-previewing .video__brand {
+  display:none!important;
+}
+#videoPlayer .video__preview-duration {
+  display:none;
+  position:absolute;
+  top:calc(50% + 49px);
+  left:50%;
+  z-index:3;
+  transform:translateX(-50%);
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;
+  text-shadow:0 1px 8px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+#videoPlayer.is-previewing .video__preview-duration {
+  display:block;
+}
+
+/* Source block: video-player-quality-gear-and-layout */
+/* Единый размер, положение и оформление всех иконок панели управления. */
+/* У одной кнопки Play строго одно видимое состояние: Play или Pause. */
+#videoPlayer .video__controls .video__toggle .video__icon-play{display:block!important}
+#videoPlayer .video__controls .video__toggle .video__icon-pause{display:none!important}
+#videoPlayer.is-playing .video__controls .video__toggle .video__icon-play{display:none!important}
+#videoPlayer.is-playing .video__controls .video__toggle .video__icon-pause{display:block!important}
+
+#videoPlayer .video__controls{
+  grid-template-columns:34px 34px auto minmax(30px,1fr) auto 34px 34px!important;
+  align-items:center!important;
+  padding-bottom:7px!important;
+}
+#videoPlayer .video__controls .video__icon-button,
+#videoPlayer .video__controls .video__quality{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:center!important;
+  width:34px!important;
+  min-width:34px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background-color:transparent!important;
+  color:#fff!important;
+  transform:translateY(6px)!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+#videoPlayer .video__controls .video__icon-button svg{
+  display:block!important;
+  flex:0 0 26px!important;
+  width:26px!important;
+  height:26px!important;
+  margin:0!important;
+}
+#videoPlayer .video__quality{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  color:transparent!important;
+  font-size:0!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='10.85' r='3.2'/%3E%3Cpath d='M10.1 2.7h3.8l.55 2.05a7.8 7.8 0 0 1 1.55.9l2.02-.65 1.9 3.3-1.48 1.55a7.7 7.7 0 0 1 0 1.8l1.48 1.55-1.9 3.3-2.02-.65a7.8 7.8 0 0 1-1.55.9l-.55 2.05h-3.8l-.55-2.05a7.8 7.8 0 0 1-1.55-.9l-2.02.65-1.9-3.3 1.48-1.55a7.7 7.7 0 0 1 0-1.8L4.08 8.3l1.9-3.3L8 5.65a7.8 7.8 0 0 1 1.55-.9z'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:22px 22px!important;
+  cursor:pointer!important;
+}
+#videoPlayer .video__quality option{color:#fff!important;font-size:14px!important;background:#171717!important}
+@media(max-width:640px){
+  #videoPlayer .video__controls{
+    grid-template-columns:30px 30px auto minmax(16px,1fr) auto 30px 30px!important;
+    column-gap:6px!important;
+    padding-bottom:3px!important;
+  }
+  #videoPlayer .video__controls .video__icon-button,
+  #videoPlayer .video__controls .video__quality{
+    width:30px!important;
+    min-width:30px!important;
+    height:30px!important;
+  }
+  #videoPlayer .video__controls .video__icon-button svg{
+    flex-basis:24px!important;
+    width:24px!important;
+    height:24px!important;
+  }
+  #videoPlayer .video__quality{background-size:22px 22px!important}
+}
+
+/* Финальная геометрия панели: все элементы в одной строке у нижней кромки. */
+#videoPlayer .video__controls{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:6px!important;
+  right:0!important;
+  bottom:0!important;
+  left:0!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  padding:8px 12px 8px!important;
+}
+#videoPlayer .video__controls .video__icon-button,
+#videoPlayer .video__controls .video__quality{
+  flex:0 0 30px!important;
+  align-self:center!important;
+  width:30px!important;
+  min-width:30px!important;
+  height:30px!important;
+  margin:0!important;
+  transform:none!important;
+}
+#videoPlayer .video__controls .video__seek{
+  flex:1 1 0%!important;
+  width:auto!important;
+  min-width:12px!important;
+  align-self:center!important;
+  margin:0!important;
+}
+#videoPlayer .video__controls .video__time{
+  flex:0 0 auto!important;
+  align-self:center!important;
+  margin:0!important;
+}
+#videoPlayer .video__controls .video__icon-button svg{
+  width:24px!important;
+  height:24px!important;
+  flex-basis:24px!important;
+}
+#videoPlayer .video__controls .video__quality{
+  background-size:24px 24px!important;
+}
+#videoPlayer .video__controls .video__quality{order:6!important}
+#videoPlayer .video__controls .video__fullscreen{order:7!important}
+
+/* Source block: video-player-double-tap-seek */
+#videoPlayer{position:relative}
+#videoPlayer .video__seek-feedback{
+  position:absolute;z-index:4;top:50%;left:25%;transform:translate(-50%,-50%) scale(.82);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  color:#fff;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  opacity:0;pointer-events:none;
+}
+#videoPlayer .video__seek-feedback--right{left:75%}
+#videoPlayer .video__seek-feedback.is-visible{animation:videoSeekFeedback .65s ease-out both}
+#videoPlayer .video__seek-feedback-icon{display:flex;width:48px;height:48px;align-items:center;justify-content:center}
+#videoPlayer .video__seek-feedback-icon svg{width:48px;height:48px}
+#videoPlayer .video__seek-feedback-label{
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.76rem!important;font-weight:400!important;line-height:1!important;
+  font-variant-numeric:tabular-nums;letter-spacing:normal;
+}
+@keyframes videoSeekFeedback{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.78)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  72%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.96)}
+}
+@media(prefers-reduced-motion:reduce){#videoPlayer .video__seek-feedback.is-visible{animation:none;opacity:1;transform:translate(-50%,-50%)}}
+
+/* Source block: video-center-play-pause-sync */
+#videoPlayer .video__play .video__icon-play{display:block}
+  #videoPlayer .video__play .video__icon-pause{display:none}
+  #videoPlayer.is-playing .video__play .video__icon-play{display:none}
+  #videoPlayer.is-playing .video__play .video__icon-pause{display:block}
+  #videoPlayer.is-playing .video__play{opacity:1;pointer-events:auto}
+  #videoPlayer.is-controls-hidden .video__play,
+  #videoPlayer.is-controls-hidden .video__controls,
+  #videoPlayer.is-controls-hidden .video__brand{opacity:0!important;pointer-events:none!important}
+  #videoPlayer .video__play,
+  #videoPlayer .video__controls{transition:opacity .3s ease}
+
+/* Source block: video-player-final-micro-adjustments */
+/* Точечная настройка панели видеоплеера. */
+#videoPlayer .video__controls .video__quality {
+  transform:translateY(1px)!important;
+}
+#videoPlayer .video__controls .video__duration {
+  margin-left:-6px!important;
+}
+#videoPlayer .video__controls .video__duration::before {
+  content:"/"!important;
+  margin:0 4px!important;
+  white-space:normal!important;
+}
+#videoPlayer .video__play {
+  transition:transform .18s cubic-bezier(.2,.7,.2,1),opacity .22s ease!important;
+  transform:scale(1);
+}
+#videoPlayer .video__play:active {
+  transform:scale(.9)!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  #videoPlayer .video__play {transition:none!important}
+}
+
+/* Source block: video-player-unified-control-icon-size */
+/* Все пиктограммы панели управления имеют одинаковый квадратный размер. */
+#videoPlayer .video__controls .video__icon-button svg {
+  display:block!important;
+  flex:0 0 24px!important;
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+}
+#videoPlayer .video__controls .video__quality {
+  background-size:24px 24px!important;
+  background-position:center center!important;
+}
+@media(max-width:640px) {
+  #videoPlayer .video__controls .video__icon-button svg {
+    flex-basis:24px!important;
+    width:24px!important;
+    height:24px!important;
+  }
+  #videoPlayer .video__controls .video__quality {
+    background-size:24px 24px!important;
+  }
+}
+
+/* Source block: about-project-copy-refresh */
+#about .about-project-heading{
+  max-width:900px!important;
+  margin:0 0 12px!important;
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+#about .about-project-subtitle{
+  max-width:850px!important;
+  margin:0 0 26px!important;
+  color:#5C5C5C!important;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+}
+#about .about-project-quote{
+  max-width:850px;
+  margin:30px 0 0;
+  padding:18px 22px;
+  border-left:4px solid #7CC4FF;
+  border-radius:0 12px 12px 0;
+  background:#F5FAFF;
+  color:#171717;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-size:clamp(1.1rem,2.4vw,1.35rem);
+  font-weight:600;
+  line-height:1.45;
+}
+@media(max-width:640px){
+  #about .about-project-heading{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+  #about .about-project-subtitle{margin-bottom:20px!important}
+}
+
+/* Source block: about-mission-match-author-heading */
+/* Текст миссии выровнен по левому краю; основная фраза повторяет типографику подзаголовка автора. */
+html body #about .about__mission p {
+  text-align:left!important;
+  font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+html body #about .about__mission p b {
+  display:block!important;
+  margin-left:0!important;
+  padding:0!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+  text-align:left!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-decoration:none!important;
+  -webkit-box-decoration-break:clone!important;
+}
+
+/* Source block: about-author-copy-faq-typography */
+/* Типографика текста автора: гарнитура заголовка блока, размер ответов FAQ, обычное начертание. */
+#about .about-v2__author-copy,
+#about .about-v2__author-copy h3,
+#about .about-v2__author-copy p,
+#about .about-v2__author-copy .about-v2__eyebrow {
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+@media(max-width:640px){
+  #about .about-v2__author-copy,
+  #about .about-v2__author-copy h3,
+  #about .about-v2__author-copy p,
+  #about .about-v2__author-copy .about-v2__eyebrow {
+    font-size:.92rem!important;
+  }
+}
+
+/* Source block: about-author-white-program-card-style */
+/* Карточка автора: белый фон и нейтральная тень как у карточек программы. */
+html body #about .about-v2__author{
+  background:#FFFFFF!important;
+  background-image:none!important;
+  color:#171717!important;
+  border:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+html body #about .about-v2__author-copy{
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+}
+html body #about .about-v2__author-copy p{
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+}
+html body #about .about-v2__author-copy .about-v2__eyebrow{
+  display:inline-block!important;
+  background:transparent!important;
+  color:#171717!important;
+  padding:0!important;
+  border-radius:0!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:700!important;
+  line-height:1.7!important;
+}
+html body #about .about-v2__author-copy h3{
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:.96rem!important;
+  font-weight:700!important;
+  line-height:1.7!important;
+}
+@media(max-width:640px){
+  html body #about .about-v2__author-copy,
+  html body #about .about-v2__author-copy p,
+  html body #about .about-v2__author-copy .about-v2__eyebrow,
+  html body #about .about-v2__author-copy h3{font-size:.92rem!important}
+}
+
+/* Source block: pricing-cards-white-program-card-effect */
+/* Все карточки тарифов: белый фон и та же нейтральная тень, что у карточек программы. */
+html body section.pricing #pricingCarousel .pricing__grid > .price,
+html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
+html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular,
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"]{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+
+/* Source block: about-achievements-white-program-card-refresh */
+/* Заголовок «Опыт и программы» повторяет типографику основного заголовка блока автора. */
+html body #about .about-achievements__heading{
+  display:block!important;
+  width:100%!important;
+  max-width:900px!important;
+  margin:0 0 8px 0!important;
+  padding:0!important;
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+  font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+  text-align:left!important;
+  text-transform:none!important;
+  background:none!important;
+  text-shadow:none!important;
+  box-shadow:none!important;
+}
+/* Карточки карусели: белый фон и нейтральная тень как у карточек программы. */
+html body #about .about-achievements__carousel .about-achievements__card,
+html body #about .about-achievements__carousel .about-achievements__card.about-achievements__card--yellow,
+html body #about .about-achievements__carousel .about-achievements__card.about-achievements__card--purple,
+html body #about .about-achievements__carousel .about-achievements__card.about-achievements__card--blue,
+html body #about .about-achievements__carousel .about-achievements__card.about-achievements__card--pink{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  color:#171717!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  text-shadow:none!important;
+}
+/* Типографика карточек соответствует ответам FAQ. */
+html body #about .about-achievements__card,
+html body #about .about-achievements__card :is(h1,h2,h3,h4,h5,h6,p,span,strong,em,a,li,small,label){
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+}
+html body #about .about-achievements__card .about-achievements__tag{
+  color:#5C5C5C!important;
+  font-size:.72rem!important;
+  font-weight:700!important;
+  letter-spacing:.04em!important;
+}
+html body #about .about-achievements__card h4{
+  color:#171717!important;
+  font-size:.96rem!important;
+  font-weight:700!important;
+  line-height:1.4!important;
+}
+html body #about .about-achievements__card p{
+  color:#5C5C5C!important;
+  font-size:.96rem!important;
+  font-weight:500!important;
+  line-height:1.6!important;
+}
+
+/* Source block: about-missions-white-program-card-effect */
+/* Белый фон секции миссий: без градиентов, звёзд и декоративных эффектов. */
+html body #about .about-v2__missions-shell{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+html body #about .about-v2__missions-shell::before,
+html body #about .about-v2__missions-shell::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  animation:none!important;
+  opacity:0!important;
+  box-shadow:none!important;
+}
+/* Карточки миссий: белые, с той же мягкой нейтральной тенью, что у карточек программы. */
+html body #about .about-v2__missions-track>.about-v2__game,
+html body #about .about-v2__missions-track>.about-v2__game:hover,
+html body #about .about-v2__missions-track>.about-v2__game:focus-within{
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  color:#171717!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+html body #about .about-v2__missions-track>.about-v2__game::before,
+html body .about-v2__missions-track>.about-v2__game::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+}
+@media(max-width:640px){
+  html body #about .about-v2__missions-track>.about-v2__game{
+    box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  }
+}
+
+/* Source block: missions-carousel-dots-neutral */
+.about-v2__missions-controls .about-v2__missions-btn{
+    display:none!important;
+  }
+  .about-v2__missions-controls .about-v2__missions-dots{
+    gap:9px;
+  }
+  .about-v2__missions-controls .about-v2__missions-dot{
+    width:8px;
+    height:8px;
+    background:#D8D8D8!important;
+    transform:none!important;
+    transition:background-color .2s ease,transform .2s ease;
+  }
+  .about-v2__missions-controls .about-v2__missions-dot[aria-current="true"]{
+    background:#333333!important;
+    transform:scale(1.2)!important;
+  }
+
+/* Source block: about-achievements-hide-arrow-navigation */
+.about-achievements .pricing__carousel-controls .pricing__carousel-btn{
+    display:none!important;
+  }
+
+/* Source block: missions-carousel-remove-side-limits */
+#about .about-v2__missions-track{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+  }
+
+/* Source block: pricing-carousel-remove-side-limits */
+html body section.pricing #pricingCarousel{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+  }
+  html body section.pricing #pricingCarousel .pricing__grid{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+  }
+
+/* Source block: signup-white-program-card-style */
+/* Белый фон секции заявки без декоративных звёзд и фоновых эффектов. */
+  html body section.signup{
+    background:#FFFFFF!important;
+    background-color:#FFFFFF!important;
+    background-image:none!important;
+    border-top:0!important;
+  }
+  html body section.signup::before,
+  html body section.signup::after{
+    content:none!important;
+    display:none!important;
+    background:none!important;
+    background-image:none!important;
+    animation:none!important;
+    opacity:0!important;
+  }
+  /* Белая форма с нейтральной мягкой тенью как у карточек программы. */
+  html body section.signup form#signupForm.form{
+    background:#FFFFFF!important;
+    background-color:#FFFFFF!important;
+    background-image:none!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  }
+
+/* Source block: pricing-carousel-cards-no-side-insets */
+/* Убираем боковые ограничители именно у карточек карусели, не сдвигая заголовок тарифов. */
+html body section.pricing #pricingCarousel {
+  width:calc(100% + clamp(16px,3vw,40px) + clamp(16px,3vw,40px))!important;
+  max-width:none!important;
+  margin-left:calc(0px - clamp(16px,3vw,40px))!important;
+  margin-right:calc(0px - clamp(16px,3vw,40px))!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid {
+  width:100%!important;
+  max-width:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Source block: skills-typography-match-video-heading */
+/* Весь текст блока «Навыки» использует гарнитуру заголовка блока «Видео». */
+html body section.skill,
+html body section.skill * {
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+}
+
+/* Source block: skills-blue-cards-white-program-effect */
+/* Синие карточки навыков: белый фон и нейтральная тень как у карточек блока «Вся программа». */
+html body section.skill .skill__item {
+  background:#FFFFFF!important;
+  background-image:none!important;
+  color:#171717!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+html body section.skill .skill__item h3,
+html body section.skill .skill__item p {
+  color:#171717!important;
+}
+
+/* Source block: video-heading-and-subtitle-centered */
+/* Центрируем только заголовок и подзаголовок блока практикума. */
+html body section.video .video__heading-row{
+  justify-content:center!important;
+  align-items:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+html body section.video .video__heading-row h2{
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html body section.video .video__subtitle{
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Source block: program-all-heading-subtitle-centered */
+/* Центрируем заголовок и подзаголовок блока программы. */
+html body section.program-all #program-all-heading,
+html body section.program-all .program-all__subtitle {
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Source block: about-project-heading-subtitle-centered */
+/* Центрируем заголовок и подзаголовок описания проекта. */
+html body section.about .about-project-heading,
+html body section.about .about-project-subtitle {
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Source block: about-mission-centered */
+/* Центрируем только текст миссии в блоке «О проекте». */
+html body section.about .about__mission,
+html body section.about .about__mission p {
+  text-align:center!important;
+}
+
+/* Source block: trial-card-slightly-wider-than-button */
+/* Карточка бесплатного тарифа немного шире кнопки «Попробовать бесплатно». */
+html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="trial_3d"] .plan-select {
+  width:calc(100% + 16px)!important;
+  max-width:calc(100% + 16px)!important;
+}
+
+/* Source block: pricing-cards-match-faq-search-final */
+/* Каждая карточка равна по ширине полю поиска в FAQ (560px максимум). */
+html body section.pricing #pricingCarousel{
+  display:block!important;
+  width:min(100%,560px)!important;
+  max-width:560px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid{
+  display:flex!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+html body section.pricing #pricingCarousel .pricing__grid > .price{
+  flex:0 0 100%!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+
+/* Source block: selected-plan-summary-match-signup-form */
+/* Белая плашка выбранного тарифа с тем же эффектом, что и форма заявки. */
+html body section.signup .selected-plan-summary#selectedPlanSummary {
+  background:#FFFFFF!important;
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+}
+html body section.signup .selected-plan-summary#selectedPlanSummary,
+html body section.signup .selected-plan-summary#selectedPlanSummary strong,
+html body section.signup .selected-plan-summary#selectedPlanSummary span:last-child,
+html body section.signup .selected-plan-summary#selectedPlanSummary .selected-plan-summary__label {
+  color:#141414!important;
+}
+
+/* Source block: program-module-switcher-styles */
+#program-all .program-module-switcher{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 22px}
+#program-all .program-module-switcher__button{appearance:none;border:1px solid rgba(25,35,48,.12);background:#fff;color:#20242b;border-radius:999px;padding:10px 18px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease}
+#program-all .program-module-switcher__button.is-active{background:#20242b;color:#fff;border-color:#20242b}
+#program-all .program-module-switcher__button:focus-visible{outline:2px solid #7CC4FF;outline-offset:3px}
+#program-all .program-all__card[hidden]{display:none!important}
+#program-all .program-all__card{position:relative}
+#program-all .program-all__continuation-link{display:inline-flex;align-items:center;gap:5px;margin-top:14px;color:#06c;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;font-size:17px;font-weight:400;line-height:1.3;letter-spacing:-.01em;text-decoration:none;text-underline-offset:3px;-webkit-tap-highlight-color:transparent}
+#program-all .program-all__continuation-link svg{width:9px;height:13px;flex:0 0 9px;transition:transform .2s ease}
+#program-all .program-all__continuation-link:hover{text-decoration:underline;text-underline-offset:2px}
+#program-all .program-all__continuation-link:hover svg{transform:translateX(3px)}
+#program-all .program-all__continuation-link:focus-visible{outline:2px solid #06c;outline-offset:4px;border-radius:2px}
+@media(prefers-reduced-motion:reduce){#program-all .program-all__continuation-link svg{transition:none}}
+@media(prefers-reduced-motion:reduce){#program-all .program-module-switcher__button,}
