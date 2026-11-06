@@ -10145,3 +10145,47 @@ html body #about .about-achievements__controls{
   }
 }
 </style>
+
+<style id="hero-menu-apple-typography-final">
+/* Типографика меню и кнопки связи по принципам Apple: системный шрифт,
+   естественный регистр, ясная иерархия и спокойные интервалы. */
+html body #heroMenu .hero-menu__links a {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(1.0625rem,2.1vw,1.1875rem)!important;
+  font-weight:500!important;
+  line-height:1.35!important;
+  letter-spacing:-.018em!important;
+  text-transform:none!important;
+  font-kerning:normal!important;
+  font-stretch:normal!important;
+  color:#171717!important;
+  padding:13px 0!important;
+}
+html body #heroMenu .hero-menu__links a:hover {
+  color:#6A5410!important;
+  letter-spacing:-.018em!important;
+}
+html body #heroMenu .hero-menu__contact,
+html body #heroMenu .hero-menu__contact span {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:1rem!important;
+  font-weight:600!important;
+  line-height:1.2!important;
+  letter-spacing:-.012em!important;
+  text-transform:none!important;
+  font-kerning:normal!important;
+  font-stretch:normal!important;
+}
+@media(max-width:640px) {
+  html body #heroMenu .hero-menu__links a {
+    font-size:1.0625rem!important;
+    line-height:1.35!important;
+    padding:12px 0!important;
+  }
+  html body #heroMenu .hero-menu__contact,
+  html body #heroMenu .hero-menu__contact span {
+    font-size:1rem!important;
+  }
+}
+</style>
+
