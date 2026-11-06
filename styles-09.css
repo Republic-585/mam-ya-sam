@@ -1,0 +1,218 @@
+/* Source block: mobile-menu-final-position-lock */
+/* Финальная фиксация мобильной геометрии: отключаем старые modal/keyframe-анимации. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    position:fixed!important;
+    top:auto!important;
+    right:12px!important;
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 16px + var(--topbar-height, 60px))!important;
+    left:12px!important;
+    width:calc(100vw - 24px)!important;
+    height:min(78dvh, 900px)!important;
+    max-height:min(78dvh, 900px)!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+    transform:none!important;
+    animation:none!important;
+    transform-origin:center bottom!important;
+    transition:clip-path .48s cubic-bezier(.22,1,.36,1),opacity .24s ease,visibility .48s!important;
+  }
+  html body #heroMenu.hero-menu {
+    clip-path:inset(100% 0 0 0)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+  }
+  html body #heroMenu.hero-menu.is-open {
+    clip-path:inset(0 0 0 0)!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+}
+
+/* Source block: mobile-menu-top-corners-and-theme-icon-position */
+@media(max-width:760px) {
+  /* Чуть опускаем переключатель инь-янь, не меняя его размер и анимацию. */
+  html body #heroMenu .hero-menu__theme-toggle {
+    top:calc(clamp(18px,4.5vw,42px) + 32px)!important;
+  }
+  /* Скругляем именно внешний контур панели, чтобы серый фон не выступал углами. */
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    border-radius:24px 24px 0 0!important;
+    overflow:hidden!important;
+    background:var(--paper)!important;
+    clip-path:inset(0 round 24px 24px 0 0)!important;
+  }
+  html body #heroMenu.hero-menu:not(.is-open) {
+    clip-path:inset(100% 0 0 0 round 24px 24px 0 0)!important;
+  }
+}
+
+/* Source block: mobile-menu-content-slightly-higher */
+@media(max-width:760px) {
+  /* Разделы и кнопка связи немного выше; остальные элементы меню без изменений. */
+  html body #heroMenu .hero-menu__links,
+  html body #heroMenu .hero-menu__contact {
+    position:relative!important;
+    top:-20px!important;
+  }
+}
+
+/* Source block: mobile-menu-header-seam-removal */
+@media(max-width:760px) {
+  /* Убираем двойную границу в месте соединения меню и плавающей шапки. */
+  html body.hero-menu-open header.topbar {
+    border-top:0!important;
+    box-shadow:none!important;
+    background:var(--paper)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    border-bottom:0!important;
+    box-shadow:none!important;
+  }
+}
+
+/* Source block: mobile-menu-seam-final-fix */
+@media(max-width:760px) {
+  /* Панель заходит на 2px под шапку; шапка остаётся верхним слоем. */
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 14px + var(--topbar-height, 60px))!important;
+    z-index:1003!important;
+    border-top:0!important;
+    box-shadow:none!important;
+  }
+  html body.hero-menu-open header.topbar {
+    z-index:1004!important;
+    border-bottom:0!important;
+    box-shadow:none!important;
+    background:var(--paper)!important;
+  }
+}
+
+/* Source block: mobile-menu-glass-and-soft-shadow */
+@media(max-width:760px) {
+  /* Стеклянная поверхность меню в том же стиле, что и нижняя шапка. */
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    background:rgba(255,255,255,.72)!important;
+    -webkit-backdrop-filter:saturate(180%) blur(22px)!important;
+    backdrop-filter:saturate(180%) blur(22px)!important;
+    box-shadow:0 -18px 48px rgba(8,13,32,.22),
+               0 -4px 16px rgba(8,13,32,.10),
+               inset 0 1px 0 rgba(255,255,255,.52)!important;
+  }
+}
+
+/* Source block: mobile-menu-unified-glass */
+@media(max-width:760px) {
+  /* Одинаковые параметры стекла у раскрытого меню и шапки. */
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open,
+  html body.hero-menu-open header.topbar {
+    background:rgba(255,255,255,.78)!important;
+    -webkit-backdrop-filter:saturate(165%) blur(24px)!important;
+    backdrop-filter:saturate(165%) blur(24px)!important;
+  }
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open {
+    box-shadow:0 -18px 48px rgba(8,13,32,.22),
+               0 -4px 16px rgba(8,13,32,.10),
+               inset 0 1px 0 rgba(255,255,255,.52)!important;
+  }
+}
+
+/* Source block: hero-menu-page-soft-dim */
+/* Лёгкое затемнение и размытие страницы под открытым меню. */
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  background:rgba(8,13,32,.12)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+
+/* Source block: hero-menu-page-dim-safe-area */
+/* Затемнение и размытие фона покрывают весь экран, включая safe area. */
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  position:fixed!important;
+  inset:-1px 0!important;
+  width:auto!important;
+  height:auto!important;
+  background:rgba(8,13,32,.12)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+
+/* Source block: mobile-menu-plain-white */
+/* Простые белые поверхности без стекла, размытия и теней. */
+@media(max-width:760px) {
+  html body.hero-menu-open #heroMenu.hero-menu,
+  html body.hero-menu-open #heroMenu.hero-menu.is-open,
+  html body.hero-menu-open header.topbar {
+    background:#fff!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+}
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+
+/* Source block: mobile-menu-social-icons-dark-on-white */
+/* Иконки соцсетей остаются контрастными на белом фоне меню в обеих темах. */
+html body #heroMenu .hero-menu__social-icon {
+  color:#171717!important;
+}
+
+/* Source block: mobile-menu-taller-and-social-visible */
+/* Увеличиваем высоту панели вверх и гарантируем видимость ряда соцсетей. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu,
+  html body #heroMenu.hero-menu.is-open {
+    height:min(88dvh, 960px)!important;
+    max-height:min(88dvh, 960px)!important;
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+  html body #heroMenu .hero-menu__social {
+    display:flex!important;
+    flex:0 0 auto!important;
+    position:relative!important;
+    z-index:2!important;
+    min-height:44px!important;
+    margin-top:24px!important;
+    padding:20px 0 max(20px, env(safe-area-inset-bottom, 0px))!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+  }
+  html body #heroMenu .hero-menu__social-icon,
+  html body #heroMenu .hero-menu__social-icon svg {
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  html body #heroMenu .hero-menu__social-icon {
+    color:#171717!important;
+  }
+}
+
+/* Source block: mobile-menu-social-closer-to-contact */
+@media(max-width:760px) {
+  html body #heroMenu .hero-menu__social {
+    margin-top:8px!important;
+    padding-top:8px!important;
+  }
+}
