@@ -10026,3 +10026,49 @@ html body section.about .about-project-subtitle {
   }
 }
 </style>
+
+<style id="author-achievements-carousel-match-program-final">
+/* Карусель автора повторяет ширину, шаг и боковой preview карусели программы. */
+html body #about .about-achievements__carousel{
+  position:relative!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:stretch!important;
+  gap:20px!important;
+  width:100vw!important;
+  max-width:100vw!important;
+  margin:0!important;
+  padding:8px max(24px,calc((100vw - 1180px)/2)) 76px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:max(24px,calc((100vw - 1180px)/2))!important;
+  scrollbar-width:none!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior-x:contain!important;
+}
+html body #about .about-achievements__carousel::-webkit-scrollbar{
+  display:none!important;width:0!important;height:0!important;
+}
+html body #about .about-achievements__card{
+  flex:0 0 clamp(240px,28vw,320px)!important;
+  width:auto!important;min-width:0!important;
+  scroll-snap-align:start!important;
+}
+html body #about .about-achievements .pricing__carousel-controls,
+html body #about .about-achievements .pricing__carousel-dots,
+html body #about .about-achievements__controls{
+  display:none!important;
+}
+@media(max-width:640px){
+  html body #about .about-achievements__carousel{
+    gap:14px!important;
+    padding:8px 20px 76px!important;
+    scroll-padding-inline:20px!important;
+  }
+  html body #about .about-achievements__card{
+    flex-basis:78vw!important;
+  }
+}
+</style>
