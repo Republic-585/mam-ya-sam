@@ -4398,23 +4398,27 @@ html body .skill__number {
         <h3 class="about-achievements__heading">Опыт и программы</h3>
         <div class="about-achievements__carousel" id="authorAchievements">
           <article class="about-achievements__card about-achievements__card--yellow">
+            <svg class="about-achievements__icon" data-symbol="globe.europe.africa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.2 2.4 3.2 5.4 3.2 9s-1 6.6-3.2 9c-2.2-2.4-3.2-5.4-3.2-9S9.8 5.4 12 3Z"/></svg>
             <span class="about-achievements__tag">ОБРАЗОВАНИЕ</span>
-            <h4>Cambridge</h4>
+            <h4><mark>Cambridge</mark></h4>
             <p>Образовательный опыт и международная академическая среда.</p>
           </article>
           <article class="about-achievements__card about-achievements__card--purple">
+            <svg class="about-achievements__icon" data-symbol="book.closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20M8 7h8"/></svg>
             <span class="about-achievements__tag">ОБУЧЕНИЕ</span>
-            <h4>Open University</h4>
+            <h4><mark>Open University</mark></h4>
             <p>Непрерывное развитие и расширение профессиональных знаний.</p>
           </article>
           <article class="about-achievements__card about-achievements__card--blue">
+            <svg class="about-achievements__icon" data-symbol="building.2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M8 10h1m6 0h1M8 13h1m6 0h1"/></svg>
             <span class="about-achievements__tag">ПРОЕКТ</span>
-            <h4>Genesisschool</h4>
+            <h4><mark>Genesisschool</mark></h4>
             <p>Опыт работы с образовательными идеями и развитием учеников.</p>
           </article>
           <article class="about-achievements__card about-achievements__card--pink">
+            <svg class="about-achievements__icon" data-symbol="person.2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 20c.5-3.5 2.4-5.5 5.5-5.5s5 2 5.5 5.5M14.5 15c3.5-.8 5.6 1 6 4"/></svg>
             <span class="about-achievements__tag">МЕЖДУНАРОДНЫЙ ОПЫТ</span>
-            <h4>Обмен идеями</h4>
+            <h4><mark>Обмен идеями</mark></h4>
             <p>Творческие встречи с единомышленниками на международных площадках и обмен опытом.</p>
           </article>
         </div>
@@ -9091,6 +9095,75 @@ html body #about .about-v2__author-copy .about__mission p b {
     font-size:21px!important;
     line-height:27px!important;
   }
+}
+</style>
+
+
+<style id="author-achievements-apple-typography-icons">
+/* Типографика и смысловые пиктограммы карусели «Опыт и программы». */
+html body #about .about-achievements__heading{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:clamp(26px,3vw,32px)!important;
+  font-weight:400!important;
+  line-height:1.2!important;
+  letter-spacing:-.025em!important;
+  text-transform:none!important;
+}
+html body #about .about-achievements__card{
+  position:relative!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  padding:52px 20px 20px!important;
+  gap:9px!important;
+}
+html body #about .about-achievements__card .about-achievements__icon{
+  position:absolute!important;
+  top:19px!important;
+  right:20px!important;
+  display:block!important;
+  width:23px!important;
+  height:23px!important;
+  color:#aeb4bf!important;
+  opacity:.9!important;
+}
+html body #about .about-achievements__card .about-achievements__tag{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:16px!important;
+  letter-spacing:.015em!important;
+  text-transform:none!important;
+}
+html body #about .about-achievements__card h4,
+html body #about .about-achievements__card p{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-weight:400!important;
+  text-transform:none!important;
+}
+html body #about .about-achievements__card h4{
+  margin:0!important;
+  font-size:23px!important;
+  line-height:28px!important;
+  letter-spacing:-.02em!important;
+}
+html body #about .about-achievements__card p{
+  margin:0!important;
+  font-size:15px!important;
+  line-height:22px!important;
+  letter-spacing:-.015em!important;
+}
+html body #about .about-achievements__card h4 mark{
+  color:#080d20!important;
+  background:var(--yellow,#ffd84d)!important;
+  padding:0 .18em!important;
+  border-radius:7px!important;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+@media(max-width:640px){
+  html body #about .about-achievements__card{padding:50px 18px 18px!important}
+  html body #about .about-achievements__card .about-achievements__icon{top:17px!important;right:18px!important}
+  html body #about .about-achievements__card h4{font-size:21px!important;line-height:26px!important}
 }
 </style>
 
