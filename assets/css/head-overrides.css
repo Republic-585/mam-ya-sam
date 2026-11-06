@@ -1,0 +1,962 @@
+/* Original style block 16: hero-math-badge-spacing */
+.hero__badge{margin-top:-12px!important}
+
+/* Original style block 17: restore-native-page-scroll */
+/* Штатная прокрутка Safari без фиксированной шапки и компенсационного отступа. */
+header.topbar{position:sticky!important;top:0!important;left:auto!important;right:auto!important;width:auto!important}
+body{padding-top:0!important}
+
+/* Original style block 18: scroll-to-physical-screen-top-fix */
+/* Разрешаем секциям при прокрутке доходить до самого верхнего края экрана, под стеклянную шапку. */
+html{
+  scroll-padding-top:0!important;
+}
+section[id]{
+  scroll-margin-top:0!important;
+}
+
+/* Original style block 19: iphone-viewport-safe-area-fix */
+/* iPhone: используем динамическую высоту видимой области с fallback для старых браузеров. */
+html {
+  min-height: 100%;
+  scroll-padding-top: 80px !important;
+  scroll-padding-top: calc(80px + env(safe-area-inset-top, 0px)) !important;
+}
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+/* Якоря учитывают sticky-шапку; не дублируем отступ через scroll-margin. */
+section[id] {
+  scroll-margin-top: 0 !important;
+}
+/* Полноэкранное меню учитывает вырез и нижнюю системную область iPhone. */
+.hero-menu {
+  height: 100vh;
+  height: 100dvh;
+  padding-top: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(clamp(28px, 6vw, 54px) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Original style block 20: menu-trigger-always-in-header */
+/* Кнопка меню находится в шапке и доступна при любой прокрутке. */
+.topbar .hero__menu-trigger {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+  flex: 0 0 42px;
+  width: 48px;
+  height: 42px;
+  margin-left: 14px;
+  z-index: 60;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 6px;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.topbar .hero__menu-trigger span {
+  background: var(--ink) !important;
+  opacity: 1 !important;
+}
+.topbar .topbar__in { padding-right: 22px; }
+@media (max-width: 760px) {
+  .topbar .topbar__in { padding-right: 14px; }
+  .topbar .hero__menu-trigger { margin-left: 8px; }
+}
+
+/* Original style block 21: menu-trigger-transforms-to-close */
+/* Одна кнопка: полоски плавно превращаются в крестик при открытом меню. */
+.topbar .hero__menu-trigger span {
+  position: absolute;
+  right: 7px;
+  transform-origin: center;
+  transition: width .22s ease, transform .28s ease, top .28s ease, opacity .18s ease;
+}
+.topbar .hero__menu-trigger span:first-child {
+  top: 13px;
+  width: 32px;
+}
+.topbar .hero__menu-trigger span:last-child {
+  top: 25px;
+  width: 21px;
+}
+body.hero-menu-open .topbar .hero__menu-trigger span:first-child {
+  top: 19px;
+  width: 27px;
+  transform: rotate(45deg);
+}
+body.hero-menu-open .topbar .hero__menu-trigger span:last-child {
+  top: 19px;
+  width: 27px;
+  transform: rotate(-45deg);
+}
+body.hero-menu-open .topbar {
+  z-index: 1004 !important;
+}
+body.hero-menu-open .topbar .hero__menu-trigger {
+  z-index: 1005;
+  /* Оставляем кнопку в потоке шапки: fixed убирал её из flex-разметки и менял высоту шапки. */
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+/* Original style block 22: hero-organic-aura */
+/* Убираем декоративную анимацию сфер с первого экрана. */
+.hero__aura.hero-kinetic { display:none!important; }
+
+/* Original style block 23: hero-first-block-text-final-fix */
+/* Исправляем только текст первого экрана. Этот стиль расположен после прежних переопределений. */
+.hero .hero__content{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.hero .hero__course-label,
+.hero .hero__title-main,
+.hero .hero__sub,
+.hero .hero__badge{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  text-align:left!important;
+  text-align-last:left!important;
+  font-family:"SF Pro Condensed",sans-serif!important;
+  font-weight:900!important;
+  letter-spacing:-.035em!important;
+  word-spacing:normal!important;
+  text-wrap:wrap!important;
+  white-space:normal!important;
+}
+.hero .hero__badge{margin-top:0!important}
+
+/* Original style block 24: hero-financial-literacy-monolithic-center */
+/* Первый экран: три строки собраны в единый крупный центрированный текстовый блок. */
+.hero .hero__content{
+  align-items:center!important;
+  text-align:center!important;
+  gap:clamp(2px,.45vh,6px)!important;
+}
+.hero .hero__title-main,
+.hero .hero__sub,
+.hero .hero__badge{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  text-align:center!important;
+  text-align-last:center!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:600!important;
+  letter-spacing:-.045em!important;
+  word-spacing:normal!important;
+  text-wrap:balance!important;
+  white-space:normal!important;
+  line-height:.96!important;
+}
+.hero .hero__title-main{
+  font-size:clamp(2.35rem,9.8vw,5.7rem)!important;
+}
+.hero .hero__sub,
+.hero .hero__badge{
+  font-size:clamp(2rem,7.8vw,4.5rem)!important;
+}
+.hero .hero__badge{letter-spacing:-.05em!important}
+
+/* Original style block 25: hero-financial-literacy-move-up */
+/* Поднимаем только текстовый блок первого экрана, не меняя остальные элементы. */
+.hero .hero__content{
+  transform:translateY(-6vh)!important;
+}
+@media(max-width:640px){
+  .hero .hero__content{transform:translateY(-8vh)!important}
+}
+
+/* Original style block 26: hero-lead-and-program-cta-lower */
+/* Опускаем только слоган и ссылку «Посмотреть программу» на первом экране. */
+.hero .hero__lead{
+  margin-top:clamp(100px,18vh,220px)!important;
+}
+.hero .hero__cta{
+  margin-top:clamp(12px,2vh,24px)!important;
+}
+
+/* Original style block 27: ios-edge-to-edge-scroll */
+/* iPhone: прокрутка контента проходит под Dynamic Island и вырезом, без отдельной белой полосы сверху. */
+html {
+  width: 100%;
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-y:auto;
+}
+body {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-y:auto;
+}
+header.topbar {
+  position: static !important;
+  top: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  touch-action: pan-y pinch-zoom;
+}
+header.topbar > .topbar__in {
+  padding-top: max(2px, env(safe-area-inset-top, 0px)) !important;
+  background: rgba(255, 255, 255, .72) !important;
+  -webkit-backdrop-filter: saturate(150%) blur(18px) !important;
+  backdrop-filter: saturate(150%) blur(18px) !important;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Original style block 28: force-bottom-glass-header */
+/* Final override: keep the site header fixed to the bottom edge on all screens. */
+html body header.topbar{
+  position:fixed!important;
+  top:auto!important;
+  bottom:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  z-index:1004!important;
+  margin:0!important;
+  padding:0 0 env(safe-area-inset-bottom, 0px)!important;
+  background:rgba(255,255,255,.86)!important;
+  -webkit-backdrop-filter:saturate(160%) blur(20px)!important;
+  backdrop-filter:saturate(160%) blur(20px)!important;
+  border-top:1px solid rgba(20,20,20,.14)!important;
+  border-bottom:0!important;
+  box-shadow:0 -1px 0 rgba(255,255,255,.45) inset!important;
+}
+html body header.topbar > .topbar__in{
+  padding:11px 22px!important;
+  padding-bottom:calc(11px + env(safe-area-inset-bottom, 0px))!important;
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+html body header.topbar .topbar__progress{
+  top:-3px!important;
+  bottom:auto!important;
+}
+html body header.topbar .hero__menu-trigger{
+  top:50%!important;
+  right:14px!important;
+  transform:translateY(-50%)!important;
+}
+@media(max-width:760px){
+  html body header.topbar .topbar__nav{display:none!important}
+}
+
+/* Original style block 29: floating-bottom-header-godly-style */
+/* Detached floating glass island navigation. */
+html body header.topbar{
+  position:fixed!important;
+  top:auto!important;
+  bottom:calc(6px + env(safe-area-inset-bottom, 0px))!important;
+  left:14px!important;
+  right:14px!important;
+  width:auto!important;
+  max-width:720px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  overflow:visible!important;
+  z-index:1004!important;
+  background:rgba(255,255,255,.78)!important;
+  -webkit-backdrop-filter:saturate(165%) blur(24px)!important;
+  backdrop-filter:saturate(165%) blur(24px)!important;
+  border:1px solid rgba(25,25,25,.15)!important;
+  border-radius:26px!important;
+  box-shadow:none!important;
+}
+html body header.topbar > .topbar__in{
+  width:100%!important;
+  max-width:none!important;
+  min-height:48px!important;
+  padding:5px 54px 5px 13px!important;
+  border-radius:26px!important;
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+}
+html body header.topbar .logo{position:relative!important;z-index:2!important;gap:9px!important}
+html body header.topbar .logo__dot{width:29px!important;height:29px!important;border-radius:9px!important}
+html body header.topbar .logo__name{font-size:1rem!important;white-space:nowrap!important}
+html body header.topbar .topbar__right{margin-left:auto!important}
+html body header.topbar .hero__menu-trigger{
+  position:absolute!important;
+  top:50%!important;
+  right:9px!important;
+  left:auto!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+  width:36px!important;
+  height:36px!important;
+  padding:6px!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.48)!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  gap:6px!important;
+}
+html body header.topbar .hero__menu-trigger span{
+  background:var(--ink)!important;
+  height:3px!important;
+  opacity:1!important;
+}
+html body header.topbar .hero__menu-trigger span:first-child{width:25px!important}
+html body header.topbar .hero__menu-trigger span:last-child{width:17px!important}
+html body header.topbar .hero__menu-trigger:hover span:last-child{width:25px!important}
+html body header.topbar .topbar__progress{
+  display:none!important;
+}
+@media(max-width:760px){
+  html body header.topbar{
+    left:12px!important;
+    right:12px!important;
+    bottom:calc(4px + env(safe-area-inset-bottom, 0px))!important;
+    max-width:none!important;
+  }
+  html body header.topbar > .topbar__in{min-height:46px!important;padding:4px 48px 4px 11px!important}
+  html body header.topbar .topbar__nav{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body header.topbar,html body header.topbar *{transition:none!important}
+}
+
+/* Original style block 30: hero-start-button-style */
+/* Кнопка первого экрана повторяет оформление «СВЯЗАТЬСЯ» в меню. */
+html body .hero .hero-start-button {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  max-width:310px!important;
+  height:48px!important;
+  min-height:48px!important;
+  margin:clamp(150px,25vh,260px) auto 0!important;
+  padding:0 18px!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:#FFD93D!important;
+  color:#171717!important;
+  box-shadow:none!important;
+  font-family:'SF Pro Condensed',sans-serif!important;
+  font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
+  font-weight:900!important;
+  letter-spacing:-.035em!important;
+  line-height:1.12!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  opacity:1!important;
+  animation:none!important;
+  transition:transform .22s cubic-bezier(.2,.75,.2,1),background-color .22s ease,box-shadow .22s ease!important;
+  -webkit-tap-highlight-color:transparent;
+}
+html body .hero .hero-start-button:hover {
+  background:#F5CE32!important;
+  box-shadow:0 5px 14px rgba(23,23,23,.13)!important;
+  transform:translateY(-2px)!important;
+}
+html body .hero .hero-start-button:active {
+  background:#EBC52D!important;
+  box-shadow:0 1px 4px rgba(23,23,23,.12)!important;
+  transform:translateY(0) scale(.97)!important;
+}
+html body .hero .hero-start-button:focus-visible {
+  outline:2px solid #171717!important;
+  outline-offset:3px!important;
+}
+@media(max-width:640px) {
+  html body .hero .hero-start-button {
+    max-width:310px!important;
+    height:48px!important;
+    min-height:48px!important;
+    border-radius:14px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero .hero-start-button {animation:none!important;transition:none!important}
+}
+html body .hero .hero-start-button span {
+  text-transform:none!important;
+}
+
+html body .hero-menu .hero-menu__links a,
+html body .hero-menu .hero-menu__contact,
+html body .hero-menu .hero-menu__contact span {
+  text-transform:none!important;
+}
+
+html body .hero .hero__subtitle {
+  width:min(100%,620px)!important;
+  max-width:620px!important;
+  margin:18px 0 0!important;
+  color:#666666!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(.95rem,3.6vw,1.8rem)!important;
+  font-weight:400!important;
+  line-height:1.45!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  text-wrap:pretty!important;
+}
+
+/* Original style block 31: hero-content-vertical-adjustment */
+/* Финально поднимаем весь текстовый блок Hero вместе с кнопкой ещё на 20px относительно прежнего положения. */
+html body .hero .hero__content{
+  transform:translateY(calc(-6vh - 20px))!important;
+}
+@media(max-width:640px){
+  html body .hero .hero__content{
+    transform:translateY(calc(-8vh - 20px))!important;
+  }
+}
+
+/* Original style block 32: header-duck-visible-fix */
+/* Header duck: styles live in index.html because the page uses inline CSS. */
+header.topbar .topbar__in{position:relative!important;isolation:isolate}
+header.topbar .topbar__in .header-duck{
+  position:absolute!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  z-index:8!important;
+  pointer-events:auto!important;
+  touch-action:manipulation;
+  right:68px!important;
+  top:calc(50% + 4.5px)!important;
+  width:68px!important;
+  height:56px!important;
+  opacity:clamp(0, (var(--wordmark-scroll-progress, 0) - .48) / .08, 1)!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  transform:translate3d(var(--duck-x,0px),-50%,0)!important;
+}
+/* Убираем прямоугольную подсветку фокуса и системный tap-highlight при нажатии. */
+header.topbar .topbar__in .header-duck,
+header.topbar .topbar__in .header-duck:focus,
+header.topbar .topbar__in .header-duck:focus-visible,
+header.topbar .topbar__in .header-duck > svg{
+  outline:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+
+header.topbar .topbar__in .header-duck > svg{
+  display:block!important;
+  visibility:visible!important;
+  opacity:.5!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  overflow:visible!important;
+  flex:none!important;
+  animation:headerDuckBob 3.8s ease-in-out infinite;
+  transform:scaleX(var(--duck-direction,1)) rotate(var(--duck-lean,0deg));
+  transition:transform .42s cubic-bezier(.2,.8,.2,1);
+  pointer-events:auto!important;
+  cursor:pointer!important;
+}
+@keyframes headerDuckBob{
+  0%,100%{translate:0 0;rotate:-1deg}
+  50%{translate:0 -3px;rotate:1deg}
+}
+@media(max-width:760px){
+  header.topbar .topbar__in .header-duck{right:60px!important;width:60px!important;height:50px!important}
+}
+@media(max-width:380px){
+  header.topbar .topbar__in .header-duck{right:54px!important;width:54px!important;height:46px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  header.topbar .topbar__in .header-duck > svg{animation:none}
+}
+
+/* Original style block 33: program-all-white-floating-cards */
+/* Светлый фон программы без декоративных звёзд. */
+  html body .program-all{
+    background:#FFFFFF!important;
+    color:#171717!important;
+  }
+  html body .program-all::before,
+  html body .program-all::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+    background:none!important;
+  }
+  html body .program-all h2,
+  html body .program-all h2 mark{
+    color:#171717!important;
+  }
+  html body .program-all__carousel{
+    padding-top:22px!important;
+    /* Запас снизу позволяет тени карточек плавно раствориться до края области прокрутки. */
+    padding-bottom:76px!important;
+    scrollbar-width:none!important;
+    scrollbar-color:transparent transparent!important;
+  }
+  html body .program-all__carousel::-webkit-scrollbar{
+    display:none!important;
+    width:0!important;
+    height:0!important;
+  }
+  html body .program-all__carousel::-webkit-scrollbar-track,
+  html body .program-all__carousel::-webkit-scrollbar-thumb{
+    background:transparent!important;
+  }
+  html body .program-all__card{
+    background:#FFFFFF!important;
+    box-shadow:
+      0 18px 42px rgba(0,0,0,.10),
+      0 6px 16px rgba(0,0,0,.05),
+      0 1px 3px rgba(0,0,0,.03)!important;
+    border:0!important;
+    outline:0!important;
+  }
+
+/* Original style block 34: program-cards-match-faq-answer-font */
+/* Весь текст карточек программы использует ту же гарнитуру, что и ответы FAQ. */
+html body .program-all__card,
+html body .program-all__card :is(h1,h2,h3,h4,h5,h6,p,span,strong,em,a,li,small,label) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-stretch:normal!important;
+}
+
+/* Original style block 35: program-all-video-typography */
+html body .program-all h2{
+    display:block!important;
+    width:100%!important;
+    max-width:900px!important;
+    margin:0 auto 12px 0!important;
+    text-align:left!important;
+    color:#171717!important;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;
+    font-size:clamp(1.8rem,4.5vw,2.7rem)!important;
+    font-weight:800!important;
+    line-height:1.12!important;
+    letter-spacing:-.035em!important;
+    text-align:left!important;
+    text-transform:none!important;
+  }
+  html body .program-all h2 mark{
+    color:inherit!important;
+    background:none!important;
+    padding:0!important;
+  }
+  html body .program-all .program-all__subtitle{
+    max-width:850px!important;
+    margin:0 0 26px!important;
+    color:#5C5C5C!important;
+    font-family:'SF Pro Condensed','SF Pro',-apple-system,BlinkMacSystemFont,system-ui,sans-serif!important;
+    font-size:.96rem!important;
+    font-weight:400!important;
+    line-height:1.5!important;
+    text-align:left!important;
+  }
+  @media(max-width:640px){
+    html body .program-all h2{font-size:clamp(1.8rem,4.5vw,2.7rem)!important}
+    html body .program-all .program-all__subtitle{margin-bottom:20px!important}
+  }
+
+/* Original style block 36: program-heading-left-alignment-fix */
+html body section.program-all > .wrap{
+    display:block!important;
+    width:100%!important;
+    text-align:left!important;
+  }
+  html body section.program-all > .wrap > h2#program-all-heading{
+    display:block!important;
+    width:100%!important;
+    max-width:900px!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    text-align:left!important;
+    justify-self:start!important;
+    align-self:flex-start!important;
+  }
+
+/* Original style block 37: program-all-heading-centered-final */
+html body section.program-all > .wrap{ text-align:center!important; } html body section.program-all > .wrap > h2#program-all-heading{ display:block!important; width:100%!important; max-width:900px!important; margin-left:auto!important; margin-right:auto!important; text-align:center!important; justify-self:center!important; align-self:center!important; }
+
+/* Original style block 38: pricing-cards-match-faq-search */
+.pricing .pricing__carousel{
+    width:min(100%,560px)!important;
+    max-width:560px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    box-sizing:border-box!important;
+  }
+  .pricing .pricing__grid{
+    width:100%!important;
+    box-sizing:border-box!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  .pricing .pricing__grid>.price{
+    flex:0 0 100%!important;
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+/* Original style block 39: signup-submit-no-shadow */
+/* Убираем тень только у кнопки отправки заявки во всех состояниях. */
+html body #signupForm button[type="submit"],
+html body #signupForm button[type="submit"]:hover,
+html body #signupForm button[type="submit"]:active,
+html body #signupForm button[type="submit"]:focus,
+html body #signupForm button[type="submit"]:disabled {
+  box-shadow:none!important;
+}
+
+/* Original style block 40: program-all-sf-symbol-icons */
+/* Компактные смысловые пиктограммы в стилистике Apple SF Symbols. */
+html body .program-all__card-content > .program-all__card-topline{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  width:100%!important;
+  min-height:25px!important;
+}
+html body .program-all__card-topline > strong{display:block!important;line-height:1.25!important;}
+html body .program-all__card-icon{
+  display:block!important;
+  flex:0 0 23px!important;
+  width:23px!important;
+  height:23px!important;
+  margin:0 0 0 auto!important;
+  color:#777D86!important;
+  opacity:.9!important;
+  overflow:visible!important;
+}
+
+/* Original style block 41: program-all-card-text-alignment-and-labels */
+/* Единое левое выравнивание текста карточек; маркер может выступать за линию букв. */
+html body .program-all__card-content,
+html body .program-all__card-content :is(strong,span,h3,p){
+  text-align:left!important;
+}
+html body .program-all__card-content > span,
+html body .program-all__card-content > .program-all__card-topline > strong{
+  font-size:inherit!important;
+  font-weight:400!important;
+  line-height:1.45!important;
+}
+html body .program-all__card-content > p{
+  text-align:left!important;
+}
+html body .program-all__card-content h3 mark{
+  margin-left:-.18em!important;
+}
+
+/* Original style block 42: program-all-card-labels-bold */
+/* Жирное начертание тематических подписей в карточках программы. */
+html body .program-all__card-content > span{
+  font-weight:700!important;
+}
+
+/* Original style block 43: program-all-apple-card-typography */
+/* Типографическая иерархия карточек по шкале Apple SF Pro для веба. */
+html body #program-all .program-all__card-content,
+html body #program-all .program-all__card-content :is(strong,span,h3,p,a){
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-kerning:normal;
+  font-optical-sizing:auto;
+  font-stretch:normal!important;
+  font-style:normal;
+  text-transform:none;
+}
+/* Модуль: Caption 2 — компактная служебная подпись. */
+html body #program-all .program-all__card-topline > strong{
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:16px!important;
+  letter-spacing:-.01em!important;
+}
+/* Контекст темы: Footnote. */
+html body #program-all .program-all__card-content > span:not(:last-child){
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:20px!important;
+  letter-spacing:-.016em!important;
+  color:#6e737b!important;
+}
+/* Название карточки: Title 3, адаптированный для узкой карточки. */
+html body #program-all .program-all__card-content > h3{
+  margin:0!important;
+  font-size:24px!important;
+  font-weight:600!important;
+  line-height:28px!important;
+  letter-spacing:.007em!important;
+  color:var(--ink)!important;
+}
+html body #program-all .program-all__card-content > h3 mark{
+  font:inherit!important;
+  letter-spacing:inherit!important;
+}
+/* Описание: Body — 17/25, регулярное начертание и фирменный tracking SF Pro. */
+html body #program-all .program-all__card-content > p{
+  margin:0!important;
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
+  color:var(--ink)!important;
+}
+/* Математическая тема внизу карточки: Footnote с усиленным весом. */
+html body #program-all .program-all__card-content > span:last-of-type{
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:20px!important;
+  letter-spacing:-.016em!important;
+  color:var(--ink)!important;
+}
+/* Ссылка в последней карточке использует тот же стиль Body. */
+html body #program-all .program-all__card-content > .program-all__continuation-link{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:25px!important;
+  letter-spacing:-.022em!important;
+}
+@media(max-width:640px){
+  html body #program-all .program-all__card-content > h3{
+    font-size:21px!important;
+    line-height:25px!important;
+    letter-spacing:.011em!important;
+  }
+}
+
+/* Original style block 44: apple-site-typography-system-2026 */
+/*
+  Единая типографическая система сайта.
+  Веб-адаптация рекомендаций Apple HIG: системный шрифт через system-ui,
+  ясная иерархия, читаемые размеры, умеренный tracking и адаптивная верстка.
+*/
+html {
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  font-synthesis:none;
+}
+html body {
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:17px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:-.012em;
+  font-kerning:normal;
+  font-optical-sizing:auto;
+  font-variant-numeric:proportional-nums;
+  text-rendering:optimizeLegibility;
+}
+/* Единый системный шрифт для всех текстовых элементов, включая шапку,
+   меню, Hero, карточки, FAQ, тарифы, формы и юридические окна. */
+html body :is(h1,h2,h3,h4,h5,h6,p,a,button,input,textarea,select,label,summary,
+  li,small,strong,b,em,i,blockquote,cite,figcaption,legend,option,
+  span,div,th,td) {
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-kerning:normal;
+  font-optical-sizing:auto;
+  font-synthesis:none;
+  text-transform:none;
+}
+/* Заголовки: чёткая иерархия без избыточно тяжёлого начертания. */
+html body h1 {
+  font-size:clamp(2.75rem,6.2vw,5.25rem)!important;
+  font-weight:650!important;
+  line-height:1.04!important;
+  letter-spacing:-.055em!important;
+}
+html body h2 {
+  font-size:clamp(2rem,4.1vw,3.25rem)!important;
+  font-weight:650!important;
+  line-height:1.12!important;
+  letter-spacing:-.045em!important;
+}
+html body h3 {
+  font-size:clamp(1.375rem,2.1vw,1.75rem)!important;
+  font-weight:600!important;
+  line-height:1.2!important;
+  letter-spacing:-.03em!important;
+}
+html body h4,
+html body h5,
+html body h6 {
+  font-size:1.125rem!important;
+  font-weight:600!important;
+  line-height:1.3!important;
+  letter-spacing:-.02em!important;
+}
+/* Основной текст и вводные описания. */
+html body p,
+html body li,
+html body blockquote {
+  font-size:1.0625rem!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:-.012em!important;
+}
+/* Служебные подписи, метки и пояснения. */
+html body small,
+html body label,
+html body .skill__eyebrow,
+html body .about-v2__eyebrow,
+html body .learning-format__eyebrow,
+html body .reviews__eyebrow,
+html body .price__tag,
+html body .program-all__card-topline > strong {
+  font-size:.8125rem!important;
+  font-weight:600!important;
+  line-height:1.35!important;
+  letter-spacing:.015em!important;
+}
+/* Навигация, табы, кнопки и элементы управления. */
+html body a {
+  font-size:inherit!important;
+  line-height:inherit;
+  letter-spacing:inherit;
+}
+html body button,
+html body input,
+html body textarea,
+html body select,
+html body summary,
+html body .hero-menu__links a,
+html body .program-module-switcher__button,
+html body .faq__tab,
+html body .skill__tab {
+  font-size:.9375rem!important;
+  line-height:1.35!important;
+  letter-spacing:-.01em!important;
+}
+html body .form__row label {
+  font-size:.9375rem!important;
+  line-height:1.4!important;
+  letter-spacing:-.01em!important;
+}
+html body button,
+html body .btn,
+html body .plan-select,
+html body .hero-menu__contact {
+  font-weight:600!important;
+}
+html body input,
+html body textarea,
+html body select {
+  font-weight:400!important;
+}
+html body input::placeholder,
+html body textarea::placeholder {
+  font:inherit;
+  font-weight:400;
+  opacity:.58;
+}
+/* Карточки программы: тема, название, описание и нижняя подпись. */
+html body #program-all .program-all__card-content > span:not(:last-child) {
+  font-size:.875rem!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+  letter-spacing:-.01em!important;
+}
+html body #program-all .program-all__card-content > h3 {
+  font-size:clamp(1.3125rem,2vw,1.5rem)!important;
+  font-weight:600!important;
+  line-height:1.18!important;
+  letter-spacing:-.03em!important;
+}
+html body #program-all .program-all__card-content > p {
+  font-size:1rem!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.012em!important;
+}
+html body #program-all .program-all__card-content > span:last-of-type {
+  font-size:.875rem!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+}
+/* Тарифы: цена остаётся выразительной, пояснения компактными. */
+html body .price__title {
+  font-size:1.125rem!important;
+  font-weight:600!important;
+  line-height:1.25!important;
+  letter-spacing:-.025em!important;
+}
+html body .price__amount {
+  font-size:clamp(2rem,3.5vw,2.75rem)!important;
+  font-weight:650!important;
+  line-height:1.05!important;
+  letter-spacing:-.05em!important;
+  font-variant-numeric:tabular-nums;
+}
+html body .price__amount small {
+  display:block;
+  font-size:.8125rem!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+  letter-spacing:0!important;
+}
+/* Сохранение выразительности цифр и компактных служебных значений. */
+html body .video__time,
+html body .video__preview-duration,
+html body .skill__number {
+  font-variant-numeric:tabular-nums;
+}
+/* Удобная читаемость на узких экранах. */
+@media(max-width:640px) {
+  html body {font-size:16px;line-height:1.5;}
+  html body h1 {
+    font-size:clamp(2.5rem,10.5vw,3.75rem)!important;
+    line-height:1.06!important;
+    letter-spacing:-.05em!important;
+  }
+  html body h2 {
+    font-size:clamp(1.875rem,8vw,2.5rem)!important;
+    line-height:1.14!important;
+    letter-spacing:-.04em!important;
+  }
+  html body h3 {
+    font-size:1.375rem!important;
+    line-height:1.22!important;
+    letter-spacing:-.025em!important;
+  }
+  html body p,
+  html body li,
+  html body blockquote {
+    font-size:1rem!important;
+    line-height:1.55!important;
+  }
+  html body #program-all .program-all__card-content > h3 {
+    font-size:1.3125rem!important;
+    line-height:1.2!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto;}
+}
