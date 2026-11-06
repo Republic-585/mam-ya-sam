@@ -1,0 +1,58 @@
+/* Source block: header-expands-into-menu */
+/* Мобильное меню компактно раскрывается вверх от верхнего края нижней шапки. */
+@media(max-width:760px) {
+  html body #heroMenu.hero-menu {
+    position:fixed!important;
+    top:auto!important;
+    left:12px!important;
+    right:12px!important;
+    width:calc(100vw - 24px)!important;
+    min-width:0!important;
+    max-width:none!important;
+    box-sizing:border-box!important;
+    z-index:1005!important;
+    background:var(--paper)!important;
+    color:var(--ink)!important;
+    bottom:calc(var(--safari-visible-bottom-gap, 0px) + 16px + var(--topbar-height, 60px))!important;
+    height:min(78dvh, 900px)!important;
+    max-height:min(78dvh, 900px)!important;
+    margin:0!important;
+    padding:68px 24px 24px!important;
+    overflow-y:auto!important;
+    border:1px solid rgba(20,20,20,.08)!important;
+    border-bottom:0!important;
+    border-radius:24px 24px 0 0!important;
+    box-shadow:0 -14px 44px rgba(8,13,32,.10)!important;
+    transform:none!important;
+    transform-origin:center bottom!important;
+    clip-path:inset(100% 0 0 0)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    transition:clip-path .48s cubic-bezier(.22,1,.36,1),opacity .24s ease,visibility .48s!important;
+    will-change:clip-path,opacity!important;
+  }
+  html body #heroMenu.hero-menu.is-open {
+    transform:none!important;
+    clip-path:inset(0 0 0 0)!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+  html body .hero-menu__links {
+    margin-top:18px!important;
+  }
+  html body.hero-menu-open header.topbar {
+    background:var(--paper)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    border-top-color:rgba(20,20,20,.08)!important;
+    border-radius:0 0 22px 22px!important;
+    box-shadow:0 12px 28px rgba(8,13,32,.08)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu,
+  html body .hero-menu.is-open {
+    transition:none!important;
+    clip-path:none!important;
+  }
+}
