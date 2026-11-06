@@ -954,3 +954,140 @@ html body .hero h1.hero__lead-three-lines,
 html body .hero h1.hero__lead-three-lines span {
   text-transform:none!important;
 }
+
+/* Source block: dark-theme-final-cohesive-surface-and-type-layer */
+/* Финальный слой тёмной темы. Размещён после legacy-правил с !important,
+   чтобы все основные секции использовали одну нейтральную палитру. */
+html body.theme-dark {
+  background:var(--ds-bg,#000000)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  color-scheme:dark;
+}
+html body.theme-dark :is(
+  .hero,.skill,.video,.program-all,.about,.learning-format,.reviews,
+  .faq,.pricing,.signup,.footer
+) {
+  background-color:var(--ds-bg,#000000)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+}
+html body.theme-dark :is(
+  .card,.problems__recs,.skill__item,.program-all__card,
+  .pricing__card,.price,.faq details,.signup__form,.about__card,
+  .about-v2__author,.about-achievements__card,.about__mission,
+  .learning-format__card,.reviews__empty,.format__card
+) {
+  background-color:var(--ds-surface,#1C1C1E)!important;
+  background-image:none!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border-color:var(--ds-border,#38383A)!important;
+  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.16))!important;
+}
+html body.theme-dark :is(
+  .hero,.skill,.video,.program-all,.about,.learning-format,.reviews,
+  .faq,.pricing,.signup,.footer
+) :is(h1,h2,h3,h4,h5,h6,p,li,label,summary,small) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark :is(
+  .hero,.skill,.video,.program-all,.about,.learning-format,.reviews,
+  .faq,.pricing,.signup,.footer
+) :is(.eyebrow,.hero__lead,.hero__sub,.video__subtitle,.video__audience,
+  .about-project-subtitle,.about__lead,.about__text,.pricing__note,
+  .faq__empty,.signup__lead,.reviews__lead,.learning-format__lead) {
+  color:var(--ds-text-secondary,#AEAEB2)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark .topbar > .topbar__in {
+  background:rgba(0,0,0,.88)!important;
+  border-color:var(--ds-border,#38383A)!important;
+}
+html body.theme-dark .topbar,
+html body.theme-dark .topbar__progress-text {
+  color:var(--ds-text,#F5F5F7)!important;
+}
+html body.theme-dark .hero-menu {
+  background:var(--ds-surface,#1C1C1E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border-color:var(--ds-border,#38383A)!important;
+}
+html body.theme-dark .hero-menu :is(a,button,span) {
+  color:var(--ds-text,#F5F5F7)!important;
+}
+html body.theme-dark .hero-menu .hero-menu__contact {
+  background:var(--ds-brand,#FFD93D)!important;
+  color:#171717!important;
+}
+html body.theme-dark :is(input,textarea,select,.faq__search,.faq__tab) {
+  background:var(--ds-surface-secondary,#2C2C2E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border-color:var(--ds-border,#38383A)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark :is(input,textarea,select,.faq__search)::placeholder {
+  color:var(--ds-text-secondary,#AEAEB2)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark #program-all .program-module-switcher__button {
+  background:var(--ds-surface-secondary,#2C2C2E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border-color:var(--ds-border,#38383A)!important;
+}
+html body.theme-dark #program-all .program-module-switcher__button.is-active {
+  background:var(--ds-brand,#FFD93D)!important;
+  color:#171717!important;
+  border-color:var(--ds-brand,#FFD93D)!important;
+}
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price {
+  background:var(--ds-surface,#1C1C1E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border:1px solid var(--ds-border,#38383A)!important;
+}
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price :is(h3,p,li,.price__amount,.price__amount small,.price__period,.price__description) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select:link,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select:visited {
+  background:var(--ds-surface-secondary,#2C2C2E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border-color:var(--ds-border,#38383A)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:link,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:visited,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:hover,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:active {
+  background:var(--ds-brand,#FFD93D)!important;
+  color:#171717!important;
+  border-color:var(--ds-brand,#FFD93D)!important;
+  -webkit-text-fill-color:#171717!important;
+}
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:var(--ds-surface,#1C1C1E)!important;
+}
+html body.theme-dark .about-achievements__card h4 mark,
+html body.theme-dark .pricing__card mark,
+html body.theme-dark .price mark {
+  background:var(--ds-brand,#FFD93D)!important;
+  color:#171717!important;
+  -webkit-text-fill-color:#171717!important;
+}
+html body.theme-dark dialog.privacy-dialog,
+html body.theme-dark dialog#public-offer {
+  background:var(--ds-surface,#1C1C1E)!important;
+  color:var(--ds-text,#F5F5F7)!important;
+  border:1px solid var(--ds-border,#38383A)!important;
+}
+html body.theme-dark dialog.privacy-dialog :is(h1,h2,h3,p,li,strong),
+html body.theme-dark dialog#public-offer :is(h1,h2,h3,p,li,strong) {
+  color:var(--ds-text,#F5F5F7)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark .footer :is(a,p,span,small) {
+  color:var(--ds-text-secondary,#AEAEB2)!important;
+}
