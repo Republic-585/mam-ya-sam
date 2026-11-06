@@ -1,0 +1,96 @@
+/* Source block: header-jelly-menu-transform */
+/* Шапка становится верхней частью единой поверхности меню. */
+html body .hero-menu {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  box-sizing: border-box !important;
+  z-index: 1003 !important;
+  overflow-y: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--paper) !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  visibility: hidden;
+  clip-path: inset(0 0 calc(100% - 54px) 0 round 0px);
+  transform: scaleY(.94);
+  transform-origin: top center;
+  transition:
+    clip-path .82s cubic-bezier(.18,1.22,.32,1),
+    transform .82s cubic-bezier(.18,1.22,.32,1),
+    visibility 0s linear .82s !important;
+  will-change: clip-path, transform;
+}
+html body .hero-menu.is-open {
+  visibility: visible;
+  clip-path: inset(0 0 0 0 round 0px);
+  transform: scaleY(1);
+  transition:
+    clip-path .82s cubic-bezier(.18,1.22,.32,1),
+    transform .82s cubic-bezier(.18,1.22,.32,1),
+    visibility 0s !important;
+}
+html body .hero-menu-backdrop {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+html body.hero-menu-open header.topbar {
+  z-index: 1004 !important;
+}
+html body.hero-menu-open header.topbar > .topbar__in {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+html body.hero-menu-open .hero-menu__links,
+html body.hero-menu-open .hero-menu__contact {
+  animation: headerJellyContent .48s .16s both;
+}
+@keyframes headerJellyContent {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .hero-menu,
+  html body .hero-menu.is-open {
+    transition: none !important;
+    transform: none !important;
+    clip-path: inset(0 0 0 0 round 0px);
+  }
+  html body.hero-menu-open .hero-menu__links,
+  html body.hero-menu-open .hero-menu__contact {
+    animation: none !important;
+  }
+}
+
+/* Source block: header-duck-appearance-jelly */
+/* Короткое мягкое желейное приветствие в момент появления утки. */
+header.topbar .topbar__in .header-duck.is-intro-jelly > svg {
+  animation:headerDuckBob 3.8s ease-in-out infinite,headerDuckJelly .92s cubic-bezier(.2,.85,.25,1) both;
+}
+@keyframes headerDuckJelly {
+  0% { scale:1; }
+  18% { scale:1.16 .86; }
+  36% { scale:.91 1.12; }
+  54% { scale:1.07 .95; }
+  72% { scale:.97 1.04; }
+  88%,100% { scale:1; }
+}
+@media(prefers-reduced-motion:reduce) {
+  header.topbar .topbar__in .header-duck.is-intro-jelly > svg {
+    animation:none!important;
+    scale:1!important;
+  }
+}
