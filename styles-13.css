@@ -927,7 +927,7 @@ html body,
 html body :is(*, #apple-font-family-lock#apple-font-family-lock),
 html body :is(*, #apple-font-family-lock#apple-font-family-lock)::before,
 html body :is(*, #apple-font-family-lock#apple-font-family-lock)::after {
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif!important;
+  font-family:var(--ds-font)!important;
   font-stretch:normal!important;
   font-kerning:normal!important;
   font-optical-sizing:auto!important;
