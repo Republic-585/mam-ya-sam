@@ -2224,20 +2224,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 <link rel="stylesheet" href="styles-08.css" />
-<script id="header-expands-into-menu-script">
-(function () {
-  const header = document.querySelector('header.topbar');
-  if (!header) return;
-  function syncMenuHeight() {
-    document.documentElement.style.setProperty('--topbar-height', header.getBoundingClientRect().height.toFixed(2) + 'px');
-  }
-  syncMenuHeight();
-  window.addEventListener('resize', syncMenuHeight, {passive:true});
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', syncMenuHeight, {passive:true});
-  }
-})();
-</script>
+<script id="header-expands-into-menu-script" src="js/header-menu-height.js"></script>
 
 
 <link rel="stylesheet" href="styles-09.css" />
