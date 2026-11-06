@@ -71,11 +71,11 @@ for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)) {
 
 let inlineScriptCount = 0;
 let externalScriptCount = 0;
-for (const match of html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script>/gi)) {
+for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
   const attributes = match[1];
-  const src = attributes.match(/\\bsrc=["']([^"']+)["']/i)?.[1];
+  const src = attributes.match(/\bsrc=["']([^"']+)["']/i)?.[1];
   if (src) {
-    if (/^(?:https?:|data:|\\/\\/)/i.test(src)) continue;
+    if (/^(?:https?:|data:|\/\/)/i.test(src)) continue;
     const relative = src.split(/[?#]/)[0];
     if (!relative.toLowerCase().endsWith('.js')) continue;
     const source = read(relative);
@@ -88,7 +88,7 @@ for (const match of html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script>/gi)
     checks += 1;
     continue;
   }
-  const type = attributes.match(/\\btype=["']([^"']+)["']/i)?.[1]?.toLowerCase();
+  const type = attributes.match(/\btype=["']([^"']+)["']/i)?.[1]?.toLowerCase();
   if (type && !['text/javascript', 'application/javascript'].includes(type)) continue;
   inlineScriptCount += 1;
   try {
