@@ -9130,7 +9130,26 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     "Вы можете запросить уточнение, удаление или прекращение обработки данных, а также отозвать согласие. Для этого напишите в бот проекта: @mam_ya_sam_bot . Мы обработаем запрос в разумный срок.":"You may request correction or deletion of your information, ask us to stop processing it or withdraw your consent. To do so, message the project bot: @mam_ya_sam_bot. We will handle your request within a reasonable period.",
     "Дети":"Children",
     "Курс предназначен для школьников, заявку заполняет родитель или законный представитель. Для первичного знакомства мы просим только имя ребёнка и его класс. Не указывайте в комментарии дату рождения, адрес, сведения о здоровье или другие лишние персональные данные.":"The programme is intended for school students, and applications must be completed by a parent or legal guardian. For an initial enquiry, we ask only for the child's name and grade. Do not include a date of birth, home address, health information or other unnecessary personal details in the comment field.",
-    "© 2026 · Концепт-курс «Финансовая грамотность» на основе математики для школьников":"© 2026 · A maths-based financial literacy programme for school students"
+    "© 2026 · Концепт-курс «Финансовая грамотность» на основе математики для школьников":"© 2026 · A maths-based financial literacy programme for school students",
+    "Подсказка: вычти расходы из 1 000 ₽ и проверь, сколько останется для цели.":"Hint: subtract the expenses from RUB 1,000 and check how much is left for your goal.",
+    "Здесь важен не только ответ, но и ход твоих мыслей.":"The way you think it through matters just as much as the answer.",
+    "Подсказка: найди четверть от 1 200 ₽, затем вычти её из старой цены.":"Hint: find one quarter of RUB 1,200, then subtract it from the original price.",
+    "Проценты помогают сравнивать предложения, а не только видеть ярлык «скидка».":"Percentages help you compare offers, not just spot a “discount” label.",
+    "Подсказка: сначала узнай, сколько ещё нужно накопить до 1 800 ₽.":"Hint: first work out how much more you need to save to reach RUB 1,800.",
+    "Большая цель становится понятнее, когда разбита на небольшие шаги.":"A big goal becomes easier to understand when you break it into smaller steps.",
+    "Твой бюджет":"Your budget","Цена и скидка":"Price and discount","План накоплений":"Savings plan",
+    "Варианты плана":"Plan options","Ответы на миссию 2":"Answers for challenge 2","Ответы на миссию 3":"Answers for challenge 3",
+    "Прокрутка миссий":"Browse challenges","Предыдущая миссия":"Previous challenge","Следующая миссия":"Next challenge",
+    "Следующая карточка":"Next card","Миссия 1":"Challenge 1","Миссия 2":"Challenge 2","Миссия 3":"Challenge 3",
+    "Международный опыт":"International experience","Язык":"Language",
+    "1 000 ₽":"RUB 1,000","250 ₽":"RUB 250","1 200 ₽":"RUB 1,200","1 050 ₽":"RUB 1,050",
+    "СТАРТ":"START","ЦЕЛЬ-СБЕРЕЖЕНИЯ":"SAVINGS GOAL","СТАРАЯ ЦЕНА":"ORIGINAL PRICE",
+    "УЖЕ ЕСТЬ":"SAVED SO FAR","В НЕДЕЛЮ":"PER WEEK",
+    "870 ₽":"RUB 870","750 ₽":"RUB 750","520 ₽":"RUB 520","900 ₽":"RUB 900",
+    "1 000 ₽":"RUB 1,000","300 ₽":"RUB 300","2 недели":"2 weeks","3 недели":"3 weeks","4 недели":"4 weeks",
+    "Всего будет 1 550 ₽":"Total: RUB 1,550","Всего будет 1 800 ₽":"Total: RUB 1,800","Всего будет 2 050 ₽":"Total: RUB 2,050",
+    "Скидка составит 300 ₽":"The discount is RUB 300","Скидка составит 200 ₽":"The discount is RUB 200",
+    "Это размер скидки, а не цена":"That's the discount amount, not the final price"
   };
   const originalTexts = new WeakMap();
   const originalAttrs = new WeakMap();
@@ -9188,6 +9207,7 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     if(button)applyLanguage(button.dataset.siteLanguage);
   });
   const observer=new MutationObserver(records=>records.forEach(record=>{
+    if(record.type==="characterData"){translateNode(record.target);return;}
     record.addedNodes.forEach(node=>{
       if(node.nodeType===Node.TEXT_NODE)translateNode(node);
       else if(node.nodeType===Node.ELEMENT_NODE){
@@ -9201,7 +9221,7 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     let preferred="ru";
     try{preferred=new URLSearchParams(location.search).get("lang")||localStorage.getItem("mamYaSamLanguage")||"ru";}catch(_){}
     applyLanguage(preferred);
-    observer.observe(document.body,{childList:true,subtree:true});
+    observer.observe(document.body,{childList:true,subtree:true,characterData:true});
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
