@@ -2061,26 +2061,7 @@ const TRIAL_PLAN_WIRE_ID = 'trial_7d';
 
 
 
-<script id="menu-theme-toggle-script">
-(function(){
-  const button=document.getElementById('themeToggle');
-  if(!button)return;
-  let dark=false;
-  try{dark=localStorage.getItem('mamYaSamTheme')==='dark';}catch(_){}
-  function applyTheme(){
-    document.body.classList.toggle('theme-dark',dark);
-    button.setAttribute('aria-pressed',String(dark));
-    button.setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
-    const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',dark?'#101522':'#080d20');
-  }
-  button.addEventListener('click',function(){
-    dark=!dark;applyTheme();
-    try{localStorage.setItem('mamYaSamTheme',dark?'dark':'light');}catch(_){}
-  });
-  applyTheme();
-})();
-</script>
+<script id="menu-theme-toggle-script" src="js/menu-theme-toggle.js"></script>
 
 <link rel="stylesheet" href="styles-06.css" />
 
