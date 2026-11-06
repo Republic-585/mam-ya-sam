@@ -9983,3 +9983,46 @@ html body * {
   font-optical-sizing:auto;
 }
 </style>
+
+
+<style id="about-project-apple-typography">
+/* Типографическая иерархия заголовка и подзаголовка проекта по принципам Apple HIG. */
+html body section.about .about-project-heading {
+  max-width:900px!important;
+  margin:0 auto 16px!important;
+  color:#171717!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(2rem,4.2vw,3.25rem)!important;
+  font-weight:650!important;
+  line-height:1.12!important;
+  letter-spacing:-.04em!important;
+  font-kerning:normal!important;
+  text-wrap:balance;
+  text-transform:none!important;
+}
+html body section.about .about-project-subtitle {
+  max-width:760px!important;
+  margin:0 auto 28px!important;
+  color:#5C5C5C!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif!important;
+  font-size:clamp(1.0625rem,1.55vw,1.25rem)!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.018em!important;
+  font-kerning:normal!important;
+  text-wrap:pretty;
+}
+@media(max-width:640px){
+  html body section.about .about-project-heading {
+    font-size:clamp(1.9rem,8vw,2.25rem)!important;
+    line-height:1.14!important;
+    letter-spacing:-.035em!important;
+    margin-bottom:12px!important;
+  }
+  html body section.about .about-project-subtitle {
+    font-size:1.0625rem!important;
+    line-height:1.5!important;
+    margin-bottom:22px!important;
+  }
+}
+</style>
