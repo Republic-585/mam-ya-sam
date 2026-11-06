@@ -1,0 +1,27 @@
+/* Source block: brand-wordmark-hero-typography */
+/* Начертание названия в шапке и подвале совпадает с «Финансовая грамотность» на первом экране. */
+.topbar .logo,
+.topbar .logo__name,
+.footer .logo {
+  font-family: 'SF Pro Condensed', sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Source block: header-wordmark-skill-scroll-fade */
+/* Название уходит в кубик по той же плавной кривой, что и слово «вместе» в Hero. */
+.topbar .logo__text {
+  opacity:calc(1 - clamp(0, (var(--wordmark-scroll-progress, 0) - .40) / .08, 1))!important;
+  transform:translate3d(
+    calc(var(--wordmark-into-x, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
+    calc(var(--wordmark-into-y, 0px) * clamp(0, var(--wordmark-scroll-progress, 0) / .48, 1)),
+    0
+  );
+  transform-origin:left center;
+  visibility:visible;
+  pointer-events:none;
+  will-change:opacity,transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar .logo__text { transform:none; opacity:1; will-change:auto; }
+}
