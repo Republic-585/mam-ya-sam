@@ -944,3 +944,10 @@ html body .hero .hero__lead-three-lines .hero__word-pill {
   border-radius:9999px!important;
   font-weight:400!important;
 }
+
+/* Source block: hero-heading-natural-case-after-h1 */
+/* Семантический h1 не должен наследовать старое uppercase-оформление hero. */
+html body .hero h1.hero__lead-three-lines,
+html body .hero h1.hero__lead-three-lines span {
+  text-transform:none!important;
+}
