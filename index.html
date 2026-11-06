@@ -9178,7 +9178,26 @@ html[lang="en"] .legal-translation-note{display:block}
     "Всего будет 1 550 ₽":"Total: RUB 1,550","Всего будет 1 800 ₽":"Total: RUB 1,800","Всего будет 2 050 ₽":"Total: RUB 2,050",
     "Скидка составит 300 ₽":"The discount is RUB 300","Скидка составит 200 ₽":"The discount is RUB 200",
     "Это размер скидки, а не цена":"That's the discount amount, not the final price"
-  };
+  Object.assign(translations,{
+    "Мам, я сам! – на главную":"Mum, I Can Do It Myself! – home",
+    "Основная навигация":"Main navigation","Открыть разделы сайта":"Open site menu",
+    "Главные разделы сайта":"Main site sections","Переключить светлую или тёмную тему":"Switch between light and dark appearance",
+    "Telegram, канал Мам, я сам":"Mum, I Can Do It Myself! on Telegram",
+    "Начать сейчас":"Start for free","Видеоплеер практикума":"Practical session video player",
+    "Логотип проекта":"Project logo","Воспроизвести видео":"Play video","Воспроизвести":"Play",
+    "Выключить звук":"Mute","Перемотка видео":"Seek through video","На весь экран":"Full screen",
+    "Качество видео":"Video quality","Выбор модуля программы":"Choose a programme module",
+    "Карточки программы. Прокручивайте по горизонтали":"Programme cards. Scroll horizontally",
+    "Продолжение программы и новые модули":"More programme content and new modules",
+    "Достижения и программы автора":"Creator's achievements and programmes",
+    "Переключение опыта и программ":"Browse experience and programmes",
+    "Предыдущая карточка":"Previous card","Мам, я сам! – наверх":"Mum, I Can Do It Myself! – back to top",
+    "Правовая информация":"Legal information","Вернуться к первому экрану":"Back to the top of the page",
+    "Что хотите узнать или о чём нам важно знать?":"What would you like to know, or is there anything we should know?"
+  });
+  for(let cardNumber=1;cardNumber<=17;cardNumber++){
+    translations["Карточка программы "+cardNumber]="Programme card "+cardNumber;
+  }
   const originalTexts = new WeakMap();
   const originalAttrs = new WeakMap();
   let current = "ru";
