@@ -9067,14 +9067,14 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
   const originalTexts = new WeakMap();
   const originalAttrs = new WeakMap();
   let current = "ru";
-  function normalise(value){return value.replace(/\\s+/g," ").trim();}
+  function normalise(value){return value.replace(/\s+/g," ").trim();}
   function translateNode(node){
     if(node.nodeType!==Node.TEXT_NODE)return;
     if(!originalTexts.has(node))originalTexts.set(node,node.nodeValue);
     const original=originalTexts.get(node);
     const key=normalise(original);
     if(current==="en" && translations[key]){
-      const leading=(original.match(/^\\s*/)||[""])[0], trailing=(original.match(/\\s*$/)||[""])[0];
+      const leading=(original.match(/^\s*/)||[""])[0], trailing=(original.match(/\s*$/)||[""])[0];
       node.nodeValue=leading+translations[key]+trailing;
     }else if(current==="ru"){node.nodeValue=original;}
   }
@@ -9108,6 +9108,12 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content=document.title;
     const ogDescription=document.querySelector('meta[property="og:description"]');if(ogDescription)ogDescription.content=description;
     try{localStorage.setItem("mamYaSamLanguage",current);}catch(_){}
+    try{
+      const url=new URL(location.href);
+      if(current==="en")url.searchParams.set("lang","en");
+      else url.searchParams.delete("lang");
+      history.replaceState(history.state,"",url.pathname+url.search+url.hash);
+    }catch(_){}
   }
   document.addEventListener("click",event=>{
     const button=event.target.closest("[data-site-language]");
@@ -9124,7 +9130,8 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
     });
   }));
   function init(){
-    let preferred="ru";try{preferred=localStorage.getItem("mamYaSamLanguage")||"ru";}catch(_){}
+    let preferred="ru";
+    try{preferred=new URLSearchParams(location.search).get("lang")||localStorage.getItem("mamYaSamLanguage")||"ru";}catch(_){}
     applyLanguage(preferred);
     observer.observe(document.body,{childList:true,subtree:true});
   }
