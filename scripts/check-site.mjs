@@ -33,7 +33,7 @@ for (const href of stylesheetLinks) {
   if (/^(?:https?:|data:|\/\/)/i.test(href)) continue;
   const relative = href.split(/[?#]/)[0];
   check(relative.toLowerCase().endsWith('.css'), `Подключённый stylesheet не является CSS-файлом: ${href}`);
-  check(existsSync(resolve(root, relative)), \`Не найден подключённый CSS-файл: \${href}\`);
+  check(existsSync(resolve(root, relative)), `Не найден подключённый CSS-файл: ${href}`);
 }
 
 check(
