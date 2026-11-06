@@ -943,7 +943,9 @@ html body :is(*, #apple-font-family-lock#apple-font-family-lock)::after {
 html body .hero .hero__lead-three-lines .hero__word-pill {
   border-radius:9999px!important;
   padding-inline:.26em!important;
+  padding-block:.08em!important;
   font-weight:400!important;
+  text-transform:capitalize!important;
 }
 
 /* Source block: hero-heading-natural-case-after-h1 */
