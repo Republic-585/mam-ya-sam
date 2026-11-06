@@ -942,6 +942,7 @@ html body :is(*, #apple-font-family-lock#apple-font-family-lock)::after {
 /* Сохраняем мягкую форму и обычное начертание плашки после перехода заголовка на h1. */
 html body .hero .hero__lead-three-lines .hero__word-pill {
   border-radius:9999px!important;
+  padding-inline:.26em!important;
   font-weight:400!important;
 }
 
