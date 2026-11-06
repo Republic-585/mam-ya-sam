@@ -3945,6 +3945,13 @@ html body .skill__number {
           <circle cx="12" cy="17" r="1.35" fill="#fff" stroke="none"></circle>
         </svg>
       </button>
+      <div class="site-language" role="group" aria-label="Language">
+        <span class="site-language__label" data-language-label>Язык</span>
+        <div class="site-language__segments" role="group" aria-label="Выбор языка">
+          <button class="site-language__option" type="button" data-site-language="ru" aria-pressed="true">Русский</button>
+          <button class="site-language__option" type="button" data-site-language="en" aria-pressed="false">English</button>
+        </div>
+      </div>
       <div class="hero-menu__links">
         <a href="#program-all">Программа курса</a>
         <a href="#about">Автор и проект</a>
@@ -8870,6 +8877,258 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
   carousel.addEventListener('scroll',scheduleUpdate,{passive:true});
   window.addEventListener('resize',scheduleUpdate,{passive:true});
   updateFromScroll();
+})();
+</script>
+
+
+<style id="site-language-switcher-style">
+.site-language{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 24px;padding:14px 0;border-top:1px solid rgba(20,20,20,.10);border-bottom:1px solid rgba(20,20,20,.10)}
+.site-language__label{font-size:13px;line-height:1.3;font-weight:600;color:#6e737b}
+.site-language__segments{display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:999px;background:#f2f2f4}
+.site-language__option{min-width:76px;padding:8px 13px;border:0;border-radius:999px;background:transparent;color:#3a3a3c;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;cursor:pointer;transition:background .2s ease,color .2s ease,box-shadow .2s ease}
+.site-language__option[aria-pressed="true"]{background:#fff;color:#111;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.site-language__option:focus-visible{outline:2px solid #06c;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.site-language__option{transition:none}}
+</style>
+<script id="site-language-localization">
+(function(){
+  const translations = {
+    "МАМ, Я САМ!":"MUM, I CAN DO IT MYSELF!",
+    "Навык":"Skills","Формат":"How it works","Цены":"Pricing","Записаться":"Sign up",
+    "Программа курса":"Course programme","Автор и проект":"About the creator","Формат обучения":"Learning format",
+    "Отзывы":"Testimonials","Тарифы":"Plans","Вопросы и ответы":"FAQs","Связаться":"Get in touch",
+    "Тут":"Where","дети и взрослые":"children and adults","Думают":"think","вместе.":"together.",
+    "Подружим ребенка":"Let's help your child feel confident","с цифрами и деньгами.":"with numbers and money.",
+    "На стыке финансовой грамотности":"Bringing financial literacy and","и математики.":"math together.",
+    "Начать бесплатно":"Start for free","НАВЫК № 1":"SKILL NO. 1","НАВЫК № 2":"SKILL NO. 2",
+    "НАВЫК № 3":"SKILL NO. 3","НАВЫК № 4":"SKILL NO. 4","ОСНОВА САМОСТОЯТЕЛЬНОСТИ":"THE FOUNDATION OF INDEPENDENCE",
+    "Взрослеют не по возрасту. А по решениям.":"Growing up isn't about age. It's about the choices you make.",
+    "Самостоятельность – не разовая прихоть и не попытка доказать, что ты уже взрослый. Это навык принимать решения, отвечать за них и постепенно справляться самому.":"Independence isn't a passing whim or an attempt to prove you're grown up. It's the ability to make decisions, take responsibility for them and gradually learn to manage things on your own.",
+    "Как ты будешь его развивать":"How you'll build this skill",
+    "01 Решай сам":"01 Make your own decisions",
+    "Учись замечать, что можно сделать самостоятельно, а где стоит попросить совета. Постепенно превращай небольшие решения в уверенную привычку.":"Learn to recognise what you can do on your own and when it's worth asking for advice. Turn small decisions into a confident everyday habit.",
+    "02 Планируй шаги":"02 Plan your next steps",
+    "Разбивай большую цель на понятные действия, оценивай время и ресурсы. Так даже сложная задача становится выполнимой.":"Break a big goal into clear steps and work out the time and resources you'll need. Even a difficult task becomes manageable this way.",
+    "03 Отвечай за выбор":"03 Take responsibility",
+    "Сравнивай варианты, думай о последствиях и проверяй результат. Ошибка становится опытом, если понять, что можно сделать иначе.":"Compare your options, think through the consequences and review the outcome. A mistake becomes useful experience when you understand what you could do differently.",
+    "04 Действуй на практике":"04 Put it into practice",
+    "Выполняй реальные задания, пробуй новые способы и отмечай свой прогресс. Самостоятельность растёт через действия, а не только через теорию.":"Work through real-life tasks, try different approaches and track your progress. Independence grows through action, not theory alone.",
+    "Посмотрите, как проходит практикум: учим ребёнка считать деньги и принимать решения.":"See the programme in action: helping children work with money and make informed decisions.",
+    "2 минуты, чтобы увидеть формат: математика + реальные финансовые ситуации. Считаем, сравниваем, выбираем и объясняем.":"See how it works in just two minutes: maths meets real-life money decisions. We calculate, compare, choose and explain.",
+    "Программа курса, после которой ваш ребенок скажет: «Я сам!»":"A programme that helps your child say, “I can do it myself!”",
+    "Каждый модуль - маленький шаг: посмотрели, обсудили, применили в жизни.":"Each module is a small step: watch, discuss and put what you've learned into practice.",
+    "Модуль 1":"Module 1","Модуль 2":"Module 2","Модуль 3":"Module 3","Старт":"Getting started",
+    "Введение":"Introduction","5 признаков взрослого":"5 signs of growing independence",
+    "Разберём, из чего складывается самостоятельность: ответственность за решения, планирование, забота о себе и умение доводить дела до конца. Первый шаг - понять, какие навыки уже есть и что стоит развивать.":"Explore what independence is made of: taking responsibility, planning ahead, looking after yourself and seeing things through. First, we'll identify the skills you already have and the ones you can build.",
+    "Навыки самостоятельности":"Life skills for independence","Я и мои деньги":"Me and my money",
+    "Делим по-честному":"Sharing fairly",
+    "Как разделить пиццу, деньги или общую задачу так, чтобы всем досталось справедливо и никто не поссорился? Разберёмся на понятных примерах.":"How can you split a pizza, money or a shared task fairly, so everyone gets a fair share? We'll work it out with familiar examples.",
+    "Обыкновенные дроби":"Common fractions","Куда исчезают деньги?":"Where does the money go?",
+    "Ценник не всегда говорит всю правду. Разберёмся, почему карманные быстро заканчиваются и как считать стоимость покупок, скидки и сдачу.":"The price tag doesn't always tell the whole story. Find out why pocket money can disappear so quickly, and learn to calculate shopping costs, discounts and change.",
+    "Десятичные дроби":"Decimals","Скидка, которая дороже":"When a discount costs more",
+    "Подписка на год кажется выгоднее месячной. Посчитаем реальную экономию и выясним, стоит ли платить за то, чем почти не пользуешься.":"An annual subscription can look cheaper than a monthly one. We'll calculate the real savings and decide whether it's worth paying for something you hardly use.",
+    "Проценты":"Percentages","Копилка на самокат":"Saving up for a scooter",
+    "Научимся рассчитывать, сколько откладывать на мечту, и учитывать непредвиденные расходы и рост цен. Так цель станет ближе, а план сбережений реалистичнее.":"Learn how much to put aside for something you want, while allowing for unexpected costs and rising prices. Your goal will feel closer, and your savings plan more realistic.",
+    "Линейные уравнения":"Linear equations","Копилка растёт":"Growing your savings",
+    "Разберёмся, как складывать деньги из разных источников и планировать накопления. Обсудим идеи заработка для подростков младше 14 лет.":"Learn how to combine money from different sources and plan your savings. We'll also explore age-appropriate ways for under-14s to earn money.",
+    "Системы уравнений":"Systems of equations","Друг или должник?":"A friend or someone who owes you?",
+    "Одолжил другу, а теперь неловко даже здороваться? Разберёмся, почему долги могут портить отношения и как договариваться о деньгах, чтобы сохранить дружбу.":"Lent a friend some money and now things feel awkward? Explore how debts can affect relationships and how to agree on money matters without losing a friendship.",
+    "Степени":"Powers","Квартира или свой дом?":"A flat or a house?",
+    "Копить на своё жильё или выбрать другой путь? Разберёмся, как сравнивать варианты, оценивать расходы и решать, что выгоднее: квартира в городе или дом за его пределами.":"Should you save for your own place or consider another option? Learn to compare choices, estimate costs and work out what makes more financial sense: a city flat or a house outside town.",
+    "Формулы сокращённого умножения":"Algebraic identities","Я и моё пространство":"Me and my space",
+    "Углы решают":"Angles make the difference",
+    "Как подобрать удачный ракурс для аватарки и сделать комнату уютнее? Разберёмся, как углы и геометрия помогают в фотографиях, расстановке мебели и организации пространства.":"How do you find the best angle for a profile photo or make a room feel more welcoming? Discover how angles and geometry help with photography, furniture layouts and organising a space.",
+    "Виды углов":"Types of angles","Глаз дизайнера":"A designer's eye",
+    "Почему одни комнаты выглядят дорого, а другие нет? Узнаем, как параллельные линии помогают создавать гармоничный интерьер и визуально делать пространство стильнее.":"Why do some rooms look more polished than others? See how parallel lines help create balanced interiors and make a space look more considered.",
+    "Параллельные прямые":"Parallel lines","Wi-Fi в каждый угол":"Wi-Fi in every corner",
+    "Где поставить роутер, чтобы сигнал ловил во всей квартире? Разберёмся, как медианы и биссектрисы помогают искать подходящие точки и планировать пространство с умом.":"Where should you put a router to get a strong signal throughout your home? Learn how medians and angle bisectors can help identify useful positions and plan a space.",
+    "Медианы и биссектрисы":"Medians and angle bisectors","Тарзанка без просчётов":"A swing without guesswork",
+    "Как выбрать место для тарзанки и рассчитать высоту крепления? Посмотрим, как геометрия и метод Фалеса помогают решать практические задачи и почему точные измерения важны для безопасности.":"How do you choose a safe spot for a rope swing and calculate its attachment height? Explore how geometry and Thales' theorem help solve practical problems, and why accurate measurements matter for safety.",
+    "Высоты треугольника":"Altitudes of a triangle","Диван пройдёт?":"Will the sofa fit?",
+    "Как понять, войдёт ли диван в дверной проём и поместится ли на лестнице? Разберёмся, как размеры, объёмы и сечения помогают спланировать переезд и избежать неприятных сюрпризов.":"Will the sofa fit through the doorway and up the stairs? Learn how dimensions, volume and cross-sections can help you plan a move and avoid unpleasant surprises.",
+    "Объёмы и сечения":"Volumes and cross-sections","Я и реальный мир взрослых":"Me and the adult world",
+    "Казино против математики":"Chance versus maths",
+    "Почему лотерея обещает большие выигрыши, но чаще оставляет без денег? Разберёмся, как вероятность и статистика помогают оценивать шансы, замечать уловки и понимать, кто на самом деле в плюсе.":"Why do lotteries promise big prizes but so often leave people out of pocket? Learn how probability and statistics help you assess the odds, spot misleading claims and see who really benefits.",
+    "Математическая статистика":"Statistics","Когда приедет такси?":"When will the taxi arrive?",
+    "Почему приложение обещает пять минут, а ждать приходится дольше? Разберёмся, как скорость, расстояние и время помогают рассчитывать поездки и проверять, насколько реалистичен прогноз.":"Why does an app say five minutes when the wait turns out to be longer? Learn how speed, distance and time help estimate journeys and check whether a prediction is realistic.",
+    "Задачи на движение":"Speed, distance and time","Почему мама говорит «нет»?":"Why does Mum say no?",
+    "Почему на просьбу что-то купить родители иногда отказывают? Разберёмся, как они принимают финансовые решения, что стоит за отказом и как договариваться без ссор.":"Why do parents sometimes say no when you ask them to buy something? Explore how they make financial decisions, what's behind a refusal and how to talk things through without arguing.",
+    "Психология":"Psychology","Первые деньги":"Your first earnings",
+    "Как заработать на своей идее, если тебе ещё нет 14? Обсудим, какие небольшие проекты можно попробовать, как найти первых клиентов и превратить свои умения в полезный опыт.":"How can you earn money from an idea if you're under 14? We'll explore small projects to try, ways to find your first customers and how to turn your skills into useful experience.",
+    "Предпринимательство":"Entrepreneurship","Дальше - больше":"There's more to come",
+    "Продолжение следует":"More to come","И это ещё не всё":"And that's not all",
+    "На этом программа не заканчивается. Впереди - новые модули, неожиданные задачи и темы из реальной жизни. Будем добавлять знания, пробовать новое и открывать ещё больше возможностей.":"The programme doesn't end here. More modules, unexpected challenges and real-life topics are on the way. We'll keep learning, trying new things and discovering more possibilities.",
+    "Новые модули и темы":"New modules and topics","Узнать подробнее":"Find out more","−10 сек":"−10 sec","+10 сек":"+10 sec",
+    "«Мам, я сам!» – практический курс финансовой грамотности и самостоятельности для школьников 5-8 классов на основе математики.":"Mum, I Can Do It Myself! is a practical financial literacy and independence programme for students in Grades 5–8, built around maths and real-life situations.",
+    "Мы помогаем разобраться в деньгах, применять математику в реальной жизни и увереннее принимать собственные решения. Здесь важно не просто запомнить правило, а понять, как оно работает: рассчитать бюджет, сравнить варианты, спланировать цель и оценить последствия выбора.":"We help young people understand money, use maths in everyday life and make decisions with greater confidence. The goal isn't simply to memorise a rule, but to understand how it works: plan a budget, compare options, set a goal and consider the consequences of a choice.",
+    "Наша миссия: Помогать подросткам становиться самостоятельнее через практические знания, осознанный выбор и ответственность.":"Our mission: to help young people become more independent through practical knowledge, thoughtful choices and responsibility.",
+    "АВТОР ПРОЕКТА":"CREATED BY","Вера Романова":"Vera Romanova",
+    "Я верю, что образование должно помогать не только получать знания, но и понимать мир, самостоятельно мыслить и применять изученное в жизни.":"I believe education should do more than provide knowledge. It should help people understand the world, think independently and apply what they learn to real life.",
+    "Эту идею я закладываю в «Мам, я сам!»: соединить финансовую грамотность, математику и практические задачи, с которыми подростки сталкиваются за пределами школы.":"That's the idea behind Mum, I Can Do It Myself!: bringing financial literacy, maths and practical challenges together through situations young people encounter beyond the classroom.",
+    "Мне важно, чтобы у подростка было пространство, где можно задавать вопросы, искать собственные решения, разбираться в последствиях выбора и постепенно становиться увереннее в своих силах.":"I want young people to have a space where they can ask questions, find their own solutions, understand the consequences of their choices and gradually grow in confidence.",
+    "Опыт и программы":"Experience and programmes","ОБРАЗОВАНИЕ":"EDUCATION","Образовательный опыт и международная академическая среда.":"An educational background shaped by an international academic environment.",
+    "ОБУЧЕНИЕ":"PROFESSIONAL DEVELOPMENT","Непрерывное развитие и расширение профессиональных знаний.":"Ongoing learning and the development of professional expertise.",
+    "ПРОЕКТ":"PROJECT","Опыт работы с образовательными идеями и развитием учеников.":"Experience developing educational ideas and supporting students' growth.",
+    "МЕЖДУНАРОДНЫЙ ОПЫТ":"INTERNATIONAL EXPERIENCE","Обмен идеями":"Sharing ideas","Творческие встречи с единомышленниками на международных площадках и обмен опытом.":"Creative conversations with like-minded people at international events, sharing ideas and experience.",
+    "МИССИЯ № 1":"CHALLENGE NO. 1","ТВОЙ ХОД":"YOUR MOVE","Секретный бюджет: спаси свою цель!":"The secret budget: protect your goal!",
+    "У тебя есть 1 000 ₽ на день. Нужно оплатить важные расходы и оставить 250 ₽ на свою цель. Сможешь найти план?":"You have RUB 1,000 for the day. Cover your essential costs and keep RUB 250 for your goal. Can you make it work?",
+    "СТАРТ":"START","ЦЕЛЬ-СБЕРЕЖЕНИЯ":"SAVINGS GOAL","Выбери план, который позволит уложиться в бюджет и отложить нужную сумму.":"Choose a plan that keeps you within budget and lets you save the amount you need.",
+    "A Всё по списку Проезд 180 ₽ · обед 220 ₽ · книга 350 ₽ · кофе 120 ₽ 870 ₽":"A Everything on the list · Transport RUB 180 · Lunch RUB 220 · Book RUB 350 · Coffee RUB 120 · RUB 870",
+    "B Приоритеты прежде всего Проезд 180 ₽ · обед 220 ₽ · книга 350 ₽ 750 ₽":"B Priorities first · Transport RUB 180 · Lunch RUB 220 · Book RUB 350 · RUB 750",
+    "C Книга подождёт Проезд 180 ₽ · обед 220 ₽ · кофе 120 ₽ 520 ₽":"C The book can wait · Transport RUB 180 · Lunch RUB 220 · Coffee RUB 120 · RUB 520",
+    "Попробовать ещё раз ↻":"Try again ↻","МИССИЯ № 2":"CHALLENGE NO. 2","ТВОЯ ОЧЕРЕДЬ":"YOUR TURN",
+    "Поймай скидку: где выгоднее?":"Catch the discount: which is the better deal?",
+    "Ты хочешь купить наушники за 1 200 ₽. Магазин предлагает скидку 25%. Сколько они будут стоить после скидки?":"You want to buy headphones for RUB 1,200. The shop offers a 25% discount. How much will they cost after the discount?",
+    "СТАРАЯ ЦЕНА":"ORIGINAL PRICE","СКИДКА":"DISCOUNT","Выбери правильную итоговую цену.":"Choose the correct final price.",
+    "A 900 ₽ Скидка составит 300 ₽":"A RUB 900 · The discount is RUB 300",
+    "B 1 000 ₽ Скидка составит 200 ₽":"B RUB 1,000 · The discount is RUB 200",
+    "C 300 ₽ Это размер скидки, а не цена":"C RUB 300 · That's the discount amount, not the final price",
+    "МИССИЯ № 3":"CHALLENGE NO. 3","ВЫБИРАЙ СТРАТЕГИЮ":"CHOOSE YOUR STRATEGY",
+    "Цель близко: составь план":"Your goal is within reach: make a plan",
+    "Ты копишь на настольную игру за 1 800 ₽. Уже есть 1 050 ₽, а каждую неделю можешь откладывать 250 ₽.":"You're saving for a board game that costs RUB 1,800. You already have RUB 1,050 and can save RUB 250 each week.",
+    "УЖЕ ЕСТЬ":"SAVED SO FAR","В НЕДЕЛЮ":"PER WEEK","Через сколько полных недель хватит денег на покупку?":"How many full weeks will it take to save enough?",
+    "A 2 недели Всего будет 1 550 ₽":"A 2 weeks · Total: RUB 1,550",
+    "B 3 недели Всего будет 1 800 ₽":"B 3 weeks · Total: RUB 1,800",
+    "C 4 недели Всего будет 2 050 ₽":"C 4 weeks · Total: RUB 2,050",
+    "ФОРМАТ ОБУЧЕНИЯ":"LEARNING FORMAT","Как проходит обучение":"How the programme works",
+    "Здесь будет собрана понятная и подробная информация о том, как устроено обучение в проекте «Мам, я сам!».":"This section will explain clearly and in detail how learning works in the Mum, I Can Do It Myself! programme.",
+    "Всё о процессе обучения":"Everything you need to know about learning",
+    "Расскажем, как проходят занятия, в каком формате открываются уроки, как устроена работа с материалами и заданиями, а также где участники могут общаться и получать поддержку.":"We'll explain how sessions work, how lessons are delivered, how students use learning materials and complete activities, and where participants can connect and get support.",
+    "ОТЗЫВЫ":"TESTIMONIALS","Важны не обещания. Важен опыт.":"Real experiences matter more than promises.",
+    "Здесь будут собраны реальные впечатления родителей и учеников о проекте «Мам, я сам!».":"This section will feature genuine feedback from parents and students taking part in the programme.",
+    "Первые отзывы появятся здесь":"The first testimonials will appear here",
+    "Мы не придумываем истории и оценки. Публикуем только настоящие отзывы участников и их семей.":"We don't make up stories or ratings. We publish feedback only from real participants and their families.",
+    "Остались вопросы? Отвечаем.":"Have questions? We've got answers.",
+    "Поиск по вопросам":"Search the FAQs","Найти ответ...":"Search for an answer...","Очистить поиск":"Clear search",
+    "Темы вопросов":"FAQ topics","Все вопросы":"All questions","Доступ":"Access","Обучение":"Learning",
+    "Общение и поддержка":"Community and support","По вашему запросу ничего не найдено.":"No results found for your search.",
+    "Как начать заниматься?":"How do we get started?",
+    "Выберите пробный доступ и оставьте заявку. Мы свяжемся с родителем и подскажем, как подключиться.":"Choose the free trial and submit the form. We'll contact the parent and explain how to get started.",
+    "Что входит в пробный доступ?":"What's included in the free trial?",
+    "Три дня, чтобы посмотреть стартовые видеоуроки, попробовать задания и познакомиться с форматом курса. Покупать подписку не обязательно.":"Three days to watch the introductory lessons, try the activities and explore the programme. There's no obligation to buy a subscription.",
+    "Нужно ли устанавливать специальные приложения?":"Do we need to install any special apps?",
+    "Для занятий понадобится интернет и Telegram. Уроки и общение проходят онлайн.":"You'll need an internet connection and Telegram. Lessons and community activities take place online.",
+    "Можно заниматься с телефона?":"Can my child use a phone?",
+    "Да. Подойдёт смартфон, планшет или компьютер. Главное, чтобы ребёнку было удобно смотреть уроки и выполнять задания.":"Yes. A smartphone, tablet or computer will work. The important thing is that your child can comfortably watch lessons and complete activities.",
+    "Для какого возраста подходит курс?":"Which age group is the programme for?",
+    "Курс рассчитан на детей 5-8 классов. Материал помогает постепенно разобраться в математике денег и повседневных финансовых ситуациях.":"The programme is designed for students in Grades 5–8. It helps them build confidence with the maths behind money and everyday financial decisions.",
+    "Нужно ли хорошо знать математику?":"Does my child need to be good at maths?",
+    "Нет, специальных знаний не требуется. Будем разбираться шаг за шагом и применять математику на понятных жизненных примерах.":"No specialist knowledge is needed. We'll take things step by step and use familiar real-life examples to make the maths clear.",
+    "Чему ребёнок научится?":"What will my child learn?",
+    "Понимать, как работают деньги, планировать расходы, сравнивать варианты и принимать более осознанные финансовые решения.":"How money works, how to plan spending, compare options and make more thoughtful financial decisions.",
+    "Это обычные уроки математики?":"Are these regular maths lessons?",
+    "Нет. Мы используем математику как инструмент для реальной жизни: покупки, бюджет, накопления и другие ситуации, с которыми ребёнок сталкивается каждый день.":"No. We use maths as a tool for everyday life: shopping, budgeting, saving and other situations children encounter every day.",
+    "Сколько времени нужно на занятия?":"How much time will lessons take?",
+    "Можно заниматься в удобном темпе и распределять видеоуроки и задания по своему расписанию. Групповые трансляции и встречи проходят регулярно.":"Your child can learn at a comfortable pace and fit videos and activities around their schedule. Group livestreams and sessions take place regularly.",
+    "Что делать, если ребёнок что-то не понял?":"What if my child doesn't understand something?",
+    "Можно вернуться к видеоуроку и ещё раз разобрать материал. Также можно задать вопрос в сообществе.":"They can revisit the lesson and go through the material again. They can also ask a question in the community.",
+    "Родителям нужно заниматься вместе с ребёнком?":"Do parents need to study alongside their child?",
+    "Постоянно сидеть рядом не нужно. Но интерес и поддержка родителей помогут ребёнку применять новые знания в повседневной жизни.":"You don't need to sit with your child throughout the lessons. Your interest and encouragement can help them use what they've learned in everyday life.",
+    "Сколько стоит обучение после пробного доступа?":"How much does the programme cost after the trial?",
+    "Можно выбрать подписку на 1 месяц за 490 ₽, на 3 месяца за 1 290 ₽ или на 12 месяцев за 4 490 ₽.":"You can choose a 1-month plan for RUB 490, a 3-month plan for RUB 1,290 or a 12-month plan for RUB 4,490.",
+    "С меня автоматически спишут деньги после пробных дней?":"Will I be charged automatically after the trial?",
+    "Нет. Пробный доступ не продлевается автоматически, и деньги без вашего решения не списываются.":"No. The trial does not renew automatically, and you won't be charged unless you choose to pay.",
+    "На какой срок открывается доступ?":"How long does access last?",
+    "На срок выбранного тарифа: 1, 3 или 12 месяцев. Пробный доступ действует 3 дня.":"For the duration of your chosen plan: 1, 3 or 12 months. The free trial lasts 3 days.",
+    "Где общаются участники?":"Where do participants connect?",
+    "В Telegram-сообществе курса. Там можно участвовать в челленджах, общаться и следить за групповыми активностями.":"In the programme's Telegram community, where participants can take part in challenges, chat and follow group activities.",
+    "Будут ли у ребёнка задания и практика?":"Will my child get practical activities?",
+    "Да. После знакомства с темой ребёнок сможет закрепить её на практических заданиях и челленджах.":"Yes. After exploring each topic, your child can put it into practice through activities and challenges.",
+    "Как родителю узнать, что происходит на курсе?":"How can parents keep up with the programme?",
+    "Родитель может быть на связи с автором курса и уточнять организационные вопросы. Для этого используйте контакт на сайте.":"Parents can stay in touch with the programme's creator and ask any organisational questions using the contact details on the website.",
+    "Всё понравилось? Запишите ребёнка":"Like what you see? Sign your child up",
+    "Выбери свой формат.":"Choose your plan.","Начни без риска":"Try it risk-free","первые 3 дня":"first 3 days",
+    "Пробный доступ":"Free trial","Стартовые видеоуроки и задания":"Introductory video lessons and activities",
+    "Знакомство с форматом и сообществом":"An introduction to the programme and community",
+    "Без обязательства покупать подписку":"No obligation to subscribe","Без автоматического списания денег":"No automatic charges",
+    "Попробовать бесплатно":"Try it for free","Гибкий формат":"Flexible plan","1 месяц":"1 month","за месяц":"per month",
+    "Библиотека видеоуроков и заданий":"A library of video lessons and activities",
+    "Еженедельные групповые трансляции":"Weekly group livestreams","Регулярные групповые встречи":"Regular group sessions",
+    "Челленджи и поддержка сообщества":"Community challenges and support","Выбрать тариф":"Choose plan",
+    "Рекомендуем":"Recommended","3 месяца":"3 months","430 ₽ в месяц":"RUB 430 per month",
+    "Выгоднее на год":"Best value over a year","12 месяцев":"12 months","около 374 ₽ в месяц":"about RUB 374 per month",
+    "Все видеоуроки и практические задания":"All video lessons and practical activities",
+    "Доступ к материалам на весь срок":"Access to all materials for the full plan period",
+    "Ваш выбор":"Your selection","Пробный доступ – 3 дня бесплатно":"Free trial – 3 days",
+    "0 ₽ · без автоматического списания":"RUB 0 · no automatic charge","Не заполняй это поле":"Leave this field empty",
+    "Имя родителя":"Parent or guardian's name","Телефон":"Phone number","Email":"Email",
+    "Имя ребёнка":"Child's name","В каком классе учится ребёнок?":"Which grade is your child in?",
+    "Выберите класс":"Select a grade","5 класс":"Grade 5","6 класс":"Grade 6","7 класс":"Grade 7",
+    "8 класс":"Grade 8","Другой класс":"Other","Пока не уверен(а)":"Not sure yet","Комментарий":"Comment",
+    "Я являюсь родителем или законным представителем ребёнка и согласен(на) на обработку персональных данных":"I am the child's parent or legal guardian and agree to the processing of personal data",
+    "Политика обработки персональных данных":"Personal Data Policy","Запросить бесплатный доступ":"Request free access",
+    "Политика обработки данных":"Privacy policy","Публичная оферта":"Public offer",
+    "Разработка сайта":"Website by",
+    "Как к вам обращаться?":"Your name","Как зовут будущего ученика?":"Your child's name",
+    "Связаться с автором в Telegram":"Contact the creator on Telegram",
+    "Социальные сети":"Social media","Выбор языка":"Choose a language","Язык":"Language",
+    "Очистить поиск":"Clear search","Предыдущий тариф":"Previous plan","Следующий тариф":"Next plan"
+  };
+  const originalTexts = new WeakMap();
+  const originalAttrs = new WeakMap();
+  let current = "ru";
+  function normalise(value){return value.replace(/\\s+/g," ").trim();}
+  function translateNode(node){
+    if(node.nodeType!==Node.TEXT_NODE)return;
+    if(!originalTexts.has(node))originalTexts.set(node,node.nodeValue);
+    const original=originalTexts.get(node);
+    const key=normalise(original);
+    if(current==="en" && translations[key]){
+      const leading=(original.match(/^\\s*/)||[""])[0], trailing=(original.match(/\\s*$/)||[""])[0];
+      node.nodeValue=leading+translations[key]+trailing;
+    }else if(current==="ru"){node.nodeValue=original;}
+  }
+  function translateAttributes(root){
+    const attrs=["placeholder","aria-label","title"];
+    const elements=[root,...(root.querySelectorAll?root.querySelectorAll("*"):[])];
+    elements.forEach(el=>attrs.forEach(attr=>{
+      if(!el.hasAttribute||!el.hasAttribute(attr))return;
+      let saved=originalAttrs.get(el);if(!saved){saved={};originalAttrs.set(el,saved);}
+      if(!(attr in saved))saved[attr]=el.getAttribute(attr);
+      const original=saved[attr], key=normalise(original);
+      if(current==="en"&&translations[key])el.setAttribute(attr,translations[key]);
+      else if(current==="ru")el.setAttribute(attr,original);
+    }));
+  }
+  function applyLanguage(language){
+    current=language==="en"?"en":"ru";
+    document.documentElement.lang=current;
+    document.querySelectorAll("[data-site-language]").forEach(button=>{
+      const active=button.dataset.siteLanguage===current;
+      button.setAttribute("aria-pressed",String(active));
+    });
+    const label=document.querySelector("[data-language-label]");
+    if(label)label.textContent=current==="en"?"Language":"Язык";
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+    let node;while((node=walker.nextNode()))translateNode(node);
+    translateAttributes(document.body);
+    document.title=current==="en"?"Mum, I Can Do It Myself! | Financial literacy for children":"Курс финансовой грамотности для детей";
+    const description=current==="en"?"A practical financial literacy and independence programme for students in Grades 5–8.":"Финансовая грамотность для детей.";
+    const meta=document.querySelector('meta[name="description"]');if(meta)meta.content=description;
+    const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content=document.title;
+    const ogDescription=document.querySelector('meta[property="og:description"]');if(ogDescription)ogDescription.content=description;
+    try{localStorage.setItem("mamYaSamLanguage",current);}catch(_){}
+  }
+  document.addEventListener("click",event=>{
+    const button=event.target.closest("[data-site-language]");
+    if(button)applyLanguage(button.dataset.siteLanguage);
+  });
+  const observer=new MutationObserver(records=>records.forEach(record=>{
+    record.addedNodes.forEach(node=>{
+      if(node.nodeType===Node.TEXT_NODE)translateNode(node);
+      else if(node.nodeType===Node.ELEMENT_NODE){
+        const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;
+        while((child=walker.nextNode()))translateNode(child);
+        translateAttributes(node);
+      }
+    });
+  }));
+  function init(){
+    let preferred="ru";try{preferred=localStorage.getItem("mamYaSamLanguage")||"ru";}catch(_){}
+    applyLanguage(preferred);
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
 </script>
 
