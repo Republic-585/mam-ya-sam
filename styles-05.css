@@ -1,0 +1,335 @@
+/* Source block: iphone-dynamic-island-scroll-underlay */
+/* Компактная шапка с едва заметным эффектом стекла. */
+header.topbar {
+  position: sticky !important;
+  top: 0 !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+header.topbar > .topbar__in {
+  min-height: 0 !important;
+  padding: 2px 14px !important;
+  background: rgba(255, 255, 255, .90) !important;
+  -webkit-backdrop-filter: saturate(115%) blur(14px) !important;
+  backdrop-filter: saturate(115%) blur(14px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .025);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .12) inset;
+  pointer-events: auto !important;
+}
+header.topbar > .topbar__in > *,
+header.topbar .hero__menu-trigger,
+header.topbar .hero__menu-trigger * {
+  pointer-events: auto !important;
+}
+header.topbar .hero__menu-trigger {
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+/* Source block: hero-heading-final-override */
+/* Финальная типографика заголовка первого экрана: одинаковое начертание и левый край. */
+.hero__content{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.hero__course-label,
+.hero__title-main,
+.hero__sub,
+.hero__badge{
+  width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:400!important;
+  text-align:left!important;
+  text-align-last:left!important;
+  letter-spacing:0!important;
+  word-spacing:normal!important;
+  text-wrap:normal!important;
+}
+.hero__title-main{
+  line-height:1.08!important;
+  font-size:clamp(2.15rem,9.2vw,5rem)!important;
+}
+.hero__sub{
+  line-height:1.12!important;
+  font-size:clamp(1.45rem,5.7vw,3rem)!important;
+}
+.hero__badge{
+  line-height:1.12!important;
+  font-size:clamp(.95rem,3.2vw,1.15rem)!important;
+}
+
+/* Стрелки возврата: на 30px выше шапки, их острия по центру крестика меню. */
+html body .back-to-top{
+  right: 10px !important;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Source block: menu-trigger-cross-final-fix */
+/* Восстанавливаем плавное превращение двух линий меню в крестик. */
+html body header.topbar .hero__menu-trigger span {
+  position:absolute!important;
+  right:5.5px!important;
+  height:3px!important;
+  transform-origin:center!important;
+  transition:top .28s ease,width .28s ease,transform .28s ease!important;
+}
+html body header.topbar .hero__menu-trigger span:first-child {
+  top:10px!important;
+  width:25px!important;
+  transform:rotate(0)!important;
+}
+html body header.topbar .hero__menu-trigger span:last-child {
+  top:22px!important;
+  width:17px!important;
+  transform:rotate(0)!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child {
+  top:16px!important;
+  width:25px!important;
+  transform:rotate(45deg)!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
+  top:16px!important;
+  width:25px!important;
+  transform:rotate(-45deg)!important;
+}
+
+/* Source block: menu-trigger-single-control-final */
+/* Кнопка меню остаётся на своём месте в стеклянной шапке и сама становится кнопкой закрытия. */
+html body.hero-menu-open header.topbar {
+  z-index:1004!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger {
+  position:absolute!important;
+  top:50%!important;
+  right:9px!important;
+  left:auto!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+  z-index:1006!important;
+  display:flex!important;
+}
+html body.hero-menu-open header.topbar .hero__menu-trigger span {
+  position:absolute!important;
+}
+
+/* Source block: hero-menu-modal-window */
+/* Лаконичное появление меню: только лёгкое смещение, масштаб и прозрачность. */
+html body .hero-menu {
+  top:50%!important;
+  right:auto!important;
+  left:50%!important;
+  width:min(680px,calc(100vw - 32px))!important;
+  height:auto!important;
+  max-height:calc(100dvh - 40px)!important;
+  padding:clamp(28px,5vw,48px)!important;
+  border:1px solid rgba(255,255,255,.55)!important;
+  border-radius:28px!important;
+  box-shadow:0 24px 80px rgba(8,13,32,.24)!important;
+  transform:translate3d(-50%,calc(-50% + 8px),0) scale(.985);
+  opacity:0!important;
+  visibility:hidden!important;
+  transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .18s ease,visibility .24s!important;
+  will-change:transform,opacity!important;
+}
+html body .hero-menu.is-open {
+  transform:translate3d(-50%,-50%,0) scale(1);
+  opacity:1!important;
+  visibility:visible!important;
+}
+@media(max-width:640px) {
+  html body .hero-menu {
+    width:calc(100vw - 28px)!important;
+    max-height:calc(100dvh - 32px)!important;
+    padding:28px 24px!important;
+    border-radius:24px!important;
+  }
+  html body .hero-menu__links { margin-top:24px!important; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu {
+    transition:none!important;
+    transform:translate3d(-50%,-50%,0)!important;
+  }
+}
+
+/* Source block: hero-menu-white-edge-fix */
+/* Окно меню не затемняет и не размывает страницу под ним. */
+html body.hero-menu-open .hero {
+  overflow:visible!important;
+}
+html body .hero-menu-backdrop,
+html body .hero-menu-backdrop.is-open {
+  position:fixed!important;
+  inset:-2px!important;
+  width:auto!important;
+  height:auto!important;
+  background:transparent!important;
+  opacity:0!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  pointer-events:auto!important;
+}
+
+/* Source block: hero-menu-links-centered */
+/* Названия разделов меню выровнены по центру. */
+html body .hero-menu__links a {
+  text-align:center!important;
+}
+html body .hero-menu__links a:hover {
+  transform:none!important;
+}
+
+/* Source block: footer-clearance-for-floating-header */
+/* Дополнительное пространство под информацией подвала, чтобы нижняя шапка её не перекрывала. */
+@media(max-width:760px) {
+  html body .footer {
+    padding-bottom:calc(110px + env(safe-area-inset-bottom, 0px))!important;
+  }
+}
+
+/* Source block: hero-menu-social-icons-aligned */
+/* Единый размер и общая центральная ось иконок соцсетей в меню. */
+html body .hero-menu__social {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  gap:16px!important;
+}
+html body .hero-menu__social-icon {
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 44px!important;
+  width:44px!important;
+  height:44px!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body .hero-menu__social-icon svg {
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  margin:0!important;
+}
+
+/* Source block: hero-menu-social-animation-smooth */
+/* Быстрый мягкий overshoot: 86% → 110% → 100%, без смещения и затухания. */
+html body .hero-menu__social { opacity:1!important;transform:none!important;transition:none!important; }
+html body .hero-menu__social-icon {
+  opacity:1!important;
+  transform:scale(.86)!important;
+  transform-origin:center!important;
+  transition:transform .34s cubic-bezier(.2,.75,.25,1)!important;
+  transition-delay:0s!important;
+  will-change:transform;
+}
+html body .hero-menu.is-open .hero-menu__social-icon {
+  transform:scale(1)!important;
+  animation:menu-icon-soft-pop .34s cubic-bezier(.2,.75,.25,1) both;
+  animation-delay:.02s;
+}
+@keyframes menu-icon-soft-pop {
+  0% { transform:scale(.86); }
+  58% { transform:scale(1.10); }
+  100% { transform:scale(1); }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body .hero-menu__social,
+  html body .hero-menu__social-icon,
+  html body .hero-menu.is-open .hero-menu__social-icon {
+    opacity:1!important;transform:none!important;transition:none!important;animation:none!important;
+  }
+}
+
+/* Source block: menu-trigger-remove-circle */
+/* Убираем круг и любые декоративные состояния вокруг линий меню и крестика. */
+html body header.topbar .hero__menu-trigger,
+html body header.topbar .hero__menu-trigger:hover,
+html body header.topbar .hero__menu-trigger:active,
+html body header.topbar .hero__menu-trigger:focus,
+html body header.topbar .hero__menu-trigger:focus-visible {
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:none!important;
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+
+/* Source block: menu-trigger-open-lines-length */
+/* В закрытом меню верхняя линия короче нижней. */
+html body header.topbar .hero__menu-trigger span:first-child {
+  width:19px!important;
+}
+html body header.topbar .hero__menu-trigger span:last-child {
+  width:23px!important;
+}
+/* На касании и наведении длина линий не меняется. */
+html body header.topbar .hero__menu-trigger:hover span:first-child,
+html body header.topbar .hero__menu-trigger:active span:first-child {
+  width:19px!important;
+}
+html body header.topbar .hero__menu-trigger:hover span:last-child,
+html body header.topbar .hero__menu-trigger:active span:last-child {
+  width:23px!important;
+}
+/* При открытии обе линии образуют симметричный крестик. */
+html body.hero-menu-open header.topbar .hero__menu-trigger span:first-child,
+html body.hero-menu-open header.topbar .hero__menu-trigger span:last-child {
+  width:25px!important;
+}
+
+/* Source block: menu-theme-toggle */
+/* Переключатель светлой и тёмной темы в окне меню. */
+html body .hero-menu__theme-toggle {
+  position:absolute;top:clamp(18px,4.5vw,42px);left:50%;right:auto;transform:translateX(-50%);
+  display:grid;place-items:center;width:44px;height:44px;margin:0;padding:0;
+  border:0;border-radius:0;background:transparent;color:var(--ink);
+  cursor:pointer;opacity:.82;-webkit-tap-highlight-color:transparent;
+  transition:opacity .22s ease;
+}
+html body .hero-menu__theme-toggle:hover { opacity:1; }
+html body .hero-menu__theme-toggle:focus-visible { outline:2px solid currentColor;outline-offset:4px; }
+html body .hero-menu__theme-toggle svg {
+  display:block;width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* Тёмная палитра страницы; цветные акценты и изображения сохраняются. */
+html body.theme-dark { --ink:#f3f4f6;--paper:#101522;--muted:#aab2c0;--border:1px solid rgba(255,255,255,.16);background:#101522!important;color:#f3f4f6!important;color-scheme:dark; }
+html body.theme-dark .hero,html body.theme-dark .problems,html body.theme-dark .program-all,
+html body.theme-dark .skill,html body.theme-dark .about,html body.theme-dark .pricing,
+html body.theme-dark .faq,html body.theme-dark .signup,html body.theme-dark .footer,
+html body.theme-dark section:not(.adult) { background-color:#101522!important;color:#f3f4f6!important; }
+html body.theme-dark .hero__content,html body.theme-dark .hero__content h1,
+html body.theme-dark .hero__lead,html body.theme-dark .hero__sub { background-color:transparent!important;color:#f3f4f6!important; }
+html body.theme-dark .card,html body.theme-dark .problems__recs,
+html body.theme-dark .skill__item,html body.theme-dark .program-all__card,
+html body.theme-dark .pricing__card,html body.theme-dark .faq details,
+html body.theme-dark .signup__form,html body.theme-dark .about__card {
+  background-color:#1a2232!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.16)!important;
+}
+html body.theme-dark .topbar > .topbar__in { background:rgba(16,21,34,.88)!important;border-color:rgba(255,255,255,.1)!important; }
+html body.theme-dark .topbar,html body.theme-dark .topbar__progress-text { color:#f3f4f6!important; }
+html body.theme-dark .hero-menu { background:#171e2d!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.12)!important; }
+html body.theme-dark .hero-menu__links a,html body.theme-dark .hero-menu__social-icon,
+html body.theme-dark .hero-menu__close { color:#f3f4f6!important; }
+html body.theme-dark .hero-menu__links a:hover { color:#ffd93d!important; }
+html body.theme-dark input,html body.theme-dark textarea,html body.theme-dark select {
+  background:#1a2232!important;color:#f3f4f6!important;border-color:rgba(255,255,255,.25)!important;
+}
+html body.theme-dark .footer a,html body.theme-dark .footer p,html body.theme-dark .footer span { color:inherit; }
+@media(prefers-reduced-motion:reduce) { html body .hero-menu__theme-toggle { transition:none; } }
