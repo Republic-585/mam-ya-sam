@@ -41,7 +41,7 @@ check(
   'GitHub Pages workflow не копирует CSS-файлы в публикуемый каталог _site'
 );
 
-for (const asset of ['favicon.svg', 'audio.mp3', 'IMG_3511.jpeg']) {
+for (const asset of ['favicon.svg', 'audio.mp3', 'IMG_3511.jpeg', 'IMG_4083.png']) {
   const fullPath = join(root, asset);
   check(existsSync(fullPath) && statSync(fullPath).size > 0, `Отсутствует или пустой ресурс: ${asset}`);
 }
@@ -101,10 +101,11 @@ for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
 check(inlineScriptCount + externalScriptCount > 0, 'Не найдены JavaScript-блоки или внешние JavaScript-файлы');
 
 for (const [asset, target] of [
-  ['index.html', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/'],
-  ['favicon.svg', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/'],
-  ['audio.mp3', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/'],
-  ['IMG_3511.jpeg', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg _site/']
+  ['index.html', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg IMG_4083.png _site/'],
+  ['favicon.svg', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg IMG_4083.png _site/'],
+  ['audio.mp3', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg IMG_4083.png _site/'],
+  ['IMG_3511.jpeg', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg IMG_4083.png _site/'],
+  ['IMG_4083.png', 'cp index.html favicon.svg audio.mp3 IMG_3511.jpeg IMG_4083.png _site/']
 ]) {
   check(workflow.includes(target), `GitHub Pages workflow не публикует ${asset}`);
 }
