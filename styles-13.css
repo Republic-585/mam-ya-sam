@@ -1446,3 +1446,33 @@ html body:not(.theme-dark) #signup .form__privacy a:focus-visible {
     transition:none!important;
   }
 }
+
+/* Source block: signup-status-apple-light */
+/* Сообщения формы: спокойные семантические состояния в светлой теме. */
+html body:not(.theme-dark) #signup .form__status {
+  max-width:100%!important;
+  margin:14px 0 0!important;
+  padding:12px 14px!important;
+  border:1px solid #D2D2D7!important;
+  border-radius:14px!important;
+  background:#F5F5F7!important;
+  color:#424245!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",sans-serif!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  text-align:left!important;
+}
+html body:not(.theme-dark) #signup .form__status:empty {
+  display:none!important;
+}
+html body:not(.theme-dark) #signup .form__status[data-state="success"] {
+  border-color:#B7E4C2!important;
+  background:#EAF7ED!important;
+  color:#216E39!important;
+}
+html body:not(.theme-dark) #signup .form__status[data-state="error"] {
+  border-color:#F1C3C0!important;
+  background:#FFF0EF!important;
+  color:#A4262C!important;
+}
