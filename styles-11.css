@@ -761,11 +761,12 @@ html body #about .about__mission p b {
 /* Source block: about-author-white-program-card-style */
 /* Карточка автора: белый фон и нейтральная тень как у карточек программы. */
 html body #about .about-v2__author{
-  background:#FFFFFF!important;
+  background:var(--ds-surface,#FFFFFF)!important;
   background-image:none!important;
   color:#171717!important;
   border:0!important;
-  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  border-radius:var(--ds-radius-card,22px)!important;
+  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.06))!important;
 }
 html body #about .about-v2__author-copy{
   color:#171717!important;
