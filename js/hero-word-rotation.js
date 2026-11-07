@@ -4,12 +4,12 @@
     if(!pill || pill.dataset.rotationReady) return;
     pill.dataset.rotationReady='true';
     const words=[
-      {text:'думают',color:'#3984F7',bg:'#D9E9FF'},
-      {text:'создают',color:'#20A779',bg:'#CFF3E5'},
-      {text:'строят',color:'#E7A126',bg:'#FFE9B8'},
-      {text:'решают',color:'#8B65D8',bg:'#E8DFFF'},
-      {text:'развивают',color:'#E87545',bg:'#FFDCCF'},
-      {text:'созидают',color:'#D94F87',bg:'#F9D5E5'}
+      {text:'думают',color:'#007AFF',bg:'#E5F1FF'},
+      {text:'создают',color:'#34C759',bg:'#E5F7EA'},
+      {text:'строят',color:'#FF9500',bg:'#FFF1DB'},
+      {text:'решают',color:'#AF52DE',bg:'#F3E8FA'},
+      {text:'развивают',color:'#FF2D55',bg:'#FFE8ED'},
+      {text:'созидают',color:'#D69E00',bg:'#FFF5CC'}
     ];
     let index=0;
     function applyWord(){
