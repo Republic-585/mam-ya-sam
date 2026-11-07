@@ -2728,7 +2728,7 @@ body{
   padding:.12em .42em .14em .32em;
   margin:0 .04em;
   border-radius:9999px;
-  background:#3984F7;
+  background:var(--ds-hero-blue,#007AFF);
   color:#000!important;
   font:inherit;
   font-size:.88em;
@@ -2744,7 +2744,7 @@ body{
   width:.52em;
   height:.52em;
   border-radius:50%;
-  background:var(--hero-word-color,#3984F7);
+  background:var(--hero-word-color,var(--ds-hero-blue,#007AFF));
 }
 .hero__word-pill::after{
   content:'';
