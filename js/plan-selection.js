@@ -1,4 +1,4 @@
-// ---------- Выбор тарифа: карточка, кнопка и форма синхронизированы ----------
+// ---------- Выбор тарифа и синхронизация с формой заявки ----------
 (function () {
   const selected = document.getElementById('selectedPlan');
   const heading = document.querySelector('.signup h2');
@@ -7,47 +7,64 @@
   const selectedName = document.getElementById('selectedPlanName');
   const selectedPrice = document.getElementById('selectedPlanPrice');
   const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
+  const continueLink = document.getElementById('pricingContinue');
   const details = {
-    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ – 3 дня бесплатно', price:'0 ₽ · без автоматического списания', heading:'', lead:'', button:'Запросить бесплатный доступ'},
-    monthly: {wireId:'monthly', name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', heading:'Выбран тариф на 1 месяц', lead:'Тариф выбран. Оставь контакты родителя – мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
-    quarterly: {wireId:'quarterly', name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 3 месяца', lead:'Тариф выбран. Оставь контакты родителя – мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'},
-    annual: {wireId:'annual', name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', heading:'Выбран тариф на 12 месяцев', lead:'Тариф выбран. Оставь контакты родителя – мы сообщим, как оформить подписку. Деньги сейчас не списываются.', button:'Запросить этот тариф'}
+    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ – 3 дня бесплатно', price:'0 ₽ · без автоматического списания', button:'Попробовать бесплатно'},
+    monthly: {wireId:'monthly', name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', button:'Продолжить с выбранным тарифом'},
+    quarterly: {wireId:'quarterly', name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', button:'Продолжить с выбранным тарифом'},
+    annual: {wireId:'annual', name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', button:'Продолжить с выбранным тарифом'}
   };
   function normalizePlan(plan) {
     if (plan === TRIAL_PLAN_WIRE_ID) return 'trial_3d';
-    return details[plan] ? plan : 'quarterly';
+    return details[plan] ? plan : 'trial_3d';
   }
-  function choose(plan, scroll) {
+  function choose(plan, focusCard) {
     const key = normalizePlan(plan);
     const item = details[key];
     if (selected) selected.value = item.wireId;
     cards.forEach(function (card) {
       const active = card.dataset.planCard === key;
       card.classList.toggle('is-selected', active);
+      card.setAttribute('aria-checked', active ? 'true' : 'false');
+      card.tabIndex = active ? 0 : -1;
       if (active) card.setAttribute('aria-current', 'true');
       else card.removeAttribute('aria-current');
-      card.querySelectorAll('.plan-select').forEach(function (button) {
-        button.setAttribute('aria-pressed', active ? 'true' : 'false');
-        button.textContent = active
-          ? (key === 'trial_3d' ? 'Выбран · попробовать бесплатно' : 'Тариф выбран')
-          : (button.dataset.plan === 'trial_3d' ? 'Попробовать бесплатно' : 'Выбрать тариф');
-      });
     });
+    if (continueLink) continueLink.textContent = item.button;
     if (heading) { heading.textContent = 'Начни с бесплатных 3 дней'; heading.hidden = false; }
-    if (lead) { lead.textContent = 'Оставь заявку – мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.'; lead.hidden = false; }
+    if (lead) {
+      lead.textContent = 'Оставь заявку – мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.';
+      lead.hidden = false;
+    }
     if (submit) submit.textContent = 'Отправить';
     if (selectedName) selectedName.textContent = item.name;
     if (selectedPrice) selectedPrice.textContent = item.price;
-    if (scroll) {
-      const target = document.getElementById('signup');
-      if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    if (focusCard) {
+      const activeCard = cards.find(card => card.dataset.planCard === key);
+      if (activeCard) activeCard.focus();
     }
   }
-  document.querySelectorAll('.plan-select').forEach(function (link) {
-    link.addEventListener('click', function (event) {
+  cards.forEach(function (card, index) {
+    card.addEventListener('click', function () { choose(card.dataset.planCard, false); });
+    card.addEventListener('keydown', function (event) {
+      let nextIndex = index;
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = Math.min(cards.length - 1, index + 1);
+      else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = Math.max(0, index - 1);
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = cards.length - 1;
+      else if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault();
+        choose(card.dataset.planCard, false);
+        return;
+      } else return;
       event.preventDefault();
-      choose(this.dataset.plan || 'trial_3d', true);
+      choose(cards[nextIndex].dataset.planCard, true);
     });
+  });
+  if (continueLink) continueLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    const target = document.getElementById('signup');
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
   });
   choose(selected ? selected.value : 'trial_3d', false);
 })();
