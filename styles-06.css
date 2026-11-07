@@ -140,9 +140,9 @@ html body .reviews__empty {
   margin:0 auto;
   padding:clamp(24px,5vw,38px);
   border:1px solid rgba(17,24,39,.09);
-  border-radius:24px;
-  background:rgba(255,255,255,.82);
-  box-shadow:0 18px 55px rgba(20,31,54,.07);
+  border-radius:var(--ds-radius-card,22px);
+  background:var(--ds-surface,#FFFFFF);
+  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.06));
 }
 html body .reviews__quote {
   flex:0 0 54px;
@@ -186,7 +186,7 @@ html body.theme-dark .reviews__empty strong { color:#f3f4f6; }
 html body.theme-dark .reviews__empty p { color:#aab2c0; }
 html body .hero-menu.is-open .hero-menu__links a:nth-child(7) { animation-delay:.155s; }
 @media(max-width:600px) {
-  html body .reviews__empty { align-items:flex-start;gap:15px;border-radius:20px; }
+  html body .reviews__empty { align-items:flex-start;gap:15px;border-radius:var(--ds-radius-card,22px); }
   html body .reviews__quote { flex-basis:44px;width:44px;height:44px;border-radius:14px;font-size:2.8rem; }
 }
 @media(prefers-reduced-motion:reduce) {
