@@ -1548,3 +1548,27 @@ html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
   flex:0 0 auto!important;
   white-space:nowrap!important;
 }
+
+
+/* Source block: hero-heading-fixed-three-lines */
+/* Сохраняем ровно три строки: уменьшаем заголовок на узких экранах,
+   а плашку и слово «вместе» удерживаем на одной линии. */
+html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
+  font-size:clamp(1.15rem,5vw,2.5rem)!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-line {
+  display:block!important;
+  white-space:nowrap!important;
+  text-align:center!important;
+  text-align-last:center!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
+  display:inline-flex!important;
+  flex:initial!important;
+  max-width:none!important;
+  vertical-align:.12em!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
+  display:inline!important;
+  white-space:nowrap!important;
+}
