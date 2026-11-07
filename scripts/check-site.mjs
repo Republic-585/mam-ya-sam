@@ -51,7 +51,7 @@ check(/<meta[^>]+name=["']viewport["']/i.test(html), 'Отсутствует met
 check(/rel=["']icon["'][^>]+href=["']favicon\.svg(?:[?#][^"']*)?["']/i.test(html), 'Не подключён favicon.svg');
 check(/<audio\b[^>]*\bsrc=["']audio\.mp3["']/i.test(html), 'Не подключён локальный audio.mp3');
 check(/<img\b[^>]*\bsrc=["']IMG_3511\.jpeg["']/i.test(html), 'Не подключено локальное фото автора');
-check(/IMG_4083\\.png/i.test(html), 'Не подключена подпись разработчика IMG_4083.png');
+check(/<img\\b[^>]*\\bsrc=[\"']IMG_4083\\.png[\"']/i.test(html), 'Не подключена подпись разработчика IMG_4083.png');
 
 const ids = [...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
 const idSet = new Set(ids);
