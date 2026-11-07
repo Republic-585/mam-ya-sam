@@ -766,7 +766,7 @@ html body #about .about-v2__author{
   color:#171717!important;
   border:0!important;
   border-radius:var(--ds-radius-card,22px)!important;
-  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.06))!important;
+  box-shadow:var(--ds-shadow-soft)!important;
 }
 html body #about .about-v2__author-copy{
   color:#171717!important;
@@ -819,7 +819,7 @@ html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .pri
   border:0!important;
   outline:0!important;
   border-radius:var(--ds-radius-card,22px)!important;
-  box-shadow:var(--ds-shadow-card,0 8px 28px rgba(0,0,0,.06))!important;
+  box-shadow:var(--ds-shadow-soft)!important;
 }
 
 /* Source block: about-achievements-white-program-card-refresh */
@@ -854,7 +854,7 @@ html body #about .about-achievements__carousel .about-achievements__card.about-a
   color:#171717!important;
   border:0!important;
   outline:0!important;
-  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  box-shadow:var(--ds-shadow-card)!important;
   text-shadow:none!important;
 }
 /* Типографика карточек соответствует ответам FAQ. */
@@ -911,7 +911,7 @@ html body #about .about-v2__missions-track>.about-v2__game:focus-within{
   color:#171717!important;
   border:0!important;
   outline:0!important;
-  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  box-shadow:var(--ds-shadow-card)!important;
 }
 html body #about .about-v2__missions-track>.about-v2__game::before,
 html body .about-v2__missions-track>.about-v2__game::after{
@@ -922,7 +922,7 @@ html body .about-v2__missions-track>.about-v2__game::after{
 }
 @media(max-width:640px){
   html body #about .about-v2__missions-track>.about-v2__game{
-    box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+    box-shadow:var(--ds-shadow-card)!important;
   }
 }
 
@@ -983,7 +983,7 @@ html body .about-v2__missions-track>.about-v2__game::after{
     background-image:none!important;
     border:0!important;
     outline:0!important;
-    box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+    box-shadow:var(--ds-shadow-card)!important;
   }
 
 /* Source block: skills-typography-match-video-heading */
@@ -1001,7 +1001,7 @@ html body section.skill .skill__item {
   color:#171717!important;
   border:0!important;
   outline:0!important;
-  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  box-shadow:var(--ds-shadow-card)!important;
 }
 html body section.skill .skill__item h3,
 html body section.skill .skill__item p {
