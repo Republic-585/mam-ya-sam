@@ -1960,3 +1960,12 @@ html body #about .about-v2__author-copy h3{
 html body.theme-dark #about .about-v2__author-copy .about-v2__eyebrow{
   color:#A1A1A6!important;
 }
+
+
+/* Source block: about-mission-text-alignment-final */
+/* Выравниваем текст миссии по центру с учётом более специфичного старого правила. */
+html body #about .about__mission p{
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
