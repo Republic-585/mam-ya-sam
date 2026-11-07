@@ -613,72 +613,55 @@
   <section class="pricing" id="pricing">
     <div class="wrap">
       <h2>Выбери свой формат.</h2>
-      <div class="pricing__carousel" id="pricingCarousel">
-      <div class="pricing__grid">
-
-        <div class="price price--trial is-selected" data-plan-card="trial_3d" aria-current="true">
-          <span class="price__tag">Начни без риска</span>
-          <div class="price__title">Пробный доступ</div>
-          <div class="price__amount">0 ₽<small>первые 3 дня</small></div>
-          <ul>
-            <li>Стартовые видеоуроки и задания</li>
-            <li>Знакомство с форматом и сообществом</li>
-            <li>Без обязательства покупать подписку</li>
-            <li>Без автоматического списания денег</li>
-          </ul>
-          <a class="btn btn--purple plan-select" data-plan="trial_3d" href="#signup" aria-pressed="true">Попробовать бесплатно</a>
+      <div class="pricing__options" id="pricingOptions">
+        <div class="pricing__grid" role="radiogroup" aria-label="Выбор тарифа">
+          <div class="price price--trial is-selected" data-plan-card="trial_3d" role="radio" aria-checked="true" tabindex="0">
+            <div class="pricing__option-copy">
+              <span class="price__tag">Начни без риска</span>
+              <div class="price__title">Пробный доступ</div>
+              <p class="pricing__option-description">Стартовые видеоуроки и задания. Без обязательства покупать подписку и без автоматического списания.</p>
+            </div>
+            <div class="pricing__option-choice">
+              <div class="price__amount">0 ₽<small>первые 3 дня</small></div>
+              <span class="pricing__option-indicator" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="price price--monthly" data-plan-card="monthly" role="radio" aria-checked="false" tabindex="-1">
+            <div class="pricing__option-copy">
+              <span class="price__tag">Гибкий формат</span>
+              <div class="price__title">1 месяц</div>
+              <p class="pricing__option-description">Видеоуроки и задания, групповые встречи и поддержка сообщества.</p>
+            </div>
+            <div class="pricing__option-choice">
+              <div class="price__amount">490 ₽<small>за месяц</small></div>
+              <span class="pricing__option-indicator" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="price price--popular" data-plan-card="quarterly" role="radio" aria-checked="false" tabindex="-1">
+            <div class="pricing__option-copy">
+              <span class="price__tag price__tag--hit">Рекомендуем</span>
+              <div class="price__title">3 месяца</div>
+              <p class="pricing__option-description">Видеоуроки и задания, групповые встречи и поддержка сообщества.</p>
+            </div>
+            <div class="pricing__option-choice">
+              <div class="price__amount">1 290 ₽<small>430 ₽ в месяц</small></div>
+              <span class="pricing__option-indicator" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="price price--vip" data-plan-card="annual" role="radio" aria-checked="false" tabindex="-1">
+            <div class="pricing__option-copy">
+              <span class="price__tag">Выгоднее на год</span>
+              <div class="price__title">12 месяцев</div>
+              <p class="pricing__option-description">Все видеоуроки и задания, групповые встречи и доступ к материалам на весь срок.</p>
+            </div>
+            <div class="pricing__option-choice">
+              <div class="price__amount">4 490 ₽<small>около 374 ₽ в месяц</small></div>
+              <span class="pricing__option-indicator" aria-hidden="true"></span>
+            </div>
+          </div>
         </div>
-
-        <div class="price price--monthly" data-plan-card="monthly">
-          <span class="price__tag">Гибкий формат</span>
-          <div class="price__title">1 месяц</div>
-          <div class="price__amount">490 ₽<small>за месяц</small></div>
-          <ul>
-            <li>Библиотека видеоуроков и заданий</li>
-            <li>Еженедельные групповые трансляции</li>
-            <li>Регулярные групповые встречи</li>
-            <li>Челленджи и поддержка сообщества</li>
-          </ul>
-          <a class="btn plan-select" data-plan="monthly" href="#signup" aria-pressed="false">Выбрать тариф</a>
-        </div>
-
-        <div class="price price--popular" data-plan-card="quarterly">
-          <span class="price__tag price__tag--hit">Рекомендуем</span>
-          <div class="price__title">3 месяца</div>
-          <div class="price__amount">1 290 ₽<small>430 ₽ в месяц</small></div>
-          <ul>
-            <li>Библиотека видеоуроков и заданий</li>
-            <li>Еженедельные групповые трансляции</li>
-            <li>Регулярные групповые встречи</li>
-            <li>Челленджи и поддержка сообщества</li>
-          </ul>
-          <a class="btn plan-select" data-plan="quarterly" href="#signup" aria-pressed="false">Выбрать тариф</a>
-        </div>
-
-        <div class="price price--vip" data-plan-card="annual">
-          <span class="price__tag">Выгоднее на год</span>
-          <div class="price__title">12 месяцев</div>
-          <div class="price__amount">4 490 ₽<small>около 374 ₽ в месяц</small></div>
-          <ul>
-            <li>Все видеоуроки и практические задания</li>
-            <li>Еженедельные групповые трансляции</li>
-            <li>Регулярные групповые встречи</li>
-            <li>Доступ к материалам на весь срок</li>
-          </ul>
-          <a class="btn btn--yellow plan-select" data-plan="annual" href="#signup" aria-pressed="false">Выбрать тариф</a>
-        </div>
-
-      </div>
-      <div class="pricing__carousel-controls" aria-label="Переключение тарифов">
-        <button class="pricing__carousel-btn" type="button" data-carousel-prev aria-label="Предыдущий тариф">‹</button>
-        <div class="pricing__carousel-dots" aria-label="Тарифы">
-          <button class="pricing__carousel-dot" type="button" data-carousel-dot="0" aria-label="Пробный доступ" aria-current="true"></button>
-          <button class="pricing__carousel-dot" type="button" data-carousel-dot="1" aria-label="1 месяц" aria-current="false"></button>
-          <button class="pricing__carousel-dot" type="button" data-carousel-dot="2" aria-label="3 месяца" aria-current="false"></button>
-          <button class="pricing__carousel-dot" type="button" data-carousel-dot="3" aria-label="12 месяцев" aria-current="false"></button>
-        </div>
-        <button class="pricing__carousel-btn" type="button" data-carousel-next aria-label="Следующий тариф">›</button>
-      </div>
+        <p class="pricing__included">В подписку входят библиотека материалов, еженедельные групповые трансляции, встречи и челленджи.</p>
+        <a class="btn btn--yellow pricing__continue" id="pricingContinue" href="#signup">Попробовать бесплатно</a>
       </div>
     </div>
   </section>
@@ -695,7 +678,7 @@
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
       <form class="form" id="signupForm" novalidate>
-        <input type="hidden" id="selectedPlan" name="selectedPlan" value="quarterly">
+        <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_3d">
         <div class="form__trap" aria-hidden="true">
           <label for="website">Не заполняй это поле</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="100">
@@ -872,7 +855,7 @@
 <script src="js/privacy-policy-dialog.js"></script>
 <script src="js/scroll-progress.js"></script>
 <script id="trial-plan-config-script" src="js/trial-plan-config.js"></script>
-<script src="js/pricing-carousel.js"></script>
+
 
 <script src="js/plan-selection.js"></script>
 
