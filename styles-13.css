@@ -2026,3 +2026,21 @@ html body #about .about-achievements__carousel::-webkit-scrollbar{
     scroll-padding-inline:20px!important;
   }
 }
+
+
+/* Source block: author-achievements-full-bleed-mobile */
+ /* Область горизонтальной прокрутки карусели занимает всю ширину экрана без боковых белых полос. */
+@media(max-width:640px){
+  html body #about .about-achievements__carousel{
+    position:relative!important;
+    left:50%!important;
+    width:100vw!important;
+    max-width:100vw!important;
+    margin-left:-50vw!important;
+    margin-right:-50vw!important;
+    box-sizing:border-box!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+    scroll-padding-inline:20px!important;
+  }
+}
