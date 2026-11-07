@@ -36,19 +36,3 @@
     if(status) status.textContent='ТВОЙ ХОД';
   });
 })();
-
-
-
-/* Карусель достижений автора */
-(function(){
-  const track=document.getElementById('authorAchievements');
-  if(!track)return;
-  const cards=Array.from(track.children);
-  const dots=Array.from(document.querySelectorAll('[data-achievement-dot]'));
-  function index(){const center=track.scrollLeft+track.clientWidth/2;let best=0,dist=Infinity;cards.forEach((card,i)=>{const d=Math.abs(card.offsetLeft+card.offsetWidth/2-center);if(d<dist){dist=d;best=i;}});return best;}
-  function goTo(i){i=Math.max(0,Math.min(cards.length-1,i));track.scrollTo({left:cards[i].offsetLeft-track.offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});dots.forEach((d,n)=>d.setAttribute('aria-current',String(n===i)));}
-  document.querySelectorAll('[data-achievement-move]').forEach(b=>b.addEventListener('click',()=>goTo(index()+Number(b.dataset.achievementMove))));
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
-  let frame;
-  track.addEventListener('scroll',()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const i=index();dots.forEach((d,n)=>d.setAttribute('aria-current',String(n===i)));});},{passive:true});
-})();
