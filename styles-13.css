@@ -1477,15 +1477,3 @@ html body:not(.theme-dark) #signup .form__status[data-state="error"] {
   color:#A4262C!important;
 }
 
-/* Source block: hero-audience-label-light */
-/* Коротко обозначаем аудиторию курса над главным заголовком. */
-html body:not(.theme-dark) .hero__audience {
-  margin:0 0 -8px!important;
-  color:#6E6E73!important;
-  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",sans-serif)!important;
-  font-size:13px!important;
-  font-weight:600!important;
-  line-height:1.4!important;
-  letter-spacing:.01em!important;
-  text-align:center!important;
-}
