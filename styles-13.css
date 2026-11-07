@@ -2034,6 +2034,7 @@ html body #about .about-achievements__carousel::-webkit-scrollbar{
   html body #about .about-achievements__carousel{
     position:relative!important;
     left:auto!important;
+    transform:none!important;
     width:100vw!important;
     max-width:100vw!important;
     margin-left:calc(50% - 50vw)!important;
