@@ -60,6 +60,8 @@ try {
         stylesheetCount: [...document.styleSheets].length,
         carousel: carousel ? {
           bounds: rect(carousel),
+          parentBounds: rect(carousel.parentElement),
+          parentOverflowX: getComputedStyle(carousel.parentElement).overflowX,
           clientWidth: carousel.clientWidth,
           scrollWidth: carousel.scrollWidth,
           cardCount: cards.length,
@@ -78,7 +80,16 @@ try {
       await page.waitForTimeout(250);
       const achievements = page.locator('.about-achievements');
       if (await achievements.count()) {
-        await achievements.screenshot({ path: `${outputDir}/${viewport.name}-achievements.png`, animations: 'disabled' });
+        const box = await achievements.boundingBox();
+        if (box) {
+          const clipY = Math.max(0, Math.min(viewport.height - 1, box.y));
+          const clipHeight = Math.max(1, Math.min(620, viewport.height - clipY));
+          await page.screenshot({
+            path: `${outputDir}/${viewport.name}-achievements.png`,
+            clip: { x: 0, y: clipY, width: viewport.width, height: clipHeight },
+            animations: 'disabled'
+          });
+        }
       }
     }
 
