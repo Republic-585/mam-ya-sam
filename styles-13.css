@@ -1519,7 +1519,7 @@ html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
   margin-left:auto!important;
   margin-right:auto!important;
   padding:0!important;
-  font-size:clamp(1.35rem,7.2vw,3.6rem)!important;
+  font-size:clamp(1.8rem,9vw,4.5rem)!important;
   text-align:center!important;
   text-align-last:center!important;
 }
