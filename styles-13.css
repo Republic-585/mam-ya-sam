@@ -1489,3 +1489,14 @@ html body:not(.theme-dark) .hero .hero__content :is(.hero__lead-three-lines,.her
   margin-left:auto!important;
   margin-right:auto!important;
 }
+
+/* Source block: hero-heading-centered-light-final */
+/* Заголовок первого экрана центрируется независимо от старых правил выравнивания. */
+html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines,
+html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines .hero__lead-line {
+  width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+  text-align-last:center!important;
+}
