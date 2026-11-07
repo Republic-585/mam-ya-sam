@@ -1963,9 +1963,9 @@ html body.theme-dark #about .about-v2__author-copy .about-v2__eyebrow{
 
 
 /* Source block: about-mission-text-alignment-final */
-/* Выравниваем текст миссии по центру с учётом более специфичного старого правила. */
+/* Заголовок и текст миссии выровнены по левому краю, как биография автора. */
 html body #about .about__mission p{
-  text-align:center!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
+  text-align:left!important;
+  margin-left:0!important;
+  margin-right:0!important;
 }
