@@ -1502,14 +1502,15 @@ html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines .her
 }
 
 
-/* Source block: hero-heading-and-rotating-pill-viewport-fix */
-/* Заголовок центрируется по ширине Hero, а строка с анимированной плашкой
-   может переноситься целиком, не выходя за границы экрана. */
+/* Source block: hero-heading-responsive-centered */
+ /* Крупный адаптивный заголовок: три строки, центрирование и защита от выхода за экран. */
 html body:not(.theme-dark) .hero .hero__content {
   box-sizing:border-box!important;
   width:100%!important;
   padding-left:clamp(20px,5vw,56px)!important;
   padding-right:clamp(20px,5vw,56px)!important;
+  align-items:center!important;
+  text-align:center!important;
 }
 html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
   box-sizing:border-box!important;
@@ -1517,44 +1518,18 @@ html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
   max-width:100%!important;
   margin-left:auto!important;
   margin-right:auto!important;
-  padding-left:0!important;
-  padding-right:0!important;
-  text-align:center!important;
-}
-html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-line {
-  display:block!important;
-  width:100%!important;
-  max-width:100%!important;
-  box-sizing:border-box!important;
+  padding:0!important;
+  font-size:clamp(1.45rem,7.2vw,3.6rem)!important;
   text-align:center!important;
   text-align-last:center!important;
 }
-html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-line {
-  display:flex!important;
-  flex-flow:row wrap!important;
-  align-items:center!important;
-  justify-content:center!important;
-  column-gap:.16em!important;
-  row-gap:.08em!important;
-  white-space:normal!important;
-}
-html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
+html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-line {
+  display:block!important;
   box-sizing:border-box!important;
-  flex:0 1 auto!important;
-  min-width:0!important;
+  width:100%!important;
   max-width:100%!important;
-}
-html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
-  flex:0 0 auto!important;
-  white-space:nowrap!important;
-}
-
-
-/* Source block: hero-heading-fixed-three-lines */
-/* Сохраняем ровно три строки: уменьшаем заголовок на узких экранах,
-   а плашку и слово «вместе» удерживаем на одной линии. */
-html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
-  font-size:clamp(1.15rem,5vw,2.5rem)!important;
+  text-align:center!important;
+  text-align-last:center!important;
 }
 html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-line {
   display:block!important;
@@ -1564,7 +1539,6 @@ html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-lin
 }
 html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
   display:inline-flex!important;
-  flex:initial!important;
   max-width:none!important;
   vertical-align:.12em!important;
 }
