@@ -2273,8 +2273,8 @@ html body .footer .footer__links a {
 html body .footer .footer__links .footer__developer {
   display:flex!important;
   align-items:center!important;
-  justify-content:space-between!important;
-  gap:20px!important;
+  justify-content:flex-start!important;
+  gap:10px!important;
   width:100%!important;
   min-width:0!important;
 }
@@ -2297,7 +2297,7 @@ html body .footer .footer__links .footer__developer img {
 }
 @media(max-width:760px) {
   html body .footer .footer__links .footer__developer {
-    gap:16px!important;
+    gap:10px!important;
   }
   html body .footer .footer__links .footer__developer img {
     max-width:88px!important;
