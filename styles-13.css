@@ -2033,11 +2033,11 @@ html body #about .about-achievements__carousel::-webkit-scrollbar{
 @media(max-width:640px){
   html body #about .about-achievements__carousel{
     position:relative!important;
-    left:50%!important;
+    left:auto!important;
     width:100vw!important;
     max-width:100vw!important;
-    margin-left:-50vw!important;
-    margin-right:-50vw!important;
+    margin-left:calc(50% - 50vw)!important;
+    margin-right:calc(50% - 50vw)!important;
     box-sizing:border-box!important;
     padding-left:20px!important;
     padding-right:20px!important;
