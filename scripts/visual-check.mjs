@@ -74,25 +74,6 @@ try {
 
     await page.screenshot({ path: `${outputDir}/${viewport.name}-full.png`, fullPage: true, animations: 'disabled' });
 
-    const section = page.locator('#about');
-    if (await section.count()) {
-      await section.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(250);
-      const achievements = page.locator('.about-achievements');
-      if (await achievements.count()) {
-        const sectionTop = await achievements.evaluate(element =>
-          element.getBoundingClientRect().top + window.scrollY
-        );
-        await page.evaluate(top => window.scrollTo(0, Math.max(0, top - 90)), sectionTop);
-        await page.waitForTimeout(250);
-        await page.screenshot({
-          path: `${outputDir}/${viewport.name}-achievements.png`,
-          fullPage: false,
-          animations: 'disabled'
-        });
-      }
-    }
-
     report.viewports.push({ ...viewport, ...diagnostics });
     await page.close();
   }
