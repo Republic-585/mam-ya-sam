@@ -1871,3 +1871,29 @@ html body section.skill .skill__item p {
     transition:none!important;
   }
 }
+
+/* VIDEO: restrained Apple-style typography and removal of decorative shadows */
+html body section.video {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+}
+html body section.video .video__heading-row h2 {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+  font-weight:700!important;
+}
+html body section.video :is(.video__subtitle,.video__heading-badge,.video__audience,.video__seek-feedback-label) {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+}
+html body section.video .video__logo-mark {
+  box-shadow:none!important;
+}
+html body section.video .video__logo-mark::after {
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
+}
+html body section.video .video__play {
+  filter:none!important;
+}
+html body section.video :is(.video__play,.video__icon-button,.video__quality):focus-visible {
+  outline:2px solid #FFFFFF!important;
+  outline-offset:3px!important;
+  box-shadow:none!important;
+}
