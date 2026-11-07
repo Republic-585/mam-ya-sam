@@ -101,16 +101,31 @@ try {
 }
 
 const overflowFailures = report.viewports.filter(item => item.horizontalOverflow > 1);
+const carouselGeometryFailures = report.viewports.filter(item =>
+  item.mobile && (
+    !item.carousel ||
+    Math.abs(item.carousel.bounds.left) > 1 ||
+    Math.abs(item.carousel.bounds.width - item.viewportWidth) > 1 ||
+    item.carousel.parentOverflowX !== 'visible'
+  )
+);
+const brokenImageFailures = report.viewports.filter(item => item.brokenImages.length > 0);
 const runtimeFailures = report.pageErrors.length > 0 || report.failedLocalRequests.length > 0;
 report.summary = {
   viewportCount: report.viewports.length,
   horizontalOverflowFailures: overflowFailures.map(item => ({ viewport: item.name, overflow: item.horizontalOverflow })),
+  carouselGeometryFailures: carouselGeometryFailures.map(item => ({
+    viewport: item.name,
+    carousel: item.carousel,
+    viewportWidth: item.viewportWidth
+  })),
+  brokenImageFailures: brokenImageFailures.map(item => ({ viewport: item.name, images: item.brokenImages })),
   pageErrorCount: report.pageErrors.length,
   failedLocalRequestCount: report.failedLocalRequests.length
 };
 await writeFile(`${outputDir}/report.json`, JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report.summary, null, 2));
 
-if (overflowFailures.length || runtimeFailures) {
+if (overflowFailures.length || carouselGeometryFailures.length || brokenImageFailures.length || runtimeFailures) {
   process.exitCode = 1;
 }
