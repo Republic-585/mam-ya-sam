@@ -2166,37 +2166,3 @@ html body.theme-dark .footer .footer__links a:hover {
     transition:none!important;
   }
 }
-
-/* Source block: footer-alignment-and-header-clearance */
-/* Отступ подвала защищает его содержимое от закреплённой верхней шапки. */
-html body .footer {
-  padding:76px 0 36px!important;
-}
-html body .footer .footer__in {
-  align-items:flex-start!important;
-}
-html body .footer .footer__legal {
-  align-items:flex-start!important;
-  margin-left:auto!important;
-}
-html body .footer small {
-  width:100%!important;
-  text-align:left!important;
-  line-height:1.5!important;
-}
-html body .footer .footer__links {
-  justify-content:flex-start!important;
-  text-align:left!important;
-  line-height:1.5!important;
-}
-html body .footer .logo__dot::after {
-  transform:translate(-1.25px,0px)!important;
-}
-@media(max-width:760px) {
-  html body .footer {
-    padding:76px 0 30px!important;
-  }
-  html body .footer .footer__legal {
-    margin-left:0!important;
-  }
-}
