@@ -734,13 +734,15 @@ html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:
   box-shadow:none!important;
 }
 
-/* Source block: pricing-quarterly-blue-and-selected-yellow-final */
-/* Финальные цвета: карточка «3 месяца» голубая, кнопка выбранного тарифа фирменно-жёлтая. */
-html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
-html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
-html body section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
-  background:#DDF1FF!important;
-  background-color:#DDF1FF!important;
+/* Source block: pricing-quarterly-brand-yellow-highlight */
+/* Рекомендованный тариф «3 месяца» выделен мягким фирменным жёлтым. */
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+  background:#FFF8D6!important;
+  background-color:#FFF8D6!important;
+  border:2px solid #E5B800!important;
+  padding:15px 17px!important;
 }
 html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select,
 html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:link,
