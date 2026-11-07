@@ -1477,3 +1477,15 @@ html body:not(.theme-dark) #signup .form__status[data-state="error"] {
   color:#A4262C!important;
 }
 
+/* Source block: hero-subtitle-and-content-centered-light */
+/* Центрируем текст Hero в светлой теме, сохраняя существующую типографику. */
+html body:not(.theme-dark) .hero .hero__content {
+  align-items:center!important;
+  text-align:center!important;
+}
+html body:not(.theme-dark) .hero .hero__content :is(.hero__lead-three-lines,.hero__subtitle) {
+  text-align:center!important;
+  text-align-last:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
