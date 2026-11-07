@@ -1299,9 +1299,10 @@ html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,texta
   opacity:1!important;
 }
 html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,select,textarea):focus {
-  border-color:#007AFF!important;
-  outline:none!important;
+  border:2px solid #007AFF!important;
+  outline:0!important;
   box-shadow:none!important;
+  padding:11px 13px!important;
 }
 html body:not(.theme-dark) section.signup #signupForm .form__row textarea {
   min-height:112px!important;
