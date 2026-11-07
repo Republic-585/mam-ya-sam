@@ -1273,3 +1273,44 @@ html body.theme-dark #faq .faq__list .faq__a {
   color:var(--ds-text-secondary,#AEAEB2)!important;
   -webkit-text-fill-color:currentColor!important;
 }
+
+/* Source block: signup-light-controls-apple-style */
+/* Светлая тема: единый размер, спокойная рамка и удобная высота полей формы. */
+html body:not(.theme-dark) section.signup #signupForm .form__row :is(input:not([type="hidden"]),select,textarea) {
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-height:48px!important;
+  padding:12px 14px!important;
+  border:1px solid #D2D2D7!important;
+  border-radius:14px!important;
+  background:#FFFFFF!important;
+  color:#1D1D1F!important;
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",sans-serif)!important;
+  font-size:16px!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+  letter-spacing:normal!important;
+  box-shadow:none!important;
+  transition:border-color .16s ease,outline-color .16s ease!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,textarea)::placeholder {
+  color:#8E8E93!important;
+  -webkit-text-fill-color:#8E8E93!important;
+  opacity:1!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,select,textarea):focus {
+  border-color:#007AFF!important;
+  outline:2px solid rgba(0,122,255,.28)!important;
+  outline-offset:2px!important;
+  box-shadow:none!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__row textarea {
+  min-height:112px!important;
+  height:auto!important;
+  resize:vertical!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,select,textarea) {
+    transition:none!important;
+  }
+}
