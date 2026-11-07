@@ -1500,3 +1500,51 @@ html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines .her
   text-align:center!important;
   text-align-last:center!important;
 }
+
+
+/* Source block: hero-heading-and-rotating-pill-viewport-fix */
+/* Заголовок центрируется по ширине Hero, а строка с анимированной плашкой
+   может переноситься целиком, не выходя за границы экрана. */
+html body:not(.theme-dark) .hero .hero__content {
+  box-sizing:border-box!important;
+  width:100%!important;
+  padding-left:clamp(20px,5vw,56px)!important;
+  padding-right:clamp(20px,5vw,56px)!important;
+}
+html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
+  box-sizing:border-box!important;
+  width:min(100%,42rem)!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  text-align:center!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-line {
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  text-align-last:center!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-line {
+  display:flex!important;
+  flex-flow:row wrap!important;
+  align-items:center!important;
+  justify-content:center!important;
+  column-gap:.16em!important;
+  row-gap:.08em!important;
+  white-space:normal!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
+  box-sizing:border-box!important;
+  flex:0 1 auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+}
