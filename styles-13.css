@@ -1545,7 +1545,7 @@ html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
   vertical-align:.08em!important;
 }
 html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
-  display:inline!important;
+  display:inline-block!important;
   white-space:nowrap!important;
 }
 
