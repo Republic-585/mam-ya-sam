@@ -1693,3 +1693,181 @@ html body:not(.theme-dark) .problem-solution__closing mark {
     transition:none!important;
   }
 }
+
+
+/* Source block: skill-apple-light-system-refresh */
+/* Блок навыков: светлая система, без старых синих эффектов, свечения, теней и подъёма карточек. */
+html body section.skill {
+  background:#FFFFFF!important;
+  color:#1D1D1F!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif!important;
+}
+html body section.skill *,
+html body section.skill *::before,
+html body section.skill *::after {
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif!important;
+}
+html body section.skill .skill__eyebrow {
+  margin-bottom:18px!important;
+  color:#6E6E73!important;
+}
+html body section.skill .skill__eyebrow span {
+  color:#6E6E73!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+html body section.skill h2 {
+  max-width:900px!important;
+  margin-bottom:16px!important;
+  color:#1D1D1F!important;
+  font-size:clamp(28px,4.2vw,42px)!important;
+  font-weight:650!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+  text-transform:none!important;
+}
+html body section.skill h2 mark {
+  padding:0 .12em!important;
+  border-radius:4px!important;
+  background:#FFD93D!important;
+  color:#1D1D1F!important;
+}
+html body section.skill .skill__lead {
+  max-width:760px!important;
+  margin-bottom:30px!important;
+  color:#424245!important;
+  font-size:17px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:-.015em!important;
+}
+html body section.skill .skill__subheading {
+  margin-bottom:16px!important;
+  color:#1D1D1F!important;
+  font-size:17px!important;
+  font-weight:600!important;
+  line-height:1.3!important;
+  letter-spacing:-.02em!important;
+  text-transform:none!important;
+}
+html body section.skill .skill__tabs {
+  gap:10px!important;
+  margin-bottom:26px!important;
+}
+html body section.skill .skill__tab {
+  min-height:48px!important;
+  padding:12px 14px!important;
+  border:1px solid #D2D2D7!important;
+  border-radius:12px!important;
+  background:#FFFFFF!important;
+  color:#1D1D1F!important;
+  box-shadow:none!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.3!important;
+  letter-spacing:-.015em!important;
+  text-transform:none!important;
+  transform:none!important;
+  transition:background-color .18s ease,border-color .18s ease,color .18s ease!important;
+}
+html body section.skill .skill__tab:hover {
+  border-color:#86868B!important;
+  background:#F5F5F7!important;
+  transform:none!important;
+}
+html body section.skill .skill__tab.is-active,
+html body section.skill .skill__tab.is-active:hover {
+  border-color:#FFD93D!important;
+  background:#FFD93D!important;
+  color:#1D1D1F!important;
+}
+html body section.skill .skill__tab:focus-visible {
+  outline:2px solid #1D1D1F!important;
+  outline-offset:3px!important;
+}
+html body section.skill #skill-panel {
+  animation:none!important;
+}
+html body section.skill .skill__grid {
+  gap:14px!important;
+}
+html body section.skill .skill__item {
+  min-width:0!important;
+  padding:20px 22px!important;
+  border:1px solid #E5E5EA!important;
+  border-radius:18px!important;
+  background:#FFFFFF!important;
+  background-image:none!important;
+  color:#1D1D1F!important;
+  box-shadow:none!important;
+  transform:none!important;
+  transition:none!important;
+}
+html body section.skill .skill__item:hover {
+  background:#FFFFFF!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+html body section.skill .skill__item h3 {
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin:0 0 10px!important;
+  color:#1D1D1F!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.25!important;
+  letter-spacing:-.025em!important;
+  text-transform:none!important;
+}
+html body section.skill .skill__number {
+  display:inline-flex!important;
+  flex:0 0 34px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:34px!important;
+  height:34px!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#FFD93D!important;
+  color:#1D1D1F!important;
+  box-shadow:none!important;
+  font-size:13px!important;
+  font-weight:650!important;
+}
+html body section.skill .skill__item p {
+  margin:0!important;
+  color:#6E6E73!important;
+  font-size:16px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:-.01em!important;
+}
+@media(max-width:640px) {
+  html body section.skill .skill__tabs {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-bottom:22px!important;
+  }
+  html body section.skill .skill__tab {
+    min-height:46px!important;
+    padding:11px 8px!important;
+    font-size:14px!important;
+  }
+  html body section.skill .skill__item {
+    padding:18px!important;
+  }
+  html body section.skill .skill__item h3 {
+    font-size:18px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body section.skill .skill__tab {
+    transition:none!important;
+  }
+}
