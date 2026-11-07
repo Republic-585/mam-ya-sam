@@ -9,10 +9,42 @@
   const cards = Array.from(document.querySelectorAll('[data-plan-card]'));
   const continueLink = document.getElementById('pricingContinue');
   const details = {
-    trial_3d: {wireId:TRIAL_PLAN_WIRE_ID, name:'Пробный доступ – 3 дня бесплатно', price:'0 ₽ · без автоматического списания', button:'Попробовать бесплатно'},
-    monthly: {wireId:'monthly', name:'Подписка на 1 месяц', price:'490 ₽ · оплата пока не подключена', button:'Продолжить с выбранным тарифом'},
-    quarterly: {wireId:'quarterly', name:'Подписка на 3 месяца', price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена', button:'Продолжить с выбранным тарифом'},
-    annual: {wireId:'annual', name:'Подписка на 12 месяцев', price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена', button:'Продолжить с выбранным тарифом'}
+    trial_3d: {
+      wireId:TRIAL_PLAN_WIRE_ID,
+      name:'Пробный доступ – 3 дня бесплатно',
+      price:'0 ₽ · без автоматического списания',
+      button:'Попробовать бесплатно',
+      heading:'Начни с бесплатных 3 дней',
+      lead:'Оставь заявку – мы свяжемся с родителем и объясним, как активировать бесплатный доступ.',
+      submit:'Отправить'
+    },
+    monthly: {
+      wireId:'monthly',
+      name:'Подписка на 1 месяц',
+      price:'490 ₽ · оплата пока не подключена',
+      button:'Продолжить с выбранным тарифом',
+      heading:'Заявка на доступ на 1 месяц',
+      lead:'Оставь заявку – мы свяжемся с родителем и расскажем, как получить доступ. Оплата на сайте пока не подключена.',
+      submit:'Отправить заявку'
+    },
+    quarterly: {
+      wireId:'quarterly',
+      name:'Подписка на 3 месяца',
+      price:'1 290 ₽ · 430 ₽ в месяц · оплата пока не подключена',
+      button:'Продолжить с выбранным тарифом',
+      heading:'Заявка на доступ на 3 месяца',
+      lead:'Оставь заявку – мы свяжемся с родителем и расскажем, как получить доступ. Оплата на сайте пока не подключена.',
+      submit:'Отправить заявку'
+    },
+    annual: {
+      wireId:'annual',
+      name:'Подписка на 12 месяцев',
+      price:'4 490 ₽ · около 374 ₽ в месяц · оплата пока не подключена',
+      button:'Продолжить с выбранным тарифом',
+      heading:'Заявка на доступ на 12 месяцев',
+      lead:'Оставь заявку – мы свяжемся с родителем и расскажем, как получить доступ. Оплата на сайте пока не подключена.',
+      submit:'Отправить заявку'
+    }
   };
   function normalizePlan(plan) {
     if (plan === TRIAL_PLAN_WIRE_ID) return 'trial_3d';
@@ -31,12 +63,12 @@
       else card.removeAttribute('aria-current');
     });
     if (continueLink) continueLink.textContent = item.button;
-    if (heading) { heading.textContent = 'Начни с бесплатных 3 дней'; heading.hidden = false; }
+    if (heading) { heading.textContent = item.heading; heading.hidden = false; }
     if (lead) {
-      lead.textContent = 'Оставь заявку – мы свяжемся с родителем и объясним, как получить доступ. Оплата на сайте пока не подключена.';
+      lead.textContent = item.lead;
       lead.hidden = false;
     }
-    if (submit) submit.textContent = 'Отправить';
+    if (submit) submit.textContent = item.submit;
     if (selectedName) selectedName.textContent = item.name;
     if (selectedPrice) selectedPrice.textContent = item.price;
     if (focusCard) {
