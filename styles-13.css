@@ -1,3 +1,11 @@
+/* Source block: site-depth-design-tokens */
+/* Единая шкала глубины для светлой и тёмной темы. */
+:root {
+  --ds-shadow-soft:0 8px 28px rgba(0,0,0,.06);
+  --ds-shadow-card:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03);
+  --ds-shadow-floating:0 18px 48px rgba(0,0,0,.12),0 4px 14px rgba(0,0,0,.06);
+}
+
 /* Source block: hero-menu-links-center-reveal */
 /* Сдержанное появление пунктов меню в духе системных переходов Apple. */
 html body #heroMenu.is-open .hero-menu__links a {
@@ -961,6 +969,9 @@ html body .hero h1.hero__lead-three-lines span {
 /* Финальный слой тёмной темы. Размещён после legacy-правил с !important,
    чтобы все основные секции использовали одну нейтральную палитру. */
 html body.theme-dark {
+  --ds-shadow-soft:0 8px 28px rgba(0,0,0,.16);
+  --ds-shadow-card:0 8px 28px rgba(0,0,0,.16);
+  --ds-shadow-floating:0 18px 48px rgba(0,0,0,.22),0 4px 14px rgba(0,0,0,.10);
   background:var(--ds-bg,#000000)!important;
   color:var(--ds-text,#F5F5F7)!important;
   color-scheme:dark;
