@@ -2166,3 +2166,45 @@ html body.theme-dark .footer .footer__links a:hover {
     transition:none!important;
   }
 }
+
+
+/* Source block: footer-left-alignment-extended-background */
+ /* Подвал: единый левый край, увеличенная нижняя зона фона и аккуратная системная типографика. */
+html body .footer {
+  padding:36px 0 64px!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif!important;
+}
+html body .footer .footer__legal {
+  align-items:flex-start!important;
+}
+html body .footer small {
+  width:100%!important;
+  color:#A1A1A6!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.01em!important;
+  text-align:left!important;
+}
+html body .footer .footer__links {
+  justify-content:flex-start!important;
+  text-align:left!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:-.01em!important;
+}
+html body .footer .logo__dot::after {
+  transform:translate(-0.5px,0px)!important;
+}
+@media(max-width:760px) {
+  html body .footer {
+    padding:30px 0 56px!important;
+  }
+  html body .footer .footer__legal {
+    align-items:flex-start!important;
+  }
+  html body .footer .footer__links {
+    justify-content:flex-start!important;
+  }
+}
