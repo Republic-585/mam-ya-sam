@@ -842,14 +842,9 @@ html body section.about .about-project-subtitle {
 /* Source block: author-achievements-carousel-match-program-final */
 /* Карусель автора повторяет ширину, шаг и боковой preview карусели программы. */
 html body #about .about-achievements__carousel{
-  position:relative!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
   display:flex!important;
   align-items:stretch!important;
   gap:20px!important;
-  width:100vw!important;
-  max-width:100vw!important;
   margin:0!important;
   padding:8px max(24px,calc((100vw - 1180px)/2)) 76px!important;
   overflow-x:auto!important;
