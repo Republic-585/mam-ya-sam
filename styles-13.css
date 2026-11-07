@@ -1994,3 +1994,35 @@ html body #about .about-v2__author > .about__mission p b{
   text-align:left!important;
   text-indent:0!important;
 }
+
+
+/* Source block: author-achievements-native-carousel */
+ /* Карусель достижений использует ту же геометрию и нативную прокрутку, что и программа курса. */
+html body #about .about-achievements__carousel{
+  display:flex!important;
+  align-items:stretch!important;
+  gap:20px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:8px max(24px,calc((100vw - 1180px)/2)) 76px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:max(24px,calc((100vw - 1180px)/2))!important;
+  scrollbar-width:none!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior-x:contain!important;
+}
+html body #about .about-achievements__carousel::-webkit-scrollbar{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+@media(max-width:640px){
+  html body #about .about-achievements__carousel{
+    gap:14px!important;
+    padding:8px 20px 76px!important;
+    scroll-padding-inline:20px!important;
+  }
+}
