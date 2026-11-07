@@ -1908,3 +1908,24 @@ html body section.video :is(.video__play,.video__icon-button,.video__quality):fo
   outline-offset:3px!important;
   box-shadow:none!important;
 }
+
+/* Source block: about-mission-under-author-photo */
+/* Миссия располагается под фотографией автора на всех ширинах экрана. */
+html body #about .about-v2__author > .about__mission{
+  grid-column:1!important;
+  grid-row:2!important;
+}
+@media(max-width:640px){
+  html body #about .about-v2__author > .about-v2__author-photo{
+    grid-column:1!important;
+    grid-row:1!important;
+  }
+  html body #about .about-v2__author > .about__mission{
+    grid-column:1!important;
+    grid-row:2!important;
+  }
+  html body #about .about-v2__author > .about-v2__author-copy{
+    grid-column:1!important;
+    grid-row:3!important;
+  }
+}
