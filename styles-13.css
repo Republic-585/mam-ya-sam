@@ -1300,8 +1300,7 @@ html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,texta
 }
 html body:not(.theme-dark) section.signup #signupForm .form__row :is(input,select,textarea):focus {
   border-color:#007AFF!important;
-  outline:2px solid rgba(0,122,255,.28)!important;
-  outline-offset:2px!important;
+  outline:none!important;
   box-shadow:none!important;
 }
 html body:not(.theme-dark) section.signup #signupForm .form__row textarea {
