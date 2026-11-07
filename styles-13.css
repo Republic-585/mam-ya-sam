@@ -542,7 +542,7 @@ html body dialog#public-offer .privacy-dialog__close:focus-visible {
 /* Source block: pricing-carousel-arrows-desktop-only */
 /* Стрелки карусели тарифов отображаются только на компьютерных экранах. */
 @media(max-width:759px) {
-  html body #pricingCarousel .pricing__carousel-btn {
+  html body #pricingOptions .pricing__carousel-btn {
     display:none!important;
   }
 }
@@ -571,42 +571,42 @@ html body .pricing h2 {
 html body .pricing h2 {
   color:#141414!important;
 }
-html body #pricingCarousel {
+html body #pricingOptions {
   width:100%!important;
   max-width:none!important;
 }
-html body #pricingCarousel .pricing__grid {
+html body #pricingOptions .pricing__grid {
   width:100%!important;
   max-width:none!important;
   padding-left:0!important;
   padding-right:0!important;
 }
-html body #pricingCarousel .pricing__carousel-dot {
+html body #pricingOptions .pricing__carousel-dot {
   background:#D1D5DB!important;
   opacity:1!important;
 }
-html body #pricingCarousel .pricing__carousel-dot[aria-current="true"] {
+html body #pricingOptions .pricing__carousel-dot[aria-current="true"] {
   background:#141414!important;
   transform:scale(1.25)!important;
 }
 
 /* Source block: pricing-overrides-after-all-previous-styles */
 /* Финальные приоритетные стили карточек тарифов. */
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
-html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
   background:#FFFFFF!important;
   background-color:#FFFFFF!important;
 }
 
 /* Зелёные галочки рисуются CSS-линиями, а не зависят от символа шрифта. */
-html body section.pricing #pricingCarousel .pricing__grid > .price ul li {
+html body section.pricing #pricingOptions .pricing__grid > .price ul li {
   display:flex!important;
   align-items:flex-start!important;
   list-style:none!important;
   gap:10px!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price ul li::before {
+html body section.pricing #pricingOptions .pricing__grid > .price ul li::before {
   content:""!important;
   display:inline-block!important;
   position:relative!important;
@@ -629,11 +629,11 @@ html body section.pricing #pricingCarousel .pricing__grid > .price ul li::before
 }
 
 /* Кнопка выбранного тарифа жёлтая, остальные кнопки светло-серые. */
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:focus,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:focus-visible,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:active {
   background:#F1F2F4!important;
   background-color:#F1F2F4!important;
   color:#141414!important;
@@ -643,11 +643,11 @@ html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:
   text-shadow:none!important;
   outline:0!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:focus-visible,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:active {
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:focus,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:focus-visible,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:active {
   background:#FFD93D!important;
   background-color:#FFD93D!important;
   color:#141414!important;
@@ -660,7 +660,7 @@ html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .
 
 /* Source block: pricing-amount-hero-typography */
 /* Стоимость тарифа: крупный заголовочный SF Pro Condensed, как в Hero. */
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__amount {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__amount {
   font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
   font-size:clamp(3rem,8vw,4.5rem)!important;
   font-weight:900!important;
@@ -669,7 +669,7 @@ html body section.pricing #pricingCarousel .pricing__grid > .price .price__amoun
   color:#141414!important;
   text-transform:uppercase!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__amount small {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__amount small {
   display:block!important;
   margin-top:7px!important;
   font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
@@ -683,7 +683,7 @@ html body section.pricing #pricingCarousel .pricing__grid > .price .price__amoun
 
 /* Source block: pricing-card-titles-and-compact-green-tags */
 /* Названия тарифов по размеру совпадают с заголовком секции тарифов. */
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__title {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__title {
   font-family:'SF Pro Condensed',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
   font-size:clamp(1.8rem,5vw,3rem)!important;
   font-weight:900!important;
@@ -694,33 +694,33 @@ html body section.pricing #pricingCarousel .pricing__grid > .price .price__title
 }
 
 /* Плашки в верхней части карточек ниже по высоте. */
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__tag {
   min-height:0!important;
   padding:4px 12px!important;
   line-height:1.15!important;
 }
 
 /* Рекомендуемый тариф: зелёная плашка, сама карточка остаётся белой. */
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] .price__tag--hit {
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"] .price__tag--hit {
   background:#A8F0A0!important;
   background-color:#A8F0A0!important;
   color:#141414!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"] {
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"] {
   background:#FFFFFF!important;
   background-color:#FFFFFF!important;
 }
 
 /* Source block: pricing-buttons-solid-black-final */
 /* Финальное переопределение всех состояний кнопок тарифов. */
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:active {
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:active,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:active {
   background:#000000!important;
   background-image:none!important;
   color:#FFFFFF!important;
@@ -728,25 +728,25 @@ html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a
   border:0!important;
   box-shadow:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select::before,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select::after {
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select::before,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select::after {
   background:none!important;
   box-shadow:none!important;
 }
 
 /* Source block: pricing-quarterly-blue-and-selected-yellow-final */
 /* Финальные цвета: карточка «3 месяца» голубая, кнопка выбранного тарифа фирменно-жёлтая. */
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
-html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
   background:#DDF1FF!important;
   background-color:#DDF1FF!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active {
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:active {
   background:#000000!important;
   background-color:#000000!important;
   background-image:none!important;
@@ -755,13 +755,13 @@ html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select
   border:0!important;
   box-shadow:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:link,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:visited,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:active,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:focus,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select:focus-visible {
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:link,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:visited,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:active,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:focus,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select:focus-visible {
   background:#FFD93D!important;
   background-color:#FFD93D!important;
   background-image:none!important;
@@ -773,7 +773,7 @@ html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a
 
 /* Source block: pricing-card-title-natural-case */
 /* Естественный регистр названий тарифов: без автоматического перевода в верхний. */
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__title {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__title {
   text-transform:none!important;
 }
 
@@ -1038,36 +1038,36 @@ html body.theme-dark #program-all .program-module-switcher__button.is-active {
   color:#171717!important;
   border-color:var(--ds-brand,#FFD93D)!important;
 }
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price {
   background:var(--ds-surface,#1C1C1E)!important;
   color:var(--ds-text,#F5F5F7)!important;
   border:1px solid var(--ds-border,#38383A)!important;
 }
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price :is(h3,p,li,.price__amount,.price__amount small,.price__period,.price__description) {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price :is(h3,p,li,.price__amount,.price__amount small,.price__period,.price__description) {
   color:var(--ds-text,#F5F5F7)!important;
   -webkit-text-fill-color:currentColor!important;
 }
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select:link,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .plan-select:visited {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price .plan-select,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price .plan-select:link,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price .plan-select:visited {
   background:var(--ds-surface-secondary,#2C2C2E)!important;
   color:var(--ds-text,#F5F5F7)!important;
   border-color:var(--ds-border,#38383A)!important;
   -webkit-text-fill-color:currentColor!important;
 }
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:link,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:visited,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:hover,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select:active {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:link,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:visited,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:hover,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select:active {
   background:var(--ds-brand,#FFD93D)!important;
   color:#171717!important;
   border-color:var(--ds-brand,#FFD93D)!important;
   -webkit-text-fill-color:#171717!important;
 }
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
   background:var(--ds-surface,#1C1C1E)!important;
 }
 html body.theme-dark .about-achievements__card h4 mark,
@@ -1141,8 +1141,8 @@ html body.theme-dark #program-all .program-all__card h4 mark {
 }
 
 /* Названия тарифов и их подписи читаются светлым текстом. */
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .price__title,
-html body.theme-dark section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price .price__title,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price .price__tag {
   color:var(--ds-text,#F5F5F7)!important;
   -webkit-text-fill-color:var(--ds-text,#F5F5F7)!important;
 }
