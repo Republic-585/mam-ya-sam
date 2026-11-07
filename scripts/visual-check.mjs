@@ -42,7 +42,43 @@ try {
     const response = await page.goto(baseURL, { waitUntil: 'domcontentloaded', timeout: 60000 });
     if (!response?.ok()) throw new Error(`Page request failed for ${viewport.name}: HTTP ${response?.status()}`);
     await page.evaluate(() => document.fonts?.ready);
-    await page.waitForTimeout(1600);
+    await page.waitForTimeout(500);
+
+    // Прокручиваем страницу через все секции, чтобы IntersectionObserver
+    // успел добавить is-visible элементам с motion-reveal до fullPage-снимка.
+    const revealSweep = await page.evaluate(async () => {
+      const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const step = Math.max(320, Math.floor(window.innerHeight * 0.7));
+      let previousHeight = 0;
+      for (let pass = 0; pass < 3; pass++) {
+        const height = document.documentElement.scrollHeight;
+        for (let y = 0; y < height; y += step) {
+          window.scrollTo(0, y);
+          await pause(90);
+        }
+        window.scrollTo(0, document.documentElement.scrollHeight);
+        await pause(250);
+        const currentHeight = document.documentElement.scrollHeight;
+        if (currentHeight === previousHeight) break;
+        previousHeight = currentHeight;
+      }
+      await pause(350);
+      window.scrollTo(0, 0);
+      await pause(250);
+      const motionElements = [...document.querySelectorAll('.motion-reveal')];
+      return {
+        targetCount: motionElements.length,
+        unrevealedCount: motionElements.filter(el => !el.classList.contains('is-visible')).length,
+        unrevealed: motionElements
+          .filter(el => !el.classList.contains('is-visible'))
+          .slice(0, 20)
+          .map(el => ({
+            tag: el.tagName.toLowerCase(),
+            className: typeof el.className === 'string' ? el.className : '',
+            text: (el.innerText || '').trim().slice(0, 100)
+          }))
+      };
+    });
 
     const diagnostics = await page.evaluate(() => {
       const root = document.documentElement;
@@ -74,7 +110,7 @@ try {
 
     await page.screenshot({ path: `${outputDir}/${viewport.name}-full.png`, fullPage: true, animations: 'disabled' });
 
-    report.viewports.push({ ...viewport, ...diagnostics });
+    report.viewports.push({ ...viewport, ...diagnostics, revealSweep });
     await page.close();
   }
 } finally {
@@ -91,6 +127,7 @@ const carouselGeometryFailures = report.viewports.filter(item =>
   )
 );
 const brokenImageFailures = report.viewports.filter(item => item.brokenImages.length > 0);
+const revealFailures = report.viewports.filter(item => item.revealSweep?.unrevealedCount > 0);
 const runtimeFailures = report.pageErrors.length > 0 || report.failedLocalRequests.length > 0;
 report.summary = {
   viewportCount: report.viewports.length,
@@ -101,12 +138,13 @@ report.summary = {
     viewportWidth: item.viewportWidth
   })),
   brokenImageFailures: brokenImageFailures.map(item => ({ viewport: item.name, images: item.brokenImages })),
+  revealFailures: revealFailures.map(item => ({ viewport: item.name, revealSweep: item.revealSweep })),
   pageErrorCount: report.pageErrors.length,
   failedLocalRequestCount: report.failedLocalRequests.length
 };
 await writeFile(`${outputDir}/report.json`, JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report.summary, null, 2));
 
-if (overflowFailures.length || carouselGeometryFailures.length || brokenImageFailures.length || runtimeFailures) {
+if (overflowFailures.length || carouselGeometryFailures.length || brokenImageFailures.length || revealFailures.length || runtimeFailures) {
   process.exitCode = 1;
 }
