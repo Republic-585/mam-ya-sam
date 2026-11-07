@@ -1969,3 +1969,28 @@ html body #about .about__mission p{
   margin-left:0!important;
   margin-right:0!important;
 }
+
+/* Source block: about-mission-layout-after-author-move */
+/* После переноса миссии из author-copy задаём полный текстовый поток и общий левый край. */
+html body #about .about-v2__author > .about__mission{
+  width:100%!important;
+  min-width:0!important;
+  justify-self:stretch!important;
+}
+html body #about .about-v2__author > .about__mission p{
+  display:block!important;
+  width:100%!important;
+  max-width:62ch!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  text-indent:0!important;
+}
+html body #about .about-v2__author > .about__mission p b{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:0!important;
+  text-align:left!important;
+  text-indent:0!important;
+}
