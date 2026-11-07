@@ -1314,3 +1314,55 @@ html body:not(.theme-dark) section.signup #signupForm .form__row textarea {
     transition:none!important;
   }
 }
+
+/* Source block: signup-consent-checkbox-light */
+/* Компактный чекбокс согласия в светлой теме. */
+html body:not(.theme-dark) section.signup #signupForm .form__consent {
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+  color:#6E6E73!important;
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",sans-serif)!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:20px!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__consent input {
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 20px!important;
+  width:20px!important;
+  height:20px!important;
+  min-height:20px!important;
+  margin:1px 0 0!important;
+  padding:0!important;
+  border:1px solid #86868B!important;
+  border-radius:6px!important;
+  background:#FFFFFF!important;
+  cursor:pointer!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__consent input::before {
+  content:""!important;
+  width:9px!important;
+  height:5px!important;
+  border:solid #1D1D1F!important;
+  border-width:0 0 2px 2px!important;
+  border-radius:0!important;
+  background:transparent!important;
+  transform:rotate(-45deg) scale(0)!important;
+  transition:transform .12s ease!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__consent input:checked {
+  background:#FFD93D!important;
+  border-color:#D6B000!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__consent input:checked::before {
+  transform:rotate(-45deg) scale(1)!important;
+}
+html body:not(.theme-dark) section.signup #signupForm .form__consent input:focus-visible {
+  outline:2px solid #007AFF!important;
+  outline-offset:3px!important;
+}
