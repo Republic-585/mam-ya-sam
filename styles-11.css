@@ -119,8 +119,8 @@ html body .pricing > .wrap {
   padding-left:clamp(16px,3vw,40px)!important;
   padding-right:clamp(16px,3vw,40px)!important;
 }
-html body #pricingCarousel,
-html body #pricingCarousel .pricing__grid {
+html body #pricingOptions,
+html body #pricingOptions .pricing__grid {
   width:100%!important;
   max-width:none!important;
   margin-left:0!important;
@@ -130,17 +130,17 @@ html body #pricingCarousel .pricing__grid {
   mask-image:none!important;
   filter:none!important;
 }
-html body #pricingCarousel::before,
-html body #pricingCarousel::after,
-html body #pricingCarousel .pricing__grid::before,
-html body #pricingCarousel .pricing__grid::after {
+html body #pricingOptions::before,
+html body #pricingOptions::after,
+html body #pricingOptions .pricing__grid::before,
+html body #pricingOptions .pricing__grid::after {
   content:none!important;
   display:none!important;
   background:none!important;
   box-shadow:none!important;
   filter:none!important;
 }
-html body #pricingCarousel .pricing__grid {
+html body #pricingOptions .pricing__grid {
   padding-left:0!important;
   padding-right:0!important;
 }
@@ -178,12 +178,12 @@ html body .pricing .price button:active {
 
 /* Source block: pricing-cards-final-layout-type-and-controls */
 /* Карточки тарифов не прокручиваются по вертикали внутри себя. */
-html body #pricingCarousel .pricing__grid {
+html body #pricingOptions .pricing__grid {
   overflow-x:auto!important;
   overflow-y:hidden!important;
   scroll-snap-type:x mandatory!important;
 }
-html body #pricingCarousel .pricing__grid > .price {
+html body #pricingOptions .pricing__grid > .price {
   height:auto!important;
   max-height:none!important;
   min-height:0!important;
@@ -255,23 +255,23 @@ html body .pricing .price.is-selected .plan-select:active {
 
 /* Source block: pricing-carousel-vertical-scroll-fix */
 /* Вертикальный жест передаётся странице, горизонтальный остаётся у карусели. */
-html body #pricingCarousel .pricing__grid {
+html body #pricingOptions .pricing__grid {
   touch-action:pan-x pan-y!important;
   overscroll-behavior-x:contain!important;
   overscroll-behavior-y:auto!important;
 }
-html body #pricingCarousel .pricing__grid > .price {
+html body #pricingOptions .pricing__grid > .price {
   overscroll-behavior: auto!important;
 }
 
 /* Source block: pricing-carousel-horizontal-only-and-controls-visible */
-html body section.pricing #pricingCarousel {
+html body section.pricing #pricingOptions {
   height:auto!important;
   max-height:none!important;
   overflow:visible!important;
   contain:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid {
+html body section.pricing #pricingOptions .pricing__grid {
   display:flex!important;
   height:auto!important;
   max-height:none!important;
@@ -285,14 +285,14 @@ html body section.pricing #pricingCarousel .pricing__grid {
   padding-top:8px!important;
   padding-bottom:8px!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price {
+html body section.pricing #pricingOptions .pricing__grid > .price {
   flex-shrink:0!important;
   height:auto!important;
   max-height:none!important;
   overflow:visible!important;
   touch-action:pan-x pan-y!important;
 }
-html body section.pricing #pricingCarousel .pricing__carousel-controls {
+html body section.pricing #pricingOptions .pricing__carousel-controls {
   position:relative!important;
   z-index:2!important;
   display:flex!important;
@@ -303,7 +303,7 @@ html body section.pricing #pricingCarousel .pricing__carousel-controls {
   min-height:32px!important;
   margin-top:12px!important;
 }
-html body section.pricing #pricingCarousel .pricing__carousel-dots {
+html body section.pricing #pricingOptions .pricing__carousel-dots {
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
@@ -311,7 +311,7 @@ html body section.pricing #pricingCarousel .pricing__carousel-dots {
   min-height:28px!important;
   padding:4px 8px!important;
 }
-html body section.pricing #pricingCarousel .pricing__carousel-dot {
+html body section.pricing #pricingOptions .pricing__carousel-dot {
   flex:0 0 9px!important;
   width:9px!important;
   height:9px!important;
@@ -321,48 +321,48 @@ html body section.pricing #pricingCarousel .pricing__carousel-dot {
 
 /* Source block: pricing-card-colors-and-remove-tags */
 /* Карточки без обводки, кнопки чёрные с белым текстом, тариф на 3 месяца голубой. */
-html body section.pricing #pricingCarousel .pricing__grid > .price,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
-html body section.pricing #pricingCarousel .pricing__grid > .price--popular,
-html body section.pricing #pricingCarousel .pricing__grid > .price--vip {
+html body section.pricing #pricingOptions .pricing__grid > .price,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected,
+html body section.pricing #pricingOptions .pricing__grid > .price--popular,
+html body section.pricing #pricingOptions .pricing__grid > .price--vip {
   background:#F1F2F4!important;
   background-color:#F1F2F4!important;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"],
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
-html body section.pricing #pricingCarousel .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"],
+html body section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"].is-selected,
+html body section.pricing #pricingOptions .pricing__grid > .price.price--popular[data-plan-card="quarterly"] {
   background:#DDF1FF!important;
   background-color:#DDF1FF!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price .price__tag {
+html body section.pricing #pricingOptions .pricing__grid > .price .price__tag {
   display:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected .plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:active {
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected .plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:active {
   background:#000000!important;
   color:#FFFFFF!important;
   border-color:#000000!important;
   box-shadow:none!important;
 }
-html body section.pricing #pricingCarousel .pricing__grid > .price .plan-select:focus-visible {
+html body section.pricing #pricingOptions .pricing__grid > .price .plan-select:focus-visible {
   outline:2px solid #000000!important;
   outline-offset:3px!important;
 }
 
 /* Source block: pricing-buttons-match-faq-answer-typography */
 /* Кнопки тарифов повторяют типографику ответов FAQ без изменения их цветов и размеров. */
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:link,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:visited,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:hover,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select:active,
-html body section.pricing #pricingCarousel .pricing__grid > .price.is-selected a.plan-select,
-html body section.pricing #pricingCarousel .pricing__grid > .price a.plan-select span {
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:link,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:visited,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:hover,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select:active,
+html body section.pricing #pricingOptions .pricing__grid > .price.is-selected a.plan-select,
+html body section.pricing #pricingOptions .pricing__grid > .price a.plan-select span {
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
   font-size:1rem!important;
   font-weight:400!important;
@@ -809,10 +809,10 @@ html body #about .about-v2__author-copy h3{
 
 /* Source block: pricing-cards-white-program-card-effect */
 /* Все карточки тарифов: белый фон и та же нейтральная тень, что у карточек программы. */
-html body:not(.theme-dark) section.pricing #pricingCarousel .pricing__grid > .price,
-html body:not(.theme-dark) section.pricing #pricingCarousel .pricing__grid > .price.is-selected,
-html body:not(.theme-dark) section.pricing #pricingCarousel .pricing__grid > .price.price--popular,
-html body:not(.theme-dark) section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="quarterly"]{
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price,
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price.is-selected,
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price.price--popular,
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"]{
   background:#FFFFFF!important;
   background-color:#FFFFFF!important;
   background-image:none!important;
@@ -959,22 +959,6 @@ html body .about-v2__missions-track>.about-v2__game::after{
     box-sizing:border-box!important;
   }
 
-/* Source block: pricing-carousel-remove-side-limits */
-html body section.pricing #pricingCarousel{
-    width:100%!important;
-    max-width:none!important;
-    margin-left:0!important;
-    margin-right:0!important;
-    box-sizing:border-box!important;
-  }
-  html body section.pricing #pricingCarousel .pricing__grid{
-    width:100%!important;
-    max-width:none!important;
-    margin-left:0!important;
-    margin-right:0!important;
-    box-sizing:border-box!important;
-  }
-
 /* Source block: signup-white-program-card-style */
 /* Белый фон секции заявки без декоративных звёзд и фоновых эффектов. */
   html body section.signup{
@@ -1001,21 +985,6 @@ html body section.pricing #pricingCarousel{
     outline:0!important;
     box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
   }
-
-/* Source block: pricing-carousel-cards-no-side-insets */
-/* Убираем боковые ограничители именно у карточек карусели, не сдвигая заголовок тарифов. */
-html body section.pricing #pricingCarousel {
-  width:calc(100% + clamp(16px,3vw,40px) + clamp(16px,3vw,40px))!important;
-  max-width:none!important;
-  margin-left:calc(0px - clamp(16px,3vw,40px))!important;
-  margin-right:calc(0px - clamp(16px,3vw,40px))!important;
-}
-html body section.pricing #pricingCarousel .pricing__grid {
-  width:100%!important;
-  max-width:none!important;
-  padding-left:0!important;
-  padding-right:0!important;
-}
 
 /* Source block: skills-typography-match-video-heading */
 /* Весь текст блока «Навыки» использует гарнитуру заголовка блока «Видео». */
@@ -1084,39 +1053,6 @@ html body section.about .about__mission p {
   text-align:center!important;
 }
 
-/* Source block: trial-card-slightly-wider-than-button */
-/* Карточка бесплатного тарифа немного шире кнопки «Попробовать бесплатно». */
-html body section.pricing #pricingCarousel .pricing__grid > .price[data-plan-card="trial_3d"] .plan-select {
-  width:calc(100% + 16px)!important;
-  max-width:calc(100% + 16px)!important;
-}
-
-/* Source block: pricing-cards-match-faq-search-final */
-/* Каждая карточка равна по ширине полю поиска в FAQ (560px максимум). */
-html body section.pricing #pricingCarousel{
-  display:block!important;
-  width:min(100%,560px)!important;
-  max-width:560px!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-  box-sizing:border-box!important;
-}
-html body section.pricing #pricingCarousel .pricing__grid{
-  display:flex!important;
-  width:100%!important;
-  max-width:100%!important;
-  box-sizing:border-box!important;
-  padding-left:0!important;
-  padding-right:0!important;
-}
-html body section.pricing #pricingCarousel .pricing__grid > .price{
-  flex:0 0 100%!important;
-  width:100%!important;
-  min-width:0!important;
-  max-width:100%!important;
-  box-sizing:border-box!important;
-}
-
 /* Source block: selected-plan-summary-match-signup-form */
 /* Белая плашка выбранного тарифа с тем же эффектом, что и форма заявки. */
 html body section.signup .selected-plan-summary#selectedPlanSummary {
@@ -1148,3 +1084,26 @@ html body section.signup .selected-plan-summary#selectedPlanSummary .selected-pl
 #program-all .program-all__continuation-link:focus-visible{outline:2px solid #06c;outline-offset:4px;border-radius:2px}
 @media(prefers-reduced-motion:reduce){#program-all .program-all__continuation-link svg{transition:none}}
 @media(prefers-reduced-motion:reduce){#program-all .program-module-switcher__button,}
+
+/* Source block: pricing-options-vertical-selector-light */
+/* Вертикальный выбор тарифов: без карусели, точек и боковых ограничителей. */
+html body:not(.theme-dark) section.pricing #pricingOptions{display:block!important;width:min(100%,560px)!important;max-width:560px!important;margin:0 auto!important;box-sizing:border-box!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid{display:flex!important;flex-direction:column!important;width:100%!important;max-width:100%!important;gap:10px!important;margin:0!important;padding:0!important;box-sizing:border-box!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px 16px!important;width:100%!important;min-width:0!important;max-width:100%!important;min-height:112px!important;margin:0!important;padding:16px 18px!important;background:#FFFFFF!important;border:1px solid #D2D2D7!important;border-radius:18px!important;outline:0!important;box-shadow:none!important;transform:none!important;cursor:pointer!important;box-sizing:border-box!important;transition:border-color .18s ease,background-color .18s ease!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price.is-selected{background:#FFFDF5!important;border:2px solid #D69E00!important;padding:15px 17px!important;box-shadow:none!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price:focus-visible{outline:3px solid rgba(0,122,255,.35)!important;outline-offset:3px!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__option-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;min-width:0!important;gap:5px!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price__tag{margin:0 0 2px!important;padding:4px 9px!important;border:0!important;border-radius:999px!important;background:#F5F5F7!important;color:#6E6E73!important;font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:11px!important;font-weight:600!important;letter-spacing:0!important;line-height:1.35!important;text-transform:none!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price__tag--hit{background:#FFF1C2!important;color:#725500!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price__title{margin:0!important;color:#1D1D1F!important;font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:17px!important;font-weight:650!important;line-height:1.25!important;text-transform:none!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__option-description{margin:0!important;color:#6E6E73!important;font-size:12px!important;font-weight:400!important;line-height:1.4!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__option-choice{display:flex!important;flex-direction:column!important;align-items:flex-end!important;justify-content:center!important;gap:10px!important;flex-shrink:0!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price__amount{color:#1D1D1F!important;font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:23px!important;font-weight:700!important;line-height:1.1!important;white-space:nowrap!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price__amount small{margin-top:4px!important;color:#6E6E73!important;font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:11px!important;font-weight:400!important;line-height:1.25!important;text-align:right!important;white-space:normal!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__option-indicator{display:block!important;width:20px!important;height:20px!important;border:1.5px solid #C7C7CC!important;border-radius:50%!important;background:#FFFFFF!important;box-sizing:border-box!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .price.is-selected .pricing__option-indicator{border:6px solid #D69E00!important;background:#FFFFFF!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__included{margin:14px 4px 18px!important;color:#6E6E73!important;font-size:13px!important;line-height:1.5!important;text-align:center!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__continue{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-height:52px!important;margin:0!important;border:0!important;border-radius:16px!important;background:#FFD93D!important;color:#171717!important;box-shadow:none!important;font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:16px!important;font-weight:650!important;text-decoration:none!important;transition:filter .18s ease,transform .18s ease!important}
+html body:not(.theme-dark) section.pricing #pricingOptions .pricing__continue:hover{filter:brightness(.97)!important;transform:translateY(-1px)!important}
+@media(max-width:420px){html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price{min-height:104px!important;padding:14px 13px!important;gap:8px 10px!important}html body:not(.theme-dark) section.pricing #pricingOptions .pricing__grid > .price.is-selected{padding:13px 12px!important}html body:not(.theme-dark) section.pricing #pricingOptions .price__title{font-size:16px!important}html body:not(.theme-dark) section.pricing #pricingOptions .price__amount{font-size:20px!important}html body:not(.theme-dark) section.pricing #pricingOptions .pricing__option-description{font-size:11px!important}}
+@media(prefers-reduced-motion:reduce){html body:not(.theme-dark) section.pricing #pricingOptions .price,html body:not(.theme-dark) section.pricing #pricingOptions .pricing__continue{transition:none!important}}
