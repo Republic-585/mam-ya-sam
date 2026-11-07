@@ -617,3 +617,19 @@ html body .hero .hero__together-word {
     will-change:auto;
   }
 }
+
+/* Source block: faq-intro-subtitle */
+html body .faq h2 {
+  margin:0 auto 10px!important;
+  text-align:center!important;
+}
+html body .faq .faq__subtitle {
+  max-width:620px;
+  margin:0 auto 26px;
+  color:#667085;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+  font-size:1rem;
+  font-weight:400;
+  line-height:1.5;
+  text-align:center;
+}
