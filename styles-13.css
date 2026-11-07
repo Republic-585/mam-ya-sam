@@ -1502,24 +1502,24 @@ html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines .her
 }
 
 
-/* Source block: hero-heading-responsive-centered */
- /* Крупный адаптивный заголовок: три строки, центрирование и защита от выхода за экран. */
+/* Source block: hero-heading-wide-uniform-type */
+ /* Единый размер текста в заголовке и плашке, максимальная безопасная ширина. */
 html body:not(.theme-dark) .hero .hero__content {
   box-sizing:border-box!important;
   width:100%!important;
-  padding-left:clamp(20px,5vw,56px)!important;
-  padding-right:clamp(20px,5vw,56px)!important;
+  padding-left:clamp(12px,2vw,24px)!important;
+  padding-right:clamp(12px,2vw,24px)!important;
   align-items:center!important;
   text-align:center!important;
 }
 html body:not(.theme-dark) .hero .hero__content > h1.hero__lead-three-lines {
   box-sizing:border-box!important;
-  width:min(100%,42rem)!important;
-  max-width:100%!important;
+  width:100%!important;
+  max-width:none!important;
   margin-left:auto!important;
   margin-right:auto!important;
   padding:0!important;
-  font-size:clamp(1.45rem,7.2vw,3.6rem)!important;
+  font-size:clamp(1.35rem,7.2vw,3.6rem)!important;
   text-align:center!important;
   text-align-last:center!important;
 }
@@ -1540,7 +1540,9 @@ html body:not(.theme-dark) .hero .hero__lead-three-lines > .hero__lead-final-lin
 html body:not(.theme-dark) .hero .hero__lead-final-line .hero__word-pill {
   display:inline-flex!important;
   max-width:none!important;
-  vertical-align:.12em!important;
+  font-size:1em!important;
+  line-height:1.15!important;
+  vertical-align:.08em!important;
 }
 html body:not(.theme-dark) .hero .hero__lead-final-line .hero__together-word {
   display:inline!important;
