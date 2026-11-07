@@ -603,27 +603,6 @@ html body section.program-all > .wrap{
 /* Source block: program-all-heading-centered-final */
 html body section.program-all > .wrap{ text-align:center!important; } html body section.program-all > .wrap > h2#program-all-heading{ display:block!important; width:100%!important; max-width:900px!important; margin-left:auto!important; margin-right:auto!important; text-align:center!important; justify-self:center!important; align-self:center!important; }
 
-/* Source block: pricing-cards-match-faq-search */
-.pricing .pricing__carousel{
-    width:min(100%,560px)!important;
-    max-width:560px!important;
-    margin-left:auto!important;
-    margin-right:auto!important;
-    box-sizing:border-box!important;
-  }
-  .pricing .pricing__grid{
-    width:100%!important;
-    box-sizing:border-box!important;
-    padding-left:0!important;
-    padding-right:0!important;
-  }
-  .pricing .pricing__grid>.price{
-    flex:0 0 100%!important;
-    width:100%!important;
-    max-width:100%!important;
-    box-sizing:border-box!important;
-  }
-
 /* Source block: signup-submit-no-shadow */
 /* Убираем тень только у кнопки отправки заявки во всех состояниях. */
 html body #signupForm button[type="submit"],
