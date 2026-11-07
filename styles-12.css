@@ -52,7 +52,7 @@ html body .about-achievements__card {
   border-radius:var(--radius)!important;
   background:#FFFFFF!important;
   color:#141414!important;
-  box-shadow:0 18px 42px rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03)!important;
+  box-shadow:var(--ds-shadow-card)!important;
   transition:box-shadow .2s ease,transform .2s ease!important;
 }
 html body .about-achievements__tag {
