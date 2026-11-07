@@ -615,7 +615,7 @@
       <h2>Выбери свой формат.</h2>
       <div class="pricing__options" id="pricingOptions">
         <div class="pricing__grid" role="radiogroup" aria-label="Выбор тарифа">
-          <div class="price price--trial is-selected" data-plan-card="trial_3d" role="radio" aria-checked="true" tabindex="0">
+          <div class="price price--trial" data-plan-card="trial_3d" role="radio" aria-checked="false" tabindex="-1">
             <div class="pricing__option-copy">
               <span class="price__tag">Начни без риска</span>
               <div class="price__title">Пробный доступ</div>
@@ -637,7 +637,7 @@
               <span class="pricing__option-indicator" aria-hidden="true"></span>
             </div>
           </div>
-          <div class="price price--popular" data-plan-card="quarterly" role="radio" aria-checked="false" tabindex="-1">
+          <div class="price price--popular is-selected" data-plan-card="quarterly" role="radio" aria-checked="true" tabindex="0">
             <div class="pricing__option-copy">
               <span class="price__tag price__tag--hit">Рекомендуем</span>
               <div class="price__title">3 месяца</div>
@@ -678,7 +678,7 @@
         <span id="selectedPlanPrice">0 ₽ · без автоматического списания</span>
       </div>
       <form class="form" id="signupForm" novalidate>
-        <input type="hidden" id="selectedPlan" name="selectedPlan" value="trial_3d">
+        <input type="hidden" id="selectedPlan" name="selectedPlan" value="quarterly">
         <div class="form__trap" aria-hidden="true">
           <label for="website">Не заполняй это поле</label>
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="100">
