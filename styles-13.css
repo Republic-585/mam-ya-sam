@@ -1607,6 +1607,22 @@ html body:not(.theme-dark) .problem-solution__card {
   background:#FFFFFF!important;
   box-shadow:none!important;
 }
+html body:not(.theme-dark) .problem-solution__icon {
+  display:grid!important;
+  place-items:center!important;
+  width:42px!important;
+  height:42px!important;
+  margin:0 0 16px!important;
+  border-radius:13px!important;
+  background:#FFF5C2!important;
+  color:#1D1D1F!important;
+}
+html body:not(.theme-dark) .problem-solution__icon svg {
+  display:block!important;
+  width:21px!important;
+  height:21px!important;
+  flex:none!important;
+}
 html body:not(.theme-dark) .problem-solution__card h3 {
   margin:0 0 9px!important;
   color:#1D1D1F!important;
