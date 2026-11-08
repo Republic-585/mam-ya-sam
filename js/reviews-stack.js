@@ -52,27 +52,23 @@
     };
 
     const render = () => {
-      const nearby = cards
-        .map((card, index) => ({ card, index, distance: Math.abs(index - active) }))
-        .filter(item => item.index !== active)
-        .sort((a, b) => a.distance - b.distance || a.index - b.index)
-        .slice(0, 3);
-
-      const depthByIndex = new Map(nearby.map((item, depth) => [item.index, depth + 1]));
-
       cards.forEach((card, index) => {
         const isActive = index === active;
-        const depth = depthByIndex.get(index);
-        card.hidden = !isActive && depth === undefined;
+        const offset = index - active;
+        const depth = Math.abs(offset);
+        const isNearby = !isActive && depth <= 3;
+        const direction = Math.sign(offset);
+
+        card.hidden = !isActive && !isNearby;
         card.classList.toggle('is-active', isActive);
-        card.classList.toggle('is-back', !isActive && depth !== undefined);
-        card.style.zIndex = isActive ? '10' : depth !== undefined ? String(10 - depth) : '0';
+        card.classList.toggle('is-back', !isActive && isNearby);
+        card.style.zIndex = isActive ? '10' : isNearby ? String(10 - depth) : '0';
         card.style.transform = isActive
           ? 'translate3d(0,0,0) scale(1)'
-          : depth !== undefined
-            ? `translate3d(0,${-depth * 12}px,0) scale(${1 + depth * 0.025})`
+          : isNearby
+            ? `translate3d(0,${direction * depth * 12}px,0) scale(${1 + depth * 0.025})`
             : 'translate3d(0,0,0) scale(.94)';
-        card.style.opacity = isActive ? '1' : depth !== undefined ? String(0.94 - depth * 0.07) : '0';
+        card.style.opacity = isActive ? '1' : isNearby ? String(0.94 - depth * 0.07) : '0';
         card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         card.inert = !isActive;
       });
