@@ -870,3 +870,77 @@ html body.theme-dark .reviews__summary-link span {
     scroll-padding-inline:20px!important;
   }
 }
+
+
+/* Reviews rating summary: neutral editorial treatment with high-contrast stars. */
+html body .reviews__summary {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  width:max-content!important;
+  max-width:calc(100% - 40px)!important;
+  margin:18px auto 0!important;
+  padding:10px 16px!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  text-align:center!important;
+}
+html body .reviews__summary-score {
+  justify-content:center!important;
+  gap:9px!important;
+}
+html body .reviews__summary-score strong {
+  color:#171717!important;
+  font-size:24px!important;
+  font-weight:700!important;
+}
+html body .reviews__summary-star,
+html body .reviews__summary-stars,
+html body .reviews__carousel .reviews__rating {
+  color:#B7791F!important;
+}
+html body .reviews__summary-stars {
+  font-size:16px!important;
+  letter-spacing:1.5px!important;
+}
+html body .reviews__summary-caption {
+  color:#6E737B!important;
+  text-align:center!important;
+}
+html body .reviews__summary-link {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  margin-top:7px!important;
+  color:#171717!important;
+  font-size:14px!important;
+  font-weight:650!important;
+  line-height:20px!important;
+  text-decoration:underline!important;
+  text-decoration-color:#FFD93D!important;
+  text-decoration-thickness:2px!important;
+  text-underline-offset:4px!important;
+}
+html body .reviews__summary-link span {
+  color:#171717!important;
+}
+html body.theme-dark .reviews__summary {
+  border:0!important;
+  background:transparent!important;
+}
+html body.theme-dark .reviews__summary-score,
+html body.theme-dark .reviews__summary-score strong,
+html body.theme-dark .reviews__summary-link,
+html body.theme-dark .reviews__summary-link span {
+  color:#F5F5F7!important;
+}
+html body.theme-dark .reviews__summary-caption {
+  color:#AEAEB2!important;
+}
+html body.theme-dark .reviews__summary-star,
+html body.theme-dark .reviews__summary-stars,
+html body.theme-dark .reviews__carousel .reviews__rating {
+  color:#F2B94B!important;
+}
