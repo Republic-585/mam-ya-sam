@@ -300,7 +300,18 @@ html body.hero-menu-open header.topbar {
   --ds-type-section-body-tracking:-.022em;
 }
 
-html body :is(
+html body:not(.theme-dark) :is(
+  .problem-solution__intro h2,
+  section.skill > .wrap > h2,
+  section.video .video__heading-row > h2,
+  section.program-all > .wrap > h2#program-all-heading,
+  section.about > .wrap > .about-project-heading,
+  section.learning-format > .wrap > h2,
+  section.reviews > .wrap > h2,
+  section.faq > .wrap > h2,
+  section.pricing > .wrap > h2
+),
+html body.theme-dark :is(
   .problem-solution__intro h2,
   section.skill > .wrap > h2,
   section.video .video__heading-row > h2,
@@ -322,7 +333,11 @@ html body :is(
   text-wrap:balance;
 }
 
-html body :is(
+html body:not(.theme-dark) :is(
+  section.skill .skill__subheading,
+  section.about .about-achievements__heading
+),
+html body.theme-dark :is(
   section.skill .skill__subheading,
   section.about .about-achievements__heading
 ) {
@@ -337,7 +352,16 @@ html body :is(
   text-wrap:balance;
 }
 
-html body :is(
+html body:not(.theme-dark) :is(
+  section.skill .skill__lead,
+  section.video .video__subtitle,
+  section.program-all .program-all__subtitle,
+  section.about .about-project-subtitle,
+  section.learning-format .learning-format__lead,
+  section.reviews .reviews__lead,
+  section.faq .faq__subtitle
+),
+html body.theme-dark :is(
   section.skill .skill__lead,
   section.video .video__subtitle,
   section.program-all .program-all__subtitle,
