@@ -201,3 +201,68 @@ html body.hero-menu-open header.topbar {
     will-change:auto!important;
   }
 }
+
+
+/* Stable mobile menu viewport and internal scrolling. */
+@media(max-width:760px) {
+  /* Оболочка занимает предсказуемую область видимого экрана. */
+  html body.hero-menu-open header.topbar {
+    height:min(88dvh,920px)!important;
+    max-height:min(88dvh,920px)!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+
+  /* Меню заполняет остаток оболочки вместо конкуренции фиксированных высот. */
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+    position:relative!important;
+    inset:auto!important;
+    flex:1 1 auto!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    box-sizing:border-box!important;
+    padding:82px 22px max(18px,env(safe-area-inset-bottom,0px))!important;
+    justify-content:flex-start!important;
+    align-items:stretch!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:contain!important;
+    -webkit-overflow-scrolling:touch!important;
+    scroll-padding-block:82px 24px!important;
+  }
+
+  /* Верхняя панель остаётся на месте, прокрутка не сдвигает шапку. */
+  html body.hero-menu-open header.topbar > .topbar__in {
+    flex:0 0 auto!important;
+    min-height:46px!important;
+  }
+
+  /* Инь-янь и список разделов получают постоянные позиции внутри меню. */
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__theme-toggle {
+    position:absolute!important;
+    top:20px!important;
+    left:50%!important;
+    right:auto!important;
+    z-index:3!important;
+    transform:translateX(-50%)!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__links {
+    flex:0 0 auto!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__contact {
+    flex:0 0 auto!important;
+    margin:18px auto 0!important;
+    transform:none!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__social {
+    flex:0 0 auto!important;
+    margin:10px auto 0!important;
+    padding:8px 0 0!important;
+    transform:none!important;
+  }
+}
