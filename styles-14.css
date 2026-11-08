@@ -284,3 +284,82 @@ html body.hero-menu-open header.topbar {
   }
 }
 
+/* Site typography system: section headings and section subtitles.
+   Hero and the approved navigation/menu typography are intentionally excluded. */
+:root {
+  --ds-type-section-title-size:clamp(1.75rem,3.4vw,2.5rem);
+  --ds-type-section-title-weight:650;
+  --ds-type-section-title-line:1.12;
+  --ds-type-section-title-tracking:-.035em;
+  --ds-type-subheading-size:clamp(1.375rem,2.2vw,1.5rem);
+  --ds-type-subheading-weight:600;
+  --ds-type-subheading-line:1.22;
+  --ds-type-subheading-tracking:-.025em;
+  --ds-type-section-body-size:17px;
+  --ds-type-section-body-line:25px;
+  --ds-type-section-body-tracking:-.022em;
+}
+
+html body :is(
+  .problem-solution__intro h2,
+  section.skill > .wrap > h2,
+  section.video .video__heading-row > h2,
+  section.program-all > .wrap > h2#program-all-heading,
+  section.about > .wrap > .about-project-heading,
+  section.learning-format > .wrap > h2,
+  section.reviews > .wrap > h2,
+  section.faq > .wrap > h2,
+  section.pricing > .wrap > h2
+) {
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif)!important;
+  font-size:var(--ds-type-section-title-size)!important;
+  font-weight:var(--ds-type-section-title-weight)!important;
+  line-height:var(--ds-type-section-title-line)!important;
+  letter-spacing:var(--ds-type-section-title-tracking)!important;
+  font-stretch:normal!important;
+  text-transform:none!important;
+  font-kerning:normal!important;
+  text-wrap:balance;
+}
+
+html body :is(
+  section.skill .skill__subheading,
+  section.about .about-achievements__heading
+) {
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif)!important;
+  font-size:var(--ds-type-subheading-size)!important;
+  font-weight:var(--ds-type-subheading-weight)!important;
+  line-height:var(--ds-type-subheading-line)!important;
+  letter-spacing:var(--ds-type-subheading-tracking)!important;
+  font-stretch:normal!important;
+  text-transform:none!important;
+  font-kerning:normal!important;
+  text-wrap:balance;
+}
+
+html body :is(
+  section.skill .skill__lead,
+  section.video .video__subtitle,
+  section.program-all .program-all__subtitle,
+  section.about .about-project-subtitle,
+  section.learning-format .learning-format__lead,
+  section.reviews .reviews__lead,
+  section.faq .faq__subtitle
+) {
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif)!important;
+  font-size:var(--ds-type-section-body-size)!important;
+  font-weight:400!important;
+  line-height:var(--ds-type-section-body-line)!important;
+  letter-spacing:var(--ds-type-section-body-tracking)!important;
+  font-stretch:normal!important;
+  text-transform:none!important;
+  font-kerning:normal!important;
+  text-wrap:pretty;
+}
+
+@media(max-width:640px) {
+  :root {
+    --ds-type-section-title-size:clamp(1.75rem,7.2vw,2rem);
+    --ds-type-subheading-size:22px;
+  }
+}
