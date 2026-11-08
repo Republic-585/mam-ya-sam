@@ -1,0 +1,186 @@
+/* Unified bottom header and navigation surface.
+   The menu remains inside the header and expands upward from the same shell. */
+
+html body header.topbar {
+  display:flex!important;
+  flex-direction:column-reverse!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  box-sizing:border-box!important;
+  max-height:72px!important;
+  overflow:hidden!important;
+  transform-origin:bottom center!important;
+  transition:
+    max-height .72s cubic-bezier(.22,1,.36,1),
+    border-radius .55s cubic-bezier(.22,1,.36,1)!important;
+  will-change:max-height;
+}
+
+html body.hero-menu-open header.topbar {
+  max-height:min(88dvh,920px)!important;
+  overflow:hidden!important;
+  animation:bottom-header-jelly-in .72s cubic-bezier(.2,.86,.28,1) both;
+}
+
+@keyframes bottom-header-jelly-in {
+  0% { transform:scaleY(.94); }
+  58% { transform:scaleY(1.016); }
+  78% { transform:scaleY(.994); }
+  100% { transform:scaleY(1); }
+}
+
+html body header.topbar > .topbar__in {
+  position:relative!important;
+  z-index:2!important;
+  flex:0 0 auto!important;
+  box-sizing:border-box!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+
+html body header.topbar #heroMenu.hero-menu {
+  position:relative!important;
+  inset:auto!important;
+  z-index:1!important;
+  display:flex!important;
+  flex:0 0 auto!important;
+  flex-direction:column!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0 24px!important;
+  overflow:hidden!important;
+  overscroll-behavior:contain!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  transform:translateY(12px) scale(.985)!important;
+  transform-origin:bottom center!important;
+  transition:
+    height .72s cubic-bezier(.22,1,.36,1),
+    max-height .72s cubic-bezier(.22,1,.36,1),
+    padding .72s cubic-bezier(.22,1,.36,1),
+    opacity .24s ease,
+    transform .72s cubic-bezier(.22,1,.36,1),
+    visibility 0s linear .72s!important;
+  will-change:height,opacity,transform;
+}
+
+html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+  height:min(74dvh,760px)!important;
+  max-height:min(78dvh,820px)!important;
+  padding:62px 24px 20px!important;
+  opacity:1!important;
+  visibility:visible!important;
+  overflow-y:auto!important;
+  transform:translateY(0) scale(1)!important;
+  transition:
+    height .72s cubic-bezier(.22,1,.36,1),
+    max-height .72s cubic-bezier(.22,1,.36,1),
+    padding .72s cubic-bezier(.22,1,.36,1),
+    opacity .28s ease .08s,
+    transform .72s cubic-bezier(.22,1,.36,1),
+    visibility 0s!important;
+}
+
+html body header.topbar #heroMenu .hero-menu__theme-toggle {
+  top:10px!important;
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+}
+
+html body header.topbar #heroMenu .hero-menu__links {
+  flex:0 0 auto!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+html body header.topbar #heroMenu .hero-menu__links a {
+  padding:10px 0!important;
+  text-align:center!important;
+}
+
+html body header.topbar #heroMenu .hero-menu__contact {
+  flex:0 0 auto!important;
+  margin:14px auto 0!important;
+}
+
+html body header.topbar #heroMenu .hero-menu__social {
+  flex:0 0 auto!important;
+  margin:8px auto 0!important;
+  padding:8px 0 0!important;
+}
+
+html body .hero-menu-backdrop,
+html body .hero-menu-backdrop.is-open {
+  position:fixed!important;
+  inset:0!important;
+  z-index:1003!important;
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+html body.hero-menu-open .hero-menu-backdrop,
+html body.hero-menu-open .hero-menu-backdrop.is-open {
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+html body.hero-menu-open header.topbar {
+  z-index:1004!important;
+}
+
+@media(max-width:760px) {
+  html body header.topbar {
+    max-height:66px!important;
+  }
+  html body.hero-menu-open header.topbar {
+    max-height:min(88dvh,920px)!important;
+  }
+  html body header.topbar > .topbar__in {
+    min-height:46px!important;
+  }
+  html body header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+    width:100%!important;
+    border-radius:0!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+    height:min(74dvh,760px)!important;
+    max-height:min(78dvh,820px)!important;
+    padding:62px 22px 18px!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar,
+  html body.hero-menu-open header.topbar,
+  html body header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+    animation:none!important;
+    transition:none!important;
+    transform:none!important;
+    will-change:auto!important;
+  }
+}
