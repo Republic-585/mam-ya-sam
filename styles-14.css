@@ -25,9 +25,9 @@ html body.hero-menu-open header.topbar {
 }
 
 @keyframes bottom-header-jelly-in {
-  0% { transform:scaleY(.94); }
-  58% { transform:scaleY(1.016); }
-  78% { transform:scaleY(.994); }
+  0% { transform:scaleY(.93); }
+  58% { transform:scaleY(1.022); }
+  78% { transform:scaleY(.992); }
   100% { transform:scaleY(1); }
 }
 
@@ -84,7 +84,8 @@ html body.hero-menu-open header.topbar #heroMenu.hero-menu,
 html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
   height:min(74dvh,760px)!important;
   max-height:min(78dvh,820px)!important;
-  padding:62px 24px 20px!important;
+  padding:62px 24px 34px!important;
+  justify-content:flex-end!important;
   opacity:1!important;
   visibility:visible!important;
   overflow-y:auto!important;
@@ -156,6 +157,7 @@ html body.hero-menu-open header.topbar {
   }
   html body.hero-menu-open header.topbar {
     max-height:min(88dvh,920px)!important;
+    border-radius:24px 24px 0 0!important;
   }
   html body header.topbar > .topbar__in {
     min-height:46px!important;
@@ -164,13 +166,15 @@ html body.hero-menu-open header.topbar {
   html body.hero-menu-open header.topbar #heroMenu.hero-menu,
   html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
     width:100%!important;
+    border:0!important;
     border-radius:0!important;
   }
   html body.hero-menu-open header.topbar #heroMenu.hero-menu,
   html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
     height:min(74dvh,760px)!important;
     max-height:min(78dvh,820px)!important;
-    padding:62px 22px 18px!important;
+    padding:62px 22px 34px!important;
+    justify-content:flex-end!important;
   }
 }
 
