@@ -157,6 +157,7 @@ html body.hero-menu-open header.topbar {
   }
   html body.hero-menu-open header.topbar {
     max-height:min(88dvh,920px)!important;
+    border-top:1px solid rgba(20,20,20,.18)!important;
     border-radius:24px 24px 0 0!important;
   }
   html body header.topbar > .topbar__in {
