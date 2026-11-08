@@ -27,6 +27,22 @@
   }
   trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
-  menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{
+    const href=link.getAttribute('href')||'';
+    if(href.startsWith('#')&&href.length>1){
+      const target=document.getElementById(decodeURIComponent(href.slice(1)));
+      if(target){
+        event.preventDefault();
+        closeMenu();
+        window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>{
+          if(window.history&&window.history.pushState)window.history.pushState(null,'',href);
+          target.scrollIntoView({behavior:'smooth',block:'start'});
+        }));
+        return;
+      }
+    }
+    /* Для внешних ссылок сначала даём браузеру выполнить переход/открыть вкладку. */
+    window.setTimeout(closeMenu,0);
+  }));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('is-open'))closeMenu();});
 })();
