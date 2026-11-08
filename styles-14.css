@@ -64,14 +64,10 @@ html body header.topbar #heroMenu.hero-menu {
   border-radius:0!important;
   background:transparent!important;
   box-shadow:none!important;
-  clip-path:none!important;
-  animation:none!important;
   opacity:0!important;
   visibility:hidden!important;
   transform:translateY(12px) scale(.985)!important;
   transform-origin:bottom center!important;
-  clip-path:none!important;
-  animation:none!important;
   transition:
     height .72s cubic-bezier(.22,1,.36,1),
     max-height .72s cubic-bezier(.22,1,.36,1),
