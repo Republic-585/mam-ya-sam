@@ -986,3 +986,72 @@ html body.theme-dark .reviews__carousel .reviews__rating {
   -webkit-text-stroke:.35px #9A7400!important;
   paint-order:stroke fill!important;
 }
+
+
+/* Liquid Glass header: one continuous translucent surface with a restrained spring response. */
+html body header.topbar {
+  background:rgba(255,255,255,.86)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  border-bottom-color:rgba(255,255,255,.42)!important;
+  box-shadow:
+    0 9px 30px rgba(20,30,45,.10),
+    0 2px 8px rgba(20,30,45,.05),
+    inset 0 1px 0 rgba(255,255,255,.78)!important;
+  background-clip:padding-box!important;
+  scale:calc(1 - var(--header-glass-press,0) + var(--header-glass-response,0))!important;
+  transform-origin:center bottom!important;
+  transition:scale 460ms cubic-bezier(.2,.85,.25,1.18)!important;
+  will-change:scale;
+}
+html body header.topbar > .topbar__in {
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body header.topbar #heroMenu.hero-menu,
+html body header.topbar #heroMenu.hero-menu.is-open {
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  html body header.topbar {
+    background:rgba(255,255,255,.66)!important;
+    -webkit-backdrop-filter:saturate(180%) blur(26px)!important;
+    backdrop-filter:saturate(180%) blur(26px)!important;
+  }
+}
+@media(max-width:760px) {
+  html body header.topbar {
+    border-radius:26px!important;
+  }
+  html body.hero-menu-open header.topbar {
+    border-radius:24px!important;
+  }
+}
+html body.theme-dark header.topbar {
+  background:rgba(28,28,30,.88)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  box-shadow:
+    0 9px 30px rgba(0,0,0,.28),
+    0 2px 8px rgba(0,0,0,.16),
+    inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  html body.theme-dark header.topbar {
+    background:rgba(28,28,30,.70)!important;
+    -webkit-backdrop-filter:saturate(165%) blur(26px)!important;
+    backdrop-filter:saturate(165%) blur(26px)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body header.topbar {
+    scale:1!important;
+    transition:none!important;
+    will-change:auto!important;
+  }
+}
