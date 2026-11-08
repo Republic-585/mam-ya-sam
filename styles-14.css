@@ -266,3 +266,42 @@ html body.hero-menu-open header.topbar {
     transform:none!important;
   }
 }
+
+
+/* Menu finishing touches: spacing, pointer interaction and jelly spring. */
+@media(max-width:760px) {
+  /* Опускаем содержимое меню ближе к нижней шапке, сохраняя место для инь-янь. */
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu,
+  html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
+    padding-top:98px!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__theme-toggle {
+    top:34px!important;
+  }
+
+  /* Возвращаем интерактивность раскрытой панели, отключённую общим правилом шапки. */
+  html body.hero-menu-open header.topbar #heroMenu,
+  html body.hero-menu-open header.topbar #heroMenu * {
+    pointer-events:auto!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu a,
+  html body.hero-menu-open header.topbar #heroMenu button {
+    cursor:pointer!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:transparent!important;
+  }
+}
+
+/* Индивидуальное свойство scale не конфликтует с прежними transform-переопределениями. */
+@keyframes menu-shell-jelly-in {
+  0% { scale:1 .94; }
+  54% { scale:1 1.018; }
+  76% { scale:1 .992; }
+  100% { scale:1 1; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  html body.hero-menu-open header.topbar {
+    transform-origin:bottom center!important;
+    animation:menu-shell-jelly-in .78s cubic-bezier(.2,.86,.28,1) both!important;
+  }
+}
