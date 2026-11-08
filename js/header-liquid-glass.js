@@ -62,7 +62,8 @@
     if (previousGap !== null) {
       const delta = gap - previousGap;
       if (Math.abs(delta) > 0.5) {
-        velocity += Math.max(-0.0002, Math.min(0.0002, delta * 0.000025));
+        response = Math.max(-0.002, Math.min(0.002, response + delta * 0.000035));
+        velocity += Math.max(-0.0008, Math.min(0.0008, delta * 0.00002));
         if (!frame) frame = window.requestAnimationFrame(animateResponse);
       }
     }
