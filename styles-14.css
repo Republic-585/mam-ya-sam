@@ -387,3 +387,142 @@ html body.theme-dark :is(
     --ds-type-subheading-size:22px;
   }
 }
+
+/* Curated Avito reviews */
+html body:not(.theme-dark) .reviews__grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:32px;
+}
+html body:not(.theme-dark) .reviews__card {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:22px;
+  border:1px solid rgba(28,28,30,.08);
+  border-radius:24px;
+  background:#FFFFFF;
+  color:#1D1D1F;
+  box-shadow:0 8px 28px rgba(0,0,0,.055);
+}
+.reviews__card-top {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  margin-bottom:18px;
+}
+.reviews__avatar {
+  display:grid;
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  place-items:center;
+  border-radius:50%;
+  background:#F2F2F7;
+  color:#3A3A3C;
+  font-size:17px;
+  font-weight:600;
+  letter-spacing:-.03em;
+}
+.reviews__author {
+  flex:1 1 auto;
+  min-width:0;
+}
+.reviews__author h3 {
+  margin:0;
+  color:inherit;
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif);
+  font-size:16px;
+  font-weight:600;
+  line-height:1.25;
+  letter-spacing:-.02em;
+}
+.reviews__author span {
+  display:block;
+  margin-top:4px;
+  color:#86868B;
+  font-size:12px;
+  line-height:1.3;
+}
+.reviews__rating {
+  flex:0 0 auto;
+  color:#E5A900;
+  font-size:13px;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+.reviews__card blockquote {
+  margin:0 0 20px;
+  color:inherit;
+  font-family:var(--ds-font,-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",sans-serif);
+  font-size:16px;
+  font-weight:400;
+  line-height:1.55;
+  letter-spacing:-.018em;
+  text-wrap:pretty;
+}
+.reviews__source {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  align-self:flex-start;
+  margin-top:auto;
+  color:#1677C8;
+  font-size:14px;
+  font-weight:600;
+  line-height:1.4;
+  text-decoration:none;
+}
+.reviews__source:hover {
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.reviews__note {
+  margin:18px 0 0;
+  color:#86868B;
+  font-size:12px;
+  line-height:1.5;
+}
+html body.theme-dark .reviews__grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:32px;
+}
+html body.theme-dark .reviews__card {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:22px;
+  border:1px solid #38383A;
+  border-radius:24px;
+  background:#1C1C1E;
+  color:#F5F5F7;
+  box-shadow:0 8px 28px rgba(0,0,0,.2);
+}
+html body.theme-dark .reviews__avatar {
+  background:#2C2C2E;
+  color:#F5F5F7;
+}
+html body.theme-dark .reviews__author span,
+html body.theme-dark .reviews__note {
+  color:#AEAEB2;
+}
+html body.theme-dark .reviews__source {
+  color:#7CC4FF;
+}
+@media(max-width:680px) {
+  html body:not(.theme-dark) .reviews__grid,
+  html body.theme-dark .reviews__grid {
+    grid-template-columns:minmax(0,1fr);
+    gap:12px;
+    margin-top:26px;
+  }
+  html body:not(.theme-dark) .reviews__card,
+  html body.theme-dark .reviews__card {
+    padding:20px;
+    border-radius:22px;
+  }
+}
