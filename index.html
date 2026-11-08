@@ -544,16 +544,23 @@
       <span class="reviews__eyebrow">ОТЗЫВЫ</span>
       <h2 id="reviewsHeading">Истории, которым<br><mark>можно доверять.</mark></h2>
       <p class="reviews__lead">Родители рассказывают о том, как дети начинают понимать математику, становятся увереннее и добиваются своих целей.</p>
-      <p class="reviews__summary"><strong>4,9 из 5</strong><span>на основе 53 отзывов на Авито</span></p>
+      <div class="reviews__summary" aria-label="Средняя оценка 4,9 из 5 на основе 53 отзывов на Авито">
+        <div class="reviews__summary-score">
+          <span class="reviews__summary-star" aria-hidden="true">★</span>
+          <strong>4,9 из 5</strong>
+          <span class="reviews__summary-stars" aria-hidden="true">★★★★★</span>
+        </div>
+        <span class="reviews__summary-caption">на основе 53 отзывов на Авито</span>
+      </div>
 
-      <div class="reviews__grid" aria-label="Отзывы родителей на Авито">
+      <div class="reviews__carousel" aria-label="Отзывы родителей на Авито">
         <article class="reviews__card">
           <div class="reviews__card-top">
             <span class="reviews__avatar" aria-hidden="true">А</span>
             <div class="reviews__author"><h3>Анастасия</h3><span>19 июля · Авито</span></div>
             <span class="reviews__rating" aria-label="5 из 5">★★★★★</span>
           </div>
-          <blockquote>«За два месяца главное изменение – сын перестал бояться математики! Если видит свою ошибку – не расстраивается, идёт искать причину. Появились фразы вроде: “А, я понял, как это решается”.»</blockquote>
+          <blockquote>«За два месяца главное изменение – сын перестал бояться математики! Если видит свою ошибку, не расстраивается, а идёт искать причину. Появились фразы вроде: “А, я понял, как это решается”.»</blockquote>
           <a class="reviews__source" href="https://www.avito.ru/brands/19af6c105d275af12d0310411111ec19?src=sharing#open-reviews-list" target="_blank" rel="noopener noreferrer">Оригинал на Авито <span aria-hidden="true">↗</span></a>
         </article>
 
@@ -618,7 +625,6 @@
         </article>
       </div>
 
-      <p class="reviews__note">Цитаты сокращены без изменения смысла. Имена указаны в сокращённом виде. Фото авторов не публикуем без их согласия.</p>
       <div class="reviews__trust">
         <h3>Как мы работаем с отзывами</h3>
         <details class="reviews__trust-item">
@@ -1338,6 +1344,5 @@
 
 <script id="author-photo-fallback-script" src="js/author-photo-fallback.js"></script>
 <script id="hero-cta-scroll-script" src="js/hero-cta-scroll.js"></script>
-<script id="reviews-stack-script" src="js/reviews-stack.js"></script>
 </body>
 </html>
