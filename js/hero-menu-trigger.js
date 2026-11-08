@@ -6,7 +6,6 @@
   if(!trigger||!menu||!backdrop)return;
   /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
   document.body.appendChild(backdrop);
-  document.body.appendChild(menu);
   function openMenu(){
     backdrop.hidden=false;
     menu.inert=false;
@@ -24,7 +23,7 @@
     trigger.setAttribute('aria-expanded','false');
     trigger.setAttribute('aria-label','Открыть разделы сайта');
     document.body.classList.remove('hero-menu-open');
-    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},390);
+    window.setTimeout(()=>{if(!menu.classList.contains('is-open'))backdrop.hidden=true;},760);
   }
   trigger.addEventListener('click',()=>menu.classList.contains('is-open')?closeMenu():openMenu());
   backdrop.addEventListener('click',closeMenu);
