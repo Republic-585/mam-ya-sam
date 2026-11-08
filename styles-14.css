@@ -526,3 +526,26 @@ html body.theme-dark .reviews__source {
     border-radius:22px;
   }
 }
+
+.reviews__summary {
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:16px 0 0;
+  color:#86868B;
+  font-size:14px;
+  line-height:1.4;
+}
+.reviews__summary strong {
+  color:#1D1D1F;
+  font-size:16px;
+  font-weight:650;
+  letter-spacing:-.025em;
+}
+html body.theme-dark .reviews__summary {
+  color:#AEAEB2;
+}
+html body.theme-dark .reviews__summary strong {
+  color:#F5F5F7;
+}
