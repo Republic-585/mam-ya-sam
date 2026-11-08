@@ -13,22 +13,14 @@ html body header.topbar {
   clip-path:none!important;
   animation:none!important;
   transition:
-    max-height .72s cubic-bezier(.22,1,.36,1),
-    border-radius .55s cubic-bezier(.22,1,.36,1)!important;
+    max-height .52s cubic-bezier(.22,1,.36,1),
+    border-radius .52s cubic-bezier(.22,1,.36,1)!important;
   will-change:max-height;
 }
 
 html body.hero-menu-open header.topbar {
   max-height:min(88dvh,920px)!important;
   overflow:hidden!important;
-  animation:bottom-header-jelly-in .72s cubic-bezier(.2,.86,.28,1) both;
-}
-
-@keyframes bottom-header-jelly-in {
-  0% { transform:scaleY(.93); }
-  58% { transform:scaleY(1.022); }
-  78% { transform:scaleY(.992); }
-  100% { transform:scaleY(1); }
 }
 
 html body header.topbar > .topbar__in {
@@ -68,15 +60,15 @@ html body header.topbar #heroMenu.hero-menu {
   box-shadow:none!important;
   opacity:0!important;
   visibility:hidden!important;
-  transform:translateY(12px) scale(.985)!important;
+  transform:translateY(8px)!important;
   transform-origin:bottom center!important;
   transition:
-    height .72s cubic-bezier(.22,1,.36,1),
-    max-height .72s cubic-bezier(.22,1,.36,1),
-    padding .72s cubic-bezier(.22,1,.36,1),
-    opacity .24s ease,
-    transform .72s cubic-bezier(.22,1,.36,1),
-    visibility 0s linear .72s!important;
+    height .52s cubic-bezier(.22,1,.36,1),
+    max-height .52s cubic-bezier(.22,1,.36,1),
+    padding .52s cubic-bezier(.22,1,.36,1),
+    opacity .22s ease,
+    transform .52s cubic-bezier(.22,1,.36,1),
+    visibility 0s linear .52s!important;
   will-change:height,opacity,transform;
 }
 
@@ -89,13 +81,13 @@ html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
   opacity:1!important;
   visibility:visible!important;
   overflow-y:auto!important;
-  transform:translateY(0) scale(1)!important;
+  transform:translateY(0)!important;
   transition:
-    height .72s cubic-bezier(.22,1,.36,1),
-    max-height .72s cubic-bezier(.22,1,.36,1),
-    padding .72s cubic-bezier(.22,1,.36,1),
-    opacity .28s ease .08s,
-    transform .72s cubic-bezier(.22,1,.36,1),
+    height .52s cubic-bezier(.22,1,.36,1),
+    max-height .52s cubic-bezier(.22,1,.36,1),
+    padding .52s cubic-bezier(.22,1,.36,1),
+    opacity .22s ease .06s,
+    transform .52s cubic-bezier(.22,1,.36,1),
     visibility 0s!important;
 }
 
@@ -268,7 +260,7 @@ html body.hero-menu-open header.topbar {
 }
 
 
-/* Menu finishing touches: spacing, pointer interaction and jelly spring. */
+/* Menu finishing touches: spacing and pointer interaction. */
 @media(max-width:760px) {
   /* Опускаем содержимое меню ближе к нижней шапке, сохраняя место для инь-янь. */
   html body.hero-menu-open header.topbar #heroMenu.hero-menu,
@@ -292,16 +284,3 @@ html body.hero-menu-open header.topbar {
   }
 }
 
-/* Индивидуальное свойство scale не конфликтует с прежними transform-переопределениями. */
-@keyframes menu-shell-jelly-in {
-  0% { scale:1 .94; }
-  54% { scale:1 1.018; }
-  76% { scale:1 .992; }
-  100% { scale:1 1; }
-}
-@media(prefers-reduced-motion:no-preference) {
-  html body.hero-menu-open header.topbar {
-    transform-origin:bottom center!important;
-    animation:menu-shell-jelly-in .78s cubic-bezier(.2,.86,.28,1) both!important;
-  }
-}
