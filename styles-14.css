@@ -944,3 +944,51 @@ html body.theme-dark .reviews__summary-stars,
 html body.theme-dark .reviews__carousel .reviews__rating {
   color:#F2B94B!important;
 }
+
+
+/* Reviews: hero word-pill palette for distinct author avatars and brand-yellow stars. */
+html body .reviews__avatar--blue {
+  background:#E5F1FF!important;
+  color:#174A85!important;
+}
+html body .reviews__avatar--green {
+  background:#E5F7EA!important;
+  color:#176B36!important;
+}
+html body .reviews__avatar--orange {
+  background:#FFF1DB!important;
+  color:#8A4B08!important;
+}
+html body .reviews__avatar--purple {
+  background:#F3E8FA!important;
+  color:#633080!important;
+}
+html body .reviews__avatar--pink {
+  background:#FFE8ED!important;
+  color:#8B233E!important;
+}
+html body .reviews__avatar--yellow {
+  background:#FFF5CC!important;
+  color:#735600!important;
+}
+html body .reviews__avatar--blue-shade {
+  background:#DCEBFF!important;
+  color:#174A85!important;
+}
+html body .reviews__avatar {
+  font-weight:700!important;
+}
+html body .reviews__summary-star,
+html body .reviews__summary-stars,
+html body .reviews__carousel .reviews__rating {
+  color:#FFD93D!important;
+  -webkit-text-stroke:.35px #9A7400!important;
+  paint-order:stroke fill!important;
+}
+html body.theme-dark .reviews__summary-star,
+html body.theme-dark .reviews__summary-stars,
+html body.theme-dark .reviews__carousel .reviews__rating {
+  color:#FFD93D!important;
+  -webkit-text-stroke:.35px #9A7400!important;
+  paint-order:stroke fill!important;
+}
