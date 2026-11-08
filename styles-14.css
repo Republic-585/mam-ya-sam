@@ -551,46 +551,69 @@ html body.theme-dark .reviews__summary strong {
 }
 
 
-/* Interactive vertical stack for curated parent reviews. */
+/* Layered physical-card stack for parent reviews. */
 html body .reviews__stack {
-  display:flex!important;
-  flex-direction:column;
-  gap:12px!important;
-  margin-top:32px!important;
-}
-html body .reviews__stack .reviews__card {
+  position:relative!important;
+  display:block!important;
   box-sizing:border-box;
   width:100%;
-  transition:opacity .28s ease,transform .38s cubic-bezier(.22,1,.36,1),max-height .38s ease;
+  min-height:320px;
+  margin-top:32px!important;
+  padding:0!important;
+  overflow:visible!important;
+  isolation:isolate;
+  touch-action:pan-y;
+}
+html body .reviews__stack .reviews__card {
+  position:absolute;
+  top:22px;
+  left:0;
+  right:0;
+  box-sizing:border-box;
+  width:100%;
+  margin:0;
+  transform-origin:50% 50%;
+  border:1px solid rgba(28,28,30,.09);
+  border-radius:26px;
+  background:#FFFFFF;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.035),
+    0 14px 28px rgba(0,0,0,.10),
+    0 28px 44px rgba(0,0,0,.045);
+  transition:
+    transform .58s cubic-bezier(.2,.78,.22,1),
+    opacity .42s ease,
+    box-shadow .42s ease;
+  will-change:transform;
 }
 html body .reviews__stack .reviews__card[hidden] {
   display:none!important;
 }
 html body .reviews__stack .reviews__card.is-active {
-  position:relative;
-  z-index:2;
-  min-height:230px;
+  z-index:10;
   opacity:1;
-  transform:translateY(0) scale(1);
+  pointer-events:auto;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.035),
+    0 16px 32px rgba(0,0,0,.13),
+    0 30px 48px rgba(0,0,0,.055);
 }
-html body .reviews__stack .reviews__card.is-next {
-  position:relative;
-  z-index:1;
-  display:flex!important;
-  max-height:82px;
-  min-height:82px;
+html body .reviews__stack .reviews__card.is-back {
   overflow:hidden;
-  padding:16px 20px;
-  opacity:.56;
-  transform:scale(.975);
   pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
 }
-html body .reviews__stack .reviews__card.is-next .reviews__card-top {
-  margin-bottom:0;
+html body .reviews__stack .reviews__card.is-back > * {
+  visibility:hidden;
 }
-html body .reviews__stack .reviews__card.is-next blockquote,
-html body .reviews__stack .reviews__card.is-next .reviews__source {
-  display:none;
+html body.theme-dark .reviews__stack .reviews__card {
+  border-color:#48484A;
+  background:#2C2C2E;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.18),
+    0 16px 30px rgba(0,0,0,.32),
+    0 28px 44px rgba(0,0,0,.20);
 }
 html body .reviews__stack-controls {
   display:flex;
@@ -598,7 +621,7 @@ html body .reviews__stack-controls {
   gap:16px;
   width:100%;
   max-width:420px;
-  margin:8px auto 0;
+  margin:10px auto 0;
 }
 html body .reviews__stack-button {
   display:grid;
@@ -608,7 +631,7 @@ html body .reviews__stack-button {
   place-items:center;
   border:1px solid rgba(28,28,30,.12);
   border-radius:50%;
-  background:#fff;
+  background:#FFFFFF;
   color:#1D1D1F;
   font:600 20px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
   cursor:pointer;
@@ -640,9 +663,6 @@ html body .reviews__stack-count {
   font-weight:600;
   font-variant-numeric:tabular-nums;
 }
-html body .reviews__stack-count [data-current] {
-  color:inherit;
-}
 html body .reviews__stack-track {
   height:3px;
   overflow:hidden;
@@ -655,7 +675,7 @@ html body .reviews__stack-track [data-progress] {
   height:100%;
   border-radius:inherit;
   background:#7CC4FF;
-  transition:width .32s cubic-bezier(.22,1,.36,1);
+  transition:width .38s cubic-bezier(.22,1,.36,1);
 }
 html body.theme-dark .reviews__stack-button {
   border-color:#48484A;
@@ -664,19 +684,16 @@ html body.theme-dark .reviews__stack-button {
 }
 @media(max-width:680px) {
   html body .reviews__stack {
-    gap:10px!important;
+    min-height:300px;
     margin-top:26px!important;
   }
-  html body .reviews__stack .reviews__card.is-active {
-    min-height:0;
+  html body .reviews__stack .reviews__card {
     padding:22px 20px;
-  }
-  html body .reviews__stack .reviews__card.is-next {
-    min-height:74px;
-    max-height:74px;
+    border-radius:24px;
   }
   html body .reviews__stack-controls {
     max-width:100%;
+    margin-top:8px;
   }
 }
 @media(prefers-reduced-motion:reduce) {
@@ -684,5 +701,6 @@ html body.theme-dark .reviews__stack-button {
   html body .reviews__stack-button,
   html body .reviews__stack-track [data-progress] {
     transition:none!important;
+    will-change:auto!important;
   }
 }
