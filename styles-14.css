@@ -10,6 +10,8 @@ html body header.topbar {
   max-height:72px!important;
   overflow:hidden!important;
   transform-origin:bottom center!important;
+  clip-path:none!important;
+  animation:none!important;
   transition:
     max-height .72s cubic-bezier(.22,1,.36,1),
     border-radius .55s cubic-bezier(.22,1,.36,1)!important;
