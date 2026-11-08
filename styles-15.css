@@ -1,0 +1,302 @@
+/* Dark theme refinement: Apple-inspired graphite system.
+   Scoped to .theme-dark only. Layout, content, light theme and header are intentionally untouched. */
+
+html body.theme-dark {
+  --ds-bg:#0B0B0D;
+  --ds-bg-secondary:#141416;
+  --ds-surface:#1C1C1E;
+  --ds-surface-secondary:#2C2C2E;
+  --ds-surface-tertiary:#3A3A3C;
+  --ds-text:#F5F5F7;
+  --ds-text-secondary:#AEAEB2;
+  --ds-text-tertiary:#8E8E93;
+  --ds-border:#38383A;
+  --ds-border-subtle:rgba(255,255,255,.085);
+  --ds-brand:#FFD93D;
+  --ds-link:#7CC4FF;
+  --ds-shadow-soft:0 8px 28px rgba(0,0,0,.18);
+  --ds-shadow-card:0 8px 28px rgba(0,0,0,.18);
+  --ds-shadow-floating:0 18px 48px rgba(0,0,0,.28),0 4px 14px rgba(0,0,0,.12);
+  --ink:var(--ds-text);
+  --paper:var(--ds-surface);
+  --muted:var(--ds-text-secondary);
+  --border:1px solid var(--ds-border);
+  background:var(--ds-bg)!important;
+  color:var(--ds-text)!important;
+  color-scheme:dark;
+}
+
+/* Page canvas and section rhythm. */
+html body.theme-dark,
+html body.theme-dark main {
+  background:var(--ds-bg)!important;
+  color:var(--ds-text)!important;
+}
+html body.theme-dark :is(
+  .hero,.problem-solution,.video,.about,.learning-format,.pricing,.signup,.footer
+) {
+  background-color:var(--ds-bg)!important;
+  color:var(--ds-text)!important;
+}
+html body.theme-dark :is(.skill,.program-all,.reviews,.faq) {
+  background-color:var(--ds-bg-secondary)!important;
+  color:var(--ds-text)!important;
+}
+
+/* Typography: three deliberate contrast levels. */
+html body.theme-dark :is(
+  .hero,.problem-solution,.skill,.video,.program-all,.about,
+  .learning-format,.reviews,.faq,.pricing,.signup,.footer
+) :is(h1,h2,h3,h4,h5,h6,strong,b,summary,label,legend) {
+  color:var(--ds-text)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark :is(
+  .hero,.problem-solution,.skill,.video,.program-all,.about,
+  .learning-format,.reviews,.faq,.pricing,.signup,.footer
+) :is(p,li,.eyebrow,.skill__eyebrow,.program-all__subtitle,
+  .about-project-subtitle,.about__lead,.about__text,.pricing__note,
+  .faq__subtitle,.signup__lead,.reviews__lead,.learning-format__lead,
+  small,.muted) {
+  color:var(--ds-text-secondary)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+html body.theme-dark :is(.reviews__author span,.reviews__note,
+  .reviews__summary-caption,.footer small,.price__tag,
+  .pricing__option-description,.faq__empty) {
+  color:var(--ds-text-tertiary)!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+
+/* Cards and inset surfaces share one material language. */
+html body.theme-dark :is(
+  .problem-solution__card,.card,.problems__recs,.skill__item,
+  .program-all__card,.pricing__card,.price,.faq details,
+  .signup__form,.about__card,.about-v2__author,.about__mission,
+  .about-achievements__card,.learning-format__card,
+  .learning-format__step,.format__card,.reviews__empty,
+  .reviews__slot,.reviews__trust,.reviews__card
+) {
+  background:var(--ds-surface)!important;
+  background-color:var(--ds-surface)!important;
+  background-image:none!important;
+  color:var(--ds-text)!important;
+  border-color:var(--ds-border)!important;
+  box-shadow:var(--ds-shadow-card)!important;
+}
+html body.theme-dark :is(
+  .problem-solution__card,.skill__item,.program-all__card,
+  .pricing__card,.price,.faq details,.signup__form,
+  .about__card,.about-v2__author,.about__mission,
+  .about-achievements__card,.learning-format__card,
+  .learning-format__step,.format__card,.reviews__empty,
+  .reviews__slot,.reviews__trust,.reviews__card
+) :is(h1,h2,h3,h4,h5,h6,strong,b,summary) {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark :is(
+  .problem-solution__card,.skill__item,.program-all__card,
+  .pricing__card,.price,.faq details,.signup__form,
+  .about__card,.about-v2__author,.about__mission,
+  .about-achievements__card,.learning-format__card,
+  .learning-format__step,.format__card,.reviews__empty,
+  .reviews__slot,.reviews__trust,.reviews__card
+) :is(p,li,small) {
+  color:var(--ds-text-secondary)!important;
+}
+
+/* Subtle separators instead of blue-tinted borders. */
+html body.theme-dark :is(
+  .problem-solution__card,.skill__item,.program-all__card,
+  .pricing__card,.price,.faq details,.signup__form,
+  .about__card,.about-v2__author,.about__mission,
+  .about-achievements__card,.learning-format__card,
+  .learning-format__step,.format__card,.reviews__empty,
+  .reviews__slot,.reviews__trust,.reviews__card
+) {
+  border:1px solid var(--ds-border)!important;
+}
+html body.theme-dark :is(
+  .learning-format__step + .learning-format__step,
+  .reviews__trust-item,.faq details + details
+) {
+  border-color:var(--ds-border-subtle)!important;
+}
+
+/* Brand accents remain recognizable, but do not become large glowing surfaces. */
+html body.theme-dark mark {
+  background:var(--ds-brand)!important;
+  color:#171717!important;
+  -webkit-text-fill-color:#171717!important;
+  border-radius:.22em;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+html body.theme-dark :is(.hero__cta,.hero-start-button,.hero-menu__contact,
+  .signup__submit,.signup button[type="submit"],.pricing .plan-select.is-selected) {
+  background:var(--ds-brand)!important;
+  border-color:var(--ds-brand)!important;
+  color:#171717!important;
+  -webkit-text-fill-color:#171717!important;
+  box-shadow:none!important;
+}
+html body.theme-dark :is(.hero__cta,.hero-start-button,.signup__submit,
+  .signup button[type="submit"]):hover {
+  filter:brightness(1.04);
+}
+html body.theme-dark main :is(a:not(.hero__cta):not(.hero-start-button):not(.plan-select)) {
+  color:var(--ds-link);
+}
+html body.theme-dark :is(.problem-solution__icon,.skill__number,
+  .program-all__card-icon,.reviews__source) {
+  color:var(--ds-link)!important;
+}
+
+/* Tabs, segmented controls and selected states. */
+html body.theme-dark :is(
+  .skill__tab,.program-module-switcher__button,.faq__tab,
+  .faq__search-clear,.program-all__progress-button
+) {
+  background:var(--ds-surface)!important;
+  color:var(--ds-text-secondary)!important;
+  border-color:var(--ds-border)!important;
+  box-shadow:none!important;
+}
+html body.theme-dark :is(
+  .skill__tab.is-active,.program-module-switcher__button.is-active,
+  .faq__tab.is-active,.skill__tab[aria-selected="true"],
+  .program-module-switcher__button[aria-pressed="true"]
+) {
+  background:var(--ds-surface-tertiary)!important;
+  color:var(--ds-text)!important;
+  border-color:rgba(255,217,61,.58)!important;
+}
+html body.theme-dark :is(button,a,input,textarea,select,summary,[tabindex]):focus-visible {
+  outline:2px solid var(--ds-brand)!important;
+  outline-offset:3px!important;
+  box-shadow:none!important;
+}
+
+/* Inputs and search controls. */
+html body.theme-dark :is(input,textarea,select,.faq__search) {
+  background:var(--ds-surface-secondary)!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-border)!important;
+  box-shadow:none!important;
+  caret-color:var(--ds-brand);
+}
+html body.theme-dark :is(input,textarea,select,.faq__search)::placeholder {
+  color:var(--ds-text-tertiary)!important;
+  opacity:1!important;
+}
+html body.theme-dark :is(input,textarea,select):disabled {
+  opacity:.55!important;
+}
+html body.theme-dark input[type="checkbox"],
+html body.theme-dark input[type="radio"] {
+  accent-color:var(--ds-brand);
+}
+
+/* Pricing: selected plan is identified by a yellow outline, not a bright fill. */
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price {
+  background:var(--ds-surface)!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-border)!important;
+  box-shadow:none!important;
+}
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price.is-selected,
+html body.theme-dark section.pricing #pricingOptions .pricing__grid > .price[data-plan-card="quarterly"] {
+  background:#222116!important;
+  border:2px solid rgba(255,217,61,.78)!important;
+}
+html body.theme-dark section.pricing #pricingOptions .price__title,
+html body.theme-dark section.pricing #pricingOptions .price__amount {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark section.pricing #pricingOptions .price__tag {
+  background:var(--ds-surface-tertiary)!important;
+  color:var(--ds-text-secondary)!important;
+}
+html body.theme-dark section.pricing #pricingOptions .price__tag--hit {
+  background:rgba(255,217,61,.16)!important;
+  color:#FFE58A!important;
+}
+
+/* Reviews carousel and rating summary. */
+html body.theme-dark .reviews__carousel .reviews__card {
+  background:var(--ds-surface)!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-border)!important;
+  box-shadow:var(--ds-shadow-card)!important;
+}
+html body.theme-dark .reviews__carousel .reviews__card blockquote {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark .reviews__summary {
+  background:transparent!important;
+  border-color:transparent!important;
+  color:var(--ds-text-secondary)!important;
+}
+html body.theme-dark .reviews__summary-score,
+html body.theme-dark .reviews__summary-score strong,
+html body.theme-dark .reviews__summary-link,
+html body.theme-dark .reviews__summary-link span {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark .reviews__summary-star,
+html body.theme-dark .reviews__summary-stars,
+html body.theme-dark .reviews__carousel .reviews__rating {
+  color:var(--ds-brand)!important;
+}
+html body.theme-dark .reviews__avatar {
+  border:1px solid rgba(255,255,255,.10)!important;
+}
+
+/* Video remains a true black media stage; controls use neutral graphite. */
+html body.theme-dark .video__player {
+  background:#000000!important;
+  border-color:var(--ds-border)!important;
+  box-shadow:var(--ds-shadow-card)!important;
+}
+html body.theme-dark .video__controls {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark :is(.video__controls,.video__quality) {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark .video__quality {
+  background:rgba(28,28,30,.92)!important;
+  border-color:var(--ds-border)!important;
+}
+
+/* Footer stays part of the same graphite canvas. */
+html body.theme-dark .footer {
+  background:var(--ds-bg-secondary)!important;
+  border-top-color:var(--ds-border)!important;
+  color:var(--ds-text)!important;
+}
+html body.theme-dark .footer :is(.logo,.logo__name) {
+  color:var(--ds-text)!important;
+}
+html body.theme-dark .footer :is(small,.footer__links,.footer__links a) {
+  color:var(--ds-text-secondary)!important;
+}
+
+/* Keep transitions calm and honor accessibility preferences. */
+@media(hover:hover) {
+  html body.theme-dark :is(
+    .problem-solution__card,.skill__item,.program-all__card,
+    .pricing__card,.price,.about__card,.about-v2__author,
+    .about-achievements__card,.learning-format__card,.reviews__card
+  ):hover {
+    box-shadow:0 12px 32px rgba(0,0,0,.24)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html body.theme-dark * {
+    scroll-behavior:auto!important;
+    transition-duration:0.01ms!important;
+    animation-duration:0.01ms!important;
+    animation-iteration-count:1!important;
+  }
+}
