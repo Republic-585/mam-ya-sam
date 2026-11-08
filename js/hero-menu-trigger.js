@@ -4,7 +4,7 @@
   const menu=document.getElementById('heroMenu');
   const backdrop=document.getElementById('heroMenuBackdrop');
   if(!trigger||!menu||!backdrop)return;
-  /* Выносим фиксированные слои меню из hero: так их не ограничивают stacking context и transform секций. */
+  /* Backdrop переносим в body, а меню остаётся внутри общей оболочки нижней шапки. */
   document.body.appendChild(backdrop);
   function openMenu(){
     backdrop.hidden=false;
