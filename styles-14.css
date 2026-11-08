@@ -1000,7 +1000,7 @@ html body header.topbar {
   background-clip:padding-box!important;
   scale:calc(1 - var(--header-glass-press,0) + var(--header-glass-response,0))!important;
   transform-origin:center bottom!important;
-  transition:scale 460ms cubic-bezier(.2,.85,.25,1.18)!important;
+  transition:max-height .52s cubic-bezier(.22,1,.36,1),border-radius .52s cubic-bezier(.22,1,.36,1),scale 460ms cubic-bezier(.2,.85,.25,1.18)!important;
   will-change:scale;
 }
 html body header.topbar > .topbar__in {
