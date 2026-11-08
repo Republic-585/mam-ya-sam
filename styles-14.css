@@ -156,9 +156,10 @@ html body.hero-menu-open header.topbar {
     max-height:66px!important;
   }
   html body.hero-menu-open header.topbar {
+    bottom:calc(var(--safari-visible-bottom-gap,0px) + 16px)!important;
     max-height:min(88dvh,920px)!important;
     border-top:1px solid rgba(20,20,20,.18)!important;
-    border-radius:24px 24px 0 0!important;
+    border-radius:24px!important;
   }
   html body header.topbar > .topbar__in {
     min-height:46px!important;
@@ -174,8 +175,17 @@ html body.hero-menu-open header.topbar {
   html body.hero-menu-open header.topbar #heroMenu.hero-menu.is-open {
     height:min(74dvh,760px)!important;
     max-height:min(78dvh,820px)!important;
-    padding:62px 22px 34px!important;
+    padding:62px 22px 12px!important;
     justify-content:flex-end!important;
+  }
+  html body.hero-menu-open header.topbar > .topbar__in {
+    border-radius:24px!important;
+  }
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__links,
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__contact,
+  html body.hero-menu-open header.topbar #heroMenu .hero-menu__social {
+    position:static!important;
+    top:auto!important;
   }
 }
 
