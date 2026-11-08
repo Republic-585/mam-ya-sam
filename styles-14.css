@@ -791,3 +791,82 @@ html body.theme-dark .reviews__source {
     transition:none!important;
   }
 }
+
+
+/* Reviews refinements: centered brand-yellow rating and program-style full-bleed carousel. */
+html body .reviews__summary {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  width:max-content!important;
+  max-width:calc(100% - 40px)!important;
+  margin:18px auto 0!important;
+  border:1px solid rgba(255,217,61,.58)!important;
+  background:rgba(255,217,61,.16)!important;
+  text-align:center!important;
+}
+html body .reviews__summary-score {
+  justify-content:center!important;
+}
+html body .reviews__summary-star,
+html body .reviews__summary-stars,
+html body .reviews__carousel .reviews__rating {
+  color:#FFD93D!important;
+}
+html body .reviews__summary-caption {
+  text-align:center!important;
+}
+html body .reviews__summary-link {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  margin-top:5px!important;
+  color:#171717!important;
+  font-size:14px!important;
+  font-weight:650!important;
+  line-height:20px!important;
+  text-decoration:underline!important;
+  text-decoration-color:#FFD93D!important;
+  text-decoration-thickness:2px!important;
+  text-underline-offset:4px!important;
+}
+html body .reviews__summary-link span {
+  color:#171717!important;
+}
+html body .reviews__carousel {
+  position:relative!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:100vw!important;
+  max-width:100vw!important;
+  box-sizing:border-box!important;
+  margin:28px 0 0!important;
+  padding:22px max(24px,calc((100vw - 1180px)/2)) 76px!important;
+  scroll-padding-inline:max(24px,calc((100vw - 1180px)/2))!important;
+}
+html body .reviews__carousel .reviews__card blockquote {
+  padding:0!important;
+  border-left:0!important;
+}
+html body .reviews__carousel .reviews__card .reviews__source {
+  display:none!important;
+}
+html body.theme-dark .reviews__summary {
+  border-color:rgba(255,217,61,.58)!important;
+  background:rgba(255,217,61,.12)!important;
+}
+html body.theme-dark .reviews__summary-score,
+html body.theme-dark .reviews__summary-score strong,
+html body.theme-dark .reviews__summary-link,
+html body.theme-dark .reviews__summary-link span {
+  color:#FFF7D6!important;
+}
+@media(max-width:640px) {
+  html body .reviews__carousel {
+    gap:14px!important;
+    margin-top:22px!important;
+    padding:8px 20px 76px!important;
+    scroll-padding-inline:20px!important;
+  }
+}
