@@ -826,10 +826,7 @@ html body .reviews__summary-link {
   font-size:14px!important;
   font-weight:650!important;
   line-height:20px!important;
-  text-decoration:underline!important;
-  text-decoration-color:#FFD93D!important;
-  text-decoration-thickness:2px!important;
-  text-underline-offset:4px!important;
+  text-decoration:none!important;
 }
 html body .reviews__summary-link span {
   color:#171717!important;
@@ -918,10 +915,7 @@ html body .reviews__summary-link {
   font-size:14px!important;
   font-weight:650!important;
   line-height:20px!important;
-  text-decoration:underline!important;
-  text-decoration-color:#FFD93D!important;
-  text-decoration-thickness:2px!important;
-  text-underline-offset:4px!important;
+  text-decoration:none!important;
 }
 html body .reviews__summary-link span {
   color:#171717!important;
