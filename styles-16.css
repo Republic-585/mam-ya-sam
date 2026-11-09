@@ -1,20 +1,17 @@
-/* Dark theme Hero: preserve the exact light-theme typography and component styling.
-   Only surface and text colors are adapted for dark mode. */
+/* Dark theme Hero: exact light-theme layout, typography, spacing and component geometry.
+   Only the surface and foreground colors are adapted for dark mode. */
 html body.theme-dark .hero {
   position:relative!important;
   isolation:isolate!important;
-  display:flex!important;
-  align-items:center!important;
-  min-height:min(820px,100svh)!important;
-  padding:clamp(104px,13vh,144px) 0 clamp(76px,10vh,112px)!important;
+  padding:70px 0 90px!important;
   overflow:hidden!important;
   background:#15171A!important;
   background-image:none!important;
   color:#F5F5F7!important;
-  border-bottom:1px solid rgba(255,255,255,.055)!important;
+  border-bottom:0!important;
 }
 
-/* Remove the old blue aura, kinetic decoration and background layers. */
+/* Remove only the legacy blue aura and decorative background layers. */
 html body.theme-dark .hero::before,
 html body.theme-dark .hero::after,
 html body.theme-dark .hero .hero__bg,
@@ -26,39 +23,40 @@ html body.theme-dark .hero .hero__aura {
   opacity:0!important;
   filter:none!important;
 }
+
 html body.theme-dark .hero .hero__in {
   position:relative!important;
   z-index:1!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
   width:100%!important;
-  max-width:1180px!important;
-  margin-inline:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+  gap:30px!important;
 }
+
 html body.theme-dark .hero .hero__content {
   position:relative!important;
   z-index:1!important;
   display:flex!important;
   flex-direction:column!important;
   align-items:center!important;
-  justify-content:center!important;
+  text-align:center!important;
   box-sizing:border-box!important;
   width:100%!important;
-  max-width:980px!important;
-  min-height:0!important;
-  margin-inline:auto!important;
+  max-width:900px!important;
+  margin:0 auto!important;
   padding:34px clamp(12px,2vw,24px) 12px!important;
   gap:clamp(18px,3.2vh,30px)!important;
   background:transparent!important;
   border:0!important;
   border-radius:0!important;
   box-shadow:none!important;
-  text-align:center!important;
   color:#F5F5F7!important;
+  transform:translateY(calc(-8vh - 20px))!important;
 }
 
-/* Heading: same system font, weight, scale, tracking and line rhythm as light mode. */
+/* Heading: same size, weight, line height, tracking and three-line layout as light mode. */
 html body.theme-dark .hero .hero__content > h1.hero__lead-three-lines {
   display:flex!important;
   flex-direction:column!important;
@@ -71,9 +69,9 @@ html body.theme-dark .hero .hero__content > h1.hero__lead-three-lines {
   padding:0!important;
   color:#F5F5F7!important;
   -webkit-text-fill-color:#F5F5F7!important;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-size:clamp(1.8rem,9vw,4.5rem)!important;
-  font-weight:350!important;
+  font-family:var(--ds-font)!important;
+  font-size:clamp(1.35rem,9.6vw,6rem)!important;
+  font-weight:400!important;
   line-height:1.12!important;
   letter-spacing:-.045em!important;
   text-align:center!important;
@@ -95,6 +93,8 @@ html body.theme-dark .hero .hero__lead-three-lines > .hero__lead-final-line {
   display:block!important;
   white-space:nowrap!important;
 }
+
+/* Keep the capsule's original light-theme blue fill and blue lettering. */
 html body.theme-dark .hero .hero__lead-final-line .hero__word-pill {
   display:inline-flex!important;
   align-items:center!important;
@@ -103,9 +103,9 @@ html body.theme-dark .hero .hero__lead-final-line .hero__word-pill {
   padding:.08em .26em!important;
   border:0!important;
   border-radius:9999px!important;
-  background:var(--ds-hero-blue,#007AFF)!important;
-  color:#000000!important;
-  -webkit-text-fill-color:#000000!important;
+  background:#E5F1FF!important;
+  color:#007AFF!important;
+  -webkit-text-fill-color:#007AFF!important;
   font:inherit!important;
   font-size:1em!important;
   font-weight:400!important;
@@ -123,21 +123,21 @@ html body.theme-dark .hero .hero__lead-final-line .hero__together-word {
   text-transform:none!important;
 }
 
-/* Subtitle: same type scale and regular weight as light mode. */
+/* Subtitle: same width behavior, type scale, weight, line rhythm and alignment as light mode. */
 html body.theme-dark .hero .hero__content p.hero__subtitle {
   display:flex!important;
   flex-direction:column!important;
   align-items:center!important;
   box-sizing:border-box!important;
-  width:min(100%,620px)!important;
-  max-width:620px!important;
+  width:max-content!important;
+  max-width:calc(100vw - 24px)!important;
   margin:18px auto 0!important;
   color:#AEAEB2!important;
   -webkit-text-fill-color:#AEAEB2!important;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif!important;
-  font-size:clamp(.675rem,4.6vw,3rem)!important;
+  font-family:var(--ds-font)!important;
+  font-size:clamp(.72rem,4.9vw,3.05rem)!important;
   font-weight:400!important;
-  line-height:1.15!important;
+  line-height:1.3!important;
   letter-spacing:normal!important;
   text-align:center!important;
   text-align-last:center!important;
@@ -151,25 +151,38 @@ html body.theme-dark .hero .hero__subtitle-second {
   width:100%!important;
   max-width:100%!important;
   margin-inline:auto!important;
+  color:#AEAEB2!important;
+  -webkit-text-fill-color:#AEAEB2!important;
+  font-family:var(--ds-font)!important;
   font-size:inherit!important;
   font-weight:400!important;
+  line-height:1.3!important;
   letter-spacing:normal!important;
   text-align:center!important;
   text-align-last:center!important;
   text-transform:none!important;
-}
-html body.theme-dark .hero .hero__subtitle-first {
-  color:#F5F5F7!important;
-  -webkit-text-fill-color:#F5F5F7!important;
-}
-html body.theme-dark .hero .hero__subtitle-second {
-  margin-top:.12em!important;
-  color:#AEAEB2!important;
-  -webkit-text-fill-color:#AEAEB2!important;
   white-space:normal!important;
 }
+html body.theme-dark .hero .hero__subtitle-first {
+  display:flex!important;
+  flex-direction:column!important;
+  gap:0!important;
+}
+html body.theme-dark .hero .hero__subtitle-line-one,
+html body.theme-dark .hero .hero__subtitle-line-two,
+html body.theme-dark .hero .hero__subtitle-second {
+  display:block!important;
+  margin:0!important;
+  color:inherit!important;
+  -webkit-text-fill-color:currentColor!important;
+  font:inherit!important;
+  font-weight:400!important;
+  letter-spacing:normal!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
 
-/* CTA: exact light-theme dimensions, condensed face, weight and interaction. */
+/* CTA: exact light-theme font, weight, dimensions, radius and responsive width. */
 html body.theme-dark .hero .hero-start-button,
 html body.theme-dark .hero .hero-start-button:link,
 html body.theme-dark .hero .hero-start-button:visited {
@@ -178,20 +191,20 @@ html body.theme-dark .hero .hero-start-button:visited {
   justify-content:center!important;
   box-sizing:border-box!important;
   width:100%!important;
-  max-width:310px!important;
-  height:48px!important;
-  min-height:48px!important;
+  max-width:280px!important;
+  height:44px!important;
+  min-height:44px!important;
   margin:18px auto 0!important;
   padding:0 18px!important;
   border:0!important;
-  border-radius:14px!important;
+  border-radius:22px!important;
   background:#FFD93D!important;
   color:#171717!important;
   -webkit-text-fill-color:#171717!important;
   box-shadow:none!important;
-  font-family:'SF Pro Condensed',sans-serif!important;
+  font-family:var(--ds-font)!important;
   font-size:clamp(1.25rem,4.5vw,1.8rem)!important;
-  font-weight:550!important;
+  font-weight:400!important;
   letter-spacing:-.035em!important;
   line-height:1.12!important;
   text-align:center!important;
@@ -207,7 +220,7 @@ html body.theme-dark .hero .hero-start-button span {
   color:inherit!important;
   -webkit-text-fill-color:currentColor!important;
   font:inherit!important;
-  font-weight:550!important;
+  font-weight:400!important;
   text-transform:none!important;
 }
 html body.theme-dark .hero .hero-start-button:hover {
@@ -224,25 +237,19 @@ html body.theme-dark .hero .hero-start-button:focus-visible {
   outline:2px solid #F5F5F7!important;
   outline-offset:3px!important;
 }
+
 @media(max-width:640px) {
-  html body.theme-dark .hero {
-    min-height:min(760px,100svh)!important;
-    padding:clamp(104px,14vh,128px) 0 76px!important;
-  }
   html body.theme-dark .hero .hero__content {
-    padding:34px 12px 12px!important;
-    gap:clamp(18px,3.2vh,30px)!important;
+    transform:translateY(calc(-8vh - 20px))!important;
   }
-  html body.theme-dark .hero .hero__content > h1.hero__lead-three-lines {
-    font-size:clamp(1.8rem,9vw,4.5rem)!important;
-    line-height:1.12!important;
-    letter-spacing:-.045em!important;
-  }
-  html body.theme-dark .hero .hero-start-button {
-    max-width:310px!important;
-    height:48px!important;
-    min-height:48px!important;
-    border-radius:14px!important;
+  html body.theme-dark .hero .hero-start-button,
+  html body.theme-dark .hero .hero-start-button:link,
+  html body.theme-dark .hero .hero-start-button:visited {
+    width:calc(100% - 32px)!important;
+    max-width:280px!important;
+    height:44px!important;
+    min-height:44px!important;
+    border-radius:22px!important;
   }
 }
 @media(prefers-reduced-motion:reduce) {
