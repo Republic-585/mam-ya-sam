@@ -1115,3 +1115,40 @@ html body:not(.theme-dark) #heroMenu.hero-menu.is-open {
 .about-v2__official-bot-link a:hover,
 .footer__official-bot:hover { text-decoration-color: currentColor; }
 .footer__official-bot { align-self: center; }
+
+
+/* Official project resources: compact, consistent links in the author section. */
+.about-v2__official-resources {
+  margin-top:1.35rem;
+}
+.about-v2__official-resources h3 {
+  margin:0 0 .65rem;
+  font:600 15px/1.35 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+  letter-spacing:-.015em;
+}
+.about-v2__official-resources ul {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem 1.1rem;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.about-v2__official-resources a {
+  color:inherit;
+  font:500 15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+  text-decoration:underline;
+  text-decoration-color:#FFD93D;
+  text-decoration-thickness:2px;
+  text-underline-offset:4px;
+}
+.about-v2__official-resources a:hover {
+  text-decoration-color:currentColor;
+}
+@media(max-width:600px) {
+  .about-v2__official-resources ul {
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.35rem;
+  }
+}
