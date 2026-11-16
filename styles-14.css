@@ -1099,3 +1099,19 @@ html body:not(.theme-dark) #heroMenu.hero-menu.is-open {
     background:rgba(255,255,255,.92)!important;
   }
 }
+
+
+/* Official Telegram bot link: verification and visitor trust */
+.about-v2__official-bot-link { margin-top: 1.25rem; }
+.about-v2__official-bot-link a,
+.footer__official-bot {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #FFD93D;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.about-v2__official-bot-link a:hover,
+.footer__official-bot:hover { text-decoration-color: currentColor; }
+.footer__official-bot { align-self: center; }
