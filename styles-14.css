@@ -1152,3 +1152,15 @@ html body:not(.theme-dark) #heroMenu.hero-menu.is-open {
     gap:.35rem;
   }
 }
+
+/* Align resource-list bullets with the text block's left edge. */
+.about-v2__official-resources ul {
+  list-style:disc!important;
+  list-style-position:inside!important;
+  padding-left:0!important;
+  margin-left:0!important;
+}
+.about-v2__official-resources li {
+  padding-left:0!important;
+  margin-left:0!important;
+}
