@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://republic-585.github.io/mam-ya-sam/sitemap.xml
