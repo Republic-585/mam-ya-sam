@@ -41,6 +41,25 @@ check(
   'GitHub Pages workflow не копирует CSS-файлы в публикуемый каталог _site'
 );
 
+for (const asset of ['robots.txt', 'sitemap.xml']) {
+  const fullPath = join(root, asset);
+  check(existsSync(fullPath) && statSync(fullPath).size > 0, `Отсутствует или пустой файл: ${asset}`);
+}
+check(
+  workflow.includes('cp robots.txt sitemap.xml _site/'),
+  'GitHub Pages workflow не публикует robots.txt и sitemap.xml'
+);
+const robots = read('robots.txt');
+const sitemap = read('sitemap.xml');
+check(
+  robots.includes('Sitemap: https://republic-585.github.io/mam-ya-sam/sitemap.xml'),
+  'robots.txt не содержит адрес sitemap.xml'
+);
+check(
+  sitemap.includes('<loc>https://republic-585.github.io/mam-ya-sam/</loc>'),
+  'sitemap.xml не содержит канонический адрес сайта'
+);
+
 for (const asset of ['favicon.svg', 'audio.mp3', 'IMG_3511.jpeg', 'IMG_4083.png']) {
   const fullPath = join(root, asset);
   check(existsSync(fullPath) && statSync(fullPath).size > 0, `Отсутствует или пустой ресурс: ${asset}`);
